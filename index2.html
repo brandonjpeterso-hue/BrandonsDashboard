@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brandon's Dashboard</title>
-    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -20,26 +19,6 @@
             color: #ffffff;
             font-size: 1.8em; /* Bigger title */
             margin-bottom: 20px;
-        }
-        #chart {
-            height: 300px;
-            background-color: #1e1e1e;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-        #toggle-chart {
-            display: block;
-            margin: 0 auto 20px;
-            padding: 8px 16px;
-            background: #333333;
-            color: #e0e0e0;
-            border: 1px solid #444444;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1.1em; /* Match bigger font */
-        }
-        #toggle-chart:hover {
-            background: #444444;
         }
         details {
             background: #1e1e1e;
@@ -95,8 +74,6 @@
     
     <details open>
         <summary>Bitcoin</summary>
-        <div id="chart"></div>
-        <button id="toggle-chart">Toggle to Line Chart</button>
         <ul id="btc-metrics">
             <li><span class="label">24hr Range</span><span class="value" id="range24">Loading...</span></li>
             <li><span class="label">Market Cap</span><span class="value" id="market-cap">Loading...</span></li>
@@ -144,60 +121,8 @@
     </details>
 
     <script>
-        let chartData = []; // Store chart data globally for toggle
         let currentPrice = 0; // Store current BTC price for calculations
-
-        // Chart setup (with error handling)
-        let chart;
-        let series;
-        try {
-            chart = LightweightCharts.createChart(document.getElementById('chart'), {
-                width: document.body.clientWidth - 40,
-                height: 300,
-                layout: { background: { color: '#1e1e1e' }, textColor: '#e0e0e0' },
-                grid: { vertLines: { color: '#2a2a2a' }, horLines: { color: '#2a2a2a' } },
-                timeScale: { timeVisible: true, secondsVisible: false, borderColor: '#444444' },
-                rightPriceScale: { borderColor: '#444444' },
-                handleScroll: false,  // Disable zoom/pan
-                handleScale: false   // Disable zoom/pan
-            });
-            series = chart.addSeries({
-                type: 'Candlestick',
-                upColor: '#00ff00',
-                downColor: '#ff0000',
-                borderVisible: false,
-                wickUpColor: '#00ff00',
-                wickDownColor: '#ff0000'
-            });
-        } catch (error) {
-            console.error('Chart initialization error:', error);
-            document.getElementById('chart').innerHTML = '<p style="color: red; text-align: center;">Error loading chart: ' + error.message + '</p>';
-        }
-
-        // Toggle button (only if chart loaded)
-        const toggleBtn = document.getElementById('toggle-chart');
-        let isCandle = true;
-        toggleBtn.addEventListener('click', () => {
-            if (!chart || !series) return; // Skip if chart failed
-            chart.removeSeries(series);
-            if (isCandle) {
-                series = chart.addSeries({ type: 'Line', color: '#00bfff', lineWidth: 2 });
-                toggleBtn.textContent = 'Toggle to Candle Chart';
-                series.setData(chartData.map(d => ({ time: d.time, value: d.close }))); // Line uses close
-            } else {
-                series = chart.addSeries({
-                    type: 'Candlestick',
-                    upColor: '#00ff00',
-                    downColor: '#ff0000',
-                    borderVisible: false,
-                    wickUpColor: '#00ff00',
-                    wickDownColor: '#ff0000'
-                });
-                toggleBtn.textContent = 'Toggle to Line Chart';
-                series.setData(chartData); // Candles use OHLC
-            }
-            isCandle = !isCandle;
-        });
+        let goldPrice = 0; // Store gold price for calculations
 
         // Format numbers like Bitbo (commas, 2 decimals for prices, etc.)
         function formatNumber(num, decimals = 2, suffix = '') {
@@ -218,26 +143,6 @@
             const minutes = Math.floor(seconds / 60);
             const secs = seconds % 60;
             return `${minutes}m ${secs}s`;
-        }
-
-        // Fetch BTC chart data (only if chart loaded)
-        async function fetchBTCChart() {
-            if (!chart || !series) return; // Skip if chart failed
-            try {
-                const response = await fetch('https://api.coingecko.com/api/v3/coins/bitcoin/ohlc?vs_currency=usd&days=30');
-                const data = await response.json();
-                chartData = data.map(d => ({
-                    time: Math.floor(d[0] / 1000), // ms to seconds
-                    open: d[1],
-                    high: d[2],
-                    low: d[3],
-                    close: d[4]
-                }));
-                series.setData(chartData);
-            } catch (error) {
-                console.error('Chart data error:', error);
-                document.getElementById('chart').innerHTML = '<p style="color: red; text-align: center;">Error loading chart data: ' + error.message + '</p>';
-            }
         }
 
         // Fetch core BTC metrics from CoinGecko
@@ -264,7 +169,6 @@
             } catch (error) {
                 console.error('BTC metrics error:', error);
                 document.getElementById('range24').textContent = 'Error';
-                // Repeat for others if needed
             }
         }
 
@@ -314,17 +218,131 @@
             } catch (error) {
                 console.error('On-chain metrics error:', error);
                 document.getElementById('block-height').textContent = 'Error';
-                // Repeat for others if needed
+            }
+        }
+
+        // Fetch realized price from BGeometrics
+        async function fetchRealizedPrice() {
+            try {
+                const response = await fetch('https://api.bgeometrics.com/v1/metrics/realized-price');
+                const data = await response.json();
+                document.getElementById('realized-price').textContent = `$${formatNumber(data.data[0].value)}`;
+            } catch (error) {
+                console.error('Realized price error:', error);
+                document.getElementById('realized-price').textContent = 'Error';
+            }
+        }
+
+        // Fetch gold/silver and gold-related metrics from metals.live
+        async function fetchGoldSilver() {
+            try {
+                const response = await fetch('https://api.metals.live/v1/spot');
+                const data = await response.json();
+                goldPrice = data[0].gold;
+                const silverPrice = data[0].silver;
+                const goldMc = goldPrice * 12000000000; // Approximate total gold supply in oz ~12B oz
+                const btcGoldKg = currentPrice / goldPrice * 1000; // BTC per kg gold
+                const btcGoldMc = marketCap / goldMc; // BTC mc vs gold mc ratio
+                const goldChange = data[0].gold_change;
+                const silverChange = data[0].silver_change;
+                const goldColor = goldChange > 0 ? 'green' : 'red';
+                const silverColor = silverChange > 0 ? 'green' : 'red';
+
+                document.getElementById('gold').textContent = `$${formatNumber(goldPrice)}/oz (${goldChange.toFixed(2)}%)`;
+                document.getElementById('gold').classList.add(goldColor);
+                document.getElementById('silver').textContent = `$${formatNumber(silverPrice)}/oz (${silverChange.toFixed(2)}%)`;
+                document.getElementById('silver').classList.add(silverColor);
+                document.getElementById('btc-gold-kg').textContent = formatNumber(btcGoldKg, 2) + ' BTC/kg';
+                document.getElementById('btc-gold-mc').textContent = formatNumber(btcGoldMc, 2) + 'x';
+                document.getElementById('gold-mc').textContent = `$${formatNumber(goldMc / 1000000000000, 2)}T`;
+            } catch (error) {
+                console.error('Gold/Silver error:', error);
+                document.getElementById('gold').textContent = 'Error';
+            }
+        }
+
+        // Fetch historical prices for MAs and Power Law
+        async function fetchHistorical() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=max&interval=daily');
+                const data = await response.json();
+                const prices = data.prices;
+                const daysSinceGenesis = (Date.now() / 1000 - 1231006505) / 86400; // Genesis Jan 3, 2009
+                const powerLawProjected = Math.exp(5.71 * Math.ln(daysSinceGenesis) - 38.16);
+                const powerLawRatio = currentPrice / powerLawProjected;
+                const ma50 = prices.slice(-50).reduce((sum, p) => sum + p[1], 0) / 50;
+                const ma200 = prices.slice(-200).reduce((sum, p) => sum + p[1], 0) / 200;
+
+                document.getElementById('ma-50').textContent = `$${formatNumber(ma50)}`;
+                document.getElementById('ma-200').textContent = `$${formatNumber(ma200)}`;
+                document.getElementById('power-law-projected').textContent = `$${formatNumber(powerLawProjected)}`;
+                document.getElementById('power-law-ratio').textContent = formatNumber(powerLawRatio, 2);
+            } catch (error) {
+                console.error('Historical data error:', error);
+                document.getElementById('ma-50').textContent = 'Error';
+            }
+        }
+
+        // Fetch stocks and other assets (using CoinGecko for crypto, Yahoo for stocks via proxy)
+        async function fetchAssets() {
+            try {
+                // Crypto: ETH, SOL from CoinGecko
+                const cryptoResponse = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum,solana&vs_currencies=usd&include_24hr_change=true');
+                const cryptoData = await response.json();
+                document.getElementById('eth').textContent = `$${formatNumber(cryptoData.ethereum.usd)} (${cryptoData.ethereum.usd_24h_change.toFixed(2)}%)`;
+                document.getElementById('eth').classList.add(cryptoData.ethereum.usd_24h_change > 0 ? 'green' : 'red');
+                document.getElementById('sol').textContent = `$${formatNumber(cryptoData.solana.usd)} (${cryptoData.solana.usd_24h_change.toFixed(2)}%)`;
+                document.getElementById('sol').classList.add(cryptoData.solana.usd_24h_change > 0 ? 'green' : 'red');
+
+                // Stocks: Use a free Yahoo proxy or direct (note: May need API key for production; this uses public endpoint)
+                const symbols = 'SPY^GSPC,^DJI,AAPL,AMZN,GOOGL,META,MSFT,NVDA,TSLA,^TNX,GBPUSD=X,EURUSD=X,^FTSE,^N225';
+                const stocksResponse = await fetch(`https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbols}`);
+                const stocksData = await stocksResponse.json();
+                const quotes = stocksData.quoteResponse.result;
+                const sp500 = quotes.find(q => q.symbol === '^GSPC');
+                const dow = quotes.find(q => q.symbol === '^DJI');
+                const ftse = quotes.find(q => q.symbol === '^FTSE');
+                const nikkei = quotes.find(q => q.symbol === '^N225');
+                const bond10yr = quotes.find(q => q.symbol === '^TNX');
+                const gbpusd = quotes.find(q => q.symbol === 'GBPUSD=X');
+                const eurusd = quotes.find(q => q.symbol === 'EURUSD=X');
+                const mag7Symbols = ['AAPL', 'AMZN', 'GOOGL', 'META', 'MSFT', 'NVDA', 'TSLA'];
+                const mag7Mc = mag7Symbols.reduce((sum, sym) => sum + quotes.find(q => q.symbol === sym).marketCap, 0);
+                const sp500Mc = sp500.marketCap;
+                const sp493Mc = sp500Mc - mag7Mc;
+
+                document.getElementById('sp500').textContent = formatNumber(sp500.regularMarketPrice, 2) + ' (' + sp500.regularMarketChangePercent.toFixed(2) + '%)';
+                document.getElementById('sp500').classList.add(sp500.regularMarketChangePercent > 0 ? 'green' : 'red');
+                document.getElementById('dow').textContent = formatNumber(dow.regularMarketPrice, 2) + ' (' + dow.regularMarketChangePercent.toFixed(2) + '%)';
+                document.getElementById('dow').classList.add(dow.regularMarketChangePercent > 0 ? 'green' : 'red');
+                document.getElementById('ftse100').textContent = formatNumber(ftse.regularMarketPrice, 2) + ' (' + ftse.regularMarketChangePercent.toFixed(2) + '%)';
+                document.getElementById('ftse100').classList.add(ftse.regularMarketChangePercent > 0 ? 'green' : 'red');
+                document.getElementById('nikkei225').textContent = formatNumber(nikkei.regularMarketPrice, 2) + ' (' + nikkei.regularMarketChangePercent.toFixed(2) + '%)';
+                document.getElementById('nikkei225').classList.add(nikkei.regularMarketChangePercent > 0 ? 'green' : 'red');
+                document.getElementById('bond10yr').textContent = bond10yr.regularMarketPrice.toFixed(2) + '% (' + bond10yr.regularMarketChangePercent.toFixed(2) + '%)';
+                document.getElementById('bond10yr').classList.add(bond10yr.regularMarketChangePercent > 0 ? 'green' : 'red');
+                document.getElementById('gbpusd').textContent = formatNumber(gbpusd.regularMarketPrice, 4) + ' (' + gbpusd.regularMarketChangePercent.toFixed(2) + '%)';
+                document.getElementById('gbpusd').classList.add(gbpusd.regularMarketChangePercent > 0 ? 'green' : 'red');
+                document.getElementById('eurusd').textContent = formatNumber(eurusd.regularMarketPrice, 4) + ' (' + eurusd.regularMarketChangePercent.toFixed(2) + '%)';
+                document.getElementById('eurusd').classList.add(eurusd.regularMarketChangePercent > 0 ? 'green' : 'red');
+                document.getElementById('mag7').textContent = `$${formatNumber(mag7Mc / 1000000000000, 2)}T`;
+                document.getElementById('sp493').textContent = `$${formatNumber(sp493Mc / 1000000000000, 2)}T`;
+            } catch (error) {
+                console.error('Assets error:', error);
+                document.getElementById('sp500').textContent = 'Error';
             }
         }
 
         // Auto-refresh
         async function refreshData() {
             await Promise.all([
-                fetchBTCChart(),
                 fetchBTCMetrics(),
                 fetchFearGreed(),
-                fetchOnChainMetrics()
+                fetchOnChainMetrics(),
+                fetchRealizedPrice(),
+                fetchGoldSilver(),
+                fetchHistorical(),
+                fetchAssets()
             ]);
         }
         refreshData();
