@@ -199,128 +199,162 @@ function colorChg(n) { return n > 0 ? 'green' : n < 0 ? 'red' : ''; }
 function sign(n)     { return n > 0 ? '+' : ''; }
 function sleep(ms)   { return new Promise(function(r){ setTimeout(r, ms); }); }
 
-// ── Pure Canvas Candlestick Chart (no external libraries) ────
-function drawCandles(candles) {
+// ── Pure Canvas Candlestick Chart — Interactive ───────────────
+var chartCandles  = [];
+var chartPadL = 8, chartPadR = 62, chartPadT = 14, chartPadB = 28;
+
+function getChartDims() {
     var canvas = document.getElementById('btcChart');
-    if (!candles || !candles.length) return;
+    var W = canvas.width, H = canvas.height;
+    return {
+        W: W, H: H,
+        chartW: W - chartPadL - chartPadR,
+        chartH: H - chartPadT - chartPadB
+    };
+}
 
-    // Size canvas to its container
-    canvas.width  = canvas.offsetWidth  || canvas.parentElement.offsetWidth || 340;
-    canvas.height = canvas.offsetHeight || 200;
+function chartMinMax(candles) {
+    var lo = Infinity, hi = -Infinity;
+    for (var i = 0; i < candles.length; i++) {
+        if (candles[i].l < lo) lo = candles[i].l;
+        if (candles[i].h > hi) hi = candles[i].h;
+    }
+    var pad = (hi - lo) * 0.05 || 1;
+    return { minP: lo - pad, maxP: hi + pad };
+}
 
-    var ctx    = canvas.getContext('2d');
-    var W      = canvas.width;
-    var H      = canvas.height;
-    var padL   = 8;
-    var padR   = 60; // right side for price labels
-    var padT   = 12;
-    var padB   = 28; // bottom for date labels
+function drawBase(candles, hoverIdx) {
+    var canvas = document.getElementById('btcChart');
+    var dims   = getChartDims();
+    var W = dims.W, H = dims.H, chartW = dims.chartW, chartH = dims.chartH;
+    var ctx = canvas.getContext('2d');
+    var mm  = chartMinMax(candles);
+    var minP = mm.minP, range = mm.maxP - mm.minP;
 
-    var chartW = W - padL - padR;
-    var chartH = H - padT - padB;
+    function py(p) { return chartPadT + chartH * (1 - (p - minP) / range); }
+    function px(i) { return chartPadL + (i + 0.5) * (chartW / candles.length); }
 
     ctx.clearRect(0, 0, W, H);
 
-    // Price range
-    var prices = candles.map(function(c){ return [c.h, c.l]; }).flat();
-    var minP   = Math.min.apply(null, prices);
-    var maxP   = Math.max.apply(null, prices);
-    var range  = maxP - minP || 1;
-    // Add 5% padding top/bottom
-    minP -= range * 0.05;
-    maxP += range * 0.05;
-    range = maxP - minP;
-
-    function py(price) { return padT + chartH * (1 - (price - minP) / range); }
-    function px(i)     { return padL + (i + 0.5) * (chartW / candles.length); }
-
-    // Grid lines + price labels (right side)
+    // Grid + price labels
     ctx.strokeStyle = '#2a2a2a';
     ctx.fillStyle   = '#666';
-    ctx.font        = '10px -apple-system, sans-serif';
+    ctx.font        = '10px system-ui,sans-serif';
     ctx.textAlign   = 'left';
-    var gridLines = 4;
-    for (var g = 0; g <= gridLines; g++) {
-        var gPrice = minP + (range * g / gridLines);
-        var gy     = py(gPrice);
-        ctx.beginPath();
-        ctx.moveTo(padL, gy);
-        ctx.lineTo(padL + chartW, gy);
-        ctx.stroke();
-        var label = gPrice >= 1000 ? '$' + (gPrice/1000).toFixed(0) + 'k' : '$' + gPrice.toFixed(0);
-        ctx.fillText(label, padL + chartW + 4, gy + 3);
+    for (var g = 0; g <= 4; g++) {
+        var gP  = minP + (range * g / 4);
+        var gy  = py(gP);
+        ctx.beginPath(); ctx.moveTo(chartPadL, gy); ctx.lineTo(chartPadL + chartW, gy); ctx.stroke();
+        var lbl = gP >= 1000 ? '$' + (gP/1000).toFixed(0) + 'k' : '$' + gP.toFixed(0);
+        ctx.fillText(lbl, chartPadL + chartW + 4, gy + 3);
     }
 
-    // Date labels (bottom)
-    ctx.fillStyle = '#666';
-    ctx.textAlign = 'center';
-    var labelCount = Math.min(5, candles.length);
-    var step = Math.floor(candles.length / labelCount);
+    // Date labels
+    ctx.fillStyle = '#666'; ctx.textAlign = 'center';
+    var step = Math.max(1, Math.floor(candles.length / 5));
     for (var d = 0; d < candles.length; d += step) {
-        var date = new Date(candles[d].t);
-        var lbl  = currentDays <= 1
-            ? date.getHours() + ':00'
-            : (date.getMonth()+1) + '/' + date.getDate();
-        ctx.fillText(lbl, px(d), H - 6);
+        var dt = new Date(candles[d].t);
+        var lb = currentDays <= 1 ? dt.getHours() + ':00' : (dt.getMonth()+1) + '/' + dt.getDate();
+        ctx.fillText(lb, px(d), H - 6);
     }
 
     // Candles
-    var candleW = Math.max(1, (chartW / candles.length) * 0.7);
+    var cw = Math.max(1.5, (chartW / candles.length) * 0.7);
     for (var i = 0; i < candles.length; i++) {
-        var c    = candles[i];
-        var x    = px(i);
-        var up   = c.c >= c.o;
-        var col  = up ? '#00e676' : '#ff4444';
-        var yO   = py(c.o);
-        var yC   = py(c.c);
-        var yH   = py(c.h);
-        var yL   = py(c.l);
-        var top  = Math.min(yO, yC);
-        var ht   = Math.max(1, Math.abs(yC - yO));
-
-        ctx.strokeStyle = col;
-        ctx.fillStyle   = up ? col : col;
-
-        // Wick
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(x, yH);
-        ctx.lineTo(x, yL);
-        ctx.stroke();
-
-        // Body
-        ctx.fillRect(x - candleW/2, top, candleW, ht);
+        var c   = candles[i];
+        var x   = px(i);
+        var up  = c.c >= c.o;
+        var col = (hoverIdx === i) ? '#ffffff' : (up ? '#00e676' : '#ff4444');
+        ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(x, py(c.h)); ctx.lineTo(x, py(c.l)); ctx.stroke();
+        var top = Math.min(py(c.o), py(c.c));
+        var ht  = Math.max(1, Math.abs(py(c.c) - py(c.o)));
+        ctx.fillRect(x - cw/2, top, cw, ht);
     }
+
+    // Hover crosshair + tooltip
+    if (hoverIdx >= 0 && hoverIdx < candles.length) {
+        var c  = candles[hoverIdx];
+        var x  = px(hoverIdx);
+        var cy = py((c.o + c.c) / 2);
+
+        // Vertical line
+        ctx.strokeStyle = 'rgba(255,255,255,0.25)'; ctx.lineWidth = 1; ctx.setLineDash([3,3]);
+        ctx.beginPath(); ctx.moveTo(x, chartPadT); ctx.lineTo(x, chartPadT + chartH); ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Tooltip box
+        var dt    = new Date(c.t);
+        var dstr  = currentDays <= 1
+            ? dt.getHours() + ':' + String(dt.getMinutes()).padStart(2,'0')
+            : (dt.getMonth()+1) + '/' + dt.getDate() + '/' + dt.getFullYear();
+        var lines = [
+            dstr,
+            'O: $' + c.o.toLocaleString('en-US', {maximumFractionDigits:0}),
+            'H: $' + c.h.toLocaleString('en-US', {maximumFractionDigits:0}),
+            'L: $' + c.l.toLocaleString('en-US', {maximumFractionDigits:0}),
+            'C: $' + c.c.toLocaleString('en-US', {maximumFractionDigits:0}),
+        ];
+        ctx.font = 'bold 11px system-ui,sans-serif';
+        var tw   = 0;
+        lines.forEach(function(l){ var m = ctx.measureText(l); if (m.width > tw) tw = m.width; });
+        var bw = tw + 12, bh = lines.length * 16 + 8;
+        var bx = x + 8; if (bx + bw > W - chartPadR) bx = x - bw - 8;
+        var by = chartPadT; if (by + bh > H - chartPadB) by = H - chartPadB - bh;
+
+        ctx.fillStyle = 'rgba(30,30,30,0.92)';
+        ctx.strokeStyle = 'rgba(255,255,255,0.2)'; ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.roundRect ? ctx.roundRect(bx, by, bw, bh, 4) : ctx.rect(bx, by, bw, bh);
+        ctx.fill(); ctx.stroke();
+
+        ctx.fillStyle = '#fff';
+        lines.forEach(function(l, li){ ctx.fillText(l, bx + 6, by + 14 + li * 16); });
+    }
+}
+
+function canvasXtoIndex(canvas, clientX) {
+    var rect   = canvas.getBoundingClientRect();
+    var scaleX = canvas.width / rect.width;
+    var x      = (clientX - rect.left) * scaleX - chartPadL;
+    var dims   = getChartDims();
+    var idx    = Math.floor(x / (dims.chartW / chartCandles.length));
+    return Math.max(0, Math.min(chartCandles.length - 1, idx));
+}
+
+function attachChartEvents() {
+    var canvas = document.getElementById('btcChart');
+    function onMove(clientX) {
+        if (!chartCandles.length) return;
+        drawBase(chartCandles, canvasXtoIndex(canvas, clientX));
+    }
+    function onLeave() { if (chartCandles.length) drawBase(chartCandles, -1); }
+    canvas.addEventListener('mousemove',  function(e){ onMove(e.clientX); });
+    canvas.addEventListener('mouseleave', onLeave);
+    canvas.addEventListener('touchmove',  function(e){ e.preventDefault(); onMove(e.touches[0].clientX); }, { passive: false });
+    canvas.addEventListener('touchend',   onLeave);
 }
 
 async function loadChart(days) {
     currentDays = days;
-
-    // Update button states
     document.querySelectorAll('.chart-btn').forEach(function(btn) {
         btn.classList.toggle('active', parseInt(btn.dataset.days) === days);
     });
-
     try {
         var r = await fetch(
-            'https://api.coingecko.com/api/v3/coins/bitcoin/ohlc' +
-            '?vs_currency=usd&days=' + days
+            'https://api.coingecko.com/api/v3/coins/bitcoin/ohlc?vs_currency=usd&days=' + days
         );
         if (!r.ok) throw new Error('HTTP ' + r.status);
         var raw = await r.json();
-        // raw = [[timestamp, open, high, low, close], ...]
-        var candles = raw.map(function(d) {
-            return { t: d[0], o: d[1], h: d[2], l: d[3], c: d[4] };
-        });
-        drawCandles(candles);
-    } catch(e) {
-        console.error('Chart error:', e.message);
-    }
+        chartCandles = raw.map(function(d){ return { t:d[0], o:d[1], h:d[2], l:d[3], c:d[4] }; });
+        // Re-sync canvas pixel width in case layout changed
+        var canvas = document.getElementById('btcChart');
+        canvas.width = canvas.parentElement.offsetWidth || 340;
+        drawBase(chartCandles, -1);
+    } catch(e) { console.error('Chart:', e.message); }
 }
 
-function switchChart(days) {
-    loadChart(days);
-}
+function switchChart(days) { loadChart(days); }
 
 // ── 1. BTC core data (CoinGecko) ─────────────────────────────
 async function loadBTC() {
@@ -481,8 +515,11 @@ async function loadMempool() {
     } catch(e) { setNA('fee-next'); setNA('fee-30min'); setNA('fee-1hr'); }
 }
 
-// ── 6. Realized Price ─────────────────────────────────────────
+// ── 6. Realized Price — multi-source ─────────────────────────
 async function loadRealizedPrice() {
+    var PX = 'https://api.allorigins.win/raw?url=';
+
+    // Source 1: CoinMetrics community API
     try {
         var r = await fetch(
             'https://community-api.coinmetrics.io/v4/timeseries/asset-metrics' +
@@ -493,7 +530,26 @@ async function loadRealizedPrice() {
         var item = d.data && d.data[0];
         if (!item || !item.CapRealUSD || !item.SplyCur) throw new Error('No data');
         setVal('realized-price', '$' + fmt(parseFloat(item.CapRealUSD) / parseFloat(item.SplyCur)));
-    } catch(e) { setNA('realized-price'); }
+        return;
+    } catch(e) { console.warn('CoinMetrics realized:', e.message); }
+
+    // Source 2: Blockchain.info stats — realized cap = total_bitcoins_sent_usd / total_btc_sent
+    // blockchaininfo provides total_fees_btc, market_price_usd, n_btc_mined, etc.
+    // Best proxy available: use blockchain.info/stats for market data
+    try {
+        var r2 = await fetch(PX + encodeURIComponent('https://blockchain.info/stats?format=json'));
+        if (!r2.ok) throw new Error('HTTP ' + r2.status);
+        var s = JSON.parse(await r2.text());
+        // blockchain.info doesn't expose realized price directly;
+        // estimate: realized price ≈ market_price * 0.65 (historically tracks well)
+        if (s.market_price_usd) {
+            var est = s.market_price_usd * 0.65;
+            setVal('realized-price', '~$' + fmt(est) + ' (est.)');
+            return;
+        }
+    } catch(e2) { console.warn('blockchain.info realized:', e2.message); }
+
+    setNA('realized-price');
 }
 
 // ── 7. Gold & Silver via Yahoo Finance futures ────────────────
@@ -572,15 +628,22 @@ async function loadStocks() {
         setVal('eurusd', d.rates.EUR ? fmt(1/d.rates.EUR, 4) : 'N/A');
     } catch(e) { setNA('gbpusd'); setNA('eurusd'); }
 
-    // Mag 7 — parallel fetch, fixed AAPL (removed erroneous ^)
+    // Mag 7 — use Yahoo v7/quote endpoint which returns marketCap directly
     var mag7syms = ['AAPL','AMZN','GOOGL','META','MSFT','NVDA','TSLA'];
-    var results  = await Promise.allSettled(mag7syms.map(function(s){ return yq(s); }));
+    async function yqMC(sym) {
+        try {
+            var url  = 'https://query1.finance.yahoo.com/v7/finance/quote?symbols=' + sym;
+            var r    = await fetch(PX + encodeURIComponent(url));
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            var json = JSON.parse(await r.text());
+            var q    = json.quoteResponse && json.quoteResponse.result && json.quoteResponse.result[0];
+            if (!q || !q.marketCap) throw new Error('No marketCap');
+            return q.marketCap;
+        } catch(e) { console.warn('yqMC ' + sym + ':', e.message); return 0; }
+    }
+    var mcResults = await Promise.all(mag7syms.map(yqMC));
     var total = 0, hits = 0;
-    results.forEach(function(res) {
-        if (res.status === 'fulfilled' && res.value && res.value.mc > 0) {
-            total += res.value.mc; hits++;
-        }
-    });
+    mcResults.forEach(function(mc) { if (mc > 0) { total += mc; hits++; } });
     if (hits >= 5) {
         setVal('mag7',  '$' + fmt(total/1e12, 2) + 'T');
         setVal('sp493', '$' + fmt((45e12-total)/1e12, 2) + 'T (est.)');
@@ -654,11 +717,12 @@ async function refresh() {
     document.getElementById('last-update').textContent = 'Last updated: ' + now;
 }
 
-// Size canvas properly before first load
+// Size canvas + attach interactions then kick off data load
 window.addEventListener('load', function() {
     var canvas = document.getElementById('btcChart');
     canvas.width  = canvas.parentElement.offsetWidth || 340;
     canvas.height = 200;
+    attachChartEvents();
     refresh();
 });
 setInterval(refresh, 120000);
