@@ -148,25 +148,38 @@
         let chartData = []; // Store chart data globally for toggle
         let currentPrice = 0; // Store current BTC price for calculations
 
-        const chart = LightweightCharts.createChart(document.getElementById('chart'), {
-            width: document.body.clientWidth - 40,
-            height: 300,
-            layout: { background: { color: '#1e1e1e' }, textColor: '#e0e0e0' },
-            grid: { vertLines: { color: '#2a2a2a' }, horLines: { color: '#2a2a2a' } },
-            timeScale: { timeVisible: true, secondsVisible: false, borderColor: '#444444' },
-            rightPriceScale: { borderColor: '#444444' },
-            handleScroll: false,  // Disable zoom/pan
-            handleScale: false   // Disable zoom/pan
-        });
-        let series = chart.addCandlestickSeries({
-            upColor: '#00ff00', downColor: '#ff0000',
-            borderVisible: false, wickUpColor: '#00ff00', wickDownColor: '#ff0000'
-        });
+        // Chart setup (with error handling)
+        let chart;
+        let series;
+        try {
+            if (typeof LightweightCharts !== 'undefined') {
+                chart = LightweightCharts.createChart(document.getElementById('chart'), {
+                    width: document.body.clientWidth - 40,
+                    height: 300,
+                    layout: { background: { color: '#1e1e1e' }, textColor: '#e0e0e0' },
+                    grid: { vertLines: { color: '#2a2a2a' }, horLines: { color: '#2a2a2a' } },
+                    timeScale: { timeVisible: true, secondsVisible: false, borderColor: '#444444' },
+                    rightPriceScale: { borderColor: '#444444' },
+                    handleScroll: false,  // Disable zoom/pan
+                    handleScale: false   // Disable zoom/pan
+                });
+                series = chart.addCandlestickSeries({
+                    upColor: '#00ff00', downColor: '#ff0000',
+                    borderVisible: false, wickUpColor: '#00ff00', wickDownColor: '#ff0000'
+                });
+            } else {
+                throw new Error('LightweightCharts library not loaded');
+            }
+        } catch (error) {
+            console.error('Chart initialization error:', error);
+            document.getElementById('chart').innerHTML = '<p style="color: red; text-align: center;">Error loading chart: ' + error.message + '</p>';
+        }
 
-        // Toggle button
+        // Toggle button (only if chart loaded)
         const toggleBtn = document.getElementById('toggle-chart');
         let isCandle = true;
         toggleBtn.addEventListener('click', () => {
+            if (!series) return; // Skip if chart failed
             chart.removeSeries(series);
             if (isCandle) {
                 series = chart.addLineSeries({ color: '#00bfff', lineWidth: 2 });
@@ -183,7 +196,7 @@
             isCandle = !isCandle;
         });
 
-        // Format numbers like Bitbo (commas, 2 decimals for prices, etc.)
+        // Format functions (unchanged)
         function formatNumber(num, decimals = 2, suffix = '') {
             return num.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + suffix;
         }
@@ -193,8 +206,9 @@
             return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
         }
 
-        // Fetch BTC chart data (30 days OHLC)
+        // Fetch BTC chart (only if chart loaded)
         async function fetchBTCChart() {
+            if (!series) return; // Skip if chart failed
             try {
                 const response = await fetch('https://api.coingecko.com/api/v3/coins/bitcoin/ohlc?vs_currency=usd&days=30');
                 const data = await response.json();
@@ -207,12 +221,12 @@
                 }));
                 series.setData(chartData);
             } catch (error) {
-                console.error('Chart error:', error);
-                // Optional: Show error on page, e.g., document.getElementById('chart').innerHTML = '<p style="color: red; text-align: center;">Error loading chart</p>';
+                console.error('Chart data error:', error);
+                document.getElementById('chart').innerHTML = '<p style="color: red; text-align: center;">Error loading chart data: ' + error.message + '</p>';
             }
         }
 
-        // Fetch core BTC metrics from CoinGecko
+        // Fetch BTC metrics
         async function fetchBTCMetrics() {
             try {
                 const response = await fetch('https://api.coingecko.com/api/v3/coins/bitcoin');
@@ -231,16 +245,16 @@
                 document.getElementById('sats-usd').textContent = satsPerUsd;
                 document.getElementById('ath-price').textContent = `$${formatNumber(athPrice)}`;
                 document.getElementById('drawdown-ath').textContent = `${drawdown}%`;
-                document.getElementById('drawdown-ath').classList.add('red'); // Always red for drawdown
+                document.getElementById('drawdown-ath').classList.add('red');
                 document.getElementById('ath-date').textContent = athDate;
             } catch (error) {
                 console.error('BTC metrics error:', error);
                 document.getElementById('range24').textContent = 'Error';
-                // Repeat for others if needed
+                // Add for others if needed
             }
         }
 
-        // Fetch Fear & Greed Index
+        // Fetch Fear & Greed
         async function fetchFearGreed() {
             try {
                 const response = await fetch('https://api.alternative.me/fng/?limit=1');
@@ -264,7 +278,7 @@
                 fetchBTCChart(),
                 fetchBTCMetrics(),
                 fetchFearGreed()
-                // More fetches in next batches
+                // More in future
             ]);
         }
         refreshData();
