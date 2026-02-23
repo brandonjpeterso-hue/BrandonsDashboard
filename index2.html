@@ -168,7 +168,6 @@
         } catch (error) {
             console.error('Chart initialization error:', error);
             document.getElementById('chart').innerHTML = '<p style="color: red; text-align: center;">Error loading chart: ' + error.message + '</p>';
-            // Continue with other fetches even if chart fails
         }
 
         // Toggle button (only if chart loaded)
