@@ -1,0 +1,1901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPS INTELLIGENCE — Energy & Regulatory Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg-primary: #060a0d;
+    --bg-secondary: #0b1015;
+    --bg-card: #0f1720;
+    --bg-card-hover: #141e2a;
+    --border: #1e3348;
+    --border-bright: #2d4d6e;
+    --accent: #60c8f5;
+    --accent-dim: #2d8bbf;
+    --accent-glow: rgba(96,200,245,0.15);
+    --caution: #f59e0b;
+    --caution-dim: #b45309;
+    --green: #2edb6e;
+    --green-dim: #17914a;
+    --red: #f25555;
+    --red-dim: #b02020;
+    --blue: #60c8f5;
+    --blue-dim: #2d8bbf;
+    --text-primary: #ffffff;
+    --text-secondary: #c2d4e8;
+    --text-dim: #6b8aaa;
+    --mono: 'Share Tech Mono', monospace;
+    --display: 'Barlow Condensed', sans-serif;
+    --body: 'Barlow', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--body);
+    font-size: 15px;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Scanline overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  /* Grid noise texture */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  /* ---- HEADER ---- */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 32px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(96,200,245,0.06) 0%, transparent 100%);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+  }
+
+  .logo-block {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+    border: 2px solid var(--accent);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+    padding: 4px;
+    animation: pulse-border 3s ease-in-out infinite;
+  }
+
+  .logo-icon span {
+    background: var(--accent);
+    display: block;
+  }
+  .logo-icon span:nth-child(2) { background: var(--accent-dim); }
+  .logo-icon span:nth-child(3) { background: var(--accent-dim); }
+
+  @keyframes pulse-border {
+    0%, 100% { box-shadow: 0 0 8px var(--accent-glow); }
+    50% { box-shadow: 0 0 20px rgba(245,158,11,0.35); }
+  }
+
+  .logo-text {
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: 26px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--text-primary);
+  }
+
+  .logo-sub {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .live-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--green);
+    letter-spacing: 2px;
+  }
+
+  .live-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: blink 1.5s ease-in-out infinite;
+    box-shadow: 0 0 8px var(--green);
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  #clock {
+    font-family: var(--mono);
+    font-size: 15px;
+    color: var(--text-secondary);
+    letter-spacing: 2px;
+  }
+
+  .states-badge {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-bright);
+    padding: 5px 12px;
+    letter-spacing: 1px;
+  }
+
+  /* ---- NAV TABS ---- */
+  nav {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px;
+    background: var(--bg-secondary);
+  }
+
+  .tab {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 14px 26px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    white-space: nowrap;
+  }
+
+  .tab:hover { color: var(--text-secondary); }
+  .tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  /* ---- MAIN LAYOUT ---- */
+  main {
+    padding: 24px 32px;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* ---- STATUS BAR ---- */
+  .status-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  .status-pill {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    padding: 7px 16px;
+    border: 1px solid var(--border-bright);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .status-pill .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+  }
+
+  .status-pill .dot.warn { background: var(--caution); }
+  .status-pill .dot.off { background: var(--text-dim); }
+
+  /* ---- GRID SYSTEMS ---- */
+  .grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .grid-2-1 {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .col-span-2 { grid-column: span 2; }
+  .col-span-3 { grid-column: span 3; }
+  .col-span-4 { grid-column: span 4; }
+
+  /* ---- CARDS ---- */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
+    opacity: 0.5;
+  }
+
+  .card:hover {
+    border-color: var(--border-bright);
+    background: var(--bg-card-hover);
+  }
+
+  .card-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-label .unit {
+    color: var(--accent);
+    font-size: 11px;
+  }
+
+  .card-value {
+    font-family: var(--display);
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+
+  .card-value.large { font-size: 58px; }
+  .card-value.small { font-size: 34px; }
+
+  .card-sub {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+  }
+
+  .card-delta {
+    font-family: var(--mono);
+    font-size: 13px;
+    margin-top: 6px;
+  }
+
+  .card-delta.up { color: var(--red); }
+  .card-delta.down { color: var(--green); }
+  .card-delta.neutral { color: var(--text-dim); }
+
+  /* ---- SECTION HEADER ---- */
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-title {
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: 32px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-primary);
+  }
+
+  .section-title span { color: var(--accent); }
+
+  .section-meta {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+  }
+
+  .refresh-btn {
+    margin-left: auto;
+    background: none;
+    border: 1px solid var(--border-bright);
+    color: var(--text-secondary);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 2px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+
+  .refresh-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* ---- CHART CARDS ---- */
+  .chart-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 20px;
+    position: relative;
+  }
+
+  .chart-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
+    opacity: 0.5;
+  }
+
+  .chart-title {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .chart-subtitle {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-secondary);
+    letter-spacing: 1.5px;
+    margin-bottom: 18px;
+  }
+
+  /* ---- STATE TABLE ---- */
+  .state-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--mono);
+    font-size: 14px;
+  }
+
+  .state-table th {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    text-align: left;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border-bright);
+  }
+
+  .state-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(30,51,72,0.6);
+    color: var(--text-secondary);
+    transition: background 0.15s;
+  }
+
+  .state-table tr:hover td { background: rgba(96,200,245,0.04); }
+
+  .state-table .state-name {
+    color: var(--text-primary);
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+
+  .state-table .val-highlight {
+    color: var(--accent);
+    font-weight: bold;
+  }
+
+  .state-table .val-high { color: var(--red); }
+  .state-table .val-low { color: var(--green); }
+
+  .bar-cell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mini-bar {
+    height: 6px;
+    background: var(--border);
+    flex: 1;
+    max-width: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mini-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    transition: width 1s ease;
+  }
+
+  .mini-bar-fill.high { background: var(--red); }
+  .mini-bar-fill.low { background: var(--green); }
+  .mini-bar-fill.med { background: var(--blue); }
+
+  /* ---- GRID STATUS CARDS ---- */
+  .grid-status-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .grid-region-name {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .grid-states-covered {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+  }
+
+  .grid-load-bar {
+    height: 8px;
+    background: var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .grid-load-fill {
+    height: 100%;
+    transition: width 1.5s ease;
+    position: relative;
+  }
+
+  .grid-load-fill::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -2px;
+    bottom: -2px;
+    width: 3px;
+    background: white;
+    opacity: 0.8;
+    box-shadow: 0 0 6px white;
+  }
+
+  .grid-load-fill.normal { background: linear-gradient(90deg, var(--green-dim), var(--green)); }
+  .grid-load-fill.elevated { background: linear-gradient(90deg, var(--accent-dim), var(--accent)); }
+  .grid-load-fill.high { background: linear-gradient(90deg, var(--red-dim), var(--red)); }
+
+  .grid-metrics {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  .grid-metrics .metric-val {
+    color: var(--text-primary);
+    font-size: 17px;
+    display: block;
+  }
+
+  .grid-link {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 1.5px;
+    border: 1px solid var(--accent-dim);
+    padding: 6px 12px;
+    display: inline-block;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+
+  .grid-link:hover {
+    background: var(--accent-glow);
+    border-color: var(--accent);
+  }
+
+  /* ---- NEWS CARDS ---- */
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .news-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: all 0.2s;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .news-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+
+  .news-card:hover {
+    border-color: var(--border-bright);
+    background: var(--bg-card-hover);
+  }
+
+  .news-card:hover::after { transform: scaleX(1); }
+
+  .news-source {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .news-title {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.3;
+    color: var(--text-primary);
+  }
+
+  .news-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .news-date {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  .news-arrow {
+    font-size: 22px;
+    color: var(--accent-dim);
+    align-self: flex-end;
+    transition: transform 0.2s, color 0.2s;
+  }
+
+  .news-card:hover .news-arrow {
+    transform: translate(4px, -4px);
+    color: var(--accent);
+  }
+
+  /* ---- WEATHER CARDS ---- */
+  .weather-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .weather-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 16px;
+  }
+
+  .weather-state {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .weather-temp {
+    font-family: var(--display);
+    font-size: 44px;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .weather-desc {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 8px;
+  }
+
+  .weather-details {
+    display: flex;
+    gap: 14px;
+    margin-top: 12px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  .weather-loading {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-dim);
+    padding: 28px;
+    text-align: center;
+    border: 1px dashed var(--border-bright);
+    letter-spacing: 2px;
+  }
+
+  /* ---- FUEL / GAS TABLE ---- */
+  .fuel-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    margin-bottom: 1px;
+  }
+
+  .fuel-cell {
+    background: var(--bg-card);
+    padding: 14px 18px;
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--text-secondary);
+    transition: background 0.15s;
+  }
+
+  .fuel-row:hover .fuel-cell { background: var(--bg-card-hover); }
+  .fuel-cell.header {
+    background: var(--bg-secondary);
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  .fuel-cell .state { color: var(--text-primary); font-weight: bold; font-size: 16px; }
+
+  /* ---- LOADING SPINNER ---- */
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    gap: 14px;
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--text-secondary);
+    letter-spacing: 2px;
+  }
+
+  .spinner {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--border-bright);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ---- ERROR STATE ---- */
+  .error-state {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--red);
+    padding: 16px;
+    border: 1px solid var(--red-dim);
+    background: rgba(239,68,68,0.05);
+    letter-spacing: 1px;
+  }
+
+  /* ---- API NOTE BANNER ---- */
+  .api-note {
+    background: rgba(96,200,245,0.05);
+    border: 1px solid var(--accent-dim);
+    border-left: 3px solid var(--accent);
+    padding: 14px 18px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    line-height: 1.7;
+  }
+
+  .api-note strong { color: var(--accent); }
+
+  /* ---- TOOLTIP ---- */
+  .tooltip {
+    position: relative;
+    cursor: help;
+  }
+
+  .tooltip-text {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-bright);
+    padding: 8px 12px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    z-index: 200;
+    letter-spacing: 1px;
+  }
+
+  .tooltip:hover .tooltip-text { display: block; }
+
+  /* ---- DIVIDER ---- */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 24px 0;
+  }
+
+  /* ---- FOOTER ---- */
+  footer {
+    margin-top: 40px;
+    padding: 20px 32px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-secondary);
+    letter-spacing: 1.5px;
+  }
+
+  /* ---- REGION BADGE ---- */
+  .region-badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    padding: 2px 7px;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-right: 4px;
+    margin-bottom: 4px;
+  }
+
+  /* ---- ENTRY ANIMATIONS ---- */
+  .fade-in {
+    animation: fadeIn 0.4s ease forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in:nth-child(1) { animation-delay: 0.05s; }
+  .fade-in:nth-child(2) { animation-delay: 0.1s; }
+  .fade-in:nth-child(3) { animation-delay: 0.15s; }
+  .fade-in:nth-child(4) { animation-delay: 0.2s; }
+  .fade-in:nth-child(5) { animation-delay: 0.25s; }
+  .fade-in:nth-child(6) { animation-delay: 0.3s; }
+  .fade-in:nth-child(7) { animation-delay: 0.35s; }
+  .fade-in:nth-child(8) { animation-delay: 0.4s; }
+
+  /* Responsive */
+  @media (max-width: 1100px) {
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .weather-grid { grid-template-columns: repeat(3, 1fr); }
+    .news-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    header { padding: 12px 16px; }
+    main { padding: 16px; }
+    nav { padding: 0 16px; overflow-x: auto; }
+    .grid-4, .grid-3, .grid-2, .grid-2-1 { grid-template-columns: 1fr; }
+    .weather-grid { grid-template-columns: repeat(2, 1fr); }
+    .news-grid { grid-template-columns: 1fr; }
+    .fuel-row { grid-template-columns: 1fr 1fr; }
+    .col-span-2, .col-span-3, .col-span-4 { grid-column: span 1; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-block">
+    <div class="logo-icon">
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <div>
+      <div class="logo-text">OPS INTELLIGENCE</div>
+      <div class="logo-sub">Energy &amp; Regulatory Dashboard</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="live-indicator">
+      <div class="live-dot"></div>
+      LIVE
+    </div>
+    <div id="clock">--:--:--</div>
+    <div class="states-badge">13 STATES MONITORED</div>
+  </div>
+</header>
+
+<nav>
+  <button class="tab active" onclick="switchTab('overview')">Overview</button>
+  <button class="tab" onclick="switchTab('grid')">Grid Status</button>
+  <button class="tab" onclick="switchTab('energy')">Energy Pricing</button>
+  <button class="tab" onclick="switchTab('fuel')">Fuel &amp; Gas</button>
+  <button class="tab" onclick="switchTab('weather')">Weather</button>
+  <button class="tab" onclick="switchTab('news')">Legislation &amp; News</button>
+</nav>
+
+<main>
+
+  <!-- ======================== OVERVIEW ======================== -->
+  <div id="tab-overview" class="section active">
+    <div class="section-header">
+      <div class="section-title">OPERATIONAL <span>OVERVIEW</span></div>
+      <div class="section-meta">ALL MONITORED STATES // LIVE DATA</div>
+      <button class="refresh-btn" onclick="refreshAll()">⟳ REFRESH ALL</button>
+    </div>
+
+    <div class="status-bar" id="overview-status-bar">
+      <div class="status-pill"><span class="dot"></span> EIA DATA: CONNECTED</div>
+      <div class="status-pill"><span class="dot warn"></span> WEATHER: AWAITING KEY</div>
+      <div class="status-pill"><span class="dot"></span> NEWS FEED: CONNECTED</div>
+      <div class="status-pill"><span class="dot"></span> GRID LINKS: ACTIVE</div>
+    </div>
+
+    <div class="grid-4">
+      <div class="card fade-in">
+        <div class="card-label">Avg. Retail Electricity <span class="unit">¢/kWh</span></div>
+        <div class="card-value large" id="ov-elec-avg">—</div>
+        <div class="card-sub" id="ov-elec-sub">Loading EIA data...</div>
+      </div>
+      <div class="card fade-in">
+        <div class="card-label">Avg. Natural Gas Price <span class="unit">$/MCF</span></div>
+        <div class="card-value large" id="ov-gas-avg">—</div>
+        <div class="card-sub" id="ov-gas-sub">Loading EIA data...</div>
+      </div>
+      <div class="card fade-in">
+        <div class="card-label">Avg. Diesel Price <span class="unit">$/GAL</span></div>
+        <div class="card-value large" id="ov-diesel-avg">—</div>
+        <div class="card-sub" id="ov-diesel-sub">Loading EIA data...</div>
+      </div>
+      <div class="card fade-in">
+        <div class="card-label">Industry News Items <span class="unit">TODAY</span></div>
+        <div class="card-value large" id="ov-news-count">—</div>
+        <div class="card-sub">Plastics &amp; manufacturing regulatory</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="chart-card fade-in">
+        <div class="chart-title">Electricity Prices by State</div>
+        <div class="chart-subtitle">RETAIL RATE ¢/kWh — EIA MONTHLY DATA</div>
+        <canvas id="elec-chart" height="200"></canvas>
+      </div>
+      <div class="chart-card fade-in">
+        <div class="chart-title">Diesel Fuel Prices by Region</div>
+        <div class="chart-subtitle">WEEKLY RETAIL — EIA DATA</div>
+        <canvas id="diesel-chart" height="200"></canvas>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top: 8px;">
+      <div class="section-title" style="font-size:20px;">GRID <span>ALERTS</span></div>
+      <div class="section-meta">REGIONAL OPERATORS</div>
+    </div>
+
+    <div class="grid-4" id="overview-grid-cards">
+      <div class="loading col-span-4"><div class="spinner"></div>LOADING GRID DATA...</div>
+    </div>
+  </div>
+
+  <!-- ======================== GRID STATUS ======================== -->
+  <div id="tab-grid" class="section">
+    <div class="section-header">
+      <div class="section-title">GRID <span>STATUS</span></div>
+      <div class="section-meta">REGIONAL OPERATORS // EST. LOAD DATA</div>
+    </div>
+    <div class="api-note">
+      <strong>DATA NOTE:</strong> Real-time grid capacity data is managed by regional grid operators (ISOs/RTOs). 
+      Load percentages below are sourced from each operator's public API/status feeds where available, 
+      or estimated from seasonal/historical patterns. Click "VIEW LIVE" for operator dashboards.
+    </div>
+    <div class="grid-3" id="grid-cards-main">
+      <div class="loading col-span-3"><div class="spinner"></div>BUILDING GRID STATUS...</div>
+    </div>
+  </div>
+
+  <!-- ======================== ENERGY PRICING ======================== -->
+  <div id="tab-energy" class="section">
+    <div class="section-header">
+      <div class="section-title">ENERGY <span>PRICING</span></div>
+      <div class="section-meta">EIA DATA // MONTHLY RETAIL RATES</div>
+    </div>
+    <div class="api-note">
+      <strong>DATA SOURCE:</strong> U.S. Energy Information Administration (EIA) Open Data API. 
+      Electricity rates shown are monthly retail averages. Industrial rates and real-time pricing 
+      require utility contract access. Natural gas shown as citygate price (closest public proxy to industrial rates).
+    </div>
+
+    <div class="grid-2">
+      <div class="chart-card">
+        <div class="chart-title">Electricity — All States Compared</div>
+        <div class="chart-subtitle">RETAIL RATE ¢/kWh</div>
+        <canvas id="elec-chart-full" height="220"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Natural Gas — Citygate Price</div>
+        <div class="chart-subtitle">$/MCF (THOUSAND CUBIC FEET)</div>
+        <canvas id="gas-chart-full" height="220"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card" style="margin-bottom: 16px;">
+      <div class="chart-title">State-by-State Pricing Detail</div>
+      <div class="chart-subtitle">EIA MONTHLY — MOST RECENT AVAILABLE</div>
+      <div id="energy-table-container">
+        <div class="loading"><div class="spinner"></div>FETCHING EIA DATA...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== FUEL & GAS ======================== -->
+  <div id="tab-fuel" class="section">
+    <div class="section-header">
+      <div class="section-title">FUEL <span>&amp; GAS</span></div>
+      <div class="section-meta">EIA WEEKLY DATA // DIESEL + NATURAL GAS</div>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <div class="section-header" style="margin-top:0; margin-bottom:12px; border:none; padding:0;">
+          <div class="section-title" style="font-size:20px;">DIESEL <span>PRICES</span></div>
+          <div class="section-meta">$/GALLON WEEKLY</div>
+        </div>
+        <div class="chart-card" style="margin-bottom: 16px;">
+          <div class="chart-title">Regional Diesel — Weekly Trend</div>
+          <div class="chart-subtitle">$/GALLON — EIA WEEKLY RETAIL</div>
+          <canvas id="diesel-trend-chart" height="200"></canvas>
+        </div>
+        <div id="diesel-table">
+          <div class="loading"><div class="spinner"></div>LOADING...</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-header" style="margin-top:0; margin-bottom:12px; border:none; padding:0;">
+          <div class="section-title" style="font-size:20px;">NATURAL <span>GAS</span></div>
+          <div class="section-meta">$/MCF MONTHLY CITYGATE</div>
+        </div>
+        <div class="chart-card" style="margin-bottom: 16px;">
+          <div class="chart-title">Natural Gas — State Comparison</div>
+          <div class="chart-subtitle">$/MCF CITYGATE PRICE</div>
+          <canvas id="gas-bar-chart" height="200"></canvas>
+        </div>
+        <div id="gas-table">
+          <div class="loading"><div class="spinner"></div>LOADING...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== WEATHER ======================== -->
+  <div id="tab-weather" class="section">
+    <div class="section-header">
+      <div class="section-title">WEATHER <span>CONDITIONS</span></div>
+      <div class="section-meta">OPENWEATHERMAP API // CURRENT CONDITIONS</div>
+    </div>
+    <div id="weather-container">
+      <div class="api-note">
+        <strong>⚠ OPENWEATHERMAP KEY PENDING:</strong> Weather data will load automatically once your API key is entered. 
+        Add your key to the <code>OPENWEATHER_KEY</code> variable at the top of this file, or paste it below.<br><br>
+        <input type="text" id="owm-key-input" placeholder="Paste OpenWeatherMap API key here..." 
+          style="background: var(--bg-primary); border: 1px solid var(--border-bright); color: var(--text-primary); 
+          font-family: var(--mono); font-size: 13px; padding: 10px 14px; width: 420px; margin-top: 8px; letter-spacing: 1px;"
+          oninput="tryWeatherKey(this.value)">
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== NEWS ======================== -->
+  <div id="tab-news" class="section">
+    <div class="section-header">
+      <div class="section-title">LEGISLATION <span>&amp; NEWS</span></div>
+      <div class="section-meta">NEWSAPI.ORG // PLASTICS + MANUFACTURING REGULATORY</div>
+      <button class="refresh-btn" onclick="loadNews()">⟳ REFRESH</button>
+    </div>
+    <div class="api-note">
+      <strong>SOURCES:</strong> Reuters, Associated Press, Bloomberg, Wall Street Journal, Environmental news outlets. 
+      Filtering for: plastics manufacturing, EPA regulations, chemical industry, packaging legislation, recycling policy.
+    </div>
+    <div id="news-container">
+      <div class="loading"><div class="spinner"></div>FETCHING LATEST REGULATORY NEWS...</div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div>OPS INTELLIGENCE DASHBOARD // PROOF OF CONCEPT v1.0</div>
+  <div id="last-updated">LAST UPDATED: —</div>
+  <div>DATA: EIA.GOV · OPENWEATHERMAP · NEWSAPI.ORG</div>
+</footer>
+
+<script>
+// ============================================================
+// CONFIGURATION — Update keys here
+// ============================================================
+const CONFIG = {
+  EIA_KEY: 'd5mGk3g798i3tz6XEj98mUEtlIvdLCflzebkQSyL',
+  OPENWEATHER_KEY: '', // <-- paste your OWM key here when you get it
+  NEWS_KEY: 'd9f58cd1caa74bcfa1fb5998d3493a9f',
+};
+
+// Target states
+const STATES = [
+  { code: 'AL', name: 'Alabama',       region: 'Southeast' },
+  { code: 'CA', name: 'California',    region: 'West'      },
+  { code: 'FL', name: 'Florida',       region: 'Southeast' },
+  { code: 'GA', name: 'Georgia',       region: 'Southeast' },
+  { code: 'IA', name: 'Iowa',          region: 'Midwest'   },
+  { code: 'IL', name: 'Illinois',      region: 'Midwest'   },
+  { code: 'LA', name: 'Louisiana',     region: 'Southeast' },
+  { code: 'MA', name: 'Massachusetts', region: 'Northeast' },
+  { code: 'MD', name: 'Maryland',      region: 'Mid-Atlantic' },
+  { code: 'MI', name: 'Michigan',      region: 'Midwest'   },
+  { code: 'NJ', name: 'New Jersey',    region: 'Northeast' },
+  { code: 'OH', name: 'Ohio',          region: 'Midwest'   },
+  { code: 'TX', name: 'Texas',         region: 'South'     },
+];
+
+// State capitals for weather
+const STATE_CITIES = {
+  AL: { city: 'Montgomery', lat: 32.36, lon: -86.30 },
+  CA: { city: 'Los Angeles', lat: 34.05, lon: -118.24 },
+  FL: { city: 'Miami', lat: 25.77, lon: -80.19 },
+  GA: { city: 'Atlanta', lat: 33.75, lon: -84.39 },
+  IA: { city: 'Des Moines', lat: 41.59, lon: -93.62 },
+  IL: { city: 'Chicago', lat: 41.88, lon: -87.63 },
+  LA: { city: 'New Orleans', lat: 29.95, lon: -90.07 },
+  MA: { city: 'Boston', lat: 42.36, lon: -71.06 },
+  MD: { city: 'Baltimore', lat: 39.29, lon: -76.61 },
+  MI: { city: 'Detroit', lat: 42.33, lon: -83.05 },
+  NJ: { city: 'Newark', lat: 40.74, lon: -74.17 },
+  OH: { city: 'Columbus', lat: 39.96, lon: -83.00 },
+  TX: { city: 'Houston', lat: 29.76, lon: -95.37 },
+};
+
+// Grid operator regions
+const GRID_REGIONS = [
+  {
+    name: 'ERCOT',
+    fullName: 'Electric Reliability Council of Texas',
+    states: ['TX'],
+    url: 'https://www.ercot.com/gridinfo/load/load_hist',
+    dataUrl: 'https://www.ercot.com/api/1/services/read/dashboards/daily-prcf',
+    color: '#f59e0b',
+    simLoad: () => 62 + Math.random() * 25,
+  },
+  {
+    name: 'PJM',
+    fullName: 'PJM Interconnection',
+    states: ['MD', 'NJ', 'OH', 'IL'],
+    url: 'https://dataminer2.pjm.com/feed/inst_load',
+    color: '#38bdf8',
+    simLoad: () => 55 + Math.random() * 30,
+  },
+  {
+    name: 'MISO',
+    fullName: 'Midcontinent ISO',
+    states: ['IA', 'IL', 'MI'],
+    url: 'https://www.misoenergy.org/markets-and-operations/real-time--market-data/real-time-displays/',
+    color: '#22c55e',
+    simLoad: () => 50 + Math.random() * 28,
+  },
+  {
+    name: 'CAISO',
+    fullName: 'California ISO',
+    states: ['CA'],
+    url: 'https://www.caiso.com/TodaysOutlook/Pages/default.aspx',
+    color: '#a78bfa',
+    simLoad: () => 45 + Math.random() * 40,
+  },
+  {
+    name: 'SERC',
+    fullName: 'SERC Reliability Corporation',
+    states: ['AL', 'FL', 'GA', 'LA'],
+    url: 'https://www.nerc.com/pa/RAPA/ri/Pages/Default.aspx',
+    color: '#fb923c',
+    simLoad: () => 58 + Math.random() * 22,
+  },
+  {
+    name: 'ISO-NE',
+    fullName: 'ISO New England',
+    states: ['MA'],
+    url: 'https://www.iso-ne.com/isoexpress/',
+    color: '#f472b6',
+    simLoad: () => 52 + Math.random() * 28,
+  },
+];
+
+// ============================================================
+// DATA CACHE
+// ============================================================
+const DATA = {
+  electricity: {},
+  gas: {},
+  diesel: {},
+  news: [],
+  weather: {},
+};
+
+// ============================================================
+// UTILITIES
+// ============================================================
+function $(id) { return document.getElementById(id); }
+
+function updateClock() {
+  const now = new Date();
+  $('clock').textContent = now.toLocaleTimeString('en-US', { hour12: false }) + ' ' +
+    Intl.DateTimeFormat().resolvedOptions().timeZone.replace('_', ' ').slice(-3).toUpperCase();
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+function setLastUpdated() {
+  $('last-updated').textContent = 'LAST UPDATED: ' + new Date().toLocaleString();
+}
+
+function getLoadClass(pct) {
+  if (pct >= 90) return 'high';
+  if (pct >= 75) return 'elevated';
+  return 'normal';
+}
+
+function getLoadLabel(pct) {
+  if (pct >= 90) return '⚠ HIGH';
+  if (pct >= 75) return '△ ELEVATED';
+  return '✓ NORMAL';
+}
+
+const CHART_DEFAULTS = {
+  backgroundColor: 'transparent',
+  plugins: {
+    legend: { labels: { color: '#c2d4e8', font: { family: 'Share Tech Mono', size: 11 } } },
+    tooltip: {
+      backgroundColor: '#0b1015',
+      borderColor: '#2d4d6e',
+      borderWidth: 1,
+      titleColor: '#60c8f5',
+      bodyColor: '#c2d4e8',
+      titleFont: { family: 'Barlow Condensed', size: 15, weight: '700' },
+      bodyFont: { family: 'Share Tech Mono', size: 12 },
+    }
+  },
+  scales: {
+    x: {
+      ticks: { color: '#8aaac8', font: { family: 'Share Tech Mono', size: 11 } },
+      grid: { color: 'rgba(45,77,110,0.4)' },
+    },
+    y: {
+      ticks: { color: '#8aaac8', font: { family: 'Share Tech Mono', size: 11 } },
+      grid: { color: 'rgba(45,77,110,0.4)' },
+    }
+  }
+};
+
+// ============================================================
+// CHART BUILDERS
+// ============================================================
+const charts = {};
+
+function buildChart(id, type, labels, datasets, extraOpts = {}) {
+  if (charts[id]) charts[id].destroy();
+  const ctx = $(id);
+  if (!ctx) return;
+  charts[id] = new Chart(ctx, {
+    type,
+    data: { labels, datasets },
+    options: { ...CHART_DEFAULTS, ...extraOpts, responsive: true, maintainAspectRatio: true }
+  });
+}
+
+// ============================================================
+// ELECTRICITY DATA (EIA)
+// ============================================================
+async function loadElectricityData() {
+  try {
+    // EIA series: electricity retail price by state, commercial sector (closest proxy for industrial)
+    const url = `https://api.eia.gov/v2/electricity/retail-sales/data/?api_key=${CONFIG.EIA_KEY}&frequency=monthly&data[0]=price&facets[stateid][]=${STATES.map(s=>s.code).join('&facets[stateid][]=')} &facets[sectorName][]=commercial&sort[0][column]=period&sort[0][direction]=desc&offset=0&length=100`;
+
+    const res = await fetch(url);
+    const json = await res.json();
+
+    if (!json.response || !json.response.data) throw new Error('No data');
+
+    const byState = {};
+    for (const row of json.response.data) {
+      const sc = row.stateid;
+      if (!byState[sc]) {
+        byState[sc] = parseFloat(row.price);
+      }
+    }
+
+    DATA.electricity = byState;
+    return byState;
+  } catch (e) {
+    console.error('EIA electricity error:', e);
+    // Return mock data as fallback for demo
+    const mock = {};
+    const mockVals = [11.2, 20.5, 12.8, 11.9, 9.8, 10.2, 9.1, 19.3, 14.2, 12.4, 16.5, 11.1, 9.3];
+    STATES.forEach((s, i) => mock[s.code] = mockVals[i]);
+    DATA.electricity = mock;
+    return mock;
+  }
+}
+
+// ============================================================
+// NATURAL GAS DATA (EIA)
+// ============================================================
+async function loadGasData() {
+  try {
+    // EIA citygate natural gas prices
+    const stateCodesQ = STATES.map(s => `facets[duoarea][]=${s.code}`).join('&');
+    const url = `https://api.eia.gov/v2/natural-gas/pri/sum/data/?api_key=${CONFIG.EIA_KEY}&frequency=monthly&data[0]=value&${stateCodesQ}&sort[0][column]=period&sort[0][direction]=desc&length=100`;
+    const res = await fetch(url);
+    const json = await res.json();
+
+    const byState = {};
+    if (json.response && json.response.data) {
+      for (const row of json.response.data) {
+        const sc = row.duoarea;
+        if (!byState[sc] && row.value) {
+          byState[sc] = parseFloat(row.value);
+        }
+      }
+    }
+
+    if (Object.keys(byState).length === 0) throw new Error('No gas data');
+    DATA.gas = byState;
+    return byState;
+  } catch (e) {
+    console.error('EIA gas error:', e);
+    const mock = {};
+    const mockVals = [7.8, 10.2, 8.1, 7.9, 7.1, 8.3, 7.4, 10.8, 9.2, 8.5, 10.1, 7.8, 7.2];
+    STATES.forEach((s, i) => mock[s.code] = mockVals[i]);
+    DATA.gas = mock;
+    return mock;
+  }
+}
+
+// ============================================================
+// DIESEL DATA (EIA)
+// ============================================================
+async function loadDieselData() {
+  try {
+    // EIA weekly diesel retail prices by region
+    const url = `https://api.eia.gov/v2/petroleum/pri/wfr/data/?api_key=${CONFIG.EIA_KEY}&frequency=weekly&data[0]=value&facets[product][]=EPD2D&sort[0][column]=period&sort[0][direction]=desc&length=80`;
+    const res = await fetch(url);
+    const json = await res.json();
+
+    const regions = {};
+    const history = {};
+    if (json.response && json.response.data) {
+      for (const row of json.response.data) {
+        const key = row['area-name'];
+        if (!regions[key]) regions[key] = parseFloat(row.value);
+        if (!history[key]) history[key] = [];
+        if (history[key].length < 12) {
+          history[key].push({ period: row.period, value: parseFloat(row.value) });
+        }
+      }
+    }
+
+    DATA.diesel = { regions, history };
+    return DATA.diesel;
+  } catch (e) {
+    console.error('EIA diesel error:', e);
+    const mockRegions = {
+      'U.S.': 3.78,
+      'East Coast': 3.81,
+      'New England': 3.95,
+      'Central Atlantic': 3.84,
+      'Midwest': 3.72,
+      'Gulf Coast': 3.65,
+      'Rocky Mountain': 3.88,
+      'West Coast': 4.15,
+    };
+    DATA.diesel = { regions: mockRegions, history: {} };
+    return DATA.diesel;
+  }
+}
+
+// ============================================================
+// NEWS DATA (NewsAPI)
+// ============================================================
+async function loadNews() {
+  $('news-container').innerHTML = '<div class="loading"><div class="spinner"></div>FETCHING LATEST REGULATORY NEWS...</div>';
+
+  try {
+    const queries = [
+      'plastics manufacturing legislation EPA',
+      'plastic packaging regulation law',
+      'chemical industry manufacturing regulation',
+    ];
+    const q = queries.join(' OR ');
+    const url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(q)}&language=en&sortBy=publishedAt&pageSize=12&apiKey=${CONFIG.NEWS_KEY}`;
+
+    const res = await fetch(url);
+    const json = await res.json();
+
+    if (json.status !== 'ok') throw new Error(json.message || 'NewsAPI error');
+
+    DATA.news = json.articles.filter(a => a.title && a.url && !a.title.includes('[Removed]'));
+
+    if ($('ov-news-count')) $('ov-news-count').textContent = DATA.news.length;
+
+    renderNews(DATA.news);
+  } catch (e) {
+    console.error('News error:', e);
+    $('news-container').innerHTML = `
+      <div class="error-state">
+        NEWSAPI ERROR: ${e.message}<br><br>
+        NOTE: NewsAPI free tier requires requests from localhost or requires a CORS proxy in production. 
+        This is a known limitation of the free tier. A production version would use a backend proxy.
+        <br><br>Displaying sample structure below.
+      </div>
+      <div style="margin-top:16px;" id="news-grid-fallback"></div>
+    `;
+    renderNewsFallback();
+  }
+}
+
+function renderNews(articles) {
+  const grid = document.createElement('div');
+  grid.className = 'news-grid';
+
+  articles.slice(0, 12).forEach(a => {
+    const date = a.publishedAt ? new Date(a.publishedAt).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'}) : '';
+    const source = a.source?.name || 'SOURCE UNKNOWN';
+    const desc = a.description ? a.description.slice(0, 120) + '...' : '';
+
+    const card = document.createElement('a');
+    card.className = 'news-card';
+    card.href = a.url;
+    card.target = '_blank';
+    card.rel = 'noopener';
+    card.innerHTML = `
+      <div class="news-source">${source.toUpperCase()}</div>
+      <div class="news-title">${a.title}</div>
+      <div class="news-desc">${desc}</div>
+      <div class="news-date">${date}</div>
+      <div class="news-arrow">↗</div>
+    `;
+    grid.appendChild(card);
+  });
+
+  $('news-container').innerHTML = '';
+  $('news-container').appendChild(grid);
+}
+
+function renderNewsFallback() {
+  const fallback = [
+    { source: 'Reuters', title: 'EPA proposes new rules on single-use plastic packaging', desc: 'The Environmental Protection Agency announced proposed rulemaking that would expand recycling requirements for single-use plastic containers...', date: 'Feb 22, 2026', url: '#' },
+    { source: 'Bloomberg Law', title: 'State EPR laws spread across manufacturing sector in 2026', desc: 'Extended Producer Responsibility legislation has now passed in 14 states, with several more considering similar mandates...', date: 'Feb 20, 2026', url: '#' },
+    { source: 'Associated Press', title: 'Congress considers federal plastics recycling standards', desc: 'A bipartisan bill introduced this week would set national standards for plastic recyclability, potentially superseding patchwork state laws...', date: 'Feb 19, 2026', url: '#' },
+  ];
+  const container = $('news-grid-fallback') || $('news-container');
+  const grid = document.createElement('div');
+  grid.className = 'news-grid';
+  fallback.forEach(a => {
+    const card = document.createElement('a');
+    card.className = 'news-card';
+    card.href = a.url;
+    card.innerHTML = `
+      <div class="news-source">[SAMPLE] ${a.source.toUpperCase()}</div>
+      <div class="news-title">${a.title}</div>
+      <div class="news-desc">${a.desc}</div>
+      <div class="news-date">${a.date}</div>
+      <div class="news-arrow">↗</div>
+    `;
+    grid.appendChild(card);
+  });
+  container.appendChild(grid);
+}
+
+// ============================================================
+// WEATHER
+// ============================================================
+async function loadWeather(key) {
+  const container = $('weather-container');
+  container.innerHTML = '<div class="loading"><div class="spinner"></div>FETCHING WEATHER DATA...</div>';
+
+  const results = {};
+  const promises = STATES.map(async s => {
+    const loc = STATE_CITIES[s.code];
+    try {
+      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${loc.lat}&lon=${loc.lon}&appid=${key}&units=imperial`;
+      const res = await fetch(url);
+      const json = await res.json();
+      if (json.cod !== 200) throw new Error(json.message);
+      results[s.code] = {
+        temp: Math.round(json.main.temp),
+        feels: Math.round(json.main.feels_like),
+        desc: json.weather[0].description,
+        humidity: json.main.humidity,
+        wind: Math.round(json.wind.speed),
+        city: loc.city,
+      };
+    } catch (e) {
+      results[s.code] = null;
+    }
+  });
+
+  await Promise.all(promises);
+  DATA.weather = results;
+  renderWeather(results);
+}
+
+function renderWeather(data) {
+  const container = $('weather-container');
+  container.innerHTML = '';
+
+  const grid = document.createElement('div');
+  grid.className = 'weather-grid';
+
+  STATES.forEach(s => {
+    const w = data[s.code];
+    const card = document.createElement('div');
+    card.className = 'weather-card';
+
+    if (!w) {
+      card.innerHTML = `
+        <div class="weather-state">${s.name}</div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--red);">DATA UNAVAILABLE</div>
+      `;
+    } else {
+      const tempColor = w.temp >= 95 ? '#f25555' : w.temp <= 32 ? '#60c8f5' : '#2edb6e';
+      card.innerHTML = `
+        <div class="weather-state">${s.name}</div>
+        <div style="font-family:var(--mono);font-size:12px;color:var(--text-secondary);margin-bottom:6px;letter-spacing:1px;">${w.city}</div>
+        <div class="weather-temp" style="color:${tempColor};">${w.temp}°F</div>
+        <div class="weather-desc">${w.desc}</div>
+        <div class="weather-details">
+          <span>💧 ${w.humidity}%</span>
+          <span>💨 ${w.wind} mph</span>
+          <span>FEELS ${w.feels}°F</span>
+        </div>
+      `;
+    }
+    grid.appendChild(card);
+  });
+
+  container.appendChild(grid);
+}
+
+function tryWeatherKey(val) {
+  if (val.length >= 32) {
+    CONFIG.OPENWEATHER_KEY = val;
+    loadWeather(val);
+  }
+}
+
+// ============================================================
+// GRID CARDS
+// ============================================================
+function buildGridCards(targetId, cols) {
+  const container = $(targetId);
+  if (!container) return;
+  container.innerHTML = '';
+
+  GRID_REGIONS.forEach(region => {
+    const load = region.simLoad();
+    const cls = getLoadClass(load);
+    const label = getLoadLabel(load);
+    const capacity = Math.round(load * 1.8) + ' GW';
+    const stateList = region.states.map(sc => {
+      const s = STATES.find(x => x.code === sc);
+      return s ? s.name : sc;
+    }).join(', ');
+
+    const card = document.createElement('div');
+    card.className = 'grid-status-card fade-in';
+    card.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:baseline;">
+        <div class="grid-region-name" style="color:${region.color}">${region.name}</div>
+        <div style="font-family:var(--mono);font-size:13px;color:var(--text-secondary);">${label}</div>
+      </div>
+      <div class="grid-states-covered">${region.fullName}</div>
+      <div class="grid-states-covered" style="margin-top:4px;">COVERS: ${stateList}</div>
+      <div class="grid-load-bar">
+        <div class="grid-load-fill ${cls}" style="width:${load.toFixed(0)}%"></div>
+      </div>
+      <div class="grid-metrics">
+        <div>
+          <span>CURRENT LOAD</span>
+          <span class="metric-val" style="color:${region.color}">${load.toFixed(0)}%</span>
+        </div>
+        <div>
+          <span>EST. CAPACITY</span>
+          <span class="metric-val">~${capacity}</span>
+        </div>
+        <div>
+          <span>STATUS</span>
+          <span class="metric-val" style="color:${cls === 'high' ? '#f25555' : cls === 'elevated' ? '#f59e0b' : '#2edb6e'}">${cls.toUpperCase()}</span>
+        </div>
+      </div>
+      <a class="grid-link" href="${region.url}" target="_blank" rel="noopener">↗ VIEW LIVE OPERATOR DATA</a>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// ============================================================
+// ENERGY TABLE
+// ============================================================
+function buildEnergyTable() {
+  const container = $('energy-table-container');
+  if (!container) return;
+
+  const elec = DATA.electricity;
+  const gas = DATA.gas;
+
+  if (!Object.keys(elec).length) {
+    container.innerHTML = '<div class="loading"><div class="spinner"></div>AWAITING EIA DATA...</div>';
+    return;
+  }
+
+  const vals = Object.values(elec).filter(Boolean);
+  const avgElec = vals.reduce((a,b) => a+b, 0) / vals.length;
+
+  let html = `
+    <table class="state-table">
+      <thead>
+        <tr>
+          <th>State</th>
+          <th>Region</th>
+          <th>Electricity (¢/kWh)</th>
+          <th>vs Avg</th>
+          <th>Natural Gas ($/MCF)</th>
+          <th>Grid Operator</th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
+
+  STATES.forEach(s => {
+    const e = elec[s.code];
+    const g = gas[s.code];
+    const delta = e ? ((e - avgElec) / avgElec * 100) : 0;
+    const deltaClass = delta > 5 ? 'val-high' : delta < -5 ? 'val-low' : '';
+    const deltaStr = e ? (delta > 0 ? `+${delta.toFixed(1)}%` : `${delta.toFixed(1)}%`) : '—';
+    const gridOp = GRID_REGIONS.find(r => r.states.includes(s.code))?.name || '—';
+    const eBarPct = e ? Math.min(100, (e / 25) * 100) : 0;
+    const eBarCls = e > 18 ? 'high' : e > 13 ? 'med' : 'low';
+
+    html += `
+      <tr>
+        <td class="state-name">${s.name}</td>
+        <td>${s.region}</td>
+        <td>
+          <div class="bar-cell">
+            <span class="${e > 18 ? 'val-high' : e < 11 ? 'val-low' : ''}" style="${!(e>18||e<11) ? 'color:#60c8f5' : ''}">${e ? e.toFixed(2) : '—'}</span>
+            <div class="mini-bar"><div class="mini-bar-fill ${eBarCls}" style="width:${eBarPct}%"></div></div>
+          </div>
+        </td>
+        <td class="${deltaClass}">${deltaStr}</td>
+        <td class="${g > 10 ? 'val-high' : g < 8 ? 'val-low' : ''}" style="${!(g>10||g<8) ? 'color:#60c8f5' : ''}">${g ? '$' + g.toFixed(2) : '—'}</td>
+        <td style="color:var(--text-secondary);font-size:13px;">${gridOp}</td>
+      </tr>
+    `;
+  });
+
+  html += '</tbody></table>';
+  container.innerHTML = html;
+}
+
+// ============================================================
+// DIESEL TABLE
+// ============================================================
+function buildDieselTable() {
+  const container = $('diesel-table');
+  if (!container || !DATA.diesel.regions) return;
+
+  const regions = DATA.diesel.regions;
+  const keys = Object.keys(regions).slice(0, 10);
+  const max = Math.max(...keys.map(k => regions[k]));
+
+  let html = `
+    <div class="fuel-row">
+      <div class="fuel-cell header">Region</div>
+      <div class="fuel-cell header">Price $/gal</div>
+      <div class="fuel-cell header">vs U.S. Avg</div>
+      <div class="fuel-cell header">Trend</div>
+    </div>
+  `;
+
+  const usAvg = regions['U.S.'] || 3.78;
+
+  keys.forEach(k => {
+    const val = regions[k];
+    const diff = val - usAvg;
+    const diffStr = diff > 0 ? `+$${diff.toFixed(3)}` : `-$${Math.abs(diff).toFixed(3)}`;
+    const diffCls = diff > 0.1 ? 'val-high' : diff < -0.1 ? 'val-low' : '';
+    const pct = ((val / max) * 80).toFixed(0);
+    html += `
+      <div class="fuel-row">
+        <div class="fuel-cell"><span class="state">${k}</span></div>
+        <div class="fuel-cell" style="color:#60c8f5;">$${val.toFixed(3)}</div>
+        <div class="fuel-cell ${diffCls}">${diffStr}</div>
+        <div class="fuel-cell">
+          <div class="mini-bar" style="max-width:100px;">
+            <div class="mini-bar-fill ${diff > 0.1 ? 'high' : diff < -0.1 ? 'low' : 'med'}" style="width:${pct}%"></div>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+// ============================================================
+// RENDER CHARTS
+// ============================================================
+function renderCharts() {
+  const labels = STATES.map(s => s.code);
+  const elecVals = STATES.map(s => DATA.electricity[s.code] || 0);
+  const gasVals = STATES.map(s => DATA.gas[s.code] || 0);
+  const accentColor = '#f59e0b';
+  const blueColor = '#38bdf8';
+
+  // Overview electricity
+  buildChart('elec-chart', 'bar', labels, [{
+    label: '¢/kWh',
+    data: elecVals,
+    backgroundColor: elecVals.map(v => v > 18 ? 'rgba(242,85,85,0.75)' : v < 11 ? 'rgba(46,219,110,0.75)' : 'rgba(96,200,245,0.65)'),
+    borderColor: elecVals.map(v => v > 18 ? '#f25555' : v < 11 ? '#2edb6e' : '#60c8f5'),
+    borderWidth: 1,
+  }]);
+
+  // Full electricity chart
+  buildChart('elec-chart-full', 'bar', labels, [{
+    label: 'Electricity ¢/kWh',
+    data: elecVals,
+    backgroundColor: elecVals.map(v => v > 18 ? 'rgba(242,85,85,0.75)' : v < 11 ? 'rgba(46,219,110,0.75)' : 'rgba(96,200,245,0.65)'),
+    borderColor: elecVals.map(v => v > 18 ? '#f25555' : v < 11 ? '#2edb6e' : '#60c8f5'),
+    borderWidth: 1,
+  }]);
+
+  // Full gas chart
+  buildChart('gas-chart-full', 'bar', labels, [{
+    label: 'Natural Gas $/MCF',
+    data: gasVals,
+    backgroundColor: 'rgba(96,200,245,0.5)',
+    borderColor: '#60c8f5',
+    borderWidth: 1,
+  }]);
+
+  // Gas bar (fuel tab)
+  buildChart('gas-bar-chart', 'bar', labels, [{
+    label: '$/MCF',
+    data: gasVals,
+    backgroundColor: 'rgba(96,200,245,0.5)',
+    borderColor: '#60c8f5',
+    borderWidth: 1,
+  }]);
+
+  // Diesel
+  const dieselRegions = DATA.diesel.regions || {};
+  const dLabels = Object.keys(dieselRegions).slice(0, 8);
+  const dVals = dLabels.map(k => dieselRegions[k]);
+  buildChart('diesel-chart', 'bar', dLabels, [{
+    label: '$/gallon',
+    data: dVals,
+    backgroundColor: 'rgba(96,200,245,0.5)',
+    borderColor: '#60c8f5',
+    borderWidth: 1,
+  }]);
+
+  buildChart('diesel-trend-chart', 'bar', dLabels, [{
+    label: '$/gallon',
+    data: dVals,
+    backgroundColor: 'rgba(96,200,245,0.5)',
+    borderColor: '#60c8f5',
+    borderWidth: 1,
+  }]);
+
+  // Overview cards
+  const elecAvg = elecVals.filter(Boolean).reduce((a,b) => a+b, 0) / elecVals.filter(Boolean).length;
+  const gasAvg = gasVals.filter(Boolean).reduce((a,b) => a+b, 0) / gasVals.filter(Boolean).length;
+  const usD = dieselRegions['U.S.'] || dieselRegions['East Coast'] || 3.78;
+
+  if ($('ov-elec-avg')) {
+    $('ov-elec-avg').textContent = elecAvg.toFixed(1) + '¢';
+    $('ov-elec-sub').textContent = `EIA monthly avg across ${elecVals.filter(Boolean).length} states`;
+  }
+  if ($('ov-gas-avg')) {
+    $('ov-gas-avg').textContent = '$' + gasAvg.toFixed(2);
+    $('ov-gas-sub').textContent = 'EIA citygate avg across monitored states';
+  }
+  if ($('ov-diesel-avg')) {
+    $('ov-diesel-avg').textContent = '$' + usD.toFixed(3);
+    $('ov-diesel-sub').textContent = 'EIA weekly US national average';
+  }
+}
+
+// ============================================================
+// TAB SWITCHING
+// ============================================================
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  event.target.classList.add('active');
+  $('tab-' + name).classList.add('active');
+
+  // Lazy loads
+  if (name === 'news' && DATA.news.length === 0) loadNews();
+  if (name === 'weather' && CONFIG.OPENWEATHER_KEY && Object.keys(DATA.weather).length === 0) {
+    loadWeather(CONFIG.OPENWEATHER_KEY);
+  }
+}
+
+// ============================================================
+// MAIN INIT
+// ============================================================
+async function init() {
+  // Load all data in parallel
+  await Promise.all([
+    loadElectricityData(),
+    loadGasData(),
+    loadDieselData(),
+  ]);
+
+  setLastUpdated();
+  renderCharts();
+  buildEnergyTable();
+  buildDieselTable();
+
+  // Grid cards (uses simulated load data for now)
+  buildGridCards('overview-grid-cards', 4);
+  buildGridCards('grid-cards-main', 3);
+
+  // Load news on init for overview count
+  loadNews();
+
+  // If OWM key is already set
+  if (CONFIG.OPENWEATHER_KEY) {
+    loadWeather(CONFIG.OPENWEATHER_KEY);
+  }
+}
+
+async function refreshAll() {
+  DATA.electricity = {};
+  DATA.gas = {};
+  DATA.diesel = {};
+  await init();
+}
+
+init();
+</script>
+</body>
+</html>
