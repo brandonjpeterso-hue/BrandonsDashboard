@@ -5,648 +5,506 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brandon's Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: #0a0a0f;
-            --surface: #111118;
-            --border: #1e1e2e;
-            --header-bg: #16161f;
-            --text: #c9c9e0;
-            --text-bright: #eeeeff;
-            --accent: #7c6af7;
-            --green: #00e676;
-            --red: #ff4444;
-            --yellow: #ffd740;
-            --dim: #555570;
-            --mono: 'JetBrains Mono', monospace;
-            --sans: 'Syne', sans-serif;
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 10px;
+            line-height: 1.4;
+            font-size: 0.9em;
         }
-
-```
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-        font-family: var(--mono);
-        background-color: var(--bg);
-        color: var(--text);
-        padding: 12px;
-        font-size: 13px;
-        line-height: 1.5;
-    }
-
-    h1 {
-        font-family: var(--sans);
-        text-align: center;
-        color: var(--text-bright);
-        font-size: 1.6em;
-        font-weight: 800;
-        letter-spacing: -0.02em;
-        padding: 16px 0 20px;
-    }
-
-    h1 span {
-        color: var(--accent);
-    }
-
-    .last-update {
-        text-align: center;
-        font-size: 10px;
-        color: var(--dim);
-        margin-bottom: 16px;
-        letter-spacing: 0.08em;
-    }
-
-    details {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        margin-bottom: 12px;
-        overflow: hidden;
-    }
-
-    summary {
-        padding: 11px 14px;
-        background: var(--header-bg);
-        color: var(--text-bright);
-        font-family: var(--sans);
-        font-weight: 700;
-        font-size: 0.95em;
-        cursor: pointer;
-        letter-spacing: 0.03em;
-        border-bottom: 1px solid var(--border);
-        list-style: none;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    summary::before {
-        content: '▶';
-        font-size: 0.65em;
-        color: var(--accent);
-        transition: transform 0.2s;
-    }
-
-    details[open] summary::before {
-        transform: rotate(90deg);
-    }
-
-    ul { list-style: none; }
-
-    li {
-        padding: 9px 14px;
-        border-bottom: 1px solid var(--border);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 12px;
-    }
-
-    li:last-child { border-bottom: none; }
-
-    .label {
-        color: var(--dim);
-        font-size: 0.82em;
-        letter-spacing: 0.04em;
-        flex-shrink: 0;
-    }
-
-    .value {
-        color: var(--text-bright);
-        font-weight: 600;
-        font-size: 0.88em;
-        text-align: right;
-    }
-
-    .green { color: var(--green) !important; }
-    .red   { color: var(--red) !important; }
-    .yellow { color: var(--yellow) !important; }
-
-    .loading { color: var(--dim); font-style: italic; }
-    .error { color: var(--red); font-size: 0.78em; }
-
-    #news-feed li {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 4px;
-    }
-
-    #news-feed a {
-        color: var(--accent);
-        text-decoration: none;
-        font-size: 0.85em;
-        line-height: 1.4;
-    }
-
-    #news-feed .news-date {
-        color: var(--dim);
-        font-size: 0.75em;
-    }
-
-    .section-icon { opacity: 0.7; }
-
-    @media (min-width: 600px) {
-        body { font-size: 14px; padding: 20px; max-width: 700px; margin: 0 auto; }
-    }
-</style>
-```
-
+        h1 {
+            text-align: center;
+            color: #ffffff;
+            font-size: 1.5em;
+            margin-bottom: 4px;
+        }
+        #last-update {
+            text-align: center;
+            color: #888888;
+            font-size: 0.78em;
+            margin-bottom: 14px;
+        }
+        details {
+            background: #1e1e1e;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        summary {
+            padding: 10px 12px;
+            background: #2a2a2a;
+            color: #ffffff;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1.0em;
+        }
+        ul { list-style: none; padding: 0; margin: 0; }
+        li {
+            padding: 8px 12px;
+            border-bottom: 1px solid #2a2a2a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+        }
+        li:last-child { border-bottom: none; }
+        .label { color: #ffffff; font-weight: normal; }
+        .value { color: #ffffff; font-weight: bold; text-align: right; }
+        .green  { color: #00ff00; }
+        .red    { color: #ff0000; }
+        .yellow { color: #ffff00; }
+        .error  { color: #ff6666; font-weight: normal; font-size: 0.85em; }
+        #news-feed li { flex-direction: column; align-items: flex-start; gap: 3px; }
+        #news-feed a  { color: #7ca8ff; text-decoration: none; font-size: 0.92em; line-height: 1.4; }
+        .news-date    { color: #888; font-size: 0.78em; }
+        @media (min-width: 600px) {
+            body { font-size: 1.1em; padding: 20px; }
+            h1 { font-size: 1.8em; }
+            summary { font-size: 1.2em; }
+            li { font-size: 1.1em; padding: 12px 16px; }
+        }
+    </style>
 </head>
 <body>
-    <h1>Brandon's <span>Dashboard</span></h1>
-    <div class="last-update" id="last-update">Initializing...</div>
+    <h1>Brandon's Dashboard</h1>
+    <div id="last-update">Loading...</div>
 
 ```
 <details open>
-    <summary>₿ Bitcoin</summary>
-    <ul id="btc-metrics">
-        <li><span class="label">Bitcoin Price</span><span class="value loading" id="btc-price">Loading...</span></li>
-        <li><span class="label">24hr Range</span><span class="value loading" id="range24">Loading...</span></li>
-        <li><span class="label">Market Cap</span><span class="value loading" id="market-cap">Loading...</span></li>
-        <li><span class="label">Sats per USD</span><span class="value loading" id="sats-usd">Loading...</span></li>
-        <li><span class="label">ATH Price</span><span class="value loading" id="ath-price">Loading...</span></li>
-        <li><span class="label">Drawdown Since ATH</span><span class="value loading" id="drawdown-ath">Loading...</span></li>
-        <li><span class="label">ATH Date</span><span class="value loading" id="ath-date">Loading...</span></li>
-        <li><span class="label">Fear &amp; Greed Index</span><span class="value loading" id="fear-greed">Loading...</span></li>
-        <li><span class="label">Realized Price</span><span class="value loading" id="realized-price">Loading...</span></li>
-        <li><span class="label">Block Height</span><span class="value loading" id="block-height">Loading...</span></li>
-        <li><span class="label">Average Block Time</span><span class="value loading" id="avg-block-time">Loading...</span></li>
-        <li><span class="label">Money Supply</span><span class="value loading" id="money-supply">Loading...</span></li>
-        <li><span class="label">Estimated Retarget Date</span><span class="value loading" id="retarget-date">Loading...</span></li>
-        <li><span class="label">Hash Rate (24hrs)</span><span class="value loading" id="hash-rate">Loading...</span></li>
-        <li><span class="label">Median Fee – Next Block</span><span class="value loading" id="fee-next">Loading...</span></li>
-        <li><span class="label">Median Fee – 30 Minutes</span><span class="value loading" id="fee-30min">Loading...</span></li>
-        <li><span class="label">Median Fee – 1 Hour</span><span class="value loading" id="fee-1hr">Loading...</span></li>
-        <li><span class="label">Bitcoin Price in Gold Kg</span><span class="value loading" id="btc-gold-kg">Loading...</span></li>
-        <li><span class="label">Bitcoin vs Gold Market Cap</span><span class="value loading" id="btc-gold-mc">Loading...</span></li>
-        <li><span class="label">Gold Market Cap</span><span class="value loading" id="gold-mc">Loading...</span></li>
-        <li><span class="label">50-Day Moving Average</span><span class="value loading" id="ma-50">Loading...</span></li>
-        <li><span class="label">200-Day Moving Average</span><span class="value loading" id="ma-200">Loading...</span></li>
-        <li><span class="label">Power Law Projected Price</span><span class="value loading" id="power-law-projected">Loading...</span></li>
-        <li><span class="label">Price vs Power Law</span><span class="value loading" id="power-law-ratio">Loading...</span></li>
+    <summary>Bitcoin</summary>
+    <ul>
+        <li><span class="label">Bitcoin Price</span>              <span class="value" id="btc-price">Loading...</span></li>
+        <li><span class="label">24hr Range</span>                 <span class="value" id="range24">Loading...</span></li>
+        <li><span class="label">Market Cap</span>                 <span class="value" id="market-cap">Loading...</span></li>
+        <li><span class="label">Sats per USD</span>               <span class="value" id="sats-usd">Loading...</span></li>
+        <li><span class="label">ATH Price</span>                  <span class="value" id="ath-price">Loading...</span></li>
+        <li><span class="label">Drawdown Since ATH</span>         <span class="value" id="drawdown-ath">Loading...</span></li>
+        <li><span class="label">ATH Date</span>                   <span class="value" id="ath-date">Loading...</span></li>
+        <li><span class="label">Fear &amp; Greed Index</span>     <span class="value" id="fear-greed">Loading...</span></li>
+        <li><span class="label">Realized Price</span>             <span class="value" id="realized-price">Loading...</span></li>
+        <li><span class="label">Block Height</span>               <span class="value" id="block-height">Loading...</span></li>
+        <li><span class="label">Average Block Time</span>         <span class="value" id="avg-block-time">Loading...</span></li>
+        <li><span class="label">Money Supply</span>               <span class="value" id="money-supply">Loading...</span></li>
+        <li><span class="label">Estimated Retarget Date</span>    <span class="value" id="retarget-date">Loading...</span></li>
+        <li><span class="label">Hash Rate (24hrs)</span>          <span class="value" id="hash-rate">Loading...</span></li>
+        <li><span class="label">Median Fee - Next Block</span>    <span class="value" id="fee-next">Loading...</span></li>
+        <li><span class="label">Median Fee - 30 Minutes</span>    <span class="value" id="fee-30min">Loading...</span></li>
+        <li><span class="label">Median Fee - 1 Hour</span>        <span class="value" id="fee-1hr">Loading...</span></li>
+        <li><span class="label">Bitcoin Price in Gold Kg</span>   <span class="value" id="btc-gold-kg">Loading...</span></li>
+        <li><span class="label">Bitcoin vs Gold Market Cap</span> <span class="value" id="btc-gold-mc">Loading...</span></li>
+        <li><span class="label">Gold Market Cap</span>            <span class="value" id="gold-mc">Loading...</span></li>
+        <li><span class="label">50-Day Moving Average</span>      <span class="value" id="ma-50">Loading...</span></li>
+        <li><span class="label">200-Day Moving Average</span>     <span class="value" id="ma-200">Loading...</span></li>
+        <li><span class="label">Power Law Projected Price</span>  <span class="value" id="power-law-projected">Loading...</span></li>
+        <li><span class="label">Price vs Power Law</span>         <span class="value" id="power-law-ratio">Loading...</span></li>
     </ul>
 </details>
 
 <details open>
-    <summary>📈 Stocks &amp; Other Assets</summary>
-    <ul id="assets-metrics">
-        <li><span class="label">Gold Spot</span><span class="value loading" id="gold">Loading...</span></li>
-        <li><span class="label">Silver Spot</span><span class="value loading" id="silver">Loading...</span></li>
-        <li><span class="label">S&amp;P 500 (SPY)</span><span class="value loading" id="sp500">Loading...</span></li>
-        <li><span class="label">DOW (DIA)</span><span class="value loading" id="dow">Loading...</span></li>
-        <li><span class="label">Ethereum</span><span class="value loading" id="eth">Loading...</span></li>
-        <li><span class="label">Solana</span><span class="value loading" id="sol">Loading...</span></li>
-        <li><span class="label">Mag 7 (Combined)</span><span class="value loading" id="mag7">Loading...</span></li>
-        <li><span class="label">S&amp;P 493 (Est.)</span><span class="value loading" id="sp493">Loading...</span></li>
-        <li><span class="label">10 Year Bond (TNX)</span><span class="value loading" id="bond10yr">Loading...</span></li>
-        <li><span class="label">GBP/USD</span><span class="value loading" id="gbpusd">Loading...</span></li>
-        <li><span class="label">EUR/USD</span><span class="value loading" id="eurusd">Loading...</span></li>
-        <li><span class="label">FTSE 100 (ISF.L)</span><span class="value loading" id="ftse100">Loading...</span></li>
-        <li><span class="label">Nikkei 225 (^N225)</span><span class="value loading" id="nikkei225">Loading...</span></li>
+    <summary>Stocks and Other Assets</summary>
+    <ul>
+        <li><span class="label">Gold Spot</span>                  <span class="value" id="gold">Loading...</span></li>
+        <li><span class="label">Silver Spot</span>                <span class="value" id="silver">Loading...</span></li>
+        <li><span class="label">S&amp;P 500</span>                <span class="value" id="sp500">Loading...</span></li>
+        <li><span class="label">DOW</span>                        <span class="value" id="dow">Loading...</span></li>
+        <li><span class="label">Ethereum</span>                   <span class="value" id="eth">Loading...</span></li>
+        <li><span class="label">Solana</span>                     <span class="value" id="sol">Loading...</span></li>
+        <li><span class="label">Mag 7 (Combined)</span>           <span class="value" id="mag7">Loading...</span></li>
+        <li><span class="label">S&amp;P 493</span>                <span class="value" id="sp493">Loading...</span></li>
+        <li><span class="label">10 Year Bond Interest Rate</span> <span class="value" id="bond10yr">Loading...</span></li>
+        <li><span class="label">GBP/USD</span>                    <span class="value" id="gbpusd">Loading...</span></li>
+        <li><span class="label">EUR/USD</span>                    <span class="value" id="eurusd">Loading...</span></li>
+        <li><span class="label">FTSE 100</span>                   <span class="value" id="ftse100">Loading...</span></li>
+        <li><span class="label">Nikkei 225</span>                 <span class="value" id="nikkei225">Loading...</span></li>
     </ul>
 </details>
 
 <details open>
-    <summary>📰 News Feed</summary>
+    <summary>News Feed</summary>
     <ul id="news-feed">
-        <li><span class="value loading">Loading...</span></li>
+        <li><span class="value">Loading...</span></li>
     </ul>
 </details>
 
 <script>
-    // ─── State ───────────────────────────────────────────────
-    let currentPrice = 0;
-    let marketCap    = 0;
-    let goldPrice    = 0;
+// ── Globals ──────────────────────────────────────────────────
+var currentPrice = 0;
+var marketCap    = 0;
+var goldPrice    = 0;
 
-    // ─── Helpers ─────────────────────────────────────────────
-    function fmt(num, dec = 2) {
-        if (num === null || num === undefined || isNaN(num)) return 'N/A';
-        return Number(num).toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+// ── Helpers ──────────────────────────────────────────────────
+function fmt(n, dec) {
+    dec = (dec === undefined) ? 2 : dec;
+    if (n === null || n === undefined || isNaN(n)) return 'N/A';
+    return Number(n).toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+}
+function setVal(id, text, cls) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = text;
+    el.className = 'value' + (cls ? ' ' + cls : '');
+}
+function setErr(id, msg) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = 'Error: ' + msg;
+    el.className = 'value error';
+}
+function fmtDate(s) {
+    return new Date(s).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+}
+function fmtUnixDate(unix) {
+    return new Date(unix * 1000).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+}
+function chgColor(n) { return n > 0 ? 'green' : n < 0 ? 'red' : ''; }
+
+// ── 1. BTC core (CoinGecko) ──────────────────────────────────
+async function fetchBTC() {
+    try {
+        var r = await fetch('https://api.coingecko.com/api/v3/coins/bitcoin?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        var d  = await r.json();
+        var md = d.market_data;
+        currentPrice = md.current_price.usd  || 0;
+        marketCap    = md.market_cap.usd      || 0;
+        var high24 = md.high_24h.usd          || 0;
+        var low24  = md.low_24h.usd           || 0;
+        var ath    = md.ath.usd               || 0;
+        var supply = md.circulating_supply    || 0;
+        var dd     = ath ? ((currentPrice - ath) / ath * 100).toFixed(2) : 'N/A';
+
+        setVal('btc-price',    '$' + fmt(currentPrice));
+        setVal('range24',      '$' + fmt(low24) + ' - $' + fmt(high24));
+        setVal('market-cap',   '$' + fmt(marketCap / 1e12) + 'T');
+        setVal('sats-usd',     currentPrice ? fmt(1e8 / currentPrice, 0) + ' sats' : 'N/A');
+        setVal('ath-price',    '$' + fmt(ath));
+        setVal('drawdown-ath', dd + '%', 'red');
+        setVal('ath-date',     fmtDate(md.ath_date.usd));
+        setVal('money-supply', fmt(supply, 0) + ' BTC');
+    } catch(e) {
+        console.error('BTC:', e);
+        setErr('btc-price', e.message);
     }
+}
 
-    function setVal(id, text, colorClass) {
-        const el = document.getElementById(id);
-        if (!el) return;
-        el.textContent = text;
-        el.classList.remove('loading', 'green', 'red', 'yellow');
-        if (colorClass) el.classList.add(colorClass);
+// ── 2. Fear & Greed ──────────────────────────────────────────
+async function fetchFearGreed() {
+    try {
+        var r = await fetch('https://api.alternative.me/fng/?limit=1');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        var d     = await r.json();
+        var item  = d.data[0];
+        var label = item.value_classification;
+        var color = label.includes('Greed') ? 'green' : label.includes('Fear') ? 'red' : 'yellow';
+        var el    = document.getElementById('fear-greed');
+        el.innerHTML = '<a href="https://www.coinglass.com/FearGreedIndex" target="_blank" style="color:inherit;text-decoration:none">'
+                       + item.value + ' (' + label + ')</a>';
+        el.className = 'value ' + color;
+    } catch(e) {
+        console.error('FNG:', e);
+        setErr('fear-greed', e.message);
     }
+}
 
-    function setErr(id, msg) {
-        const el = document.getElementById(id);
-        if (!el) return;
-        el.textContent = '⚠ ' + msg;
-        el.classList.remove('loading');
-        el.classList.add('error');
-    }
+// ── 3. On-chain (Mempool.space) ──────────────────────────────
+async function fetchOnChain() {
+    try {
+        var r = await fetch('https://mempool.space/api/blocks/tip/height');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        setVal('block-height', fmt(parseInt(await r.text(), 10), 0));
+    } catch(e) { setErr('block-height', e.message); }
 
-    function fmtDate(dateStr) {
-        return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    }
-
-    function fmtUnixDate(unix) {
-        return new Date(unix * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    }
-
-    // ─── 1. BTC core data via CoinGecko (free, CORS ok) ──────
-    async function fetchBTCMetrics() {
-        try {
-            const r = await fetch(
-                'https://api.coingecko.com/api/v3/coins/bitcoin?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false',
-                { cache: 'no-cache' }
-            );
-            if (!r.ok) throw new Error(`HTTP ${r.status}`);
-            const d = await r.json();
-            const md = d.market_data;
-
-            currentPrice = md.current_price.usd || 0;
-            marketCap    = md.market_cap.usd    || 0;
-            const high24 = md.high_24h.usd      || 0;
-            const low24  = md.low_24h.usd       || 0;
-            const ath    = md.ath.usd            || 0;
-            const supply = md.circulating_supply || 0;
-            const dd     = ath ? ((currentPrice - ath) / ath * 100).toFixed(2) : 'N/A';
-
-            setVal('btc-price',    `$${fmt(currentPrice)}`);
-            setVal('range24',      `$${fmt(low24)} – $${fmt(high24)}`);
-            setVal('market-cap',   `$${fmt(marketCap / 1e12)}T`);
-            setVal('sats-usd',     currentPrice ? `${fmt(1e8 / currentPrice, 0)} sats` : 'N/A');
-            setVal('ath-price',    `$${fmt(ath)}`);
-            setVal('drawdown-ath', `${dd}%`, 'red');
-            setVal('ath-date',     fmtDate(md.ath_date.usd));
-            setVal('money-supply', `${fmt(supply, 0)} BTC`);
-
-            console.log('✅ BTC metrics loaded');
-        } catch (e) {
-            console.error('❌ BTC metrics:', e);
-            setErr('btc-price', 'CoinGecko – ' + e.message);
-        }
-    }
-
-    // ─── 2. Fear & Greed (alternative.me – CORS ok) ──────────
-    async function fetchFearGreed() {
-        try {
-            const r = await fetch('https://api.alternative.me/fng/?limit=1');
-            if (!r.ok) throw new Error(`HTTP ${r.status}`);
-            const d = await r.json();
-            const item   = d.data[0];
-            const v      = item.value;
-            const label  = item.value_classification;
-            const color  = label.includes('Greed') ? 'green' : label.includes('Fear') ? 'red' : 'yellow';
-            const el     = document.getElementById('fear-greed');
-            el.innerHTML = `<a href="https://www.coinglass.com/FearGreedIndex" target="_blank" style="color:inherit;text-decoration:none">${v} (${label})</a>`;
-            el.classList.remove('loading');
-            el.classList.add(color);
-            console.log('✅ Fear & Greed loaded');
-        } catch (e) {
-            console.error('❌ Fear & Greed:', e);
-            setErr('fear-greed', e.message);
-        }
-    }
-
-    // ─── 3. On-chain via Mempool.space (CORS ok) ─────────────
-    async function fetchOnChain() {
-        // Block height
-        try {
-            const r = await fetch('https://mempool.space/api/blocks/tip/height');
-            if (!r.ok) throw new Error(`HTTP ${r.status}`);
-            const h = parseInt(await r.text(), 10);
-            setVal('block-height', fmt(h, 0));
-        } catch (e) { setErr('block-height', e.message); }
-
-        // Difficulty / retarget
-        try {
-            const r = await fetch('https://mempool.space/api/v1/difficulty-adjustment');
-            if (!r.ok) throw new Error(`HTTP ${r.status}`);
-            const d = await r.json();
-            console.log('Difficulty data:', d);  // DEBUG – inspect field names
-
-            // averageBlockTime is in SECONDS (not ms) on current Mempool API
-            const avgSec = d.timeAvg || d.averageBlockTime;
-            if (avgSec && !isNaN(avgSec)) {
-                const secs = Math.round(avgSec);  // already seconds
-                setVal('avg-block-time', `${Math.floor(secs / 60)}m ${secs % 60}s`);
-            } else {
-                setVal('avg-block-time', 'N/A');
-            }
-
-            // retarget date – Mempool returns ms epoch
-            const retargetMs = d.estimatedRetargetDate;
-            if (retargetMs) {
-                setVal('retarget-date', fmtUnixDate(retargetMs / 1000));
-            }
-        } catch (e) { setErr('avg-block-time', e.message); setErr('retarget-date', e.message); }
-
-        // Hash rate
-        try {
-            const r = await fetch('https://mempool.space/api/v1/mining/hashrate/1m');
-            if (!r.ok) throw new Error(`HTTP ${r.status}`);
-            const d = await r.json();
-            // currentHashrate is in H/s
-            const eh = d.currentHashrate / 1e18;
-            setVal('hash-rate', `${fmt(eh, 0)} EH/s`);
-        } catch (e) { setErr('hash-rate', e.message); }
-
-        // Fees
-        try {
-            const r = await fetch('https://mempool.space/api/v1/fees/recommended');
-            if (!r.ok) throw new Error(`HTTP ${r.status}`);
-            const d = await r.json();
-            setVal('fee-next',   `${d.fastestFee} sat/vB`);
-            setVal('fee-30min',  `${d.halfHourFee} sat/vB`);
-            setVal('fee-1hr',    `${d.hourFee} sat/vB`);
-        } catch (e) { setErr('fee-next', e.message); }
-
-        console.log('✅ On-chain loaded');
-    }
-
-    // ─── 4. Realized Price via CoinMetrics (free, CORS ok) ───
-    async function fetchRealizedPrice() {
-        try {
-            const r = await fetch(
-                'https://community-api.coinmetrics.io/v4/timeseries/asset-metrics?assets=btc&metrics=CapRealUSD,SplyCur&limit_per_asset=1&page_size=1',
-                { cache: 'no-cache' }
-            );
-            if (!r.ok) throw new Error(`HTTP ${r.status}`);
-            const d    = await r.json();
-            const item = d.data?.[0];
-            if (!item) throw new Error('No data');
-            const realizedCap   = parseFloat(item.CapRealUSD);
-            const supply        = parseFloat(item.SplyCur);
-            const realizedPrice = realizedCap / supply;
-            setVal('realized-price', `$${fmt(realizedPrice)}`);
-            console.log('✅ Realized price loaded');
-        } catch (e) {
-            console.error('❌ Realized price:', e);
-            setErr('realized-price', e.message);
-        }
-    }
-
-    // ─── 5. Gold/Silver via metals-api.com OR frankfurter ────
-    // Using open.er-api.com for XAU/XAG rates (free, no key, CORS ok)
-    async function fetchGoldSilver() {
-        try {
-            // ExchangeRate-API gives us USD/XAU and USD/XAG
-            const r = await fetch('https://open.er-api.com/v6/latest/USD');
-            if (!r.ok) throw new Error(`HTTP ${r.status}`);
-            const d = await r.json();
-            // Rates are "1 USD = X units", so for gold: 1 USD = 0.000X XAU
-            // Invert to get USD per troy oz
-            const xauRate = d.rates['XAU']; // oz of gold per 1 USD
-            const xagRate = d.rates['XAG'];
-            if (!xauRate || !xagRate) throw new Error('XAU/XAG not in response');
-            goldPrice = 1 / xauRate;        // USD per oz
-            const silverPrice = 1 / xagRate;
-
-            setVal('gold',   `$${fmt(goldPrice)}/oz`);
-            setVal('silver', `$${fmt(silverPrice)}/oz`);
-
-            // Derived gold metrics (requires currentPrice & marketCap set first)
-            if (currentPrice > 0 && goldPrice > 0) {
-                const goldMc    = goldPrice * 12_000_000_000; // ~200k tonnes * 32150.7 oz/tonne * price
-                // More accurate: world gold ~212,582 tonnes = 6.83B oz
-                const goldOzTotal = 6_830_000_000;
-                const goldMcReal  = goldPrice * goldOzTotal;
-                const btcGoldKg   = currentPrice / (goldPrice * 32.1507);
-                const btcGoldMc   = marketCap / goldMcReal;
-
-                setVal('btc-gold-kg', `${fmt(btcGoldKg, 2)} kg`);
-                setVal('btc-gold-mc', `${fmt(btcGoldMc * 100, 1)}% of gold`);
-                setVal('gold-mc',     `$${fmt(goldMcReal / 1e12, 2)}T`);
-            }
-            console.log('✅ Gold/Silver loaded');
-        } catch (e) {
-            console.error('❌ Gold/Silver:', e);
-            setErr('gold', e.message);
-            setErr('silver', e.message);
-            setErr('btc-gold-kg', 'Needs gold price');
-            setErr('btc-gold-mc', 'Needs gold price');
-            setErr('gold-mc',     'Needs gold price');
-        }
-    }
-
-    // ─── 6. Historical MAs + Power Law (CoinGecko) ───────────
-    async function fetchHistorical() {
-        try {
-            const r = await fetch(
-                'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=200&interval=daily'
-            );
-            if (!r.ok) throw new Error(`HTTP ${r.status}`);
-            const d      = await r.json();
-            const prices = d.prices;   // [ [timestamp, price], ... ]
-            if (!prices || prices.length < 50) throw new Error('Not enough data');
-
-            const last200 = prices.slice(-200);
-            const last50  = prices.slice(-50);
-            const ma200   = last200.reduce((s, p) => s + p[1], 0) / last200.length;
-            const ma50    = last50.reduce((s, p)  => s + p[1], 0) / last50.length;
-
-            // Power law – Giovanni Santostasi model coefficients
-            // log10(price) = 5.8 * log10(days) - 19.3  (commonly cited version)
-            const genesisTs      = 1231006505; // 2009-01-03 in Unix
-            const daysSinceGenesis = (Date.now() / 1000 - genesisTs) / 86400;
-            const powerLawProj   = Math.pow(10, 5.8 * Math.log10(daysSinceGenesis) - 19.3);
-            const ratio          = currentPrice > 0 ? currentPrice / powerLawProj : 0;
-            const ratioColor     = ratio > 1.5 ? 'red' : ratio < 0.7 ? 'green' : 'yellow';
-
-            setVal('ma-50',              `$${fmt(ma50)}`);
-            setVal('ma-200',             `$${fmt(ma200)}`);
-            setVal('power-law-projected',`$${fmt(powerLawProj)}`);
-            setVal('power-law-ratio',    `${fmt(ratio, 2)}x`, ratioColor);
-            console.log('✅ Historical loaded');
-        } catch (e) {
-            console.error('❌ Historical:', e);
-            setErr('ma-50', e.message);
-            setErr('ma-200', e.message);
-            setErr('power-law-projected', e.message);
-        }
-    }
-
-    // ─── 7. Crypto alts (ETH, SOL) via CoinGecko ─────────────
-    async function fetchAltcoins() {
-        try {
-            const r = await fetch(
-                'https://api.coingecko.com/api/v3/simple/price?ids=ethereum,solana&vs_currencies=usd&include_24hr_change=true'
-            );
-            if (!r.ok) throw new Error(`HTTP ${r.status}`);
-            const d = await r.json();
-            const ethP = d.ethereum?.usd;
-            const ethC = d.ethereum?.usd_24h_change;
-            const solP = d.solana?.usd;
-            const solC = d.solana?.usd_24h_change;
-            setVal('eth', `$${fmt(ethP)} (${ethC > 0 ? '+' : ''}${fmt(ethC, 1)}%)`, ethC > 0 ? 'green' : 'red');
-            setVal('sol', `$${fmt(solP)} (${solC > 0 ? '+' : ''}${fmt(solC, 1)}%)`, solC > 0 ? 'green' : 'red');
-            console.log('✅ Altcoins loaded');
-        } catch (e) {
-            console.error('❌ Altcoins:', e);
-            setErr('eth', e.message);
-            setErr('sol', e.message);
-        }
-    }
-
-    // ─── 8. Stocks via Yahoo Finance (no key, usually CORS ok) ──
-    // Using a CORS proxy for Yahoo Finance since direct calls are blocked
-    async function fetchStocks() {
-        const PROXY = 'https://corsproxy.io/?';
-
-        async function yahooQuote(symbol) {
-            const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?interval=1d&range=2d`;
-            try {
-                const r = await fetch(PROXY + encodeURIComponent(url));
-                if (!r.ok) throw new Error(`HTTP ${r.status}`);
-                const d     = await r.json();
-                const meta  = d.chart?.result?.[0]?.meta;
-                if (!meta) throw new Error('No meta');
-                const price = meta.regularMarketPrice;
-                const prev  = meta.previousClose || meta.chartPreviousClose;
-                const chgPct = prev ? ((price - prev) / prev * 100) : null;
-                return { price, chgPct };
-            } catch (e) {
-                console.warn(`Yahoo ${symbol}:`, e.message);
-                return null;
-            }
-        }
-
-        const symbols = {
-            sp500:    'SPY',
-            dow:      'DIA',
-            bond10yr: '^TNX',
-            ftse100:  'ISF.L',
-            nikkei225:'^N225',
-        };
-
-        for (const [id, sym] of Object.entries(symbols)) {
-            const q = await yahooQuote(sym);
-            if (q && q.price) {
-                const chg   = q.chgPct;
-                const color = chg > 0 ? 'green' : 'red';
-                const sign  = chg > 0 ? '+' : '';
-                if (id === 'bond10yr') {
-                    setVal(id, `${fmt(q.price, 3)}% (${sign}${fmt(chg, 2)}%)`, color);
-                } else {
-                    setVal(id, `${fmt(q.price)} (${sign}${fmt(chg, 2)}%)`, color);
-                }
-            } else {
-                setErr(id, 'No data');
-            }
-        }
-
-        // Forex via open.er-api.com (already called, but re-use here for FX display)
-        try {
-            const r = await fetch('https://open.er-api.com/v6/latest/USD');
-            if (!r.ok) throw new Error(`HTTP ${r.status}`);
-            const d = await r.json();
-            const gbp = d.rates['GBP'];
-            const eur = d.rates['EUR'];
-            setVal('gbpusd', gbp ? fmt(1 / gbp, 4) : 'N/A');
-            setVal('eurusd', eur ? fmt(1 / eur, 4) : 'N/A');
-        } catch (e) {
-            setErr('gbpusd', e.message);
-            setErr('eurusd', e.message);
-        }
-
-        // Mag 7 combined market cap via Yahoo batch
-        const mag7Tickers = ['AAPL','AMZN','GOOGL','META','MSFT','NVDA','TSLA'];
-        let mag7Total = 0;
-        for (const sym of mag7Tickers) {
-            try {
-                const url = `https://query1.finance.yahoo.com/v8/finance/chart/${sym}?interval=1d&range=1d`;
-                const r   = await fetch(PROXY + encodeURIComponent(url));
-                if (!r.ok) continue;
-                const d   = await r.json();
-                const meta = d.chart?.result?.[0]?.meta;
-                if (!meta) continue;
-                const mc = meta.marketCap || 0;
-                mag7Total += mc;
-            } catch (_) {}
-        }
-        if (mag7Total > 0) {
-            setVal('mag7', `$${fmt(mag7Total / 1e12, 2)}T`);
-            const sp500EstMc = 45e12;
-            setVal('sp493', `$${fmt((sp500EstMc - mag7Total) / 1e12, 2)}T (est.)`);
+    try {
+        var r = await fetch('https://mempool.space/api/v1/difficulty-adjustment');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        var d = await r.json();
+        // timeAvg is in milliseconds; divide by 1000 for seconds
+        var ms   = (d.timeAvg !== undefined) ? d.timeAvg : (d.averageBlockTime || 0);
+        var secs = Math.round(ms / 1000);
+        // Sanity check: block time should be 1-60 mins (60-3600 secs)
+        if (secs >= 60 && secs <= 3600) {
+            setVal('avg-block-time', Math.floor(secs / 60) + 'm ' + (secs % 60) + 's');
+        } else if (ms >= 60 && ms <= 3600) {
+            // Value was already in seconds
+            setVal('avg-block-time', Math.floor(ms / 60) + 'm ' + (ms % 60) + 's');
         } else {
-            setErr('mag7', 'No data');
-            setErr('sp493', 'No data');
+            setVal('avg-block-time', 'N/A');
         }
-
-        console.log('✅ Stocks attempted');
+        if (d.estimatedRetargetDate) {
+            setVal('retarget-date', fmtUnixDate(d.estimatedRetargetDate / 1000));
+        }
+    } catch(e) {
+        setErr('avg-block-time', e.message);
+        setErr('retarget-date', e.message);
     }
 
-    // ─── 9. News via CryptoPanic (public endpoint, no key needed) ──
-    async function fetchNews() {
-        try {
-            // Using a public RSS-to-JSON service with a crypto-focused feed
-            const FEED = 'https://feeds.feedburner.com/CoinDesk';
-            const r    = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(FEED)}&count=6`);
-            if (!r.ok) throw new Error(`HTTP ${r.status}`);
-            const d = await r.json();
-            if (d.status !== 'ok' || !d.items?.length) throw new Error(d.message || 'Bad response');
+    try {
+        var r = await fetch('https://mempool.space/api/v1/mining/hashrate/1m');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        var d = await r.json();
+        setVal('hash-rate', fmt(d.currentHashrate / 1e18, 0) + ' EH/s');
+    } catch(e) { setErr('hash-rate', e.message); }
 
-            const list = document.getElementById('news-feed');
+    try {
+        var r = await fetch('https://mempool.space/api/v1/fees/recommended');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        var d = await r.json();
+        setVal('fee-next',  d.fastestFee  + ' sat/vB');
+        setVal('fee-30min', d.halfHourFee + ' sat/vB');
+        setVal('fee-1hr',   d.hourFee     + ' sat/vB');
+    } catch(e) { setErr('fee-next', e.message); }
+}
+
+// ── 4. Realized Price (CoinMetrics community) ────────────────
+async function fetchRealizedPrice() {
+    try {
+        var r = await fetch('https://community-api.coinmetrics.io/v4/timeseries/asset-metrics?assets=btc&metrics=CapRealUSD,SplyCur&limit_per_asset=1&page_size=1');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        var d    = await r.json();
+        var item = d.data && d.data[0];
+        if (!item || !item.CapRealUSD || !item.SplyCur) throw new Error('Missing fields');
+        var rp = parseFloat(item.CapRealUSD) / parseFloat(item.SplyCur);
+        setVal('realized-price', '$' + fmt(rp));
+    } catch(e) {
+        console.error('Realized price:', e);
+        setErr('realized-price', 'Unavailable');
+    }
+}
+
+// ── 5. Gold & Silver (metals.live, frankfurter fallback) ─────
+async function fetchGoldSilver() {
+    var goldOz = 6830000000; // ~212k tonnes world supply in troy oz
+
+    try {
+        var r = await fetch('https://api.metals.live/v1/spot');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        var d = await r.json();
+        var gold = null, silver = null;
+        for (var i = 0; i < d.length; i++) {
+            if (d[i].gold   !== undefined) gold   = d[i].gold;
+            if (d[i].silver !== undefined) silver = d[i].silver;
+        }
+        if (!gold) throw new Error('Gold not found');
+        goldPrice = gold;
+        setVal('gold',   '$' + fmt(gold)   + '/oz');
+        setVal('silver', '$' + fmt(silver) + '/oz');
+        var goldMc = gold * goldOz;
+        setVal('btc-gold-kg', fmt(currentPrice / (gold * 32.1507), 4) + ' kg');
+        setVal('btc-gold-mc', fmt((marketCap / goldMc) * 100, 2) + '% of Gold MC');
+        setVal('gold-mc', '$' + fmt(goldMc / 1e12, 2) + 'T');
+    } catch(e) {
+        console.warn('metals.live failed, trying frankfurter:', e.message);
+        try {
+            var r2 = await fetch('https://api.frankfurter.app/latest?from=XAU&to=USD');
+            if (!r2.ok) throw new Error('HTTP ' + r2.status);
+            var d2 = await r2.json();
+            goldPrice = d2.rates && d2.rates.USD;
+            if (!goldPrice) throw new Error('No USD rate');
+            setVal('gold', '$' + fmt(goldPrice) + '/oz');
+            setErr('silver', 'Unavailable');
+            var goldMc = goldPrice * goldOz;
+            setVal('btc-gold-kg', fmt(currentPrice / (goldPrice * 32.1507), 4) + ' kg');
+            setVal('btc-gold-mc', fmt((marketCap / goldMc) * 100, 2) + '% of Gold MC');
+            setVal('gold-mc', '$' + fmt(goldMc / 1e12, 2) + 'T');
+        } catch(e2) {
+            console.error('Gold both sources failed:', e2.message);
+            setErr('gold',       'Unavailable');
+            setErr('silver',     'Unavailable');
+            setErr('btc-gold-kg','Needs gold price');
+            setErr('btc-gold-mc','Needs gold price');
+            setErr('gold-mc',    'Needs gold price');
+        }
+    }
+}
+
+// ── 6. Historical MAs + Power Law (CoinGecko) ────────────────
+async function fetchHistorical() {
+    try {
+        var r = await fetch('https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=200&interval=daily');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        var d      = await r.json();
+        var prices = d.prices;
+        if (!prices || prices.length < 50) throw new Error('Not enough data');
+
+        var last50  = prices.slice(-50);
+        var last200 = prices.slice(-200);
+        var ma50    = last50.reduce(function(s,p){ return s+p[1]; }, 0) / last50.length;
+        var ma200   = last200.reduce(function(s,p){ return s+p[1]; }, 0) / last200.length;
+
+        // Power Law (Santostasi): log10(P) = 5.84 * log10(days) - 19.3
+        var genesis  = 1231006505;
+        var days     = (Date.now() / 1000 - genesis) / 86400;
+        var plProj   = Math.pow(10, 5.84 * Math.log10(days) - 19.3);
+        var ratio    = currentPrice > 0 ? currentPrice / plProj : 0;
+        var ratioClr = ratio > 2 ? 'red' : ratio < 0.5 ? 'green' : 'yellow';
+
+        setVal('ma-50',               '$' + fmt(ma50));
+        setVal('ma-200',              '$' + fmt(ma200));
+        setVal('power-law-projected', '$' + fmt(plProj));
+        setVal('power-law-ratio',     fmt(ratio, 2) + 'x', ratioClr);
+    } catch(e) {
+        console.error('Historical:', e);
+        setErr('ma-50', e.message);
+        setErr('ma-200', e.message);
+        setErr('power-law-projected', e.message);
+    }
+}
+
+// ── 7. ETH + SOL (CoinGecko) ─────────────────────────────────
+async function fetchAltcoins() {
+    try {
+        var r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum,solana&vs_currencies=usd&include_24hr_change=true');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        var d    = await r.json();
+        var ethP = d.ethereum && d.ethereum.usd;
+        var ethC = d.ethereum && d.ethereum.usd_24h_change;
+        var solP = d.solana   && d.solana.usd;
+        var solC = d.solana   && d.solana.usd_24h_change;
+        setVal('eth', '$' + fmt(ethP) + ' (' + (ethC>0?'+':'') + fmt(ethC,1) + '%)', chgColor(ethC));
+        setVal('sol', '$' + fmt(solP) + ' (' + (solC>0?'+':'') + fmt(solC,1) + '%)', chgColor(solC));
+    } catch(e) {
+        setErr('eth', e.message);
+        setErr('sol', e.message);
+    }
+}
+
+// ── 8. Stocks (Yahoo Finance via corsproxy.io) ────────────────
+async function fetchStocks() {
+    var PROXY = 'https://corsproxy.io/?url=';
+
+    async function yq(sym) {
+        try {
+            var url = 'https://query1.finance.yahoo.com/v8/finance/chart/' + encodeURIComponent(sym) + '?interval=1d&range=2d';
+            var r   = await fetch(PROXY + encodeURIComponent(url));
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            var d    = await r.json();
+            var meta = d.chart && d.chart.result && d.chart.result[0] && d.chart.result[0].meta;
+            if (!meta || !meta.regularMarketPrice) throw new Error('No price');
+            var price  = meta.regularMarketPrice;
+            var prev   = meta.previousClose || meta.chartPreviousClose || price;
+            return { price: price, chgPct: ((price - prev) / prev) * 100 };
+        } catch(e) {
+            console.warn('Yahoo ' + sym + ':', e.message);
+            return null;
+        }
+    }
+
+    var tickers = [
+        { id:'sp500',     sym:'SPY'   },
+        { id:'dow',       sym:'DIA'   },
+        { id:'bond10yr',  sym:'TNX',  bond:true },
+        { id:'ftse100',   sym:'ISF.L' },
+        { id:'nikkei225', sym:'^N225' },
+    ];
+    for (var i = 0; i < tickers.length; i++) {
+        var t = tickers[i];
+        var q = await yq(t.sym);
+        if (q) {
+            var sign = q.chgPct > 0 ? '+' : '';
+            var txt  = t.bond
+                ? fmt(q.price, 3) + '% (' + sign + fmt(q.chgPct, 2) + '%)'
+                : fmt(q.price)    + ' ('   + sign + fmt(q.chgPct, 2) + '%)';
+            setVal(t.id, txt, chgColor(q.chgPct));
+        } else {
+            setErr(t.id, 'No data');
+        }
+    }
+
+    // Forex via open.er-api.com (free, no key, CORS ok)
+    try {
+        var rf = await fetch('https://open.er-api.com/v6/latest/USD');
+        if (!rf.ok) throw new Error('HTTP ' + rf.status);
+        var df  = await rf.json();
+        var gbp = df.rates && df.rates.GBP;
+        var eur = df.rates && df.rates.EUR;
+        setVal('gbpusd', gbp ? fmt(1/gbp, 4) : 'N/A');
+        setVal('eurusd', eur ? fmt(1/eur, 4) : 'N/A');
+    } catch(e) {
+        setErr('gbpusd', e.message);
+        setErr('eurusd', e.message);
+    }
+
+    // Mag 7 market caps
+    var mag7  = ['AAPL','AMZN','GOOGL','META','MSFT','NVDA','TSLA'];
+    var total = 0, hits = 0;
+    for (var j = 0; j < mag7.length; j++) {
+        try {
+            var mu  = 'https://query1.finance.yahoo.com/v8/finance/chart/' + mag7[j] + '?interval=1d&range=1d';
+            var mr  = await fetch(PROXY + encodeURIComponent(mu));
+            if (!mr.ok) continue;
+            var md2 = await mr.json();
+            var mc  = md2.chart && md2.chart.result && md2.chart.result[0] && md2.chart.result[0].meta && md2.chart.result[0].meta.marketCap || 0;
+            total += mc;
+            if (mc > 0) hits++;
+        } catch(_) {}
+    }
+    if (hits > 0) {
+        setVal('mag7',  '$' + fmt(total / 1e12, 2) + 'T');
+        setVal('sp493', '$' + fmt((45e12 - total) / 1e12, 2) + 'T (est.)');
+    } else {
+        setErr('mag7',  'No data');
+        setErr('sp493', 'No data');
+    }
+}
+
+// ── 9. News (multiple RSS feeds via rss2json) ─────────────────
+async function fetchNews() {
+    var feeds = [
+        'https://www.coindesk.com/arc/outboundfeeds/rss/',
+        'https://cointelegraph.com/rss',
+        'https://bitcoinmagazine.com/.rss/full/',
+    ];
+    var list = document.getElementById('news-feed');
+
+    for (var i = 0; i < feeds.length; i++) {
+        try {
+            var r = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feeds[i]) + '&count=6');
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            var d = await r.json();
+            if (d.status !== 'ok' || !d.items || !d.items.length) throw new Error(d.message || 'Empty');
             list.innerHTML = '';
-            d.items.slice(0, 6).forEach(item => {
-                const li   = document.createElement('li');
-                const date = new Date(item.pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-                li.innerHTML = `
-                    <a href="${item.link}" target="_blank" rel="noopener">${item.title}</a>
-                    <span class="news-date">${date}</span>
-                `;
+            d.items.slice(0, 6).forEach(function(item) {
+                var li   = document.createElement('li');
+                var date = new Date(item.pubDate).toLocaleDateString('en-US', { month:'short', day:'numeric' });
+                li.innerHTML = '<a href="' + item.link + '" target="_blank" rel="noopener">' + item.title + '</a>'
+                             + '<span class="news-date">' + date + '</span>';
                 list.appendChild(li);
             });
-            console.log('✅ News loaded');
-        } catch (e) {
-            console.error('❌ News:', e);
-            // Fallback: try a different feed
-            try {
-                const FEED2 = 'https://cointelegraph.com/rss';
-                const r2    = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(FEED2)}&count=6`);
-                const d2    = await r2.json();
-                if (d2.status !== 'ok' || !d2.items?.length) throw new Error('Fallback failed');
-                const list = document.getElementById('news-feed');
-                list.innerHTML = '';
-                d2.items.slice(0, 6).forEach(item => {
-                    const li   = document.createElement('li');
-                    const date = new Date(item.pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-                    li.innerHTML = `
-                        <a href="${item.link}" target="_blank" rel="noopener">${item.title}</a>
-                        <span class="news-date">${date}</span>
-                    `;
-                    list.appendChild(li);
-                });
-                console.log('✅ News (fallback) loaded');
-            } catch (e2) {
-                document.getElementById('news-feed').innerHTML = `<li><span class="error">⚠ ${e2.message}</span></li>`;
-            }
+            return;
+        } catch(e) {
+            console.warn('News feed failed (' + feeds[i] + '):', e.message);
         }
     }
+    list.innerHTML = '<li><span class="error">All news feeds unavailable</span></li>';
+}
 
-    // ─── Main refresh ─────────────────────────────────────────
-    async function refreshAll() {
-        document.getElementById('last-update').textContent = 'Refreshing...';
-        try {
-            // Run independent fetches in parallel where possible
-            await fetchBTCMetrics();   // currentPrice & marketCap must be set first
-            await Promise.allSettled([
-                fetchFearGreed(),
-                fetchOnChain(),
-                fetchRealizedPrice(),
-                fetchGoldSilver(),     // uses currentPrice / marketCap from step 1
-                fetchHistorical(),
-                fetchAltcoins(),
-                fetchNews(),
-            ]);
-            await fetchStocks();       // slowest – many sequential Yahoo calls
-        } catch (e) {
-            console.error('Refresh error:', e);
-        }
-        const now = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-        document.getElementById('last-update').textContent = `Last updated: ${now}`;
+// ── Main ─────────────────────────────────────────────────────
+async function refreshAll() {
+    document.getElementById('last-update').textContent = 'Refreshing...';
+    try {
+        await fetchBTC(); // must run first so currentPrice/marketCap are set
+        await Promise.allSettled([
+            fetchFearGreed(),
+            fetchOnChain(),
+            fetchRealizedPrice(),
+            fetchGoldSilver(),
+            fetchHistorical(),
+            fetchAltcoins(),
+            fetchNews(),
+        ]);
+        await fetchStocks();
+    } catch(e) {
+        console.error('Refresh error:', e);
     }
+    var now = new Date().toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' });
+    document.getElementById('last-update').textContent = 'Last updated: ' + now;
+}
 
-    refreshAll();
-    setInterval(refreshAll, 60_000);
+refreshAll();
+setInterval(refreshAll, 60000);
 </script>
 ```
 
