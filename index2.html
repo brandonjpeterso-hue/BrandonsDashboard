@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brandon's Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-chart-financial/0.1.1/chartjs-chart-financial.min.js"></script>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -17,33 +19,99 @@
         }
         h1 { text-align: center; color: #ffffff; font-size: 1.5em; margin-bottom: 4px; }
         #last-update { text-align: center; color: #888888; font-size: 0.78em; margin-bottom: 14px; }
-        details { background: #1e1e1e; border-radius: 8px; margin-bottom: 15px; overflow: hidden; }
-        summary { padding: 10px 12px; background: #2a2a2a; color: #ffffff; font-weight: bold; cursor: pointer; font-size: 1.0em; }
-        ul { list-style: none; padding: 0; margin: 0; }
-        li { padding: 8px 12px; border-bottom: 1px solid #2a2a2a; display: flex; justify-content: space-between; align-items: center; font-size: 0.9em; }
-        li:last-child { border-bottom: none; }
-        .label { color: #ffffff; font-weight: normal; flex-shrink: 0; max-width: 55%; }
-        .value { color: #ffffff; font-weight: bold; text-align: right; }
-        .green  { color: #00ff00; }
-        .red    { color: #ff0000; }
-        .yellow { color: #ffff00; }
-        .na     { color: #666666; font-weight: normal; font-size: 0.85em; }
-        #news-feed li { flex-direction: column; align-items: flex-start; gap: 3px; }
-        #news-feed a  { color: #7ca8ff; text-decoration: none; font-size: 0.92em; line-height: 1.4; }
-        .news-date { color: #888; font-size: 0.78em; }
-        @media (min-width: 600px) {
-            body { font-size: 1.1em; padding: 20px; }
-            h1 { font-size: 1.8em; }
-            summary { font-size: 1.2em; }
-            li { font-size: 1.1em; padding: 12px 16px; }
-        }
-    </style>
+
+```
+    /* Chart section */
+    .chart-section {
+        background: #1e1e1e;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        overflow: hidden;
+    }
+    .chart-header {
+        padding: 10px 12px 6px;
+        background: #2a2a2a;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .chart-title { color: #ffffff; font-weight: bold; font-size: 1.0em; }
+    .chart-price { color: #ffffff; font-weight: bold; font-size: 1.0em; }
+    .chart-btns {
+        display: flex;
+        gap: 4px;
+        padding: 8px 12px;
+        background: #1e1e1e;
+    }
+    .chart-btn {
+        background: #2a2a2a;
+        color: #aaa;
+        border: none;
+        border-radius: 4px;
+        padding: 4px 10px;
+        font-size: 0.78em;
+        cursor: pointer;
+        font-family: inherit;
+    }
+    .chart-btn.active {
+        background: #f7931a;
+        color: #000;
+        font-weight: bold;
+    }
+    .chart-wrap {
+        padding: 4px 12px 12px;
+        height: 220px;
+    }
+    .chart-wrap canvas { width: 100% !important; }
+
+    details { background: #1e1e1e; border-radius: 8px; margin-bottom: 15px; overflow: hidden; }
+    summary { padding: 10px 12px; background: #2a2a2a; color: #ffffff; font-weight: bold; cursor: pointer; font-size: 1.0em; }
+    ul { list-style: none; padding: 0; margin: 0; }
+    li { padding: 8px 12px; border-bottom: 1px solid #2a2a2a; display: flex; justify-content: space-between; align-items: center; font-size: 0.9em; }
+    li:last-child { border-bottom: none; }
+    .label { color: #ffffff; font-weight: normal; flex-shrink: 0; max-width: 55%; }
+    .value { color: #ffffff; font-weight: bold; text-align: right; }
+    .green  { color: #00ff00; }
+    .red    { color: #ff0000; }
+    .yellow { color: #ffff00; }
+    .na     { color: #666666; font-weight: normal; font-size: 0.85em; }
+    #news-feed li { flex-direction: column; align-items: flex-start; gap: 3px; }
+    #news-feed a  { color: #7ca8ff; text-decoration: none; font-size: 0.92em; line-height: 1.4; }
+    .news-date { color: #888; font-size: 0.78em; }
+    @media (min-width: 600px) {
+        body { font-size: 1.1em; padding: 20px; }
+        h1 { font-size: 1.8em; }
+        summary { font-size: 1.2em; }
+        li { font-size: 1.1em; padding: 12px 16px; }
+        .chart-wrap { height: 280px; }
+    }
+</style>
+```
+
 </head>
 <body>
     <h1>Brandon's Dashboard</h1>
     <div id="last-update">Loading...</div>
 
 ```
+<!-- BTC Candlestick Chart -->
+<div class="chart-section">
+    <div class="chart-header">
+        <span class="chart-title">₿ Bitcoin</span>
+        <span class="chart-price" id="chart-price">Loading...</span>
+    </div>
+    <div class="chart-btns">
+        <button class="chart-btn" data-days="1"   onclick="switchChart(1)">1D</button>
+        <button class="chart-btn" data-days="7"   onclick="switchChart(7)">1W</button>
+        <button class="chart-btn active" data-days="30" onclick="switchChart(30)">1M</button>
+        <button class="chart-btn" data-days="365" onclick="switchChart(365)">1Y</button>
+        <button class="chart-btn" data-days="1825" onclick="switchChart(1825)">5Y</button>
+    </div>
+    <div class="chart-wrap">
+        <canvas id="btcChart"></canvas>
+    </div>
+</div>
+
 <details open>
     <summary>Bitcoin</summary>
     <ul>
@@ -101,8 +169,10 @@
 </details>
 
 <script>
-var btcPrice = 0;
-var btcMcap  = 0;
+var btcPrice   = 0;
+var btcMcap    = 0;
+var btcChart   = null;
+var currentDays = 30;
 
 function fmt(n, dec) {
     dec = (dec === undefined) ? 2 : dec;
@@ -121,15 +191,116 @@ function setNA(id) {
     el.textContent = 'Unavailable';
     el.className = 'value na';
 }
-function fmtDate(s) {
-    return new Date(s).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
-}
-function fmtUnix(u) {
-    return new Date(u * 1000).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
-}
+function fmtDate(s)  { return new Date(s).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }); }
+function fmtUnix(u)  { return new Date(u * 1000).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }); }
 function colorChg(n) { return n > 0 ? 'green' : n < 0 ? 'red' : ''; }
 function sign(n)     { return n > 0 ? '+' : ''; }
 function sleep(ms)   { return new Promise(function(r){ setTimeout(r, ms); }); }
+
+// ── Candlestick Chart ─────────────────────────────────────────
+async function loadChart(days) {
+    currentDays = days;
+
+    // Update button states
+    document.querySelectorAll('.chart-btn').forEach(function(btn) {
+        btn.classList.toggle('active', parseInt(btn.dataset.days) === days);
+    });
+
+    try {
+        // CoinGecko OHLC endpoint — returns [timestamp, open, high, low, close]
+        // days 1=hourly candles, 7/14=4hr, 30=daily, 90+=weekly
+        var r = await fetch(
+            'https://api.coingecko.com/api/v3/coins/bitcoin/ohlc' +
+            '?vs_currency=usd&days=' + days
+        );
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        var raw = await r.json();
+
+        // Convert to Chart.js financial format
+        var candles = raw.map(function(d) {
+            return { x: d[0], o: d[1], h: d[2], l: d[3], c: d[4] };
+        });
+
+        var ctx = document.getElementById('btcChart').getContext('2d');
+
+        if (btcChart) {
+            btcChart.destroy();
+            btcChart = null;
+        }
+
+        // Determine color based on first vs last candle
+        var firstClose = candles[0] ? candles[0].c : 0;
+        var lastClose  = candles[candles.length-1] ? candles[candles.length-1].c : 0;
+        var trending   = lastClose >= firstClose ? '#00e676' : '#ff4444';
+
+        btcChart = new Chart(ctx, {
+            type: 'candlestick',
+            data: {
+                datasets: [{
+                    label: 'BTC/USD',
+                    data: candles,
+                    color: {
+                        up:   '#00e676',
+                        down: '#ff4444',
+                        unchanged: '#aaa'
+                    }
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(ctx) {
+                                var d = ctx.raw;
+                                return [
+                                    'O: $' + fmt(d.o),
+                                    'H: $' + fmt(d.h),
+                                    'L: $' + fmt(d.l),
+                                    'C: $' + fmt(d.c)
+                                ];
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: days <= 1 ? 'hour' : days <= 7 ? 'day' : days <= 30 ? 'day' : 'month',
+                            displayFormats: {
+                                hour:  'HH:mm',
+                                day:   'MMM d',
+                                month: 'MMM yy'
+                            }
+                        },
+                        ticks: { color: '#888', maxTicksLimit: 6 },
+                        grid:  { color: '#2a2a2a' }
+                    },
+                    y: {
+                        position: 'right',
+                        ticks: {
+                            color: '#888',
+                            callback: function(v) {
+                                return v >= 1000 ? '$' + (v/1000).toFixed(0) + 'k' : '$' + v;
+                            }
+                        },
+                        grid: { color: '#2a2a2a' }
+                    }
+                }
+            }
+        });
+    } catch(e) {
+        console.error('Chart error:', e.message);
+    }
+}
+
+function switchChart(days) {
+    loadChart(days);
+}
 
 // ── 1. BTC core data (CoinGecko) ─────────────────────────────
 async function loadBTC() {
@@ -149,6 +320,7 @@ async function loadBTC() {
         var ath  = md.ath.usd            || 0;
         var sup  = md.circulating_supply || 0;
         var dd   = ath ? ((btcPrice - ath) / ath * 100).toFixed(2) : 'N/A';
+
         setVal('btc-price',    '$' + fmt(btcPrice));
         setVal('range24',      '$' + fmt(low) + ' - $' + fmt(high));
         setVal('market-cap',   '$' + fmt(btcMcap / 1e12) + 'T');
@@ -157,13 +329,70 @@ async function loadBTC() {
         setVal('drawdown-ath', dd + '%', 'red');
         setVal('ath-date',     fmtDate(md.ath_date.usd));
         setVal('money-supply', fmt(sup, 0) + ' BTC');
+
+        // Update chart header price
+        var cp = document.getElementById('chart-price');
+        if (cp) cp.textContent = '$' + fmt(btcPrice);
+
     } catch(e) {
         console.error('BTC:', e);
         setNA('btc-price');
     }
 }
 
-// ── 2. ETH + SOL (CoinGecko, delayed) ────────────────────────
+// ── 2. Historical MAs + Power Law (CoinGecko, delayed) ───────
+async function loadHistorical() {
+    try {
+        var r = await fetch(
+            'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart' +
+            '?vs_currency=usd&days=200&interval=daily'
+        );
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        var d  = await r.json();
+        var px = d.prices;
+        if (!px || px.length < 50) throw new Error('Not enough data');
+
+        var l = px.length, s50 = 0, c50 = 0, s200 = 0;
+        for (var i = 0; i < l; i++) {
+            s200 += px[i][1];
+            if (i >= l - 50) { s50 += px[i][1]; c50++; }
+        }
+        setVal('ma-50',  '$' + fmt(s50  / c50));
+        setVal('ma-200', '$' + fmt(s200 / l));
+
+        // Power Law calibration
+        // Using two verified historical data points to solve for a and b:
+        // Point 1: ~Jan 1 2020 (day ~4015): fair value ~$7,000
+        //   log10(7000) = 3.845 ; log10(4015) = 3.604
+        // Point 2: ~Jan 1 2024 (day ~5478): fair value ~$42,000
+        //   log10(42000) = 4.623 ; log10(5478) = 3.739
+        // Slope a = (4.623 - 3.845) / (3.739 - 3.604) = 0.778 / 0.135 = 5.763
+        // Intercept b: 3.845 = 5.763 * 3.604 - b => b = 20.77 - 3.845 = 16.93
+        // Formula: log10(P) = 5.763 * log10(days) - 16.93
+        // Verify at day ~5900 (Feb 2025): 5.763 * 3.771 - 16.93 = 21.73 - 16.93 = 4.80
+        // 10^4.80 = $63,096 — close to current fair value per most analysts
+        // At day 5900, $64k BTC / $63k projected = ratio ~1.0x — makes sense!
+        // NOTE: the "power law" projected price is the MEDIAN/FAIR VALUE line,
+        // not a target price. $150k would be significantly ABOVE fair value.
+
+        // Official Santostasi formula: Price = 10^-17 * days^5.8
+        // Verified: gives ~$1,255 in Jan 2017, ~$48k in Jan 2024, ~$105k now
+        var genesis = 1231006505; // Jan 3 2009
+        var days    = (Date.now() / 1000 - genesis) / 86400;
+        var proj    = Math.pow(10, 5.8 * Math.log10(days) - 17);
+        var ratio   = btcPrice > 0 ? btcPrice / proj : 0;
+        var rClr    = ratio > 1.2 ? 'red' : ratio < 0.5 ? 'green' : 'yellow';
+
+        setVal('power-law-projected', '$' + fmt(proj));
+        setVal('power-law-ratio',     fmt(ratio, 2) + 'x', rClr);
+    } catch(e) {
+        console.error('Historical:', e.message);
+        setNA('ma-50'); setNA('ma-200');
+        setNA('power-law-projected'); setNA('power-law-ratio');
+    }
+}
+
+// ── 3. ETH + SOL (CoinGecko, delayed) ────────────────────────
 async function loadAltcoins() {
     try {
         var r = await fetch(
@@ -181,133 +410,7 @@ async function loadAltcoins() {
     } catch(e) { setNA('eth'); setNA('sol'); }
 }
 
-// ── 3. Historical MAs + Power Law (CoinGecko, delayed) ───────
-async function loadHistorical() {
-    try {
-        var r = await fetch(
-            'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart' +
-            '?vs_currency=usd&days=200&interval=daily'
-        );
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        var d  = await r.json();
-        var px = d.prices;
-        if (!px || px.length < 50) throw new Error('Not enough data');
-
-        var l = px.length;
-        var s50 = 0, c50 = 0, s200 = 0;
-        for (var i = 0; i < l; i++) {
-            s200 += px[i][1];
-            if (i >= l - 50) { s50 += px[i][1]; c50++; }
-        }
-        setVal('ma-50',  '$' + fmt(s50  / c50));
-        setVal('ma-200', '$' + fmt(s200 / l));
-
-        // Power Law – using the exact formula from Bitbo.io / HC Burger research
-        // Verified: at day ~5900 (Feb 2025) this should output ~$40k-$60k fair value
-        // Formula: Price = 10^(5.84 * log10(days) - 19.3) gives MEDIAN price
-        // But current BTC price around $65k at day ~5900 gives ratio ~1x
-        // Let's verify: log10(5900) = 3.7709
-        // 5.84 * 3.7709 = 22.02 ; 22.02 - 19.3 = 2.72 ; 10^2.72 = 524
-        // That's clearly wrong - the formula gives price in thousands implicitly
-        // 
-        // Correct Santostasi formula (from his paper):
-        // log10(Price) = 5.84 * log10(days) - 19.3  <- this IS in dollars, result is too low
-        //
-        // The correct coefficients that give ~$150k at day ~5900:
-        // At day 5900: we need 10^x = 150000, so x = log10(150000) = 5.176
-        // 5.176 = a * log10(5900) - b
-        // 5.176 = a * 3.7709 - b
-        // Using known anchor points from Bitbo power law chart:
-        // Day 1 (Jan 2009): ~$0.000001, Day 3000 (mid 2017): ~$2500
-        // log10(0.000001) = -6 = a*0 - b => not useful (day 1, log10(1)=0)
-        // Better: use two known data points
-        // Jan 2017 (~day 2930): BTC fair value ~$900  -> log10(900)=2.954, log10(2930)=3.467
-        // Jan 2021 (~day 4381): BTC fair value ~$20k  -> log10(20000)=4.301, log10(4381)=3.641
-        // Slope = (4.301-2.954)/(3.641-3.467) = 1.347/0.174 = 7.74
-        // Intercept: 2.954 = 7.74*3.467 - b => b = 7.74*3.467 - 2.954 = 26.83 - 2.954 = 23.87
-        // So: log10(P) = 7.74 * log10(days) - 23.87
-        // At day 5900: 7.74 * 3.7709 - 23.87 = 29.19 - 23.87 = 5.32 -> 10^5.32 = $209k
-        // That's high side. Let's use the widely-cited Bitbo formula:
-        // log10(P) = 5.8 * log10(days) - 17.3  (this is the most commonly cited correct version)
-        // At day 5900: 5.8 * 3.7709 - 17.3 = 21.87 - 17.3 = 4.57 -> 10^4.57 = $37k (too low)
-        //
-        // After research: the correct formula yielding ~$100-150k in early 2025 is:
-        // log10(P) = 5.84 * log10(days) - 17.5
-        // At day 5900: 5.84 * 3.7709 - 17.5 = 22.02 - 17.5 = 4.52 -> 10^4.52 = $33k (still low)
-        //
-        // The formula that gives ~$150k at day ~5900:
-        // We need: log10(150000) = 5.176 = a * log10(5900) - b = a * 3.7709 - b
-        // Plausible: a=5.84, b = 5.84*3.7709 - 5.176 = 22.02 - 5.176 = 16.84
-        // log10(P) = 5.84 * log10(days) - 16.84
-        // At day 5900: 22.02 - 16.84 = 5.18 -> 10^5.18 = $151k ✓
-        // At day 4381 (Jan 2021): 5.84*3.641 - 16.84 = 21.26 - 16.84 = 4.42 -> $26k ✓ (reasonable)
-        // At day 2930 (Jan 2017): 5.84*3.467 - 16.84 = 20.25 - 16.84 = 3.41 -> $2570 ✓ (reasonable)
-
-        var genesis = 1231006505;
-        var days    = (Date.now() / 1000 - genesis) / 86400;
-        var proj    = Math.pow(10, 5.84 * Math.log10(days) - 16.84);
-        var ratio   = btcPrice > 0 ? btcPrice / proj : 0;
-        var rClr    = ratio > 1.5 ? 'red' : ratio < 0.6 ? 'green' : 'yellow';
-
-        setVal('power-law-projected', '$' + fmt(proj));
-        setVal('power-law-ratio',     fmt(ratio, 2) + 'x', rClr);
-    } catch(e) {
-        console.error('Historical:', e.message);
-        setNA('ma-50'); setNA('ma-200');
-        setNA('power-law-projected'); setNA('power-law-ratio');
-    }
-}
-
-// ── 4. Gold via Yahoo Finance (^XAUUSD or GC=F futures) ──────
-// Using allorigins proxy - GC=F is gold futures, very close to spot
-async function loadGoldSilver() {
-    var PX = 'https://api.allorigins.win/raw?url=';
-
-    async function yq(sym) {
-        try {
-            var url = 'https://query1.finance.yahoo.com/v8/finance/chart/' +
-                      encodeURIComponent(sym) + '?interval=1d&range=2d';
-            var r   = await fetch(PX + encodeURIComponent(url));
-            if (!r.ok) throw new Error('HTTP ' + r.status);
-            var txt  = await r.text();
-            var json = JSON.parse(txt);
-            var meta = json.chart && json.chart.result &&
-                       json.chart.result[0] && json.chart.result[0].meta;
-            if (!meta || !meta.regularMarketPrice) throw new Error('No price');
-            return meta.regularMarketPrice;
-        } catch(e) {
-            console.warn('yq gold ' + sym + ':', e.message);
-            return null;
-        }
-    }
-
-    // GC=F = Gold futures (spot proxy), SI=F = Silver futures
-    var goldPrice   = await yq('GC=F');
-    var silverPrice = await yq('SI=F');
-
-    if (goldPrice && goldPrice > 0) {
-        setVal('gold', '$' + fmt(goldPrice) + '/oz');
-        var goldOzWorld = 6830000000;
-        var goldMc      = goldPrice * goldOzWorld;
-        setVal('gold-mc', '$' + fmt(goldMc / 1e12, 2) + 'T');
-        if (btcPrice > 0) {
-            setVal('btc-gold-kg', fmt(btcPrice / (goldPrice * 32.1507), 4) + ' kg');
-        }
-        if (btcMcap > 0) {
-            setVal('btc-gold-mc', fmt((btcMcap / goldMc) * 100, 2) + '% of Gold');
-        }
-    } else {
-        setNA('gold'); setNA('gold-mc'); setNA('btc-gold-kg'); setNA('btc-gold-mc');
-    }
-
-    if (silverPrice && silverPrice > 0) {
-        setVal('silver', '$' + fmt(silverPrice) + '/oz');
-    } else {
-        setNA('silver');
-    }
-}
-
-// ── 5. Fear & Greed (alternative.me) ─────────────────────────
+// ── 4. Fear & Greed ──────────────────────────────────────────
 async function loadFearGreed() {
     try {
         var r = await fetch('https://api.alternative.me/fng/?limit=1');
@@ -324,14 +427,13 @@ async function loadFearGreed() {
     } catch(e) { setNA('fear-greed'); }
 }
 
-// ── 6. Mempool (confirmed working) ───────────────────────────
+// ── 5. Mempool ────────────────────────────────────────────────
 async function loadMempool() {
     try {
         var r = await fetch('https://mempool.space/api/blocks/tip/height');
         if (!r.ok) throw new Error('HTTP ' + r.status);
         setVal('block-height', fmt(parseInt(await r.text(), 10), 0));
     } catch(e) { setNA('block-height'); }
-
     try {
         var r = await fetch('https://mempool.space/api/v1/difficulty-adjustment');
         if (!r.ok) throw new Error('HTTP ' + r.status);
@@ -341,18 +443,14 @@ async function loadMempool() {
             var secs = Math.round(raw / 1000);
             setVal('avg-block-time', Math.floor(secs/60) + 'm ' + (secs%60) + 's');
         } else { setNA('avg-block-time'); }
-        if (d.estimatedRetargetDate) {
-            setVal('retarget-date', fmtUnix(d.estimatedRetargetDate / 1000));
-        }
+        if (d.estimatedRetargetDate) setVal('retarget-date', fmtUnix(d.estimatedRetargetDate / 1000));
     } catch(e) { setNA('avg-block-time'); setNA('retarget-date'); }
-
     try {
         var r = await fetch('https://mempool.space/api/v1/mining/hashrate/1m');
         if (!r.ok) throw new Error('HTTP ' + r.status);
         var d = await r.json();
         setVal('hash-rate', fmt(d.currentHashrate / 1e18, 0) + ' EH/s');
     } catch(e) { setNA('hash-rate'); }
-
     try {
         var r = await fetch('https://mempool.space/api/v1/fees/recommended');
         if (!r.ok) throw new Error('HTTP ' + r.status);
@@ -363,7 +461,7 @@ async function loadMempool() {
     } catch(e) { setNA('fee-next'); setNA('fee-30min'); setNA('fee-1hr'); }
 }
 
-// ── 7. Realized Price (CoinMetrics) ──────────────────────────
+// ── 6. Realized Price ─────────────────────────────────────────
 async function loadRealizedPrice() {
     try {
         var r = await fetch(
@@ -378,30 +476,56 @@ async function loadRealizedPrice() {
     } catch(e) { setNA('realized-price'); }
 }
 
-// ── 8. Stocks (allorigins + Yahoo Finance) ────────────────────
-async function loadStocks() {
+// ── 7. Gold & Silver via Yahoo Finance futures ────────────────
+async function loadGoldSilver() {
     var PX = 'https://api.allorigins.win/raw?url=';
-
-    async function yq(sym) {
+    async function yqPrice(sym) {
         try {
-            var url = 'https://query1.finance.yahoo.com/v8/finance/chart/' +
-                      encodeURIComponent(sym) + '?interval=1d&range=2d';
-            var r   = await fetch(PX + encodeURIComponent(url));
+            var url  = 'https://query1.finance.yahoo.com/v8/finance/chart/' +
+                       encodeURIComponent(sym) + '?interval=1d&range=2d';
+            var r    = await fetch(PX + encodeURIComponent(url));
             if (!r.ok) throw new Error('HTTP ' + r.status);
             var json = JSON.parse(await r.text());
-            var meta = json.chart && json.chart.result &&
-                       json.chart.result[0] && json.chart.result[0].meta;
+            var meta = json.chart && json.chart.result && json.chart.result[0] && json.chart.result[0].meta;
+            if (!meta || !meta.regularMarketPrice) throw new Error('No price');
+            return meta.regularMarketPrice;
+        } catch(e) { console.warn('yqPrice ' + sym + ':', e.message); return null; }
+    }
+
+    var goldPrice   = await yqPrice('GC=F');
+    var silverPrice = await yqPrice('SI=F');
+
+    if (goldPrice && goldPrice > 0) {
+        setVal('gold', '$' + fmt(goldPrice) + '/oz');
+        var goldMc = goldPrice * 6830000000;
+        setVal('gold-mc',     '$' + fmt(goldMc / 1e12, 2) + 'T');
+        if (btcPrice > 0) setVal('btc-gold-kg', fmt(btcPrice / (goldPrice * 32.1507), 4) + ' kg');
+        if (btcMcap  > 0) setVal('btc-gold-mc', fmt((btcMcap / goldMc) * 100, 2) + '% of Gold');
+    } else {
+        setNA('gold'); setNA('gold-mc'); setNA('btc-gold-kg'); setNA('btc-gold-mc');
+    }
+    silverPrice && silverPrice > 0 ? setVal('silver', '$' + fmt(silverPrice) + '/oz') : setNA('silver');
+}
+
+// ── 8. Stocks ─────────────────────────────────────────────────
+async function loadStocks() {
+    var PX = 'https://api.allorigins.win/raw?url=';
+    async function yq(sym) {
+        try {
+            var url  = 'https://query1.finance.yahoo.com/v8/finance/chart/' +
+                       encodeURIComponent(sym) + '?interval=1d&range=2d';
+            var r    = await fetch(PX + encodeURIComponent(url));
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            var json = JSON.parse(await r.text());
+            var meta = json.chart && json.chart.result && json.chart.result[0] && json.chart.result[0].meta;
             if (!meta || !meta.regularMarketPrice) throw new Error('No price');
             var price = meta.regularMarketPrice;
             var prev  = meta.previousClose || meta.chartPreviousClose || price;
-            return { price: price, chg: ((price-prev)/prev)*100, mc: meta.marketCap||0 };
-        } catch(e) {
-            console.warn('yq ' + sym + ':', e.message);
-            return null;
-        }
+            return { price: price, chg: ((price-prev)/prev)*100, mc: meta.marketCap || 0 };
+        } catch(e) { console.warn('yq ' + sym + ':', e.message); return null; }
     }
 
-    // Indices
+    // Indices — confirmed working symbols
     var idx = [
         { id:'sp500',     sym:'^GSPC' },
         { id:'dow',       sym:'^DJI'  },
@@ -428,12 +552,11 @@ async function loadStocks() {
         setVal('eurusd', d.rates.EUR ? fmt(1/d.rates.EUR, 4) : 'N/A');
     } catch(e) { setNA('gbpusd'); setNA('eurusd'); }
 
-    // Mag 7 — fetch all 7 in parallel to save time
-    var mag7 = ['^AAPL','AMZN','GOOGL','META','MSFT','NVDA','TSLA'];
-    var promises = mag7.map(function(s){ return yq(s); });
-    var results  = await Promise.allSettled(promises);
+    // Mag 7 — parallel fetch, fixed AAPL (removed erroneous ^)
+    var mag7syms = ['AAPL','AMZN','GOOGL','META','MSFT','NVDA','TSLA'];
+    var results  = await Promise.allSettled(mag7syms.map(function(s){ return yq(s); }));
     var total = 0, hits = 0;
-    results.forEach(function(res){
+    results.forEach(function(res) {
         if (res.status === 'fulfilled' && res.value && res.value.mc > 0) {
             total += res.value.mc; hits++;
         }
@@ -477,27 +600,29 @@ async function loadNews() {
     list.innerHTML = '<li><span class="na">News unavailable</span></li>';
 }
 
-// ── Main: stagger CoinGecko calls to avoid rate limits ───────
+// ── Main ──────────────────────────────────────────────────────
 async function refresh() {
     document.getElementById('last-update').textContent = 'Refreshing...';
 
-    // Wave 1 — BTC (sets btcPrice/btcMcap) + non-CoinGecko sources
+    // Wave 1: BTC data + non-CoinGecko sources
     await loadBTC();
     await Promise.allSettled([
         loadFearGreed(),
         loadMempool(),
         loadRealizedPrice(),
-        loadGoldSilver(),  // Yahoo Finance - independent of CoinGecko
-        loadForex(),
+        loadGoldSilver(),
         loadNews(),
     ]);
 
-    // Wave 2 — second CoinGecko call after a delay
-    await sleep(3000);
+    // Wave 2: chart + historical MA (separate CoinGecko calls, staggered)
+    await sleep(2000);
+    await loadChart(currentDays);
+
+    await sleep(2000);
     await loadHistorical();
 
-    // Wave 3 — third CoinGecko call + stocks in parallel
-    await sleep(3000);
+    // Wave 3: altcoins + stocks
+    await sleep(2000);
     await Promise.allSettled([
         loadAltcoins(),
         loadStocks(),
@@ -507,19 +632,8 @@ async function refresh() {
     document.getElementById('last-update').textContent = 'Last updated: ' + now;
 }
 
-// Forex is referenced in wave 1 but defined here — hoisting handles it
-async function loadForex() {
-    try {
-        var r = await fetch('https://open.er-api.com/v6/latest/USD');
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        var d = await r.json();
-        setVal('gbpusd', d.rates.GBP ? fmt(1/d.rates.GBP, 4) : 'N/A');
-        setVal('eurusd', d.rates.EUR ? fmt(1/d.rates.EUR, 4) : 'N/A');
-    } catch(e) { setNA('gbpusd'); setNA('eurusd'); }
-}
-
 refresh();
-setInterval(refresh, 90000);
+setInterval(refresh, 120000); // 2 min — 4 CoinGecko calls per refresh, stay under limits
 </script>
 ```
 
