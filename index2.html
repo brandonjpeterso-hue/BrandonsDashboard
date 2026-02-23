@@ -87,7 +87,7 @@
             <li><span class="label">Average Block Time</span><span class="value" id="avg-block-time">Loading...</span></li>
             <li><span class="label">Money Supply</span><span class="value" id="money-supply">Loading...</span></li>
             <li><span class="label">Estimated Retarget Date</span><span class="value" id="retarget-date">Loading...</span></li>
-            <li><span class="label">Hash Rate (24hrs)</span><span class="value" id="hash-rate">Loading...</span></li>
+            <li><span class="label">Hash Rate (24hrs</span><span class="value" id="hash-rate">Loading...</span></li>
             <li><span class="label">Median Fee – Next Block</span><span class="value" id="fee-next">Loading...</span></li>
             <li><span class="label">Median Fee – 30 Minutes</span><span class="value" id="fee-30min">Loading...</span></li>
             <li><span class="label">Median Fee – 1 Hour</span><span class="value" id="fee-1hr">Loading...</span></li>
@@ -122,6 +122,7 @@
 
     <script>
         let currentPrice = 0; // Store current BTC price for calculations
+        let marketCap = 0; // Store BTC market cap
         let goldPrice = 0; // Store gold price for calculations
 
         // Format numbers like Bitbo (commas, 2 decimals for prices, etc.)
@@ -148,24 +149,26 @@
         // Fetch core BTC metrics from CoinGecko
         async function fetchBTCMetrics() {
             try {
-                const response = await fetch('https://api.coingecko.com/api/v3/coins/bitcoin');
+                const response = await fetch('https://api.coingecko.com/api/v3/coins/bitcoin?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false');
                 const data = await response.json();
                 currentPrice = data.market_data.current_price.usd;
+                marketCap = data.market_data.market_cap.usd;
                 const high24 = data.market_data.high_24h.usd;
                 const low24 = data.market_data.low_24h.usd;
-                const marketCap = data.market_data.market_cap.usd;
                 const athPrice = data.market_data.ath.usd;
                 const athDate = formatDate(data.market_data.ath_date.usd);
                 const drawdown = ((currentPrice - athPrice) / athPrice * 100).toFixed(2);
                 const satsPerUsd = formatNumber(100000000 / currentPrice, 0) + ' sats';
+                const circulatingSupply = data.market_data.circulating_supply;
 
                 document.getElementById('range24').textContent = `$${formatNumber(low24)} - $${formatNumber(high24)}`;
                 document.getElementById('market-cap').textContent = `$${formatNumber(marketCap / 1000000000000, 2)}T`;
                 document.getElementById('sats-usd').textContent = satsPerUsd;
                 document.getElementById('ath-price').textContent = `$${formatNumber(athPrice)}`;
                 document.getElementById('drawdown-ath').textContent = `${drawdown}%`;
-                document.getElementById('drawdown-ath').classList.add('red'); // Always red for drawdown
+                document.getElementById('drawdown-ath').classList.add('red');
                 document.getElementById('ath-date').textContent = athDate;
+                document.getElementById('money-supply').textContent = formatNumber(circulatingSupply, 2) + ' BTC';
             } catch (error) {
                 console.error('BTC metrics error:', error);
                 document.getElementById('range24').textContent = 'Error';
@@ -199,14 +202,10 @@
 
                 const difficultyResponse = await fetch('https://mempool.space/api/v1/difficulty-adjustment');
                 const difficultyData = await difficultyResponse.json();
-                document.getElementById('estimated-retarget-date').textContent = formatUnixDate(difficultyData.estimatedRetargetDate / 1000); // ms to s
+                document.getElementById('estimated-retarget-date').textContent = formatUnixDate(difficultyData.estimatedRetargetDate);
                 document.getElementById('avg-block-time').textContent = formatTime(difficultyData.averageBlockTime / 1000);
 
-                const supplyResponse = await fetch('https://mempool.space/api/v1/historical-hashrate/supply');
-                const supplyData = await supplyResponse.json();
-                document.getElementById('money-supply').textContent = formatNumber(supplyData.supply, 2) + ' BTC';
-
-                const hashResponse = await fetch('https://mempool.space/api/v1/hashrate/1m');
+                const hashResponse = await fetch('https://mempool.space/api/v1/mining/hashrate/1m');
                 const hashData = await hashResponse.json();
                 document.getElementById('hash-rate').textContent = formatNumber(hashData.currentHashrate / 1e18, 0) + ' EH/s';
 
@@ -221,12 +220,12 @@
             }
         }
 
-        // Fetch realized price from BGeometrics
+        // Fetch realized price from public source (using CoinMetrics free API)
         async function fetchRealizedPrice() {
             try {
-                const response = await fetch('https://api.bgeometrics.com/v1/metrics/realized-price');
+                const response = await fetch('https://community-api.coinmetrics.io/v4/timeseries/asset-metrics?assets=btc&metrics=PriceUSDRealized&frequency=1d&page_size=1');
                 const data = await response.json();
-                document.getElementById('realized-price').textContent = `$${formatNumber(data.data[0].value)}`;
+                document.getElementById('realized-price').textContent = `$${formatNumber(data.data[0].PriceUSDRealized)}`;
             } catch (error) {
                 console.error('Realized price error:', error);
                 document.getElementById('realized-price').textContent = 'Error';
@@ -240,13 +239,13 @@
                 const data = await response.json();
                 goldPrice = data[0].gold;
                 const silverPrice = data[0].silver;
-                const goldMc = goldPrice * 12000000000; // Approximate total gold supply in oz ~12B oz
-                const btcGoldKg = currentPrice / goldPrice * 1000; // BTC per kg gold
-                const btcGoldMc = marketCap / goldMc; // BTC mc vs gold mc ratio
-                const goldChange = data[0].gold_change;
-                const silverChange = data[0].silver_change;
+                const goldChange = data[0].gold_change_percent;
+                const silverChange = data[0].silver_change_percent;
                 const goldColor = goldChange > 0 ? 'green' : 'red';
                 const silverColor = silverChange > 0 ? 'green' : 'red';
+                const goldMc = goldPrice * 12000000000; // Approx total gold in oz
+                const btcGoldKg = currentPrice / (goldPrice * 32.1507); // oz to kg, approx
+                const btcGoldMc = marketCap / goldMc;
 
                 document.getElementById('gold').textContent = `$${formatNumber(goldPrice)}/oz (${goldChange.toFixed(2)}%)`;
                 document.getElementById('gold').classList.add(goldColor);
@@ -261,17 +260,17 @@
             }
         }
 
-        // Fetch historical prices for MAs and Power Law
+        // Fetch historical for MAs and Power Law
         async function fetchHistorical() {
             try {
-                const response = await fetch('https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=max&interval=daily');
+                const response = await fetch('https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=200&interval=daily');
                 const data = await response.json();
                 const prices = data.prices;
-                const daysSinceGenesis = (Date.now() / 1000 - 1231006505) / 86400; // Genesis Jan 3, 2009
-                const powerLawProjected = Math.exp(5.71 * Math.ln(daysSinceGenesis) - 38.16);
-                const powerLawRatio = currentPrice / powerLawProjected;
                 const ma50 = prices.slice(-50).reduce((sum, p) => sum + p[1], 0) / 50;
                 const ma200 = prices.slice(-200).reduce((sum, p) => sum + p[1], 0) / 200;
+                const daysSinceGenesis = Math.floor((Date.now() / 1000 - 1231006505) / 86400); // Genesis timestamp
+                const powerLawProjected = Math.exp(5.71 * Math.log(daysSinceGenesis) - 38.16);
+                const powerLawRatio = currentPrice / powerLawProjected;
 
                 document.getElementById('ma-50').textContent = `$${formatNumber(ma50)}`;
                 document.getElementById('ma-200').textContent = `$${formatNumber(ma200)}`;
@@ -283,48 +282,57 @@
             }
         }
 
-        // Fetch stocks and other assets (using CoinGecko for crypto, Yahoo for stocks via proxy)
+        // Fetch stocks and FX from CoinGecko (for crypto) and a free stock API (Finnhub free tier - replace 'YOUR_FINNHUB_KEY' with your free key from finnhub.io)
         async function fetchAssets() {
             try {
-                // Crypto: ETH, SOL from CoinGecko
+                // Crypto ETH, SOL from CoinGecko
                 const cryptoResponse = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum,solana&vs_currencies=usd&include_24hr_change=true');
-                const cryptoData = await response.json();
+                const cryptoData = await cryptoResponse.json();
                 document.getElementById('eth').textContent = `$${formatNumber(cryptoData.ethereum.usd)} (${cryptoData.ethereum.usd_24h_change.toFixed(2)}%)`;
                 document.getElementById('eth').classList.add(cryptoData.ethereum.usd_24h_change > 0 ? 'green' : 'red');
                 document.getElementById('sol').textContent = `$${formatNumber(cryptoData.solana.usd)} (${cryptoData.solana.usd_24h_change.toFixed(2)}%)`;
                 document.getElementById('sol').classList.add(cryptoData.solana.usd_24h_change > 0 ? 'green' : 'red');
 
-                // Stocks: Use a free Yahoo proxy or direct (note: May need API key for production; this uses public endpoint)
-                const symbols = 'SPY^GSPC,^DJI,AAPL,AMZN,GOOGL,META,MSFT,NVDA,TSLA,^TNX,GBPUSD=X,EURUSD=X,^FTSE,^N225';
-                const stocksResponse = await fetch(`https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbols}`);
-                const stocksData = await stocksResponse.json();
-                const quotes = stocksData.quoteResponse.result;
-                const sp500 = quotes.find(q => q.symbol === '^GSPC');
-                const dow = quotes.find(q => q.symbol === '^DJI');
-                const ftse = quotes.find(q => q.symbol === '^FTSE');
-                const nikkei = quotes.find(q => q.symbol === '^N225');
-                const bond10yr = quotes.find(q => q.symbol === '^TNX');
-                const gbpusd = quotes.find(q => q.symbol === 'GBPUSD=X');
-                const eurusd = quotes.find(q => q.symbol === 'EURUSD=X');
-                const mag7Symbols = ['AAPL', 'AMZN', 'GOOGL', 'META', 'MSFT', 'NVDA', 'TSLA'];
-                const mag7Mc = mag7Symbols.reduce((sum, sym) => sum + quotes.find(q => q.symbol === sym).marketCap, 0);
-                const sp500Mc = sp500.marketCap;
-                const sp493Mc = sp500Mc - mag7Mc;
+                // Stocks from Finnhub (sign up for free key at finnhub.io)
+                const finnhubKey = 'YOUR_FINNHUB_KEY'; // Replace with your free API key
+                const symbols = ['^GSPC', '^DJI', 'AAPL', 'AMZN', 'GOOGL', 'META', 'MSFT', 'NVDA', 'TSLA', '^TNX', 'GBPUSD=X', 'EURUSD=X', '^FTSE', '^N225'];
+                const promises = symbols.map(symbol => fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${finnhubKey}`));
+                const responses = await Promise.all(promises);
+                const data = await Promise.all(responses.map(res => res.json()));
+                const sp500 = data[0];
+                const dow = data[1];
+                const aapl = data[2];
+                const amzn = data[3];
+                const googl = data[4];
+                const meta = data[5];
+                const msft = data[6];
+                const nvda = data[7];
+                const tsla = data[8];
+                const bond10yr = data[9];
+                const gbpusd = data[10];
+                const eurusd = data[11];
+                const ftse = data[12];
+                const nikkei = data[13];
 
-                document.getElementById('sp500').textContent = formatNumber(sp500.regularMarketPrice, 2) + ' (' + sp500.regularMarketChangePercent.toFixed(2) + '%)';
-                document.getElementById('sp500').classList.add(sp500.regularMarketChangePercent > 0 ? 'green' : 'red');
-                document.getElementById('dow').textContent = formatNumber(dow.regularMarketPrice, 2) + ' (' + dow.regularMarketChangePercent.toFixed(2) + '%)';
-                document.getElementById('dow').classList.add(dow.regularMarketChangePercent > 0 ? 'green' : 'red');
-                document.getElementById('ftse100').textContent = formatNumber(ftse.regularMarketPrice, 2) + ' (' + ftse.regularMarketChangePercent.toFixed(2) + '%)';
-                document.getElementById('ftse100').classList.add(ftse.regularMarketChangePercent > 0 ? 'green' : 'red');
-                document.getElementById('nikkei225').textContent = formatNumber(nikkei.regularMarketPrice, 2) + ' (' + nikkei.regularMarketChangePercent.toFixed(2) + '%)';
-                document.getElementById('nikkei225').classList.add(nikkei.regularMarketChangePercent > 0 ? 'green' : 'red');
-                document.getElementById('bond10yr').textContent = bond10yr.regularMarketPrice.toFixed(2) + '% (' + bond10yr.regularMarketChangePercent.toFixed(2) + '%)';
-                document.getElementById('bond10yr').classList.add(bond10yr.regularMarketChangePercent > 0 ? 'green' : 'red');
-                document.getElementById('gbpusd').textContent = formatNumber(gbpusd.regularMarketPrice, 4) + ' (' + gbpusd.regularMarketChangePercent.toFixed(2) + '%)';
-                document.getElementById('gbpusd').classList.add(gbpusd.regularMarketChangePercent > 0 ? 'green' : 'red');
-                document.getElementById('eurusd').textContent = formatNumber(eurusd.regularMarketPrice, 4) + ' (' + eurusd.regularMarketChangePercent.toFixed(2) + '%)';
-                document.getElementById('eurusd').classList.add(eurusd.regularMarketChangePercent > 0 ? 'green' : 'red');
+                document.getElementById('sp500').textContent = formatNumber(sp500.c, 2) + ' (' + ((sp500.dp).toFixed(2)) + '%)';
+                document.getElementById('sp500').classList.add(sp500.dp > 0 ? 'green' : 'red');
+                document.getElementById('dow').textContent = formatNumber(dow.c, 2) + ' (' + ((dow.dp).toFixed(2)) + '%)';
+                document.getElementById('dow').classList.add(dow.dp > 0 ? 'green' : 'red');
+                document.getElementById('bond10yr').textContent = bond10yr.c.toFixed(2) + '% (' + ((bond10yr.dp).toFixed(2)) + '%)';
+                document.getElementById('bond10yr').classList.add(bond10yr.dp > 0 ? 'green' : 'red');
+                document.getElementById('gbpusd').textContent = formatNumber(gbpusd.c, 4) + ' (' + ((gbpusd.dp).toFixed(2)) + '%)';
+                document.getElementById('gbpusd').classList.add(gbpusd.dp > 0 ? 'green' : 'red');
+                document.getElementById('eurusd').textContent = formatNumber(eurusd.c, 4) + ' (' + ((eurusd.dp).toFixed(2)) + '%)';
+                document.getElementById('eurusd').classList.add(eurusd.dp > 0 ? 'green' : 'red');
+                document.getElementById('ftse100').textContent = formatNumber(ftse.c, 2) + ' (' + ((ftse.dp).toFixed(2)) + '%)';
+                document.getElementById('ftse100').classList.add(ftse.dp > 0 ? 'green' : 'red');
+                document.getElementById('nikkei225').textContent = formatNumber(nikkei.c, 2) + ' (' + ((nikkei.dp).toFixed(2)) + '%)';
+                document.getElementById('nikkei225').classList.add(nikkei.dp > 0 ? 'green' : 'red');
+
+                // Mag 7 and S&P 493 (approx market caps from CoinGecko style, but for stocks use quote mc if available; here approx)
+                const mag7Mc = aapl.pc * aapl.o + amzn.pc * amzn.o + googl.pc * googl.o + meta.pc * meta.o + msft.pc * msft.o + nvda.pc * nvda.o + tsla.pc * tsla.o; // Approx, use real mc if API supports
+                const sp500Mc = 45000000000000; // Approx S&P mc ~45T, replace with real if needed
+                const sp493Mc = sp500Mc - mag7Mc;
                 document.getElementById('mag7').textContent = `$${formatNumber(mag7Mc / 1000000000000, 2)}T`;
                 document.getElementById('sp493').textContent = `$${formatNumber(sp493Mc / 1000000000000, 2)}T`;
             } catch (error) {
@@ -335,15 +343,13 @@
 
         // Auto-refresh
         async function refreshData() {
-            await Promise.all([
-                fetchBTCMetrics(),
-                fetchFearGreed(),
-                fetchOnChainMetrics(),
-                fetchRealizedPrice(),
-                fetchGoldSilver(),
-                fetchHistorical(),
-                fetchAssets()
-            ]);
+            await fetchBTCMetrics();
+            await fetchFearGreed();
+            await fetchOnChainMetrics();
+            await fetchRealizedPrice();
+            await fetchGoldSilver();
+            await fetchHistorical();
+            await fetchAssets();
         }
         refreshData();
         setInterval(refreshData, 60000);
