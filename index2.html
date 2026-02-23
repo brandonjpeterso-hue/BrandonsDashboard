@@ -133,7 +133,7 @@
             <li><span class="label">DOW</span><span class="value" id="dow">Loading...</span></li>
             <li><span class="label">Ethereum</span><span class="value" id="eth">Loading...</span></li>
             <li><span class="label">Solana</span><span class="value" id="sol">Loading...</span></li>
-            <li><span class="label">Mag 7 (Combined)</span><span class="value" id="mag7">Loading...</span></li>
+            <li><span class="label">Mag 7 (Combined</span><span class="value" id="mag7">Loading...</span></li>
             <li><span class="label">S&P 493</span><span class="value" id="sp493">Loading...</span></li>
             <li><span class="label">10 Year Bond Interest Rate</span><span class="value" id="bond10yr">Loading...</span></li>
             <li><span class="label">GBP/USD</span><span class="value" id="gbpusd">Loading...</span></li>
@@ -161,9 +161,13 @@
                 handleScroll: false,  // Disable zoom/pan
                 handleScale: false   // Disable zoom/pan
             });
-            series = chart.addCandlestickSeries({
-                upColor: '#00ff00', downColor: '#ff0000',
-                borderVisible: false, wickUpColor: '#00ff00', wickDownColor: '#ff0000'
+            series = chart.addSeries({
+                type: 'Candlestick',
+                upColor: '#00ff00',
+                downColor: '#ff0000',
+                borderVisible: false,
+                wickUpColor: '#00ff00',
+                wickDownColor: '#ff0000'
             });
         } catch (error) {
             console.error('Chart initialization error:', error);
@@ -177,13 +181,17 @@
             if (!chart || !series) return; // Skip if chart failed
             chart.removeSeries(series);
             if (isCandle) {
-                series = chart.addLineSeries({ color: '#00bfff', lineWidth: 2 });
+                series = chart.addSeries({ type: 'Line', color: '#00bfff', lineWidth: 2 });
                 toggleBtn.textContent = 'Toggle to Candle Chart';
                 series.setData(chartData.map(d => ({ time: d.time, value: d.close }))); // Line uses close
             } else {
-                series = chart.addCandlestickSeries({
-                    upColor: '#00ff00', downColor: '#ff0000',
-                    borderVisible: false, wickUpColor: '#00ff00', wickDownColor: '#ff0000'
+                series = chart.addSeries({
+                    type: 'Candlestick',
+                    upColor: '#00ff00',
+                    downColor: '#ff0000',
+                    borderVisible: false,
+                    wickUpColor: '#00ff00',
+                    wickDownColor: '#ff0000'
                 });
                 toggleBtn.textContent = 'Toggle to Line Chart';
                 series.setData(chartData); // Candles use OHLC
