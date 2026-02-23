@@ -161,9 +161,13 @@
                 handleScroll: false,  // Disable zoom/pan
                 handleScale: false   // Disable zoom/pan
             });
-            series = chart.addCandlestickSeries({
-                upColor: '#00ff00', downColor: '#ff0000',
-                borderVisible: false, wickUpColor: '#00ff00', wickDownColor: '#ff0000'
+            series = chart.addSeries({
+                type: 'Candlestick',
+                upColor: '#00ff00',
+                downColor: '#ff0000',
+                borderVisible: false,
+                wickUpColor: '#00ff00',
+                wickDownColor: '#ff0000'
             });
         } catch (error) {
             console.error('Chart initialization error:', error);
@@ -177,13 +181,17 @@
             if (!chart || !series) return; // Skip if chart failed
             chart.removeSeries(series);
             if (isCandle) {
-                series = chart.addLineSeries({ color: '#00bfff', lineWidth: 2 });
+                series = chart.addSeries({ type: 'Line', color: '#00bfff', lineWidth: 2 });
                 toggleBtn.textContent = 'Toggle to Candle Chart';
                 series.setData(chartData.map(d => ({ time: d.time, value: d.close }))); // Line uses close
             } else {
-                series = chart.addCandlestickSeries({
-                    upColor: '#00ff00', downColor: '#ff0000',
-                    borderVisible: false, wickUpColor: '#00ff00', wickDownColor: '#ff0000'
+                series = chart.addSeries({
+                    type: 'Candlestick',
+                    upColor: '#00ff00',
+                    downColor: '#ff0000',
+                    borderVisible: false,
+                    wickUpColor: '#00ff00',
+                    wickDownColor: '#ff0000'
                 });
                 toggleBtn.textContent = 'Toggle to Line Chart';
                 series.setData(chartData); // Candles use OHLC
@@ -278,18 +286,17 @@
             }
         }
 
-        // New: Fetch on-chain metrics from Mempool.space
+        // Fetch on-chain metrics from Mempool.space
         async function fetchOnChainMetrics() {
             try {
                 const blockResponse = await fetch('https://mempool.space/api/blocks/tip/height');
                 const blockHeight = await blockResponse.text();
                 document.getElementById('block-height').textContent = formatNumber(parseInt(blockHeight, 10), 0);
 
-                const difficultyResponse = await fetch('https://mempool.space/api/v1/difficulty-adjustments');
+                const difficultyResponse = await fetch('https://mempool.space/api/v1/difficulty-adjustment');
                 const difficultyData = await difficultyResponse.json();
-                const retarget = difficultyData[0];
-                document.getElementById('estimated-retarget-date').textContent = formatUnixDate(retarget.time);
-                document.getElementById('avg-block-time').textContent = formatTime(retarget.averageBlockTime / 1000);
+                document.getElementById('estimated-retarget-date').textContent = formatUnixDate(difficultyData.estimatedRetargetDate / 1000); // ms to s
+                document.getElementById('avg-block-time').textContent = formatTime(difficultyData.averageBlockTime / 1000);
 
                 const supplyResponse = await fetch('https://mempool.space/api/v1/historical-hashrate/supply');
                 const supplyData = await supplyResponse.json();
@@ -297,7 +304,7 @@
 
                 const hashResponse = await fetch('https://mempool.space/api/v1/hashrate/1m');
                 const hashData = await hashResponse.json();
-                document.getElementById('hash-rate').textContent = formatNumber(hashData.currentHashrate, 0) + ' EH/s';
+                document.getElementById('hash-rate').textContent = formatNumber(hashData.currentHashrate / 1e18, 0) + ' EH/s';
 
                 const feesResponse = await fetch('https://mempool.space/api/v1/fees/recommended');
                 const feesData = await feesResponse.json();
