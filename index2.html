@@ -133,7 +133,7 @@
             <li><span class="label">DOW</span><span class="value" id="dow">Loading...</span></li>
             <li><span class="label">Ethereum</span><span class="value" id="eth">Loading...</span></li>
             <li><span class="label">Solana</span><span class="value" id="sol">Loading...</span></li>
-            <li><span class="label">Mag 7 (Combined</span><span class="value" id="mag7">Loading...</span></li>
+            <li><span class="label">Mag 7 (Combined)</span><span class="value" id="mag7">Loading...</span></li>
             <li><span class="label">S&P 493</span><span class="value" id="sp493">Loading...</span></li>
             <li><span class="label">10 Year Bond Interest Rate</span><span class="value" id="bond10yr">Loading...</span></li>
             <li><span class="label">GBP/USD</span><span class="value" id="gbpusd">Loading...</span></li>
@@ -161,13 +161,9 @@
                 handleScroll: false,  // Disable zoom/pan
                 handleScale: false   // Disable zoom/pan
             });
-            series = chart.addSeries({
-                type: 'Candlestick',
-                upColor: '#00ff00',
-                downColor: '#ff0000',
-                borderVisible: false,
-                wickUpColor: '#00ff00',
-                wickDownColor: '#ff0000'
+            series = chart.addCandlestickSeries({
+                upColor: '#00ff00', downColor: '#ff0000',
+                borderVisible: false, wickUpColor: '#00ff00', wickDownColor: '#ff0000'
             });
         } catch (error) {
             console.error('Chart initialization error:', error);
@@ -181,17 +177,13 @@
             if (!chart || !series) return; // Skip if chart failed
             chart.removeSeries(series);
             if (isCandle) {
-                series = chart.addSeries({ type: 'Line', color: '#00bfff', lineWidth: 2 });
+                series = chart.addLineSeries({ color: '#00bfff', lineWidth: 2 });
                 toggleBtn.textContent = 'Toggle to Candle Chart';
                 series.setData(chartData.map(d => ({ time: d.time, value: d.close }))); // Line uses close
             } else {
-                series = chart.addSeries({
-                    type: 'Candlestick',
-                    upColor: '#00ff00',
-                    downColor: '#ff0000',
-                    borderVisible: false,
-                    wickUpColor: '#00ff00',
-                    wickDownColor: '#ff0000'
+                series = chart.addCandlestickSeries({
+                    upColor: '#00ff00', downColor: '#ff0000',
+                    borderVisible: false, wickUpColor: '#00ff00', wickDownColor: '#ff0000'
                 });
                 toggleBtn.textContent = 'Toggle to Line Chart';
                 series.setData(chartData); // Candles use OHLC
@@ -207,6 +199,17 @@
         function formatDate(dateStr) {
             const date = new Date(dateStr);
             return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        function formatUnixDate(unix) {
+            const date = new Date(unix * 1000);
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${minutes}m ${secs}s`;
         }
 
         // Fetch BTC chart data (only if chart loaded)
@@ -275,13 +278,46 @@
             }
         }
 
+        // New: Fetch on-chain metrics from Mempool.space
+        async function fetchOnChainMetrics() {
+            try {
+                const blockResponse = await fetch('https://mempool.space/api/blocks/tip/height');
+                const blockHeight = await blockResponse.text();
+                document.getElementById('block-height').textContent = formatNumber(parseInt(blockHeight, 10), 0);
+
+                const difficultyResponse = await fetch('https://mempool.space/api/v1/difficulty-adjustments');
+                const difficultyData = await difficultyResponse.json();
+                const retarget = difficultyData[0];
+                document.getElementById('estimated-retarget-date').textContent = formatUnixDate(retarget.time);
+                document.getElementById('avg-block-time').textContent = formatTime(retarget.averageBlockTime / 1000);
+
+                const supplyResponse = await fetch('https://mempool.space/api/v1/historical-hashrate/supply');
+                const supplyData = await supplyResponse.json();
+                document.getElementById('money-supply').textContent = formatNumber(supplyData.supply, 2) + ' BTC';
+
+                const hashResponse = await fetch('https://mempool.space/api/v1/hashrate/1m');
+                const hashData = await hashResponse.json();
+                document.getElementById('hash-rate').textContent = formatNumber(hashData.currentHashrate, 0) + ' EH/s';
+
+                const feesResponse = await fetch('https://mempool.space/api/v1/fees/recommended');
+                const feesData = await feesResponse.json();
+                document.getElementById('fee-next').textContent = feesData.fastestFee + ' sat/vB';
+                document.getElementById('fee-30min').textContent = feesData.halfHourFee + ' sat/vB';
+                document.getElementById('fee-1hr').textContent = feesData.hourFee + ' sat/vB';
+            } catch (error) {
+                console.error('On-chain metrics error:', error);
+                document.getElementById('block-height').textContent = 'Error';
+                // Repeat for others if needed
+            }
+        }
+
         // Auto-refresh
         async function refreshData() {
             await Promise.all([
                 fetchBTCChart(),
                 fetchBTCMetrics(),
-                fetchFearGreed()
-                // More fetches in next batches
+                fetchFearGreed(),
+                fetchOnChainMetrics()
             ]);
         }
         refreshData();
