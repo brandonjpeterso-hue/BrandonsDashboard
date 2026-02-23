@@ -217,3 +217,68 @@
                 }));
                 series.setData(chartData);
             } catch (error) {
+                console.error('Chart data error:', error);
+                document.getElementById('chart').innerHTML = '<p style="color: red; text-align: center;">Error loading chart data: ' + error.message + '</p>';
+            }
+        }
+
+        // Fetch core BTC metrics from CoinGecko
+        async function fetchBTCMetrics() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/coins/bitcoin');
+                const data = await response.json();
+                currentPrice = data.market_data.current_price.usd;
+                const high24 = data.market_data.high_24h.usd;
+                const low24 = data.market_data.low_24h.usd;
+                const marketCap = data.market_data.market_cap.usd;
+                const athPrice = data.market_data.ath.usd;
+                const athDate = formatDate(data.market_data.ath_date.usd);
+                const drawdown = ((currentPrice - athPrice) / athPrice * 100).toFixed(2);
+                const satsPerUsd = formatNumber(100000000 / currentPrice, 0) + ' sats';
+
+                document.getElementById('range24').textContent = `$${formatNumber(low24)} - $${formatNumber(high24)}`;
+                document.getElementById('market-cap').textContent = `$${formatNumber(marketCap / 1000000000000, 2)}T`;
+                document.getElementById('sats-usd').textContent = satsPerUsd;
+                document.getElementById('ath-price').textContent = `$${formatNumber(athPrice)}`;
+                document.getElementById('drawdown-ath').textContent = `${drawdown}%`;
+                document.getElementById('drawdown-ath').classList.add('red'); // Always red for drawdown
+                document.getElementById('ath-date').textContent = athDate;
+            } catch (error) {
+                console.error('BTC metrics error:', error);
+                document.getElementById('range24').textContent = 'Error';
+                // Repeat for others if needed
+            }
+        }
+
+        // Fetch Fear & Greed Index
+        async function fetchFearGreed() {
+            try {
+                const response = await fetch('https://api.alternative.me/fng/?limit=1');
+                const data = await response.json();
+                const fng = data.data[0];
+                const value = fng.value;
+                const classification = fng.value_classification;
+                const colorClass = classification.includes('Greed') ? 'green' : classification.includes('Fear') ? 'red' : 'yellow';
+                const link = document.getElementById('fear-greed').querySelector('a');
+                link.textContent = `${value} (${classification})`;
+                link.parentElement.classList.add(colorClass);
+            } catch (error) {
+                console.error('FNG error:', error);
+                document.getElementById('fear-greed').querySelector('a').textContent = 'Error';
+            }
+        }
+
+        // Auto-refresh
+        async function refreshData() {
+            await Promise.all([
+                fetchBTCChart(),
+                fetchBTCMetrics(),
+                fetchFearGreed()
+                // More fetches in next batches
+            ]);
+        }
+        refreshData();
+        setInterval(refreshData, 60000);
+    </script>
+</body>
+</html>
