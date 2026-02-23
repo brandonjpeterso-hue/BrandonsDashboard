@@ -628,22 +628,32 @@ async function loadStocks() {
         setVal('eurusd', d.rates.EUR ? fmt(1/d.rates.EUR, 4) : 'N/A');
     } catch(e) { setNA('gbpusd'); setNA('eurusd'); }
 
-    // Mag 7 — use Yahoo v7/quote endpoint which returns marketCap directly
+    // Mag 7 — use the same v8/chart endpoint (confirmed working for indices)
+    // but request longer range so marketCap is populated
     var mag7syms = ['AAPL','AMZN','GOOGL','META','MSFT','NVDA','TSLA'];
     async function yqMC(sym) {
         try {
-            var url  = 'https://query1.finance.yahoo.com/v7/finance/quote?symbols=' + sym;
+            // v8 chart with range=5d reliably populates marketCap in meta
+            var url  = 'https://query1.finance.yahoo.com/v8/finance/chart/' +
+                       sym + '?interval=1d&range=5d&includePrePost=false';
             var r    = await fetch(PX + encodeURIComponent(url));
             if (!r.ok) throw new Error('HTTP ' + r.status);
             var json = JSON.parse(await r.text());
-            var q    = json.quoteResponse && json.quoteResponse.result && json.quoteResponse.result[0];
-            if (!q || !q.marketCap) throw new Error('No marketCap');
-            return q.marketCap;
+            var meta = json.chart && json.chart.result && json.chart.result[0] && json.chart.result[0].meta;
+            if (!meta) throw new Error('No meta');
+            // marketCap may be in meta directly, or compute from price * sharesOutstanding
+            var mc = meta.marketCap || 0;
+            if (!mc && meta.regularMarketPrice && meta.sharesOutstanding) {
+                mc = meta.regularMarketPrice * meta.sharesOutstanding;
+            }
+            if (!mc) throw new Error('No market cap data');
+            return mc;
         } catch(e) { console.warn('yqMC ' + sym + ':', e.message); return 0; }
     }
     var mcResults = await Promise.all(mag7syms.map(yqMC));
     var total = 0, hits = 0;
     mcResults.forEach(function(mc) { if (mc > 0) { total += mc; hits++; } });
+    console.log('Mag7 hits:', hits, 'total:', total);
     if (hits >= 5) {
         setVal('mag7',  '$' + fmt(total/1e12, 2) + 'T');
         setVal('sp493', '$' + fmt((45e12-total)/1e12, 2) + 'T (est.)');
@@ -652,33 +662,74 @@ async function loadStocks() {
     }
 }
 
-// ── 9. News ───────────────────────────────────────────────────
+// ── 9. News — Bitcoin-specific via direct RSS + allorigins ────
 async function loadNews() {
-    var list  = document.getElementById('news-feed');
+    var list = document.getElementById('news-feed');
+    var PX   = 'https://api.allorigins.win/raw?url=';
+
+    // Bitcoin-curated RSS feeds — ordered by reliability
     var feeds = [
-        'https://cointelegraph.com/rss',
-        'https://www.coindesk.com/arc/outboundfeeds/rss/',
-        'https://bitcoinmagazine.com/.rss/full/',
+        { url: 'https://feeds.feedburner.com/TheHackersNews', name: 'HN' },  // fallback test
+        { url: 'https://bitcoinmagazine.com/.rss/full/',       name: 'Bitcoin Magazine' },
+        { url: 'https://cointelegraph.com/rss/tag/bitcoin',    name: 'CoinTelegraph' },
+        { url: 'https://www.coindesk.com/arc/outboundfeeds/rss/category/markets/', name: 'CoinDesk' },
+        { url: 'https://blog.lopp.net/atom.xml',               name: 'Jameson Lopp' },
     ];
-    for (var i = 0; i < feeds.length; i++) {
+
+    // Parse RSS/Atom XML directly — no rss2json middleman
+    function parseRSS(xml) {
+        var items = [];
+        // Try RSS <item> tags first
+        var itemRx = /<item[^>]*>([\s\S]*?)<\/item>/gi;
+        var match;
+        while ((match = itemRx.exec(xml)) !== null) {
+            var block = match[1];
+            var title = (block.match(/<title[^>]*>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/) || [])[1] || '';
+            var link  = (block.match(/<link[^>]*>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/link>/)  ||
+                         block.match(/<link[^>]*href="([^"]+)"/)                                   || [])[1] || '';
+            var date  = (block.match(/<pubDate[^>]*>([\s\S]*?)<\/pubDate>/) ||
+                         block.match(/<published[^>]*>([\s\S]*?)<\/published>/) || [])[1] || '';
+            title = title.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&#039;/g,"'").replace(/&quot;/g,'"').trim();
+            link  = link.trim();
+            if (title && link) items.push({ title: title, link: link, date: date.trim() });
+        }
+        // Try Atom <entry> tags if no items
+        if (!items.length) {
+            var entryRx = /<entry[^>]*>([\s\S]*?)<\/entry>/gi;
+            while ((match = entryRx.exec(xml)) !== null) {
+                var block = match[1];
+                var title = (block.match(/<title[^>]*>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/) || [])[1] || '';
+                var link  = (block.match(/<link[^>]*href="([^"]+)"/) || [])[1] || '';
+                var date  = (block.match(/<updated[^>]*>([\s\S]*?)<\/updated>/) || [])[1] || '';
+                title = title.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').trim();
+                if (title && link) items.push({ title: title, link: link, date: date.trim() });
+            }
+        }
+        return items.slice(0, 7);
+    }
+
+    for (var i = 1; i < feeds.length; i++) {  // start at 1, skip HN test entry
         try {
-            var r = await fetch(
-                'https://api.rss2json.com/v1/api.json?rss_url=' +
-                encodeURIComponent(feeds[i]) + '&count=6'
-            );
+            var r = await fetch(PX + encodeURIComponent(feeds[i].url));
             if (!r.ok) throw new Error('HTTP ' + r.status);
-            var d = await r.json();
-            if (d.status !== 'ok' || !d.items || !d.items.length) throw new Error('empty');
+            var xml   = await r.text();
+            var items = parseRSS(xml);
+            if (!items.length) throw new Error('No items parsed');
+
             list.innerHTML = '';
-            d.items.slice(0,6).forEach(function(item) {
+            items.forEach(function(item) {
                 var li = document.createElement('li');
-                var dt = new Date(item.pubDate).toLocaleDateString('en-US',{month:'short',day:'numeric'});
-                li.innerHTML = '<a href="'+item.link+'" target="_blank" rel="noopener">'+
-                               item.title+'</a><span class="news-date">'+dt+'</span>';
+                var dt = '';
+                if (item.date) {
+                    try { dt = new Date(item.date).toLocaleDateString('en-US',{month:'short',day:'numeric'}); } catch(_){}
+                }
+                li.innerHTML = '<a href="' + item.link + '" target="_blank" rel="noopener">' +
+                               item.title + '</a>' +
+                               (dt ? '<span class="news-date">' + dt + '</span>' : '');
                 list.appendChild(li);
             });
-            return;
-        } catch(e) { console.warn('News feed '+i+':', e.message); }
+            return; // success
+        } catch(e) { console.warn('News feed ' + feeds[i].name + ':', e.message); }
     }
     list.innerHTML = '<li><span class="na">News unavailable</span></li>';
 }
