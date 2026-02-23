@@ -67,6 +67,10 @@
         .yellow {
             color: #ffff00;
         }
+        #news-feed li {
+            flex-direction: column;
+            align-items: flex-start;
+        }
     </style>
 </head>
 <body>
@@ -119,6 +123,13 @@
             <li><span class="label">Nikkei 225</span><span class="value" id="nikkei225">Loading...</span></li>
         </ul>
     </details>
+    
+    <details open>
+        <summary>Customized News Feed</summary>
+        <ul id="news-feed">
+            <!-- News items will be added here -->
+        </ul>
+    </details>
 
     <script>
         let currentPrice = 0; // Store current BTC price for calculations
@@ -127,6 +138,7 @@
 
         // Format numbers like Bitbo (commas, 2 decimals for prices, etc.)
         function formatNumber(num, decimals = 2, suffix = '') {
+            if (num === null || num === undefined) return 'N/A';
             return num.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + suffix;
         }
 
@@ -150,23 +162,24 @@
         async function fetchBTCMetrics() {
             try {
                 const response = await fetch('https://api.coingecko.com/api/v3/coins/bitcoin?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false');
+                if (!response.ok) throw new Error('Response not OK: ' + response.status);
                 const data = await response.json();
-                currentPrice = data.market_data.current_price.usd;
-                marketCap = data.market_data.market_cap.usd;
-                const high24 = data.market_data.high_24h.usd;
-                const low24 = data.market_data.low_24h.usd;
-                const athPrice = data.market_data.ath.usd;
+                currentPrice = data.market_data.current_price.usd || 0;
+                marketCap = data.market_data.market_cap.usd || 0;
+                const high24 = data.market_data.high_24h.usd || 0;
+                const low24 = data.market_data.low_24h.usd || 0;
+                const athPrice = data.market_data.ath.usd || 0;
                 const athDate = formatDate(data.market_data.ath_date.usd);
-                const drawdown = ((currentPrice - athPrice) / athPrice * 100).toFixed(2);
-                const satsPerUsd = formatNumber(100000000 / currentPrice, 0) + ' sats';
-                const circulatingSupply = data.market_data.circulating_supply;
+                const drawdown = athPrice ? ((currentPrice - athPrice) / athPrice * 100).toFixed(2) : 'N/A';
+                const satsPerUsd = currentPrice ? formatNumber(100000000 / currentPrice, 0) + ' sats' : 'N/A';
+                const circulatingSupply = data.market_data.circulating_supply || 0;
 
                 document.getElementById('range24').textContent = `$${formatNumber(low24)} - $${formatNumber(high24)}`;
                 document.getElementById('market-cap').textContent = `$${formatNumber(marketCap / 1000000000000, 2)}T`;
                 document.getElementById('sats-usd').textContent = satsPerUsd;
                 document.getElementById('ath-price').textContent = `$${formatNumber(athPrice)}`;
                 document.getElementById('drawdown-ath').textContent = `${drawdown}%`;
-                document.getElementById('drawdown-ath').classList.add('red');
+                if (document.getElementById('drawdown-ath')) document.getElementById('drawdown-ath').classList.add('red');
                 document.getElementById('ath-date').textContent = athDate;
                 document.getElementById('money-supply').textContent = formatNumber(circulatingSupply, 2) + ' BTC';
             } catch (error) {
@@ -179,6 +192,7 @@
         async function fetchFearGreed() {
             try {
                 const response = await fetch('https://api.alternative.me/fng/?limit=1');
+                if (!response.ok) throw new Error('Response not OK: ' + response.status);
                 const data = await response.json();
                 const fng = data.data[0];
                 const value = fng.value;
@@ -197,19 +211,27 @@
         async function fetchOnChainMetrics() {
             try {
                 const blockResponse = await fetch('https://mempool.space/api/blocks/tip/height');
+                if (!blockResponse.ok) throw new Error('Block height response not OK: ' + blockResponse.status);
                 const blockHeight = await blockResponse.text();
-                document.getElementById('block-height').textContent = formatNumber(parseInt(blockHeight, 10), 0);
+                const heightElem = document.getElementById('block-height');
+                if (heightElem) heightElem.textContent = formatNumber(parseInt(blockHeight, 10), 0);
 
                 const difficultyResponse = await fetch('https://mempool.space/api/v1/difficulty-adjustment');
+                if (!difficultyResponse.ok) throw new Error('Difficulty response not OK: ' + difficultyResponse.status);
                 const difficultyData = await difficultyResponse.json();
-                document.getElementById('retarget-date').textContent = formatUnixDate(difficultyData.estimatedRetargetDate / 1000);
-                document.getElementById('avg-block-time').textContent = formatTime(difficultyData.averageBlockTime / 1000);
+                const retargetElem = document.getElementById('retarget-date');
+                if (retargetElem) retargetElem.textContent = formatUnixDate(difficultyData.estimatedRetargetDate / 1000);
+                const avgTimeElem = document.getElementById('avg-block-time');
+                if (avgTimeElem) avgTimeElem.textContent = formatTime(difficultyData.averageBlockTime / 1000);
 
                 const hashResponse = await fetch('https://mempool.space/api/v1/mining/hashrate/1m');
+                if (!hashResponse.ok) throw new Error('Hash rate response not OK: ' + hashResponse.status);
                 const hashData = await hashResponse.json();
-                document.getElementById('hash-rate').textContent = formatNumber(hashData.currentHashrate / 1e18, 0) + ' EH/s';
+                const hashElem = document.getElementById('hash-rate');
+                if (hashElem) hashElem.textContent = formatNumber(hashData.currentHashrate / 1e18, 0) + ' EH/s';
 
                 const feesResponse = await fetch('https://mempool.space/api/v1/fees/recommended');
+                if (!feesResponse.ok) throw new Error('Fees response not OK: ' + feesResponse.status);
                 const feesData = await feesResponse.json();
                 document.getElementById('fee-next').textContent = feesData.fastestFee + ' sat/vB';
                 document.getElementById('fee-30min').textContent = feesData.halfHourFee + ' sat/vB';
@@ -220,45 +242,45 @@
             }
         }
 
-        // Fetch realized price from Glassnode
+        // Fetch realized price from Blockchain.info (realized cap / supply)
         async function fetchRealizedPrice() {
             try {
-                const glassnodeKey = 'YOUR_GLASSNODE_KEY'; // Free key from glassnode.com
-                const response = await fetch(`https://api.glassnode.com/v1/metrics/market/price_realized_usd?a=btc&api_key=${glassnodeKey}`);
-                const data = await response.json();
-                document.getElementById('realized-price').textContent = `$${formatNumber(data[data.length - 1].v, 2)}`;
+                const capResponse = await fetch('https://api.blockchain.info/charts/realized-cap?format=json');
+                const capData = await capResponse.json();
+                const realizedCap = capData.values[capData.values.length - 1].y;
+                const supplyResponse = await fetch('https://api.blockchain.info/charts/total-bitcoins?format=json');
+                const supplyData = await supplyResponse.json();
+                const supply = supplyData.values[supplyData.values.length - 1].y;
+                const realizedPrice = realizedCap / supply;
+                document.getElementById('realized-price').textContent = `$${formatNumber(realizedPrice, 2)}`;
             } catch (error) {
                 console.error('Realized price error:', error);
                 document.getElementById('realized-price').textContent = 'Realized Price Error: ' + error.message;
             }
         }
 
-        // Fetch gold/silver from GoldAPI
+        // Fetch gold/silver from CoinGecko (gold as id 'gold', silver as 'silver')
         async function fetchGoldSilver() {
             try {
-                const goldapiKey = 'YOUR_GOLDAPI_KEY'; // Free key from goldapi.io
-                const response = await fetch(`https://www.goldapi.io/api/XAU/USD?api_key=${goldapiKey}`);
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=gold,silver&vs_currencies=usd&include_24hr_change=true');
                 const data = await response.json();
-                goldPrice = data.price;
-                const goldChange = data.ch_p;
+                goldPrice = data.gold.usd;
+                const goldChange = data.gold.usd_24h_change;
                 const goldColor = goldChange > 0 ? 'green' : 'red';
-                const goldMc = goldPrice * 12000000000;
+                const silverPrice = data.silver.usd;
+                const silverChange = data.silver.usd_24h_change;
+                const silverColor = silverChange > 0 ? 'green' : 'red';
+                const goldMc = goldPrice * 12000000000; // Approx
                 const btcGoldKg = currentPrice / (goldPrice * 32.1507);
                 const btcGoldMc = marketCap / goldMc;
 
                 document.getElementById('gold').textContent = `$${formatNumber(goldPrice)}/oz (${goldChange.toFixed(2)}%)`;
                 document.getElementById('gold').classList.add(goldColor);
+                document.getElementById('silver').textContent = `$${formatNumber(silverPrice)}/oz (${silverChange.toFixed(2)}%)`;
+                document.getElementById('silver').classList.add(silverColor);
                 document.getElementById('btc-gold-kg').textContent = formatNumber(btcGoldKg, 2) + ' BTC/kg';
                 document.getElementById('btc-gold-mc').textContent = formatNumber(btcGoldMc, 2) + 'x';
                 document.getElementById('gold-mc').textContent = `$${formatNumber(goldMc / 1000000000000, 2)}T`;
-
-                const silverResponse = await fetch(`https://www.goldapi.io/api/XAG/USD?api_key=${goldapiKey}`);
-                const silverData = await silverResponse.json();
-                const silverPrice = silverData.price;
-                const silverChange = silverData.ch_p;
-                const silverColor = silverChange > 0 ? 'green' : 'red';
-                document.getElementById('silver').textContent = `$${formatNumber(silverPrice)}/oz (${silverChange.toFixed(2)}%)`;
-                document.getElementById('silver').classList.add(silverColor);
             } catch (error) {
                 console.error('Gold/Silver error:', error);
                 document.getElementById('gold').textContent = 'Gold/Silver Error: ' + error.message;
@@ -315,14 +337,33 @@
                 document.getElementById('bond10yr').textContent = bondPrice + '% (' + bondChange + ')';
                 document.getElementById('bond10yr').classList.add(parseFloat(bondChange) > 0 ? 'green' : 'red');
 
-                const gbpusdResponse = await fetch(`https://www.alphavantage.co/query?function=FX_QUOTE&symbol=GBPUSD&apikey=${alphaKey}`);
+                const gbpusdResponse = await fetch(`https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=GBP&to_currency=USD&apikey=${alphaKey}`);
                 const gbpusdData = await gbpusdResponse.json();
                 const gbpusdPrice = gbpusdData['Realtime Currency Exchange Rate']['5. Exchange Rate'];
                 document.getElementById('gbpusd').textContent = formatNumber(gbpusdPrice, 4);
 
-                // Add similar for EURUSD, FTSE, Nikkei
+                const eurusdResponse = await fetch(`https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=EUR&to_currency=USD&apikey=${alphaKey}`);
+                const eurusdData = await eurusdResponse.json();
+                const eurusdPrice = eurusdData['Realtime Currency Exchange Rate']['5. Exchange Rate'];
+                document.getElementById('eurusd').textContent = formatNumber(eurusdPrice, 4);
 
-                // Mag 7 mc from OVERVIEW
+                const ftseResponse = await fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=^FTSE&apikey=${alphaKey}`);
+                const ftseData = await ftseResponse.json();
+                const ftseQuote = ftseData['Global Quote'];
+                const ftsePrice = ftseQuote['05. price'];
+                const ftseChange = ftseQuote['10. change percent'];
+                document.getElementById('ftse100').textContent = formatNumber(ftsePrice, 2) + ' (' + ftseChange + ')';
+                document.getElementById('ftse100').classList.add(parseFloat(ftseChange) > 0 ? 'green' : 'red');
+
+                const nikkeiResponse = await fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=^N225&apikey=${alphaKey}`);
+                const nikkeiData = await nikkeiResponse.json();
+                const nikkeiQuote = nikkeiData['Global Quote'];
+                const nikkeiPrice = nikkeiQuote['05. price'];
+                const nikkeiChange = nikkeiQuote['10. change percent'];
+                document.getElementById('nikkei225').textContent = formatNumber(nikkeiPrice, 2) + ' (' + nikkeiChange + ')';
+                document.getElementById('nikkei225').classList.add(parseFloat(nikkeiChange) > 0 ? 'green' : 'red');
+
+                // Mag 7 and S&P 493 (sum mc)
                 const mag7Symbols = ['AAPL', 'AMZN', 'GOOG', 'META', 'MSFT', 'NVDA', 'TSLA'];
                 let mag7Mc = 0;
                 for (const sym of mag7Symbols) {
@@ -339,6 +380,26 @@
             }
         }
 
+        // Fetch news feed (customized for crypto, finance, tech)
+        async function fetchNews() {
+            try {
+                const rssUrl = 'https://news.google.com/rss/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGx6TVdBU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US:en'; // Business news
+                const response = await fetch(`https://rss2json.com/api.json?rss_url=${encodeURIComponent(rssUrl)}`);
+                if (!response.ok) throw new Error('Response not OK: ' + response.status);
+                const data = await response.json();
+                const newsList = document.getElementById('news-feed');
+                newsList.innerHTML = '';
+                data.items.slice(0, 5).forEach(item => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<a href="${item.link}" target="_blank">${item.title}</a> - ${new Date(item.pubDate).toLocaleDateString()}`;
+                    newsList.appendChild(li);
+                });
+            } catch (error) {
+                console.error('News error:', error);
+                document.getElementById('news-feed').innerHTML = '<li>News Error: ' + error.message + '</li>';
+            }
+        }
+
         // Auto-refresh
         async function refreshData() {
             await fetchBTCMetrics();
@@ -348,6 +409,7 @@
             await fetchGoldSilver();
             await fetchHistorical();
             await fetchAssets();
+            await fetchNews();
         }
         refreshData();
         setInterval(refreshData, 60000);
