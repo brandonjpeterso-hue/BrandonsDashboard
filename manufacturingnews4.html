@@ -1,39 +1,50 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" style="color-scheme: dark; background: #060a0d;">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
 <title>OPS INTELLIGENCE — Energy & Regulatory Dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <style>
-  :root {
-    --bg-primary: #060a0d;
-    --bg-secondary: #0b1015;
-    --bg-card: #0f1720;
-    --bg-card-hover: #141e2a;
-    --border: #1e3348;
-    --border-bright: #2d4d6e;
-    --accent: #60c8f5;
-    --accent-dim: #2d8bbf;
-    --accent-glow: rgba(96,200,245,0.15);
-    --caution: #f59e0b;
-    --caution-dim: #b45309;
-    --green: #2edb6e;
-    --green-dim: #17914a;
-    --red: #f25555;
-    --red-dim: #b02020;
-    --blue: #60c8f5;
-    --blue-dim: #2d8bbf;
-    --text-primary: #ffffff;
-    --text-secondary: #c2d4e8;
-    --text-dim: #6b8aaa;
-    --mono: 'Share Tech Mono', monospace;
-    --display: 'Barlow Condensed', sans-serif;
-    --body: 'Barlow', sans-serif;
+  /* ===== FORCE DARK MODE — override system preference ===== */
+  html, body {
+    color-scheme: dark !important;
+    background-color: #060a0d !important;
   }
+  @media (prefers-color-scheme: light) {
+    html { filter: none !important; }
+    body { background: #060a0d !important; color: #ffffff !important; }
+  }
+
+:root {
+–bg-primary: #060a0d;
+–bg-secondary: #0b1015;
+–bg-card: #0f1720;
+–bg-card-hover: #141e2a;
+–border: #1e3348;
+–border-bright: #2d4d6e;
+–accent: #60c8f5;
+–accent-dim: #2d8bbf;
+–accent-glow: rgba(96,200,245,0.15);
+–caution: #f59e0b;
+–caution-dim: #b45309;
+–green: #2edb6e;
+–green-dim: #17914a;
+–red: #f25555;
+–red-dim: #b02020;
+–blue: #60c8f5;
+–blue-dim: #2d8bbf;
+–text-primary: #ffffff;
+–text-secondary: #c2d4e8;
+–text-dim: #6b8aaa;
+–mono: ‘Share Tech Mono’, monospace;
+–display: ‘Barlow Condensed’, sans-serif;
+–body: ‘Barlow’, sans-serif;
+}
 
 - { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -1015,10 +1026,10 @@ nav { padding: 0 16px; overflow-x: auto; }
 
 ```
 <div class="status-bar" id="overview-status-bar">
-  <div class="status-pill"><span class="dot"></span> EIA DATA: CONNECTED</div>
-  <div class="status-pill"><span class="dot warn"></span> WEATHER: AWAITING KEY</div>
-  <div class="status-pill"><span class="dot"></span> NEWS FEED: CONNECTED</div>
-  <div class="status-pill"><span class="dot"></span> GRID LINKS: ACTIVE</div>
+  <div class="status-pill" id="pill-eia"><span class="dot"></span> EIA DATA: CONNECTING...</div>
+  <div class="status-pill" id="pill-weather"><span class="dot warn"></span> WEATHER: CONNECTING...</div>
+  <div class="status-pill" id="pill-news"><span class="dot"></span> NEWS FEED: CONNECTING...</div>
+  <div class="status-pill" id="pill-grid"><span class="dot"></span> GRID DATA: CONNECTING...</div>
 </div>
 
 <div class="grid-4">
@@ -1207,14 +1218,7 @@ nav { padding: 0 16px; overflow-x: auto; }
       <div class="section-meta">OPENWEATHERMAP API // CURRENT CONDITIONS</div>
     </div>
     <div id="weather-container">
-      <div class="api-note">
-        <strong>⚠ OPENWEATHERMAP KEY PENDING:</strong> Weather data will load automatically once your API key is entered. 
-        Add your key to the <code>OPENWEATHER_KEY</code> variable at the top of this file, or paste it below.<br><br>
-        <input type="text" id="owm-key-input" placeholder="Paste OpenWeatherMap API key here..." 
-          style="background: var(--bg-primary); border: 1px solid var(--border-bright); color: var(--text-primary); 
-          font-family: var(--mono); font-size: 15px; padding: 10px 14px; width: 440px; margin-top: 8px; letter-spacing: 1px;"
-          oninput="tryWeatherKey(this.value)">
-      </div>
+      <div class="loading"><div class="spinner"></div>FETCHING WEATHER DATA...</div>
     </div>
   </div>
 
@@ -1249,7 +1253,7 @@ nav { padding: 0 16px; overflow-x: auto; }
 // ============================================================
 const CONFIG = {
   EIA_KEY: 'd5mGk3g798i3tz6XEj98mUEtlIvdLCflzebkQSyL',
-  OPENWEATHER_KEY: '', // Enter your key in the Weather tab input box
+  OPENWEATHER_KEY: 'd762abdc5a351a9585cab062b3c1f602',
   NEWS_KEY: 'd9f58cd1caa74bcfa1fb5998d3493a9f',
 };
 
@@ -1313,6 +1317,16 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
+function updateStatusPill(id, ok, label) {
+  const pill = $(id);
+  if (!pill) return;
+  const dot = pill.querySelector('.dot');
+  if (dot) {
+    dot.className = 'dot' + (ok === true ? '' : ok === false ? ' off' : ' warn');
+  }
+  pill.innerHTML = `<span class="dot${ok === true ? '' : ok === false ? ' off' : ' warn'}"></span> ${label}`;
+}
+
 function setLastUpdated() {
   $('last-updated').textContent = 'LAST UPDATED: ' + new Date().toLocaleString();
 }
@@ -1372,31 +1386,47 @@ function buildChart(id, type, labels, datasets, extraOpts = {}) {
 }
 
 // ============================================================
+// API HELPER — routes EIA through CORS proxy for GitHub Pages
+// ============================================================
+async function eiaFetch(url) {
+  // Try direct first (works on localhost), fall back to proxy
+  try {
+    const res = await fetch(url, { mode: 'cors' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const json = await res.json();
+    if (json.response || json.data) return json;
+    throw new Error('Bad response shape');
+  } catch(e) {
+    // Route through CORS proxy for GitHub Pages
+    const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(url)}`;
+    const res2 = await fetch(proxyUrl);
+    if (!res2.ok) throw new Error(`Proxy HTTP ${res2.status}`);
+    return await res2.json();
+  }
+}
+
+// ============================================================
 // ELECTRICITY DATA (EIA)
 // ============================================================
 async function loadElectricityData() {
   try {
-    // EIA series: electricity retail price by state, commercial sector (closest proxy for industrial)
-    const url = `https://api.eia.gov/v2/electricity/retail-sales/data/?api_key=${CONFIG.EIA_KEY}&frequency=monthly&data[0]=price&facets[stateid][]=${STATES.map(s=>s.code).join('&facets[stateid][]=')} &facets[sectorName][]=commercial&sort[0][column]=period&sort[0][direction]=desc&offset=0&length=100`;
+    const stateCodes = STATES.map(s => `facets[stateid][]=${s.code}`).join('&');
+    const url = `https://api.eia.gov/v2/electricity/retail-sales/data/?api_key=${CONFIG.EIA_KEY}&frequency=monthly&data[0]=price&${stateCodes}&facets[sectorName][]=commercial&sort[0][column]=period&sort[0][direction]=desc&offset=0&length=100`;
 
-    const res = await fetch(url);
-    const json = await res.json();
+    const json = await eiaFetch(url);
 
     if (!json.response || !json.response.data) throw new Error('No data');
 
     const byState = {};
     for (const row of json.response.data) {
       const sc = row.stateid;
-      if (!byState[sc]) {
-        byState[sc] = parseFloat(row.price);
-      }
+      if (!byState[sc]) byState[sc] = parseFloat(row.price);
     }
 
     DATA.electricity = byState;
     return byState;
   } catch (e) {
     console.error('EIA electricity error:', e);
-    // Return mock data as fallback for demo
     const mock = {};
     const mockVals = [11.2, 20.5, 12.8, 11.9, 9.8, 10.2, 9.1, 19.3, 14.2, 12.4, 16.5, 11.1, 9.3];
     STATES.forEach((s, i) => mock[s.code] = mockVals[i]);
@@ -1410,19 +1440,15 @@ async function loadElectricityData() {
 // ============================================================
 async function loadGasData() {
   try {
-    // EIA citygate natural gas prices
     const stateCodesQ = STATES.map(s => `facets[duoarea][]=${s.code}`).join('&');
     const url = `https://api.eia.gov/v2/natural-gas/pri/sum/data/?api_key=${CONFIG.EIA_KEY}&frequency=monthly&data[0]=value&${stateCodesQ}&sort[0][column]=period&sort[0][direction]=desc&length=100`;
-    const res = await fetch(url);
-    const json = await res.json();
+    const json = await eiaFetch(url);
 
     const byState = {};
     if (json.response && json.response.data) {
       for (const row of json.response.data) {
         const sc = row.duoarea;
-        if (!byState[sc] && row.value) {
-          byState[sc] = parseFloat(row.value);
-        }
+        if (!byState[sc] && row.value) byState[sc] = parseFloat(row.value);
       }
     }
 
@@ -1444,11 +1470,8 @@ async function loadGasData() {
 // ============================================================
 async function loadDieselData() {
   try {
-    // EIA v2 API - weekly retail diesel prices by region (PADD districts)
-    // product EPD2D = No 2 Diesel Retail
     const url = `https://api.eia.gov/v2/petroleum/pri/gnd/data/?api_key=${CONFIG.EIA_KEY}&frequency=weekly&data[0]=value&facets[product][]=EPD2D&sort[0][column]=period&sort[0][direction]=desc&length=120`;
-    const res = await fetch(url);
-    const json = await res.json();
+    const json = await eiaFetch(url);
 
     const regions = {};
     const history = {};
@@ -1463,11 +1486,10 @@ async function loadDieselData() {
       }
     }
 
-    // Fallback: try the wfr endpoint if gnd returns nothing
     if (Object.keys(regions).length === 0) {
+      // fallback endpoint
       const url2 = `https://api.eia.gov/v2/petroleum/pri/wfr/data/?api_key=${CONFIG.EIA_KEY}&frequency=weekly&data[0]=value&sort[0][column]=period&sort[0][direction]=desc&length=120`;
-      const res2 = await fetch(url2);
-      const json2 = await res2.json();
+      const json2 = await eiaFetch(url2);
       if (json2.response && json2.response.data) {
         for (const row of json2.response.data) {
           if (!row['product-name'] || !row['product-name'].toLowerCase().includes('diesel')) continue;
@@ -1479,25 +1501,16 @@ async function loadDieselData() {
       }
     }
 
-    if (Object.keys(regions).length === 0) throw new Error('No diesel data from either endpoint');
-
+    if (Object.keys(regions).length === 0) throw new Error('No diesel data');
     DATA.diesel = { regions, history };
     return DATA.diesel;
   } catch (e) {
     console.error('EIA diesel error:', e);
-    // Realistic fallback mock data
-    const mockRegions = {
-      'U.S.': 3.821,
-      'East Coast': 3.847,
-      'New England': 3.964,
-      'Central Atlantic': 3.889,
-      'Lower Atlantic': 3.801,
-      'Midwest': 3.742,
-      'Gulf Coast': 3.668,
-      'Rocky Mountain': 3.912,
-      'West Coast': 4.183,
-    };
-    DATA.diesel = { regions: mockRegions, history: {} };
+    DATA.diesel = { regions: {
+      'U.S.': 3.821, 'East Coast': 3.847, 'New England': 3.964,
+      'Central Atlantic': 3.889, 'Lower Atlantic': 3.801,
+      'Midwest': 3.742, 'Gulf Coast': 3.668, 'Rocky Mountain': 3.912, 'West Coast': 4.183,
+    }, history: {} };
     return DATA.diesel;
   }
 }
@@ -1623,7 +1636,7 @@ function renderNewsFallback() {
 // ============================================================
 async function loadWeather(key) {
   const container = $('weather-container');
-  container.innerHTML = '<div class="loading"><div class="spinner"></div>FETCHING WEATHER DATA...</div>';
+  if (container) container.innerHTML = '<div class="loading"><div class="spinner"></div>FETCHING WEATHER DATA...</div>';
 
   const results = {};
   const promises = STATES.map(async s => {
@@ -1742,8 +1755,7 @@ async function loadGridData() {
     try {
       // Get current hour demand
       const demandUrl = `https://api.eia.gov/v2/electricity/rto/region-data/data/?api_key=${CONFIG.EIA_KEY}&frequency=hourly&data[0]=value&facets[type][]=D&facets[respondent][]=${iso.id}&sort[0][column]=period&sort[0][direction]=desc&length=48`;
-      const demandRes = await fetch(demandUrl);
-      const demandJson = await demandRes.json();
+      const demandJson = await eiaFetch(demandUrl);
 
       let demandHistory = [];
       let currentDemand = null;
@@ -1754,8 +1766,7 @@ async function loadGridData() {
 
       // Get fuel mix (generation by source)
       const fuelUrl = `https://api.eia.gov/v2/electricity/rto/fuel-type-data/data/?api_key=${CONFIG.EIA_KEY}&frequency=hourly&data[0]=value&facets[respondent][]=${iso.id}&sort[0][column]=period&sort[0][direction]=desc&length=50`;
-      const fuelRes = await fetch(fuelUrl);
-      const fuelJson = await fuelRes.json();
+      const fuelJson = await eiaFetch(fuelUrl);
 
       const fuelMix = {};
       let latestPeriod = null;
@@ -1771,8 +1782,7 @@ async function loadGridData() {
 
       // Get forecast demand for load % calc
       const forecastUrl = `https://api.eia.gov/v2/electricity/rto/region-data/data/?api_key=${CONFIG.EIA_KEY}&frequency=hourly&data[0]=value&facets[type][]=DF&facets[respondent][]=${iso.id}&sort[0][column]=period&sort[0][direction]=desc&length=24`;
-      const forecastRes = await fetch(forecastUrl);
-      const forecastJson = await forecastRes.json();
+      const forecastJson = await eiaFetch(forecastUrl);
       let peakForecast = null;
       if (forecastJson.response && forecastJson.response.data) {
         const vals = forecastJson.response.data.map(d => parseFloat(d.value)).filter(v => !isNaN(v));
@@ -2237,29 +2247,39 @@ function switchTab(name) {
 // MAIN INIT
 // ============================================================
 async function init() {
-  // Load all data in parallel
-  await Promise.all([
+  await Promise.allSettled([
     loadElectricityData(),
     loadGasData(),
     loadDieselData(),
     loadGridData(),
   ]);
 
+  // Update status pills based on actual data
+  const eiaOk = Object.keys(DATA.electricity).length > 0;
+  updateStatusPill('pill-eia', eiaOk, `EIA DATA: ${eiaOk ? 'CONNECTED' : 'ESTIMATES'}`);
+  const gridOk = Object.values(GRID_DATA).some(d => !d.simulated);
+  updateStatusPill('pill-grid', gridOk, `GRID DATA: ${gridOk ? 'LIVE' : 'ESTIMATED'}`);
+
   setLastUpdated();
   renderCharts();
   buildEnergyTable();
   buildDieselTable();
-
-  // Build overview grid cards (simple version using loaded data)
   buildGridCards('overview-grid-cards');
 
-  // Load news on init for overview count
-  loadNews();
-
-  // If OWM key is already set
+  // Weather — key is baked in
   if (CONFIG.OPENWEATHER_KEY) {
-    loadWeather(CONFIG.OPENWEATHER_KEY);
+    updateStatusPill('pill-weather', null, 'WEATHER: LOADING...');
+    loadWeather(CONFIG.OPENWEATHER_KEY).then(() => {
+      updateStatusPill('pill-weather', true, 'WEATHER: LIVE');
+    }).catch(() => {
+      updateStatusPill('pill-weather', false, 'WEATHER: ERROR');
+    });
   }
+
+  // News
+  loadNews().then(() => {
+    updateStatusPill('pill-news', DATA.news.length > 0, `NEWS: ${DATA.news.length > 0 ? 'LIVE' : 'SAMPLE'}`);
+  });
 }
 
 async function refreshAll() {
