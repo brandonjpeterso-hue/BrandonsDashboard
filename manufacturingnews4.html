@@ -1552,12 +1552,25 @@ async function loadNews() {
     }
   }
 
-  // Deduplicate by URL
+  // Deduplicate by URL and apply strict relevance filter
+  const REQUIRED_TERMS = [
+    'plastic', 'recycl', 'epa', 'packaging', 'resin', 'pellet', 'nurdle',
+    'polymer', 'chemical', 'manufacturing', 'operation clean sweep',
+    'extended producer', 'epr', 'single-use', 'bioplastic', 'sustainability',
+    'waste', 'regulation', 'legislation', 'energy', 'diesel', 'natural gas',
+    'electricity', 'grid', 'fuel', 'carbon', 'emission',
+  ];
+
+  function isRelevant(article) {
+    const text = ((article.title || '') + ' ' + (article.description || '')).toLowerCase();
+    return REQUIRED_TERMS.some(term => text.includes(term));
+  }
+
   const seen = new Set();
   DATA.news = allArticles.filter(a => {
     if (seen.has(a.url)) return false;
     seen.add(a.url);
-    return true;
+    return isRelevant(a);
   }).sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)).slice(0, 15);
 
   if ($('ov-news-count')) $('ov-news-count').textContent = DATA.news.length;
@@ -1780,18 +1793,21 @@ async function loadGridData() {
         }
       }
 
-      // Get forecast demand for load % calc
-      const forecastUrl = `https://api.eia.gov/v2/electricity/rto/region-data/data/?api_key=${CONFIG.EIA_KEY}&frequency=hourly&data[0]=value&facets[type][]=DF&facets[respondent][]=${iso.id}&sort[0][column]=period&sort[0][direction]=desc&length=24`;
-      const forecastJson = await eiaFetch(forecastUrl);
-      let peakForecast = null;
-      if (forecastJson.response && forecastJson.response.data) {
-        const vals = forecastJson.response.data.map(d => parseFloat(d.value)).filter(v => !isNaN(v));
-        peakForecast = vals.length ? Math.max(...vals) : null;
-      }
+      // Load % = current demand vs. known seasonal peak capacity per ISO
+      // Based on EIA/NERC annual peak demand records (MW) — realistic operational ceiling
+      const PEAK_CAPACITY_MW = {
+        ERCO: 85500,   // ERCOT all-time peak ~85.5 GW (Aug 2023)
+        PJM:  154000,  // PJM record peak ~154 GW
+        MISO:  99800,  // MISO summer peak ~99.8 GW
+        CISO:  52700,  // CAISO record peak ~52.7 GW (Sep 2022)
+        SOCO:  45200,  // SOCO/SERC summer peak ~45.2 GW
+        ISNE:  28100,  // ISO-NE summer peak ~28.1 GW
+      };
+      const peakCapacity = PEAK_CAPACITY_MW[iso.id] || 50000;
+      const loadPct = currentDemand ? Math.min(97, (currentDemand / peakCapacity) * 100) : null;
+      const reservesMW = currentDemand ? Math.round(peakCapacity - currentDemand) : null;
 
-      const loadPct = currentDemand && peakForecast ? Math.min(99, (currentDemand / peakForecast) * 100) : null;
-
-      GRID_DATA[iso.id] = { currentDemand, demandHistory, fuelMix, loadPct, peakForecast };
+      GRID_DATA[iso.id] = { currentDemand, demandHistory, fuelMix, loadPct, peakCapacity, reservesMW };
     } catch(e) {
       console.error(`Grid data error for ${iso.id}:`, e);
       // Simulated fallback
@@ -1879,6 +1895,20 @@ function renderGridCards() {
         <div>
           <span>STATUS</span>
           <span class="metric-val" style="color:${cls==='high'?'#f25555':cls==='elevated'?'#f59e0b':'#2edb6e'}">${cls.toUpperCase()}</span>
+        </div>
+      </div>
+      <div class="grid-metrics" style="margin-top:6px;">
+        <div>
+          <span>PEAK CAPACITY</span>
+          <span class="metric-val">${d.peakCapacity ? (d.peakCapacity/1000).toFixed(0)+' GW' : '—'}</span>
+        </div>
+        <div>
+          <span>OP. RESERVES</span>
+          <span class="metric-val" style="color:${d.reservesMW && d.reservesMW > 5000 ? '#2edb6e' : '#f59e0b'}">${d.reservesMW ? (d.reservesMW/1000).toFixed(1)+' GW' : '—'}</span>
+        </div>
+        <div>
+          <span>DATA</span>
+          <span class="metric-val" style="font-size:12px;color:var(--text-dim)">${d.simulated ? 'ESTIMATED' : 'EIA LIVE'}</span>
         </div>
       </div>
 
@@ -2101,6 +2131,34 @@ function buildEnergyTable() {
 // ============================================================
 // DIESEL TABLE
 // ============================================================
+
+// PADD codes and EIA area names → human-readable region labels
+const DIESEL_REGION_NAMES = {
+  'U.S.':                        'U.S. National Average',
+  'East Coast':                  'East Coast',
+  'PADD 1':                      'East Coast (PADD 1)',
+  'PADD 1A':                     'New England',
+  'PADD 1B':                     'Central Atlantic',
+  'PADD 1C':                     'Lower Atlantic / Southeast',
+  'PADD 2':                      'Midwest',
+  'PADD 3':                      'Gulf Coast',
+  'PADD 4':                      'Rocky Mountain',
+  'PADD 5':                      'West Coast',
+  'PADD 5 Less California':      'West Coast (excl. CA)',
+  'California':                  'California',
+  'New England':                 'New England',
+  'Central Atlantic':            'Central Atlantic',
+  'Lower Atlantic':              'Lower Atlantic / Southeast',
+  'Midwest':                     'Midwest',
+  'Gulf Coast':                  'Gulf Coast',
+  'Rocky Mountain':              'Rocky Mountain',
+  'West Coast':                  'West Coast',
+};
+
+function dieselLabel(raw) {
+  return DIESEL_REGION_NAMES[raw] || raw;
+}
+
 function buildDieselTable() {
   const container = $('diesel-table');
   if (!container || !DATA.diesel.regions) return;
@@ -2123,12 +2181,12 @@ function buildDieselTable() {
   keys.forEach(k => {
     const val = regions[k];
     const diff = val - usAvg;
-    const diffStr = diff > 0 ? `+$${diff.toFixed(3)}` : `-$${Math.abs(diff).toFixed(3)}`;
+    const diffStr = k === 'U.S.' ? 'BASELINE' : (diff > 0 ? `+$${diff.toFixed(3)}` : `-$${Math.abs(diff).toFixed(3)}`);
     const diffCls = diff > 0.1 ? 'val-high' : diff < -0.1 ? 'val-low' : '';
     const pct = ((val / max) * 80).toFixed(0);
     html += `
       <div class="fuel-row">
-        <div class="fuel-cell"><span class="state">${k}</span></div>
+        <div class="fuel-cell"><span class="state">${dieselLabel(k)}</span></div>
         <div class="fuel-cell" style="color:#60c8f5;">$${val.toFixed(3)}</div>
         <div class="fuel-cell ${diffCls}">${diffStr}</div>
         <div class="fuel-cell">
@@ -2189,10 +2247,11 @@ function renderCharts() {
     borderWidth: 1,
   }]);
 
-  // Diesel
+  // Diesel charts — use friendly region names
   const dieselRegions = DATA.diesel.regions || {};
-  const dLabels = Object.keys(dieselRegions).slice(0, 8);
-  const dVals = dLabels.map(k => dieselRegions[k]);
+  const dKeys = Object.keys(dieselRegions).slice(0, 8);
+  const dLabels = dKeys.map(dieselLabel);
+  const dVals = dKeys.map(k => dieselRegions[k]);
   buildChart('diesel-chart', 'bar', dLabels, [{
     label: '$/gallon',
     data: dVals,
