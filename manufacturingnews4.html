@@ -1,23 +1,37 @@
 <!DOCTYPE html>
 
-<html lang="en" style="color-scheme: dark; background: #060a0d;">
+<html lang="en" style="background:#060a0d;color:#ffffff;">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#060a0d">
 <title>OPS INTELLIGENCE — Energy & Regulatory Dashboard</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- Fonts with robust fallback chain — loads async so layout never blocks -->
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link media="print" onload="this.media='all'" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500&display=swap">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500&display=swap"></noscript>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <style>
-  /* ===== FORCE DARK MODE — override system preference ===== */
-  html, body {
-    color-scheme: dark !important;
-    background-color: #060a0d !important;
+  /* ===== HARDCODED DARK BASE — iOS Safari compatible ===== */
+  /* All critical colors are hardcoded, not just variable references */
+  html {
+    background: #060a0d !important;
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
   }
-  @media (prefers-color-scheme: light) {
-    html { filter: none !important; }
-    body { background: #060a0d !important; color: #ffffff !important; }
+  body {
+    background: #060a0d !important;
+    color: #ffffff !important;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* Prevent any white flash */
+  html, body, main, nav, header, footer {
+    background-color: #060a0d;
   }
 
 :root {
@@ -41,19 +55,19 @@
 –text-primary: #ffffff;
 –text-secondary: #c2d4e8;
 –text-dim: #6b8aaa;
-–mono: ‘Share Tech Mono’, monospace;
-–display: ‘Barlow Condensed’, sans-serif;
-–body: ‘Barlow’, sans-serif;
+/* Font stack: web font → system condensed → system default */
+–mono: ‘Share Tech Mono’, ‘Courier New’, Courier, monospace;
+–display: ‘Barlow Condensed’, ‘Arial Narrow’, Arial, sans-serif;
+–body: ‘Barlow’, -apple-system, BlinkMacSystemFont, ‘Segoe UI’, Arial, sans-serif;
 }
 
 - { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-background: var(–bg-primary);
-color: var(–text-primary);
-font-family: var(–body);
+background: #060a0d;
+color: #ffffff;
+font-family: ‘Barlow’, -apple-system, BlinkMacSystemFont, ‘Segoe UI’, Arial, sans-serif;
 font-size: 17px;
-min-height: 100vh;
 overflow-x: hidden;
 }
 
@@ -198,18 +212,22 @@ white-space: nowrap;
 nav {
 display: flex;
 gap: 0;
-border-bottom: 1px solid var(–border);
+border-bottom: 1px solid #1e3348;
 padding: 0 32px;
-background: var(–bg-secondary);
+background: #0b1015;
+overflow-x: auto;
+-webkit-overflow-scrolling: touch;
+scrollbar-width: none;
 }
+nav::-webkit-scrollbar { display: none; }
 
 .tab {
-font-family: var(–display);
+font-family: ‘Barlow Condensed’, ‘Arial Narrow’, Arial, sans-serif;
 font-weight: 600;
 font-size: 17px;
 letter-spacing: 2px;
 text-transform: uppercase;
-color: var(–text-dim);
+color: #6b8aaa;
 padding: 14px 26px;
 cursor: pointer;
 border-bottom: 2px solid transparent;
@@ -219,12 +237,13 @@ border-top: none;
 border-left: none;
 border-right: none;
 white-space: nowrap;
+-webkit-tap-highlight-color: transparent;
 }
 
-.tab:hover { color: var(–text-secondary); }
+.tab:hover { color: #c2d4e8; }
 .tab.active {
-color: var(–accent);
-border-bottom-color: var(–accent);
+color: #60c8f5;
+border-bottom-color: #60c8f5;
 }
 
 /* –– MAIN LAYOUT –– */
@@ -232,10 +251,12 @@ main {
 padding: 24px 32px;
 max-width: 1600px;
 margin: 0 auto;
+background: #060a0d;
+min-height: calc(100vh - 120px);
 }
 
-.section { display: none; }
-.section.active { display: block; }
+.section { display: none; background: #060a0d; }
+.section.active { display: block; background: #060a0d; }
 
 /* –– STATUS BAR –– */
 .status-bar {
@@ -246,12 +267,13 @@ flex-wrap: wrap;
 }
 
 .status-pill {
-font-family: var(–mono);
-font-size: 15px;
+font-family: ‘Share Tech Mono’, ‘Courier New’, monospace;
+font-size: 14px;
 letter-spacing: 1.5px;
 padding: 7px 16px;
-border: 1px solid var(–border-bright);
-color: var(–text-secondary);
+border: 1px solid #2d4d6e;
+background: #0f1720;
+color: #c2d4e8;
 display: flex;
 align-items: center;
 gap: 8px;
@@ -261,11 +283,12 @@ gap: 8px;
 width: 8px;
 height: 8px;
 border-radius: 50%;
-background: var(–green);
+background: #2edb6e;
+flex-shrink: 0;
 }
 
-.status-pill .dot.warn { background: var(–caution); }
-.status-pill .dot.off { background: var(–text-dim); }
+.status-pill .dot.warn { background: #f59e0b; }
+.status-pill .dot.off { background: #6b8aaa; }
 
 /* –– GRID SYSTEMS –– */
 .grid-4 {
@@ -302,8 +325,8 @@ margin-bottom: 24px;
 
 /* –– CARDS –– */
 .card {
-background: var(–bg-card);
-border: 1px solid var(–border);
+background: #0f1720;
+border: 1px solid #1e3348;
 padding: 20px;
 position: relative;
 overflow: hidden;
@@ -313,35 +336,30 @@ transition: border-color 0.2s, background 0.2s;
 .card::before {
 content: ‘’;
 position: absolute;
-top: 0;
-left: 0;
-right: 0;
+top: 0; left: 0; right: 0;
 height: 2px;
-background: linear-gradient(90deg, transparent, var(–accent-dim), transparent);
+background: linear-gradient(90deg, transparent, #2d8bbf, transparent);
 opacity: 0.5;
 }
 
 .card:hover {
-border-color: var(–border-bright);
-background: var(–bg-card-hover);
+border-color: #2d4d6e;
+background: #141e2a;
 }
 
 .card-label {
-font-family: var(–mono);
+font-family: ‘Share Tech Mono’, ‘Courier New’, monospace;
 font-size: 14px;
 letter-spacing: 3px;
 text-transform: uppercase;
-color: var(–text-secondary);
+color: #c2d4e8;
 margin-bottom: 12px;
 display: flex;
 align-items: center;
 justify-content: space-between;
 }
 
-.card-label .unit {
-color: var(–accent);
-font-size: 13px;
-}
+.card-label .unit { color: #60c8f5; font-size: 13px; }
 
 .card-value {
 font-family: var(–display);
@@ -998,22 +1016,128 @@ to { opacity: 1; transform: translateY(0); }
 .fade-in:nth-child(7) { animation-delay: 0.35s; }
 .fade-in:nth-child(8) { animation-delay: 0.4s; }
 
-/* Responsive */
+/* –– CHART CARDS — explicit backgrounds –– */
+.chart-card {
+background: #0f1720;
+border: 1px solid #1e3348;
+padding: 20px;
+position: relative;
+}
+.chart-card::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 2px;
+background: linear-gradient(90deg, transparent, #2d8bbf, transparent);
+opacity: 0.5;
+}
+
+/* –– GRID STATUS CARDS — explicit backgrounds –– */
+.grid-status-card {
+background: #0f1720 !important;
+border: 1px solid #1e3348 !important;
+}
+
+/* –– API NOTE / ERROR — explicit backgrounds –– */
+.api-note {
+background: #0a1520 !important;
+border: 1px solid #2d4d6e !important;
+color: #c2d4e8 !important;
+}
+.error-state {
+background: rgba(178,32,32,0.15) !important;
+border: 1px solid #b02020 !important;
+color: #f25555 !important;
+}
+
+/* –– NEWS CARDS — explicit backgrounds –– */
+.news-card {
+background: #0f1720 !important;
+border: 1px solid #1e3348 !important;
+}
+.news-card:hover { border-color: #2d4d6e !important; }
+
+/* –– WEATHER CARDS — explicit backgrounds –– */
+.weather-card {
+background: #0f1720 !important;
+border: 1px solid #1e3348 !important;
+}
+
+/* –– FOOTER –– */
+footer {
+background: #0b1015 !important;
+border-top: 1px solid #1e3348 !important;
+color: #6b8aaa !important;
+}
+
+/* –– RESPONSIVE: TABLET –– */
 @media (max-width: 1100px) {
 .grid-4 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(2, 1fr); }
 .weather-grid { grid-template-columns: repeat(3, 1fr); }
 .news-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
+/* –– RESPONSIVE: MOBILE –– */
 @media (max-width: 768px) {
-header { padding: 12px 16px; }
-main { padding: 16px; }
-nav { padding: 0 16px; overflow-x: auto; }
-.grid-4, .grid-3, .grid-2, .grid-2-1 { grid-template-columns: 1fr; }
+header {
+padding: 12px 16px;
+gap: 12px;
+flex-wrap: nowrap;
+}
+.logo-text { font-size: 22px; letter-spacing: 2px; }
+.logo-sub { font-size: 10px; letter-spacing: 2px; }
+.logo-icon { width: 28px; height: 28px; }
+.header-right { gap: 12px; }
+.states-badge { font-size: 10px; padding: 4px 8px; }
+#clock-time { font-size: 14px; }
+#clock-tz { font-size: 10px; }
+
+```
+nav { padding: 0 8px; }
+.tab { font-size: 13px; padding: 12px 14px; letter-spacing: 1px; }
+
+main { padding: 12px 16px; background: #060a0d; }
+.section { background: #060a0d; }
+
+.grid-4,
+.grid-3,
+.grid-2,
+.grid-2-1 { grid-template-columns: 1fr; }
+
+.col-span-2,
+.col-span-3,
+.col-span-4 { grid-column: span 1; }
+
+.card { padding: 16px; }
+.card-value { font-size: 40px; }
+.card-value.large { font-size: 48px; }
+
 .weather-grid { grid-template-columns: repeat(2, 1fr); }
 .news-grid { grid-template-columns: 1fr; }
 .fuel-row { grid-template-columns: 1fr 1fr; }
-.col-span-2, .col-span-3, .col-span-4 { grid-column: span 1; }
+
+.section-title { font-size: 28px; }
+.section-header { flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+
+.chart-card { padding: 14px; }
+.chart-title { font-size: 18px; }
+
+.status-pill { font-size: 12px; padding: 6px 12px; }
+
+.grid-metrics { flex-direction: column; gap: 8px; }
+.iso-tab { font-size: 11px; padding: 6px 12px; }
+```
+
+}
+
+/* –– RESPONSIVE: SMALL MOBILE (≤390px iPhone SE etc) –– */
+@media (max-width: 430px) {
+.logo-text { font-size: 18px; }
+.header-right { gap: 8px; }
+.states-badge { display: none; }
+.tab { font-size: 12px; padding: 10px 10px; }
+main { padding: 10px 12px; }
 }
 </style>
 
