@@ -941,6 +941,90 @@ background: rgba(96,200,245,0.04);
 .news-subtab-content { display: none; }
 .news-subtab-content.active { display: block; }
 
+/* –– TOOLTIP –– */
+.has-tooltip { position: relative; display: inline-flex; align-items: center; gap: 4px; cursor: help; }
+.tooltip-icon {
+width: 14px; height: 14px; border-radius: 50%;
+background: #2d4d6e; color: #60c8f5;
+font-family: ‘Share Tech Mono’,‘Courier New’,monospace;
+font-size: 9px; display: inline-flex; align-items: center; justify-content: center;
+flex-shrink: 0; line-height: 1;
+}
+.tooltip-box {
+display: none;
+position: absolute;
+bottom: calc(100% + 8px);
+left: 0;
+width: 270px;
+background: #0b1015;
+border: 1px solid #2d4d6e;
+padding: 10px 12px;
+font-family: ‘Share Tech Mono’,‘Courier New’,monospace;
+font-size: 11px;
+color: #c2d4e8;
+letter-spacing: 0.5px;
+line-height: 1.6;
+z-index: 200;
+pointer-events: none;
+}
+.has-tooltip:hover .tooltip-box,
+.has-tooltip:focus-within .tooltip-box { display: block; }
+
+/* –– STATUS THRESHOLDS LEGEND –– */
+.status-legend {
+display: flex;
+gap: 0;
+border: 1px solid #1e3348;
+margin-bottom: 20px;
+overflow: hidden;
+}
+.legend-item {
+flex: 1;
+padding: 10px 14px;
+border-right: 1px solid #1e3348;
+}
+.legend-item:last-child { border-right: none; }
+.legend-label {
+font-family: ‘Barlow Condensed’,‘Arial Narrow’,Arial,sans-serif;
+font-weight: 700;
+font-size: 15px;
+letter-spacing: 2px;
+text-transform: uppercase;
+margin-bottom: 4px;
+}
+.legend-rules {
+font-family: ‘Share Tech Mono’,‘Courier New’,monospace;
+font-size: 11px;
+color: #6b8aaa;
+letter-spacing: 0.5px;
+line-height: 1.5;
+}
+
+/* –– OFFICIAL RESERVES ROW –– */
+.official-reserves-row {
+margin-top: 8px;
+padding: 8px 10px;
+background: rgba(96,200,245,0.04);
+border: 1px solid #1e3348;
+border-left: 3px solid #60c8f5;
+font-family: ‘Share Tech Mono’,‘Courier New’,monospace;
+font-size: 11px;
+color: #6b8aaa;
+letter-spacing: 0.5px;
+line-height: 1.6;
+}
+.official-reserves-row a {
+color: #60c8f5;
+text-decoration: none;
+letter-spacing: 1px;
+}
+.official-reserves-row a:hover { text-decoration: underline; }
+.official-reserves-val {
+font-size: 13px;
+color: #c2d4e8;
+font-weight: bold;
+}
+
 /* –– ISO TABS –– */
 .iso-tab {
 font-family: var(–mono);
@@ -1253,10 +1337,30 @@ main { padding: 10px 12px; }
     </div>
     <div class="api-note">
       <strong>DATA:</strong> Hourly demand and generation mix pulled from EIA Form EIA-930 (Electric Grid Monitor) for each ISO/RTO. 
-      Load percentage = current demand vs. recent peak. Fuel mix shows generation source breakdown. Click any operator name to view their live dashboard.
+      Load percentage = current demand vs. available capacity (forecast peak × target reserve margin). Fuel mix shows generation source breakdown. Click any operator name to view their live dashboard.
     </div>
 
 ```
+<!-- Status thresholds legend -->
+<div class="status-legend">
+  <div class="legend-item" style="background:rgba(46,219,110,0.05);">
+    <div class="legend-label" style="color:#2edb6e;">✓ NORMAL</div>
+    <div class="legend-rules">Load &lt; 75% of available capacity<br>Reserve margin &gt; 25%</div>
+  </div>
+  <div class="legend-item" style="background:rgba(245,158,11,0.05);">
+    <div class="legend-label" style="color:#f59e0b;">△ ELEVATED</div>
+    <div class="legend-rules">Load 75–90% of available capacity<br>Reserve margin 10–25%</div>
+  </div>
+  <div class="legend-item" style="background:rgba(242,85,85,0.05);">
+    <div class="legend-label" style="color:#f25555;">⚠ HIGH</div>
+    <div class="legend-rules">Load ≥ 90% of available capacity<br>Reserve margin &lt; 10%</div>
+  </div>
+  <div class="legend-item" style="background:#0b1015;">
+    <div class="legend-label" style="color:#6b8aaa;font-size:11px;letter-spacing:1px;">RESERVE NOTE</div>
+    <div class="legend-rules">Our reserves = Available Capacity − Current Demand<br>ISO official reserves include non-spin &amp; DR (typically higher)</div>
+  </div>
+</div>
+
 <!-- ISO selector tabs -->
 <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;" id="iso-tabs">
   <button class="iso-tab active" onclick="selectISO('ALL')">ALL REGIONS</button>
@@ -2095,6 +2199,112 @@ async function loadGridData() {
   renderGridCards();
   renderFuelMixChart();
   updateGridSummary();
+  // Attempt live official reserve feeds after cards are in the DOM
+  fetchOfficialReserves();
+}
+
+// ============================================================
+// OFFICIAL ISO OPERATING RESERVES — live feed attempts
+// Each ISO publishes operating reserves differently.
+// We attempt each via CORS proxy; fall back to a live link.
+// ============================================================
+async function fetchOfficialReserves() {
+  // Try each ISO in parallel; update DOM independently
+  await Promise.allSettled([
+    fetchERCOTReserves(),
+    fetchPJMReserves(),
+    fetchISONEReserves(),
+    // MISO, CAISO, SOCO use authenticated or complex APIs — link only
+  ]);
+}
+
+async function updateOfficialResSpan(isoId, text, isLink) {
+  const el = $(`official-res-val-${isoId}`);
+  if (!el) return;
+  const iso = ISO_CONFIG.find(i => i.id === isoId);
+  if (isLink || !text) {
+    el.innerHTML = `<a href="${iso?.url || '#'}" target="_blank" rel="noopener">VIEW LIVE FEED ↗</a>`;
+  } else {
+    el.innerHTML = `<span class="official-reserves-val">${text}</span> &nbsp;<a href="${iso?.url || '#'}" target="_blank" rel="noopener" style="font-size:10px;">[VERIFY ↗]</a>`;
+  }
+}
+
+async function fetchERCOTReserves() {
+  // ERCOT Real-Time dashboard publishes system-wide reserve data
+  // Endpoint: ERCOT public dashboard JSON (may vary; proxy attempt)
+  try {
+    const url = 'https://www.ercot.com/api/1/services/read/dashboardType/systemWideCurtailmentType';
+    const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(url)}`;
+    const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(8000) });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const json = await res.json();
+    // ERCOT response structure: items[0].systemWideCurtailmentType
+    const data = json?.items?.[0] || json?.[0] || null;
+    if (data) {
+      // Try common field names for total available reserves
+      const mw = data.totalOperatingReserves ?? data.availableCapacity ?? data.reserveCapacity ?? null;
+      if (mw !== null) {
+        const gw = (parseFloat(mw) / 1000).toFixed(2);
+        await updateOfficialResSpan('ERCO', `${gw} GW (ERCOT OFFICIAL)`, false);
+        return;
+      }
+    }
+    throw new Error('Unexpected shape');
+  } catch(e) {
+    // Try ERCOT's alternate public summary endpoint
+    try {
+      const url2 = 'https://www.ercot.com/api/1/services/read/dashboardType/realTimeSummaryType';
+      const res2 = await fetch(`https://corsproxy.io/?${encodeURIComponent(url2)}`, { signal: AbortSignal.timeout(8000) });
+      if (!res2.ok) throw new Error('HTTP ' + res2.status);
+      const json2 = await res2.json();
+      const item = json2?.items?.[0] || json2?.[0] || null;
+      const mw = item?.totalOperatingReserves ?? item?.operatingReserves ?? item?.reserveMW ?? null;
+      if (mw !== null) {
+        const gw = (parseFloat(mw) / 1000).toFixed(2);
+        await updateOfficialResSpan('ERCO', `${gw} GW (ERCOT OFFICIAL)`, false);
+        return;
+      }
+    } catch(e2) { /* fall through */ }
+    // Both failed — show link
+    await updateOfficialResSpan('ERCO', null, true);
+  }
+}
+
+async function fetchPJMReserves() {
+  // PJM DataMiner2 instantaneous reserves — requires auth token for most endpoints
+  // Attempt public summary endpoint
+  try {
+    const url = 'https://api.pjm.com/api/v1/instantaneous_load';
+    const res = await fetch(`https://corsproxy.io/?${encodeURIComponent(url)}`, {
+      signal: AbortSignal.timeout(8000),
+      headers: { 'Ocp-Apim-Subscription-Key': '' } // public tier
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    // PJM doesn't expose raw operating reserves on public endpoints — fall through
+    throw new Error('No reserves in response');
+  } catch(e) {
+    await updateOfficialResSpan('PJM', null, true);
+  }
+}
+
+async function fetchISONEReserves() {
+  // ISO-NE isoExpress has a public REST API
+  try {
+    const url = 'https://webservices.iso-ne.com/api/v1.1/currentcontrolarea.json';
+    const res = await fetch(`https://corsproxy.io/?${encodeURIComponent(url)}`, { signal: AbortSignal.timeout(8000) });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const json = await res.json();
+    const area = json?.CurrentControlArea || null;
+    const mw = area?.OperatingReserve?.['$'] ?? area?.OperatingReserves ?? null;
+    if (mw !== null) {
+      const gw = (parseFloat(mw) / 1000).toFixed(2);
+      await updateOfficialResSpan('ISNE', `${gw} GW (ISO-NE OFFICIAL)`, false);
+      return;
+    }
+    throw new Error('No reserves field');
+  } catch(e) {
+    await updateOfficialResSpan('ISNE', null, true);
+  }
 }
 
 function renderGridCards() {
@@ -2174,9 +2384,30 @@ function renderGridCards() {
           <span class="metric-val">${d.availableCapacity ? (d.availableCapacity/1000).toFixed(1)+' GW' : '—'}</span>
         </div>
         <div>
-          <span>OP. RESERVES</span>
-          <span class="metric-val" style="color:${d.reservesMW && d.reservesMW > 3000 ? '#2edb6e' : '#f59e0b'}">${d.reservesMW ? (d.reservesMW/1000).toFixed(1)+' GW' : '—'}${d.reservePct ? ' <span style="font-size:11px;color:var(--text-dim)">('+d.reservePct+'%)</span>' : ''}</span>
+          <span class="has-tooltip">
+            OP. RESERVES
+            <span class="tooltip-icon">i</span>
+            <span class="tooltip-box">
+              NARROW ONLINE MARGIN<br>
+              = Available Capacity − Current Demand<br><br>
+              This is a conservative estimate.<br>
+              Official ISO reserves are typically<br>
+              higher — they include non-spinning<br>
+              reserves, demand response (DR),<br>
+              and supplemental reserve products<br>
+              not captured here.
+            </span>
+          </span>
+          <span class="metric-val" style="color:${d.reservesMW && d.reservesMW > 3000 ? '#2edb6e' : '#f59e0b'}">${d.reservesMW ? (d.reservesMW/1000).toFixed(1)+' GW' : '—'}${d.reservePct ? ' <span style="font-size:11px;color:#6b8aaa;">('+d.reservePct+'%)</span>' : ''}</span>
         </div>
+      </div>
+
+      <div class="official-reserves-row" id="official-res-${iso.id}">
+        <span style="color:#60c8f5;letter-spacing:1.5px;font-size:10px;">OFFICIAL ISO RESERVES</span> —
+        Includes non-spin &amp; DR.
+        <span id="official-res-val-${iso.id}" style="margin-left:4px;">
+          <a href="${iso.url}" target="_blank" rel="noopener">VIEW LIVE FEED ↗</a>
+        </span>
       </div>
 
       <div style="margin-top:12px;">
