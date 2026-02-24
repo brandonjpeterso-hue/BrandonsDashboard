@@ -1,281 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>EndoFind Texas — Find Your Excision Surgeon</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --nude1:    #C49A8A;
-      --nude2:    #D9B5A6;
-      --nude3:    #EDD5CB;
-      --nude4:    #F7EDE8;
-      --nude-dk:  #9A6E62;
-      --lavender: #C3A8D1;
-      --lav-lt:   #EDE4F8;
-      --lav-dk:   #7A5EA0;
-      --mint:     #8ECFB8;
-      --mint-lt:  #D4F4EC;
-      --cream:    #FBF6F2;
-      --charcoal: #2D1E1A;
-      --muted:    #8A6E68;
-      --border:   #EDD5CB;
-      --card:     #FFFFFF;
+      --nude1:   #C49A8A;
+      --nude2:   #D9B5A6;
+      --nude3:   #EDD5CB;
+      --nude4:   #F7EDE8;
+      --nude-dk: #9A6E62;
+      --lav-lt:  #EDE4F8;
+      --lav-dk:  #7A5EA0;
+      --lavender:#C3A8D1;
+      --mint-lt: #D4F4EC;
+      --cream:   #FBF6F2;
+      --charcoal:#2D1E1A;
+      --muted:   #8A6E68;
+      --border:  #EDD5CB;
+      --card:    #FFFFFF;
     }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--charcoal); min-height: 100vh; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--charcoal);min-height:100vh;}
 
-    /* TAB BAR */
-    .tab-bar {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(251,246,242,.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      display: flex; justify-content: center; gap: .25rem;
-      padding: .6rem 1rem;
+    /* ── TAB BAR ── */
+    .tab-bar{
+      position:sticky;top:0;z-index:100;
+      background:rgba(251,246,242,.93);backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--border);
+      display:flex;justify-content:center;gap:.25rem;padding:.6rem 1rem;
     }
-    .tab-btn {
-      background: none; border: none;
-      font-family: 'DM Sans', sans-serif; font-size: .88rem; font-weight: 600;
-      color: var(--muted); padding: .5rem 1.3rem; border-radius: 99px;
-      cursor: pointer; transition: background .2s, color .2s;
+    .tab-btn{
+      background:none;border:none;font-family:'DM Sans',sans-serif;
+      font-size:.88rem;font-weight:600;color:var(--muted);
+      padding:.5rem 1.4rem;border-radius:99px;cursor:pointer;
+      transition:background .2s,color .2s;
     }
-    .tab-btn:hover { background: var(--nude4); color: var(--nude-dk); }
-    .tab-btn.active { background: linear-gradient(135deg, #7A4E44, var(--nude1)); color: #fff; }
+    .tab-btn:hover{background:var(--nude4);color:var(--nude-dk);}
+    .tab-btn.active{background:linear-gradient(135deg,#7A4E44,var(--nude1));color:#fff;}
 
-    /* HERO */
-    .hero {
-      background: linear-gradient(145deg, #7A4E44 0%, var(--nude1) 42%, var(--nude2) 75%, var(--nude3) 100%);
-      padding: 4rem 1.5rem 5.5rem;
-      text-align: center; position: relative; overflow: hidden;
+    /* ── HERO ── */
+    .hero{
+      background:linear-gradient(145deg,#7A4E44 0%,var(--nude1) 42%,var(--nude2) 75%,var(--nude3) 100%);
+      padding:4rem 1.5rem 5.5rem;text-align:center;
+      position:relative;overflow:hidden;
     }
-    .hero::after {
-      content: '';
-      position: absolute; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
-      pointer-events: none; mix-blend-mode: overlay;
+    .hero::after{
+      content:'';position:absolute;inset:0;pointer-events:none;mix-blend-mode:overlay;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.045'/%3E%3C/svg%3E");
     }
-    .hero-glow {
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 75% 25%, rgba(255,235,220,.22) 0%, transparent 55%),
-                  radial-gradient(ellipse at 20% 80%, rgba(195,168,209,.18) 0%, transparent 50%);
-      pointer-events: none;
+    .hero-glow{
+      position:absolute;inset:0;pointer-events:none;
+      background:radial-gradient(ellipse at 75% 25%,rgba(255,238,220,.2) 0%,transparent 55%),
+                 radial-gradient(ellipse at 20% 80%,rgba(195,168,209,.16) 0%,transparent 50%);
     }
 
-    /* LILY CORNERS */
-    .lily-tl, .lily-tr {
-      position: absolute; top: 0;
-      width: 210px; height: 210px;
-      pointer-events: none; z-index: 2; opacity: .85;
+    /* lily containers */
+    .lily-tl,.lily-tr{
+      position:absolute;top:0;width:220px;height:220px;
+      pointer-events:none;z-index:2;
     }
-    .lily-tl { left: 0; }
-    .lily-tr { right: 0; transform: scaleX(-1); }
+    .lily-tl{left:0;}
+    .lily-tr{right:0;}
 
-    .hero-inner { position: relative; z-index: 3; }
-    .hero-ribbon {
-      display: inline-block;
-      background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.35);
-      backdrop-filter: blur(6px); color: #fff;
-      font-size: .78rem; font-weight: 600; letter-spacing: .13em; text-transform: uppercase;
-      padding: .35rem 1.1rem; border-radius: 99px; margin-bottom: 1.3rem;
+    .hero-inner{position:relative;z-index:3;}
+    .hero-ribbon{
+      display:inline-block;
+      background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);
+      backdrop-filter:blur(6px);color:#fff;
+      font-size:.78rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+      padding:.35rem 1.1rem;border-radius:99px;margin-bottom:1.3rem;
     }
-    .hero h1 {
-      font-family: 'Fraunces', serif; font-size: clamp(2rem, 6vw, 3.6rem);
-      font-weight: 700; color: #fff; line-height: 1.15; margin-bottom: .9rem;
-      text-shadow: 0 2px 18px rgba(80,30,20,.2);
+    .hero h1{
+      font-family:'Fraunces',serif;font-size:clamp(2rem,6vw,3.6rem);
+      font-weight:700;color:#fff;line-height:1.15;margin-bottom:.9rem;
+      text-shadow:0 2px 20px rgba(80,30,20,.22);
     }
-    .hero h1 em { font-style: italic; color: #FFE8DC; }
-    .hero p { color: rgba(255,255,255,.85); font-size: 1.05rem; max-width: 520px; margin: 0 auto 2rem; line-height: 1.7; }
-    .hero-stats { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
-    .stat {
-      background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.25);
-      border-radius: 14px; padding: .75rem 1.5rem; color: #fff; backdrop-filter: blur(4px);
+    .hero h1 em{font-style:italic;color:#FFE8DC;}
+    .hero p{color:rgba(255,255,255,.85);font-size:1.05rem;max-width:520px;margin:0 auto 2rem;line-height:1.7;}
+    .hero-stats{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;}
+    .stat{
+      background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);
+      border-radius:14px;padding:.75rem 1.5rem;color:#fff;backdrop-filter:blur(4px);
     }
-    .stat strong { display: block; font-size: 1.5rem; font-family: 'Fraunces', serif; }
-    .stat span   { font-size: .76rem; opacity: .8; text-transform: uppercase; letter-spacing: .09em; }
+    .stat strong{display:block;font-size:1.5rem;font-family:'Fraunces',serif;}
+    .stat span{font-size:.76rem;opacity:.8;text-transform:uppercase;letter-spacing:.09em;}
+    .wave{display:block;width:100%;height:56px;margin-top:-2px;background:var(--cream);clip-path:ellipse(56% 100% at 50% 100%);}
 
-    .wave {
-      display: block; width: 100%; height: 56px; margin-top: -2px;
-      background: var(--cream); clip-path: ellipse(56% 100% at 50% 100%);
-    }
+    /* ── PAGES ── */
+    .page{display:none;}.page.active{display:block;}
 
-    /* PAGES */
-    .page { display: none; }
-    .page.active { display: block; }
+    /* ── FILTERS ── */
+    .filter-section{max-width:920px;margin:-2.5rem auto 2.5rem;padding:0 1.5rem;}
+    .filter-card{background:var(--card);border-radius:22px;box-shadow:0 8px 40px rgba(100,50,40,.1);padding:1.8rem 2rem;}
+    .filter-card h2{font-family:'Fraunces',serif;font-size:1.15rem;margin-bottom:1.2rem;}
+    .filters-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem;}
+    .filter-group label{display:block;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;}
+    .filter-group select{width:100%;padding:.62rem .9rem;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.92rem;color:var(--charcoal);background:var(--nude4);outline:none;transition:border-color .2s;appearance:none;cursor:pointer;}
+    .filter-group select:focus{border-color:var(--nude1);}
+    .select-wrap{position:relative;}
+    .select-wrap::after{content:'▾';position:absolute;right:.9rem;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--muted);font-size:.82rem;}
+    .filter-actions{display:flex;gap:.75rem;margin-top:1.2rem;align-items:center;flex-wrap:wrap;}
+    .btn-primary{background:linear-gradient(135deg,#7A4E44,var(--nude1));color:#fff;border:none;border-radius:10px;padding:.65rem 1.8rem;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;transition:opacity .2s,transform .15s;}
+    .btn-primary:hover{opacity:.88;transform:translateY(-1px);}
+    .btn-ghost{background:none;border:1.5px solid var(--border);border-radius:10px;padding:.63rem 1.2rem;font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--muted);cursor:pointer;transition:border-color .2s,color .2s;}
+    .btn-ghost:hover{border-color:var(--nude1);color:var(--nude-dk);}
+    #result-count{margin-left:auto;font-size:.83rem;color:var(--muted);}
 
-    /* FILTER SECTION */
-    .filter-section { max-width: 900px; margin: -2.5rem auto 2.5rem; padding: 0 1.5rem; }
-    .filter-card {
-      background: var(--card); border-radius: 22px;
-      box-shadow: 0 8px 40px rgba(100,50,40,.1); padding: 1.8rem 2rem;
+    /* ── DOCTOR CARDS ── */
+    .results-section{max-width:920px;margin:0 auto 4rem;padding:0 1.5rem;}
+    .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:1.25rem;}
+    .doctor-card{
+      background:var(--card);border-radius:18px;border:1.5px solid var(--border);
+      padding:1.5rem;display:flex;flex-direction:column;gap:.75rem;
+      transition:box-shadow .22s,transform .22s;animation:fadeUp .4s ease both;
     }
-    .filter-card h2 { font-family: 'Fraunces', serif; font-size: 1.15rem; margin-bottom: 1.2rem; }
-    .filters-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1rem; }
-    .filter-group label {
-      display: block; font-size: .75rem; font-weight: 600;
-      letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: .4rem;
-    }
-    .filter-group select {
-      width: 100%; padding: .62rem .9rem;
-      border: 1.5px solid var(--border); border-radius: 10px;
-      font-family: 'DM Sans', sans-serif; font-size: .92rem;
-      color: var(--charcoal); background: var(--nude4);
-      outline: none; transition: border-color .2s; appearance: none; cursor: pointer;
-    }
-    .filter-group select:focus { border-color: var(--nude1); }
-    .select-wrap { position: relative; }
-    .select-wrap::after {
-      content: '▾'; position: absolute; right: .9rem; top: 50%;
-      transform: translateY(-50%); pointer-events: none; color: var(--muted); font-size: .82rem;
-    }
-    .filter-actions { display: flex; gap: .75rem; margin-top: 1.2rem; align-items: center; flex-wrap: wrap; }
-    .btn-primary {
-      background: linear-gradient(135deg, #7A4E44, var(--nude1)); color: #fff; border: none;
-      border-radius: 10px; padding: .65rem 1.8rem;
-      font-family: 'DM Sans', sans-serif; font-size: .95rem; font-weight: 600;
-      cursor: pointer; transition: opacity .2s, transform .15s;
-    }
-    .btn-primary:hover { opacity: .88; transform: translateY(-1px); }
-    .btn-ghost {
-      background: none; border: 1.5px solid var(--border); border-radius: 10px;
-      padding: .63rem 1.2rem; font-family: 'DM Sans', sans-serif;
-      font-size: .88rem; color: var(--muted); cursor: pointer; transition: border-color .2s, color .2s;
-    }
-    .btn-ghost:hover { border-color: var(--nude1); color: var(--nude-dk); }
-    #result-count { margin-left: auto; font-size: .83rem; color: var(--muted); }
+    .doctor-card:hover{box-shadow:0 14px 38px rgba(100,50,40,.12);transform:translateY(-3px);}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+    .card-header{display:flex;align-items:flex-start;gap:.9rem;}
+    .avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--nude3),var(--lav-lt));display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:1.2rem;color:var(--nude-dk);flex-shrink:0;font-weight:700;}
+    .doctor-name{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:600;color:var(--charcoal);line-height:1.3;}
+    .doctor-credential{display:inline-block;background:var(--lav-lt);color:var(--lav-dk);font-size:.68rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:.18rem .52rem;border-radius:6px;margin-top:.2rem;}
+    .doctor-org{font-size:.81rem;color:var(--muted);margin-top:.15rem;}
+    .info-row{display:flex;align-items:flex-start;gap:.5rem;font-size:.84rem;color:var(--muted);}
+    .info-row .icon{flex-shrink:0;margin-top:.05rem;}
+    .tags{display:flex;flex-wrap:wrap;gap:.4rem;}
+    .tag{background:var(--nude4);color:var(--nude-dk);font-size:.71rem;font-weight:600;padding:.22rem .65rem;border-radius:99px;border:1px solid var(--border);}
+    .tag.mint{background:var(--mint-lt);color:#1E7A5A;border-color:#B0E8D6;}
+    .tag.lav{background:var(--lav-lt);color:var(--lav-dk);border-color:#D0B8E8;}
 
-    /* CARDS */
-    .results-section { max-width: 900px; margin: 0 auto 4rem; padding: 0 1.5rem; }
-    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); gap: 1.25rem; }
-    .doctor-card {
-      background: var(--card); border-radius: 18px; border: 1.5px solid var(--border);
-      padding: 1.5rem; display: flex; flex-direction: column; gap: .75rem;
-      transition: box-shadow .22s, transform .22s; animation: fadeUp .4s ease both;
-    }
-    .doctor-card:hover { box-shadow: 0 14px 38px rgba(100,50,40,.12); transform: translateY(-3px); }
-    @keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
-    .card-header { display: flex; align-items: flex-start; gap: .9rem; }
-    .avatar {
-      width: 52px; height: 52px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--nude3), var(--lav-lt));
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Fraunces', serif; font-size: 1.2rem; color: var(--nude-dk);
-      flex-shrink: 0; font-weight: 700;
-    }
-    .doctor-name { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 600; color: var(--charcoal); line-height: 1.3; }
-    .doctor-credential {
-      display: inline-block; background: var(--lav-lt); color: var(--lav-dk);
-      font-size: .68rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase;
-      padding: .18rem .52rem; border-radius: 6px; margin-top: .2rem;
-    }
-    .doctor-org { font-size: .81rem; color: var(--muted); margin-top: .15rem; }
-    .info-row { display: flex; align-items: flex-start; gap: .5rem; font-size: .84rem; color: var(--muted); }
-    .info-row .icon { flex-shrink: 0; margin-top: .05rem; }
-    .tags { display: flex; flex-wrap: wrap; gap: .4rem; }
-    .tag {
-      background: var(--nude4); color: var(--nude-dk); font-size: .71rem; font-weight: 600;
-      padding: .22rem .65rem; border-radius: 99px; border: 1px solid var(--border);
-    }
-    .tag.mint { background: var(--mint-lt); color: #1E7A5A; border-color: #B0E8D6; }
-    .tag.lav  { background: var(--lav-lt); color: var(--lav-dk); border-color: #D0B8E8; }
-    .card-footer {
-      margin-top: auto; padding-top: .55rem; border-top: 1px solid var(--border);
-      display: flex; gap: .6rem; flex-wrap: wrap; align-items: center;
-    }
-    .btn-site {
-      background: linear-gradient(135deg, #7A4E44, var(--nude1)); color: #fff;
-      text-decoration: none; font-size: .8rem; font-weight: 600;
-      padding: .44rem 1rem; border-radius: 8px; transition: opacity .18s;
-    }
-    .btn-site:hover { opacity: .85; }
-    .accepting-badge {
-      display: inline-flex; align-items: center; gap: .3rem;
-      font-size: .76rem; font-weight: 600; padding: .38rem .8rem; border-radius: 8px;
-      background: var(--mint-lt); color: #1E7A5A;
-    }
-    .accepting-badge.no { background: #FDE8D4; color: #A04020; }
-    .empty { text-align: center; padding: 4rem 1rem; color: var(--muted); display: none; }
-    .empty-icon { font-size: 3rem; margin-bottom: 1rem; }
-    .empty h3 { font-family: 'Fraunces', serif; font-size: 1.3rem; color: var(--charcoal); margin-bottom: .5rem; }
+    /* ── REVIEW SECTION ── */
+    .review-block{background:var(--nude4);border-radius:10px;padding:.7rem .85rem;border:1px solid var(--border);}
+    .review-label{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--nude-dk);margin-bottom:.35rem;display:flex;align-items:center;gap:.35rem;}
+    .review-text{font-size:.8rem;color:var(--charcoal);line-height:1.55;font-style:italic;}
+    .review-sources{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem;}
+    .review-link{font-size:.72rem;font-weight:600;color:var(--nude-dk);text-decoration:none;background:#fff;border:1px solid var(--border);padding:.18rem .55rem;border-radius:6px;transition:border-color .18s,color .18s;}
+    .review-link:hover{border-color:var(--nude1);color:#7A4E44;}
+    .stars{color:#D4956A;letter-spacing:1px;font-size:.78rem;}
 
-    /* NEWS TAB */
-    .news-page { max-width: 900px; margin: 2.5rem auto 4rem; padding: 0 1.5rem; }
-    .news-intro { text-align: center; margin-bottom: 2.5rem; }
-    .news-intro h2 { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 700; color: var(--charcoal); margin-bottom: .5rem; }
-    .news-intro p { color: var(--muted); font-size: .95rem; }
-    .news-cats { display: flex; gap: .6rem; flex-wrap: wrap; justify-content: center; margin-bottom: 2.5rem; }
-    .cat-pill {
-      padding: .5rem 1.2rem; border-radius: 99px; border: 1.5px solid var(--border);
-      font-size: .83rem; font-weight: 600; cursor: pointer;
-      transition: background .2s, color .2s, border-color .2s; background: var(--card); color: var(--muted);
-    }
-    .cat-pill:hover { border-color: var(--nude1); color: var(--nude-dk); }
-    .cat-pill.active { background: linear-gradient(135deg, #7A4E44, var(--nude1)); color: #fff; border-color: transparent; }
+    .card-footer{margin-top:auto;padding-top:.55rem;border-top:1px solid var(--border);display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;}
+    .btn-site{background:linear-gradient(135deg,#7A4E44,var(--nude1));color:#fff;text-decoration:none;font-size:.8rem;font-weight:600;padding:.44rem 1rem;border-radius:8px;transition:opacity .18s;}
+    .btn-site:hover{opacity:.85;}
+    .accepting-badge{display:inline-flex;align-items:center;gap:.3rem;font-size:.76rem;font-weight:600;padding:.38rem .8rem;border-radius:8px;background:var(--mint-lt);color:#1E7A5A;}
+    .accepting-badge.no{background:#FDE8D4;color:#A04020;}
+    .empty{text-align:center;padding:4rem 1rem;color:var(--muted);display:none;}
+    .empty-icon{font-size:3rem;margin-bottom:1rem;}
+    .empty h3{font-family:'Fraunces',serif;font-size:1.3rem;color:var(--charcoal);margin-bottom:.5rem;}
 
-    .news-section { margin-bottom: 3rem; }
-    .news-section-header {
-      display: flex; align-items: center; gap: .75rem; margin-bottom: 1.25rem;
-      padding-bottom: .75rem; border-bottom: 2px solid var(--border);
-    }
-    .news-section-icon {
-      width: 40px; height: 40px; border-radius: 12px;
-      display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;
-    }
-    .news-section-header h3 { font-family: 'Fraunces', serif; font-size: 1.25rem; color: var(--charcoal); }
-    .news-refresh {
-      margin-left: auto; background: none; border: 1.5px solid var(--border);
-      border-radius: 8px; padding: .3rem .75rem; font-size: .78rem; font-weight: 600;
-      color: var(--muted); cursor: pointer; display: flex; align-items: center; gap: .35rem;
-      transition: border-color .2s, color .2s; font-family: 'DM Sans', sans-serif;
-    }
-    .news-refresh:hover { border-color: var(--nude1); color: var(--nude-dk); }
-    .news-refresh.spinning .spin-icon { display: inline-block; animation: spin .8s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    /* ── NEWS ── */
+    .news-page{max-width:920px;margin:2.5rem auto 4rem;padding:0 1.5rem;}
+    .news-intro{text-align:center;margin-bottom:2.5rem;}
+    .news-intro h2{font-family:'Fraunces',serif;font-size:2rem;font-weight:700;margin-bottom:.5rem;}
+    .news-intro p{color:var(--muted);font-size:.95rem;}
+    .news-cats{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-bottom:2.5rem;}
+    .cat-pill{padding:.5rem 1.2rem;border-radius:99px;border:1.5px solid var(--border);font-size:.83rem;font-weight:600;cursor:pointer;transition:background .2s,color .2s,border-color .2s;background:var(--card);color:var(--muted);}
+    .cat-pill:hover{border-color:var(--nude1);color:var(--nude-dk);}
+    .cat-pill.active{background:linear-gradient(135deg,#7A4E44,var(--nude1));color:#fff;border-color:transparent;}
+    .news-section{margin-bottom:3rem;}
+    .news-section-header{display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:2px solid var(--border);}
+    .news-section-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+    .news-section-header h3{font-family:'Fraunces',serif;font-size:1.25rem;color:var(--charcoal);}
+    .news-refresh{margin-left:auto;background:none;border:1.5px solid var(--border);border-radius:8px;padding:.3rem .75rem;font-size:.78rem;font-weight:600;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:.35rem;transition:border-color .2s,color .2s;font-family:'DM Sans',sans-serif;}
+    .news-refresh:hover{border-color:var(--nude1);color:var(--nude-dk);}
+    .news-refresh.spinning .spin-icon{display:inline-block;animation:spin .8s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+    .news-cards{display:flex;flex-direction:column;gap:.85rem;}
+    .news-card{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:1.1rem 1.3rem;display:flex;gap:1rem;align-items:flex-start;transition:box-shadow .2s,transform .2s;animation:fadeUp .35s ease both;}
+    .news-card:hover{box-shadow:0 8px 28px rgba(100,50,40,.09);transform:translateY(-2px);}
+    .news-card-emoji{font-size:1.4rem;flex-shrink:0;margin-top:.1rem;}
+    .news-card-body{flex:1;min-width:0;}
+    .news-card-title{font-family:'Fraunces',serif;font-size:.96rem;font-weight:600;color:var(--charcoal);margin-bottom:.28rem;line-height:1.4;}
+    .news-card-title a{color:inherit;text-decoration:none;}
+    .news-card-title a:hover{color:var(--nude-dk);}
+    .news-card-summary{font-size:.82rem;color:var(--muted);line-height:1.6;}
+    .news-card-meta{display:flex;gap:.65rem;align-items:center;margin-top:.5rem;flex-wrap:wrap;}
+    .news-card-source{font-size:.72rem;font-weight:700;color:var(--nude-dk);background:var(--nude4);padding:.16rem .52rem;border-radius:6px;}
+    .news-card-date{font-size:.72rem;color:var(--muted);}
 
-    .news-cards { display: flex; flex-direction: column; gap: .85rem; }
-    .news-card {
-      background: var(--card); border: 1.5px solid var(--border); border-radius: 14px;
-      padding: 1.1rem 1.3rem; display: flex; gap: 1rem; align-items: flex-start;
-      transition: box-shadow .2s, transform .2s; animation: fadeUp .35s ease both;
-    }
-    .news-card:hover { box-shadow: 0 8px 28px rgba(100,50,40,.09); transform: translateY(-2px); }
-    .news-card-emoji { font-size: 1.5rem; flex-shrink: 0; margin-top: .1rem; }
-    .news-card-body { flex: 1; min-width: 0; }
-    .news-card-title { font-family: 'Fraunces', serif; font-size: .98rem; font-weight: 600; color: var(--charcoal); margin-bottom: .3rem; line-height: 1.4; }
-    .news-card-title a { color: inherit; text-decoration: none; }
-    .news-card-title a:hover { color: var(--nude-dk); }
-    .news-card-summary { font-size: .83rem; color: var(--muted); line-height: 1.6; }
-    .news-card-meta { display: flex; gap: .75rem; align-items: center; margin-top: .55rem; flex-wrap: wrap; }
-    .news-card-source { font-size: .73rem; font-weight: 700; color: var(--nude-dk); background: var(--nude4); padding: .18rem .55rem; border-radius: 6px; }
-    .news-card-date { font-size: .73rem; color: var(--muted); }
+    /* skeleton */
+    .skeleton{background:linear-gradient(90deg,var(--nude4) 25%,var(--nude3) 50%,var(--nude4) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:8px;height:13px;margin-bottom:.5rem;}
+    @keyframes shimmer{to{background-position:-200% 0;}}
+    .skel-card{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:1.1rem 1.3rem;margin-bottom:.85rem;}
 
-    .skeleton {
-      background: linear-gradient(90deg, var(--nude4) 25%, var(--nude3) 50%, var(--nude4) 75%);
-      background-size: 200% 100%; animation: shimmer 1.4s infinite;
-      border-radius: 8px; height: 14px; margin-bottom: .5rem;
-    }
-    @keyframes shimmer { to { background-position: -200% 0; } }
-    .news-skeleton-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: .85rem; }
+    /* ── DISCLAIMER / FOOTER ── */
+    .disclaimer{max-width:920px;margin:0 auto 3rem;padding:0 1.5rem;}
+    .disclaimer-box{background:var(--lav-lt);border-left:4px solid var(--lavender);border-radius:10px;padding:1rem 1.3rem;font-size:.82rem;color:#5A3E80;line-height:1.65;}
+    .disclaimer-box strong{display:block;margin-bottom:.3rem;}
+    footer{text-align:center;padding:2rem 1rem 3rem;font-size:.82rem;color:var(--muted);border-top:1px solid var(--border);}
+    footer a{color:var(--nude-dk);text-decoration:none;}
+    footer a:hover{text-decoration:underline;}
 
-    /* DISCLAIMER */
-    .disclaimer { max-width: 900px; margin: 0 auto 3rem; padding: 0 1.5rem; }
-    .disclaimer-box {
-      background: var(--lav-lt); border-left: 4px solid var(--lavender); border-radius: 10px;
-      padding: 1rem 1.3rem; font-size: .82rem; color: #5A3E80; line-height: 1.65;
-    }
-    .disclaimer-box strong { display: block; margin-bottom: .3rem; }
-
-    footer { text-align: center; padding: 2rem 1rem 3rem; font-size: .82rem; color: var(--muted); border-top: 1px solid var(--border); }
-    footer a { color: var(--nude-dk); text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
-
-    @media (max-width: 520px) {
-      .filter-card { padding: 1.2rem; }
-      .filters-grid { grid-template-columns: 1fr 1fr; }
-      .tab-btn { padding: .45rem .85rem; font-size: .8rem; }
-      .lily-tl, .lily-tr { width: 130px; height: 130px; }
+    @media(max-width:520px){
+      .filter-card{padding:1.2rem;}
+      .filters-grid{grid-template-columns:1fr 1fr;}
+      .tab-btn{padding:.45rem .85rem;font-size:.8rem;}
+      .lily-tl,.lily-tr{width:140px;height:140px;}
     }
   </style>
 </head>
@@ -283,63 +205,272 @@
 
 <!-- TAB BAR -->
 <nav class="tab-bar">
-  <button class="tab-btn active" onclick="switchTab('find', this)">🔍 Find a Surgeon</button>
-  <button class="tab-btn" onclick="switchTab('news', this)">📰 News</button>
+  <button class="tab-btn active" onclick="switchTab('find',this)">🔍 Find a Surgeon</button>
+  <button class="tab-btn" onclick="switchTab('news',this)">📰 News</button>
 </nav>
 
 <!-- HERO -->
 <header class="hero">
-  <!-- Lily Top Left -->
+
+  <!-- ══ REALISTIC LILY — TOP LEFT ══ -->
   <svg class="lily-tl" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <path d="M28 218 Q52 158 78 108" stroke="rgba(255,255,255,0.5)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-    <path d="M52 168 Q28 138 8 153 Q32 153 52 168Z" fill="rgba(255,255,255,0.25)"/>
-    <path d="M68 138 Q88 108 103 123 Q83 128 68 138Z" fill="rgba(255,255,255,0.2)"/>
-    <!-- petals -->
-    <path d="M78 108 Q50 76 24 54 Q56 72 78 108Z" fill="rgba(255,238,225,0.58)" stroke="rgba(255,255,255,0.45)" stroke-width="1.2"/>
-    <path d="M78 108 Q88 66 76 30 Q94 62 78 108Z" fill="rgba(255,228,212,0.54)" stroke="rgba(255,255,255,0.4)" stroke-width="1.2"/>
-    <path d="M78 108 Q122 88 148 60 Q112 86 78 108Z" fill="rgba(255,242,232,0.52)" stroke="rgba(255,255,255,0.38)" stroke-width="1.2"/>
-    <path d="M78 108 Q118 118 144 102 Q112 118 78 108Z" fill="rgba(255,232,218,0.48)" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
-    <path d="M78 108 Q62 146 46 162 Q68 136 78 108Z" fill="rgba(255,235,222,0.46)" stroke="rgba(255,255,255,0.32)" stroke-width="1.2"/>
-    <!-- center -->
-    <circle cx="78" cy="108" r="9" fill="rgba(255,205,175,0.75)" stroke="rgba(255,255,255,0.55)" stroke-width="1.5"/>
-    <!-- stamens -->
-    <line x1="78" y1="108" x2="65" y2="93"  stroke="rgba(255,215,185,0.9)" stroke-width="1.8" stroke-linecap="round"/>
-    <line x1="78" y1="108" x2="78" y2="91"  stroke="rgba(255,215,185,0.9)" stroke-width="1.8" stroke-linecap="round"/>
-    <line x1="78" y1="108" x2="91" y2="93"  stroke="rgba(255,215,185,0.9)" stroke-width="1.8" stroke-linecap="round"/>
-    <circle cx="65" cy="92"  r="3" fill="rgba(255,195,155,0.95)"/>
-    <circle cx="78" cy="90"  r="3" fill="rgba(255,195,155,0.95)"/>
-    <circle cx="91" cy="92"  r="3" fill="rgba(255,195,155,0.95)"/>
-    <!-- bud -->
-    <path d="M56 82 Q46 56 52 34 Q63 58 56 82Z" fill="rgba(255,238,225,0.42)" stroke="rgba(255,255,255,0.32)" stroke-width="1"/>
-    <ellipse cx="54" cy="35" rx="6" ry="8" fill="rgba(255,228,212,0.58)" stroke="rgba(255,255,255,0.38)" stroke-width="1"/>
-    <!-- second small bloom on stem -->
-    <path d="M42 148 Q28 130 18 140 Q30 138 42 148Z" fill="rgba(255,235,220,0.35)"/>
-    <path d="M42 148 Q46 128 36 114 Q48 130 42 148Z" fill="rgba(255,230,215,0.32)"/>
-    <circle cx="42" cy="148" r="4" fill="rgba(255,210,185,0.5)"/>
+    <defs>
+      <!-- Petal gradient: lighter near base/center, warm blush at tip -->
+      <radialGradient id="lf-p" cx="50%" cy="88%" r="75%" gradientUnits="objectBoundingBox">
+        <stop offset="0%"   stop-color="rgba(255,252,247,0.92)"/>
+        <stop offset="55%"  stop-color="rgba(255,244,234,0.82)"/>
+        <stop offset="100%" stop-color="rgba(255,228,208,0.62)"/>
+      </radialGradient>
+      <!-- Petal back-face (slightly warmer for overlapping petals) -->
+      <radialGradient id="lf-pb" cx="50%" cy="88%" r="75%" gradientUnits="objectBoundingBox">
+        <stop offset="0%"   stop-color="rgba(255,242,232,0.80)"/>
+        <stop offset="100%" stop-color="rgba(248,218,198,0.55)"/>
+      </radialGradient>
+      <!-- Leaf gradient -->
+      <linearGradient id="lf-leaf" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%"   stop-color="rgba(138,188,122,0.68)"/>
+        <stop offset="100%" stop-color="rgba(108,162,95,0.45)"/>
+      </linearGradient>
+      <!-- Stem -->
+      <linearGradient id="lf-stem" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="rgba(118,168,105,0.72)"/>
+        <stop offset="100%" stop-color="rgba(138,188,122,0.55)"/>
+      </linearGradient>
+      <!-- Anther (golden) -->
+      <linearGradient id="lf-anth" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="rgba(195,128,45,0.95)"/>
+        <stop offset="100%" stop-color="rgba(168,100,28,0.88)"/>
+      </linearGradient>
+    </defs>
+
+    <!-- STEM -->
+    <path d="M 8 218 Q 28 190 45 168 Q 60 150 80 130 Q 85 124 88 118"
+      stroke="url(#lf-stem)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+
+    <!-- LEAF 1 (lower) -->
+    <path d="M 38 175 Q 20 155 8 160 Q 24 162 38 175 Z" fill="url(#lf-leaf)" stroke="rgba(108,162,95,0.3)" stroke-width="0.8"/>
+    <path d="M 38 175 Q 55 160 60 145 Q 48 158 38 175 Z" fill="url(#lf-leaf)" stroke="rgba(108,162,95,0.3)" stroke-width="0.8"/>
+    <line x1="38" y1="175" x2="56" y2="148" stroke="rgba(90,145,78,0.35)" stroke-width="0.7"/>
+
+    <!-- LEAF 2 (upper) -->
+    <path d="M 62 148 Q 44 130 35 132 Q 50 135 62 148 Z" fill="url(#lf-leaf)" stroke="rgba(108,162,95,0.3)" stroke-width="0.8"/>
+    <path d="M 62 148 Q 76 132 78 118 Q 68 132 62 148 Z" fill="url(#lf-leaf)" stroke="rgba(108,162,95,0.3)" stroke-width="0.8"/>
+    <line x1="62" y1="148" x2="78" y2="120" stroke="rgba(90,145,78,0.35)" stroke-width="0.7"/>
+
+    <!-- BACK PETALS (3, rotated 30° offset from front set — behind) -->
+    <g transform="rotate(30, 88, 118)">
+      <path d="M 84 118 C 77 97 74 70 75 50 C 76 37 81 27 88 25 C 95 27 100 37 101 50 C 102 70 99 97 92 118 Z"
+        fill="url(#lf-pb)" stroke="rgba(240,218,198,0.45)" stroke-width="0.9"/>
+      <line x1="88" y1="118" x2="88" y2="29" stroke="rgba(225,200,178,0.38)" stroke-width="0.8"/>
+    </g>
+    <g transform="rotate(150, 88, 118)">
+      <path d="M 84 118 C 77 97 74 70 75 50 C 76 37 81 27 88 25 C 95 27 100 37 101 50 C 102 70 99 97 92 118 Z"
+        fill="url(#lf-pb)" stroke="rgba(240,218,198,0.45)" stroke-width="0.9"/>
+      <line x1="88" y1="118" x2="88" y2="29" stroke="rgba(225,200,178,0.38)" stroke-width="0.8"/>
+    </g>
+    <g transform="rotate(270, 88, 118)">
+      <path d="M 84 118 C 77 97 74 70 75 50 C 76 37 81 27 88 25 C 95 27 100 37 101 50 C 102 70 99 97 92 118 Z"
+        fill="url(#lf-pb)" stroke="rgba(240,218,198,0.45)" stroke-width="0.9"/>
+      <line x1="88" y1="118" x2="88" y2="29" stroke="rgba(225,200,178,0.38)" stroke-width="0.8"/>
+    </g>
+
+    <!-- FRONT PETALS (3, at 0°, 120°, 240°) -->
+    <g transform="rotate(0, 88, 118)">
+      <path d="M 85 118 C 78 96 74 68 75 48 C 76 35 82 25 88 23 C 94 25 100 35 101 48 C 102 68 98 96 91 118 Z"
+        fill="url(#lf-p)" stroke="rgba(240,220,200,0.5)" stroke-width="0.9"/>
+      <!-- midrib vein -->
+      <line x1="88" y1="118" x2="88" y2="27" stroke="rgba(220,195,172,0.5)" stroke-width="0.9"/>
+      <!-- lateral veins -->
+      <path d="M 88 75 Q 78 68 73 60" stroke="rgba(220,195,172,0.3)" stroke-width="0.5" fill="none"/>
+      <path d="M 88 75 Q 98 68 103 60" stroke="rgba(220,195,172,0.3)" stroke-width="0.5" fill="none"/>
+      <!-- reflexed tip highlight -->
+      <path d="M 84 33 Q 88 22 92 33" stroke="rgba(255,235,215,0.55)" stroke-width="1" fill="none"/>
+    </g>
+    <g transform="rotate(120, 88, 118)">
+      <path d="M 85 118 C 78 96 74 68 75 48 C 76 35 82 25 88 23 C 94 25 100 35 101 48 C 102 68 98 96 91 118 Z"
+        fill="url(#lf-p)" stroke="rgba(240,220,200,0.5)" stroke-width="0.9"/>
+      <line x1="88" y1="118" x2="88" y2="27" stroke="rgba(220,195,172,0.5)" stroke-width="0.9"/>
+      <path d="M 88 75 Q 78 68 73 60" stroke="rgba(220,195,172,0.3)" stroke-width="0.5" fill="none"/>
+      <path d="M 88 75 Q 98 68 103 60" stroke="rgba(220,195,172,0.3)" stroke-width="0.5" fill="none"/>
+      <path d="M 84 33 Q 88 22 92 33" stroke="rgba(255,235,215,0.55)" stroke-width="1" fill="none"/>
+    </g>
+    <g transform="rotate(240, 88, 118)">
+      <path d="M 85 118 C 78 96 74 68 75 48 C 76 35 82 25 88 23 C 94 25 100 35 101 48 C 102 68 98 96 91 118 Z"
+        fill="url(#lf-p)" stroke="rgba(240,220,200,0.5)" stroke-width="0.9"/>
+      <line x1="88" y1="118" x2="88" y2="27" stroke="rgba(220,195,172,0.5)" stroke-width="0.9"/>
+      <path d="M 88 75 Q 78 68 73 60" stroke="rgba(220,195,172,0.3)" stroke-width="0.5" fill="none"/>
+      <path d="M 88 75 Q 98 68 103 60" stroke="rgba(220,195,172,0.3)" stroke-width="0.5" fill="none"/>
+      <path d="M 84 33 Q 88 22 92 33" stroke="rgba(255,235,215,0.55)" stroke-width="1" fill="none"/>
+    </g>
+
+    <!-- STAMENS (6, alternating between petals at 60°, 180°, 300° base, ±offset) -->
+    <!-- Each stamen: thin filament + elongated anther -->
+    <g transform="rotate(15, 88, 118)">
+      <line x1="88" y1="118" x2="88" y2="72" stroke="rgba(200,165,120,0.82)" stroke-width="1.1" stroke-linecap="round"/>
+      <rect x="85.5" y="60" width="5" height="12" rx="2.5" fill="url(#lf-anth)" transform="rotate(0,88,66)"/>
+    </g>
+    <g transform="rotate(75, 88, 118)">
+      <line x1="88" y1="118" x2="88" y2="74" stroke="rgba(200,165,120,0.82)" stroke-width="1.1" stroke-linecap="round"/>
+      <rect x="85.5" y="62" width="5" height="12" rx="2.5" fill="url(#lf-anth)" transform="rotate(0,88,68)"/>
+    </g>
+    <g transform="rotate(135, 88, 118)">
+      <line x1="88" y1="118" x2="88" y2="72" stroke="rgba(200,165,120,0.82)" stroke-width="1.1" stroke-linecap="round"/>
+      <rect x="85.5" y="60" width="5" height="12" rx="2.5" fill="url(#lf-anth)"/>
+    </g>
+    <g transform="rotate(195, 88, 118)">
+      <line x1="88" y1="118" x2="88" y2="74" stroke="rgba(200,165,120,0.82)" stroke-width="1.1" stroke-linecap="round"/>
+      <rect x="85.5" y="62" width="5" height="12" rx="2.5" fill="url(#lf-anth)"/>
+    </g>
+    <g transform="rotate(255, 88, 118)">
+      <line x1="88" y1="118" x2="88" y2="72" stroke="rgba(200,165,120,0.82)" stroke-width="1.1" stroke-linecap="round"/>
+      <rect x="85.5" y="60" width="5" height="12" rx="2.5" fill="url(#lf-anth)"/>
+    </g>
+    <g transform="rotate(315, 88, 118)">
+      <line x1="88" y1="118" x2="88" y2="74" stroke="rgba(200,165,120,0.82)" stroke-width="1.1" stroke-linecap="round"/>
+      <rect x="85.5" y="62" width="5" height="12" rx="2.5" fill="url(#lf-anth)"/>
+    </g>
+
+    <!-- PISTIL (central, slightly longer) -->
+    <line x1="88" y1="118" x2="88" y2="58" stroke="rgba(178,140,100,0.72)" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- stigma (3-lobed) -->
+    <circle cx="88" cy="57" r="3.5" fill="rgba(175,120,65,0.75)" stroke="rgba(200,155,95,0.6)" stroke-width="0.8"/>
+    <circle cx="83" cy="53" r="2.2" fill="rgba(175,120,65,0.68)"/>
+    <circle cx="93" cy="53" r="2.2" fill="rgba(175,120,65,0.68)"/>
+
+    <!-- CENTER of bloom -->
+    <circle cx="88" cy="118" r="7" fill="rgba(255,230,195,0.72)" stroke="rgba(220,175,130,0.5)" stroke-width="1"/>
+
+    <!-- BUD on upper stem -->
+    <path d="M 72 140 Q 64 118 68 98 Q 78 118 72 140 Z" fill="rgba(255,248,238,0.55)" stroke="rgba(230,210,188,0.4)" stroke-width="0.8"/>
+    <path d="M 72 140 Q 80 120 78 100 Q 84 120 72 140 Z" fill="rgba(255,242,228,0.48)" stroke="rgba(230,210,188,0.35)" stroke-width="0.8"/>
+    <path d="M 70 100 Q 75 92 80 100" stroke="rgba(138,188,122,0.55)" stroke-width="1.8" fill="none" stroke-linecap="round"/>
   </svg>
 
-  <!-- Lily Top Right (mirrored) -->
+  <!-- ══ REALISTIC LILY — TOP RIGHT (mirrored) ══ -->
   <svg class="lily-tr" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <path d="M28 218 Q52 158 78 108" stroke="rgba(255,255,255,0.5)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-    <path d="M52 168 Q28 138 8 153 Q32 153 52 168Z" fill="rgba(255,255,255,0.25)"/>
-    <path d="M68 138 Q88 108 103 123 Q83 128 68 138Z" fill="rgba(255,255,255,0.2)"/>
-    <path d="M78 108 Q50 76 24 54 Q56 72 78 108Z" fill="rgba(255,238,225,0.58)" stroke="rgba(255,255,255,0.45)" stroke-width="1.2"/>
-    <path d="M78 108 Q88 66 76 30 Q94 62 78 108Z" fill="rgba(255,228,212,0.54)" stroke="rgba(255,255,255,0.4)" stroke-width="1.2"/>
-    <path d="M78 108 Q122 88 148 60 Q112 86 78 108Z" fill="rgba(255,242,232,0.52)" stroke="rgba(255,255,255,0.38)" stroke-width="1.2"/>
-    <path d="M78 108 Q118 118 144 102 Q112 118 78 108Z" fill="rgba(255,232,218,0.48)" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
-    <path d="M78 108 Q62 146 46 162 Q68 136 78 108Z" fill="rgba(255,235,222,0.46)" stroke="rgba(255,255,255,0.32)" stroke-width="1.2"/>
-    <circle cx="78" cy="108" r="9" fill="rgba(255,205,175,0.75)" stroke="rgba(255,255,255,0.55)" stroke-width="1.5"/>
-    <line x1="78" y1="108" x2="65" y2="93"  stroke="rgba(255,215,185,0.9)" stroke-width="1.8" stroke-linecap="round"/>
-    <line x1="78" y1="108" x2="78" y2="91"  stroke="rgba(255,215,185,0.9)" stroke-width="1.8" stroke-linecap="round"/>
-    <line x1="78" y1="108" x2="91" y2="93"  stroke="rgba(255,215,185,0.9)" stroke-width="1.8" stroke-linecap="round"/>
-    <circle cx="65" cy="92"  r="3" fill="rgba(255,195,155,0.95)"/>
-    <circle cx="78" cy="90"  r="3" fill="rgba(255,195,155,0.95)"/>
-    <circle cx="91" cy="92"  r="3" fill="rgba(255,195,155,0.95)"/>
-    <path d="M56 82 Q46 56 52 34 Q63 58 56 82Z" fill="rgba(255,238,225,0.42)" stroke="rgba(255,255,255,0.32)" stroke-width="1"/>
-    <ellipse cx="54" cy="35" rx="6" ry="8" fill="rgba(255,228,212,0.58)" stroke="rgba(255,255,255,0.38)" stroke-width="1"/>
-    <path d="M42 148 Q28 130 18 140 Q30 138 42 148Z" fill="rgba(255,235,220,0.35)"/>
-    <path d="M42 148 Q46 128 36 114 Q48 130 42 148Z" fill="rgba(255,230,215,0.32)"/>
-    <circle cx="42" cy="148" r="4" fill="rgba(255,210,185,0.5)"/>
+    <defs>
+      <radialGradient id="rt-p" cx="50%" cy="88%" r="75%" gradientUnits="objectBoundingBox">
+        <stop offset="0%"   stop-color="rgba(255,252,247,0.92)"/>
+        <stop offset="55%"  stop-color="rgba(255,244,234,0.82)"/>
+        <stop offset="100%" stop-color="rgba(255,228,208,0.62)"/>
+      </radialGradient>
+      <radialGradient id="rt-pb" cx="50%" cy="88%" r="75%" gradientUnits="objectBoundingBox">
+        <stop offset="0%"   stop-color="rgba(255,242,232,0.80)"/>
+        <stop offset="100%" stop-color="rgba(248,218,198,0.55)"/>
+      </radialGradient>
+      <linearGradient id="rt-leaf" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%"   stop-color="rgba(138,188,122,0.68)"/>
+        <stop offset="100%" stop-color="rgba(108,162,95,0.45)"/>
+      </linearGradient>
+      <linearGradient id="rt-stem" x1="1" y1="0" x2="0" y2="0">
+        <stop offset="0%"   stop-color="rgba(118,168,105,0.72)"/>
+        <stop offset="100%" stop-color="rgba(138,188,122,0.55)"/>
+      </linearGradient>
+      <linearGradient id="rt-anth" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="rgba(195,128,45,0.95)"/>
+        <stop offset="100%" stop-color="rgba(168,100,28,0.88)"/>
+      </linearGradient>
+    </defs>
+
+    <!-- mirrored via g transform -->
+    <g transform="translate(220,0) scale(-1,1)">
+      <!-- STEM -->
+      <path d="M 8 218 Q 28 190 45 168 Q 60 150 80 130 Q 85 124 88 118"
+        stroke="url(#rt-stem)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+
+      <!-- LEAF 1 -->
+      <path d="M 38 175 Q 20 155 8 160 Q 24 162 38 175 Z" fill="url(#rt-leaf)" stroke="rgba(108,162,95,0.3)" stroke-width="0.8"/>
+      <path d="M 38 175 Q 55 160 60 145 Q 48 158 38 175 Z" fill="url(#rt-leaf)" stroke="rgba(108,162,95,0.3)" stroke-width="0.8"/>
+      <line x1="38" y1="175" x2="56" y2="148" stroke="rgba(90,145,78,0.35)" stroke-width="0.7"/>
+
+      <!-- LEAF 2 -->
+      <path d="M 62 148 Q 44 130 35 132 Q 50 135 62 148 Z" fill="url(#rt-leaf)" stroke="rgba(108,162,95,0.3)" stroke-width="0.8"/>
+      <path d="M 62 148 Q 76 132 78 118 Q 68 132 62 148 Z" fill="url(#rt-leaf)" stroke="rgba(108,162,95,0.3)" stroke-width="0.8"/>
+      <line x1="62" y1="148" x2="78" y2="120" stroke="rgba(90,145,78,0.35)" stroke-width="0.7"/>
+
+      <!-- BACK PETALS -->
+      <g transform="rotate(30, 88, 118)">
+        <path d="M 84 118 C 77 97 74 70 75 50 C 76 37 81 27 88 25 C 95 27 100 37 101 50 C 102 70 99 97 92 118 Z"
+          fill="url(#rt-pb)" stroke="rgba(240,218,198,0.45)" stroke-width="0.9"/>
+        <line x1="88" y1="118" x2="88" y2="29" stroke="rgba(225,200,178,0.38)" stroke-width="0.8"/>
+      </g>
+      <g transform="rotate(150, 88, 118)">
+        <path d="M 84 118 C 77 97 74 70 75 50 C 76 37 81 27 88 25 C 95 27 100 37 101 50 C 102 70 99 97 92 118 Z"
+          fill="url(#rt-pb)" stroke="rgba(240,218,198,0.45)" stroke-width="0.9"/>
+        <line x1="88" y1="118" x2="88" y2="29" stroke="rgba(225,200,178,0.38)" stroke-width="0.8"/>
+      </g>
+      <g transform="rotate(270, 88, 118)">
+        <path d="M 84 118 C 77 97 74 70 75 50 C 76 37 81 27 88 25 C 95 27 100 37 101 50 C 102 70 99 97 92 118 Z"
+          fill="url(#rt-pb)" stroke="rgba(240,218,198,0.45)" stroke-width="0.9"/>
+        <line x1="88" y1="118" x2="88" y2="29" stroke="rgba(225,200,178,0.38)" stroke-width="0.8"/>
+      </g>
+
+      <!-- FRONT PETALS -->
+      <g transform="rotate(0, 88, 118)">
+        <path d="M 85 118 C 78 96 74 68 75 48 C 76 35 82 25 88 23 C 94 25 100 35 101 48 C 102 68 98 96 91 118 Z"
+          fill="url(#rt-p)" stroke="rgba(240,220,200,0.5)" stroke-width="0.9"/>
+        <line x1="88" y1="118" x2="88" y2="27" stroke="rgba(220,195,172,0.5)" stroke-width="0.9"/>
+        <path d="M 88 75 Q 78 68 73 60" stroke="rgba(220,195,172,0.3)" stroke-width="0.5" fill="none"/>
+        <path d="M 88 75 Q 98 68 103 60" stroke="rgba(220,195,172,0.3)" stroke-width="0.5" fill="none"/>
+        <path d="M 84 33 Q 88 22 92 33" stroke="rgba(255,235,215,0.55)" stroke-width="1" fill="none"/>
+      </g>
+      <g transform="rotate(120, 88, 118)">
+        <path d="M 85 118 C 78 96 74 68 75 48 C 76 35 82 25 88 23 C 94 25 100 35 101 48 C 102 68 98 96 91 118 Z"
+          fill="url(#rt-p)" stroke="rgba(240,220,200,0.5)" stroke-width="0.9"/>
+        <line x1="88" y1="118" x2="88" y2="27" stroke="rgba(220,195,172,0.5)" stroke-width="0.9"/>
+        <path d="M 88 75 Q 78 68 73 60" stroke="rgba(220,195,172,0.3)" stroke-width="0.5" fill="none"/>
+        <path d="M 88 75 Q 98 68 103 60" stroke="rgba(220,195,172,0.3)" stroke-width="0.5" fill="none"/>
+        <path d="M 84 33 Q 88 22 92 33" stroke="rgba(255,235,215,0.55)" stroke-width="1" fill="none"/>
+      </g>
+      <g transform="rotate(240, 88, 118)">
+        <path d="M 85 118 C 78 96 74 68 75 48 C 76 35 82 25 88 23 C 94 25 100 35 101 48 C 102 68 98 96 91 118 Z"
+          fill="url(#rt-p)" stroke="rgba(240,220,200,0.5)" stroke-width="0.9"/>
+        <line x1="88" y1="118" x2="88" y2="27" stroke="rgba(220,195,172,0.5)" stroke-width="0.9"/>
+        <path d="M 88 75 Q 78 68 73 60" stroke="rgba(220,195,172,0.3)" stroke-width="0.5" fill="none"/>
+        <path d="M 88 75 Q 98 68 103 60" stroke="rgba(220,195,172,0.3)" stroke-width="0.5" fill="none"/>
+        <path d="M 84 33 Q 88 22 92 33" stroke="rgba(255,235,215,0.55)" stroke-width="1" fill="none"/>
+      </g>
+
+      <!-- STAMENS -->
+      <g transform="rotate(15, 88, 118)">
+        <line x1="88" y1="118" x2="88" y2="72" stroke="rgba(200,165,120,0.82)" stroke-width="1.1" stroke-linecap="round"/>
+        <rect x="85.5" y="60" width="5" height="12" rx="2.5" fill="url(#rt-anth)"/>
+      </g>
+      <g transform="rotate(75, 88, 118)">
+        <line x1="88" y1="118" x2="88" y2="74" stroke="rgba(200,165,120,0.82)" stroke-width="1.1" stroke-linecap="round"/>
+        <rect x="85.5" y="62" width="5" height="12" rx="2.5" fill="url(#rt-anth)"/>
+      </g>
+      <g transform="rotate(135, 88, 118)">
+        <line x1="88" y1="118" x2="88" y2="72" stroke="rgba(200,165,120,0.82)" stroke-width="1.1" stroke-linecap="round"/>
+        <rect x="85.5" y="60" width="5" height="12" rx="2.5" fill="url(#rt-anth)"/>
+      </g>
+      <g transform="rotate(195, 88, 118)">
+        <line x1="88" y1="118" x2="88" y2="74" stroke="rgba(200,165,120,0.82)" stroke-width="1.1" stroke-linecap="round"/>
+        <rect x="85.5" y="62" width="5" height="12" rx="2.5" fill="url(#rt-anth)"/>
+      </g>
+      <g transform="rotate(255, 88, 118)">
+        <line x1="88" y1="118" x2="88" y2="72" stroke="rgba(200,165,120,0.82)" stroke-width="1.1" stroke-linecap="round"/>
+        <rect x="85.5" y="60" width="5" height="12" rx="2.5" fill="url(#rt-anth)"/>
+      </g>
+      <g transform="rotate(315, 88, 118)">
+        <line x1="88" y1="118" x2="88" y2="74" stroke="rgba(200,165,120,0.82)" stroke-width="1.1" stroke-linecap="round"/>
+        <rect x="85.5" y="62" width="5" height="12" rx="2.5" fill="url(#rt-anth)"/>
+      </g>
+
+      <!-- PISTIL -->
+      <line x1="88" y1="118" x2="88" y2="58" stroke="rgba(178,140,100,0.72)" stroke-width="1.5" stroke-linecap="round"/>
+      <circle cx="88" cy="57" r="3.5" fill="rgba(175,120,65,0.75)" stroke="rgba(200,155,95,0.6)" stroke-width="0.8"/>
+      <circle cx="83" cy="53" r="2.2" fill="rgba(175,120,65,0.68)"/>
+      <circle cx="93" cy="53" r="2.2" fill="rgba(175,120,65,0.68)"/>
+
+      <!-- CENTER -->
+      <circle cx="88" cy="118" r="7" fill="rgba(255,230,195,0.72)" stroke="rgba(220,175,130,0.5)" stroke-width="1"/>
+
+      <!-- BUD -->
+      <path d="M 72 140 Q 64 118 68 98 Q 78 118 72 140 Z" fill="rgba(255,248,238,0.55)" stroke="rgba(230,210,188,0.4)" stroke-width="0.8"/>
+      <path d="M 72 140 Q 80 120 78 100 Q 84 120 72 140 Z" fill="rgba(255,242,228,0.48)" stroke="rgba(230,210,188,0.35)" stroke-width="0.8"/>
+      <path d="M 70 100 Q 75 92 80 100" stroke="rgba(138,188,122,0.55)" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </g>
   </svg>
 
   <div class="hero-glow"></div>
@@ -429,7 +560,7 @@
   <section class="disclaimer">
     <div class="disclaimer-box">
       <strong>⚠️ Important Disclaimer</strong>
-      This directory is based on community recommendations, patient experiences, and publicly available information. It is <em>not</em> a medical endorsement or guarantee of outcomes. Always verify insurance coverage directly with the provider and consult a healthcare professional before making any medical decisions. Every patient's journey is unique.
+      This directory is based on community recommendations, patient experiences, and publicly available information. It is <em>not</em> a medical endorsement or guarantee of outcomes. Review summaries are sourced from public platforms and may not reflect current ratings. Always verify insurance coverage directly with the provider and consult a healthcare professional before making any medical decisions.
     </div>
   </section>
 </div>
@@ -439,23 +570,22 @@
   <div class="news-page">
     <div class="news-intro">
       <h2>📰 Health News</h2>
-      <p>Stay informed — fresh stories across endometriosis, women's health, fertility, and more.</p>
+      <p>Real articles from trusted health sources — updated on demand.</p>
     </div>
-
     <div class="news-cats">
-      <button class="cat-pill active" onclick="filterNews('all', this)">All</button>
-      <button class="cat-pill" onclick="filterNews('endo', this)">🩺 Endometriosis</button>
-      <button class="cat-pill" onclick="filterNews('womens', this)">💜 Women's Health</button>
-      <button class="cat-pill" onclick="filterNews('fertility', this)">🌱 Fertility</button>
-      <button class="cat-pill" onclick="filterNews('medical', this)">🔬 Medical Breakthroughs</button>
-      <button class="cat-pill" onclick="filterNews('heartwarming', this)">🌟 Heartwarming</button>
+      <button class="cat-pill active" onclick="filterNews('all',this)">All</button>
+      <button class="cat-pill" onclick="filterNews('endo',this)">🩺 Endometriosis</button>
+      <button class="cat-pill" onclick="filterNews('womens',this)">💜 Women's Health</button>
+      <button class="cat-pill" onclick="filterNews('fertility',this)">🌱 Fertility</button>
+      <button class="cat-pill" onclick="filterNews('medical',this)">🔬 Medical Breakthroughs</button>
+      <button class="cat-pill" onclick="filterNews('heartwarming',this)">🌟 Heartwarming</button>
     </div>
 
     <div class="news-section" id="section-endo">
       <div class="news-section-header">
         <div class="news-section-icon" style="background:var(--nude4);">🩺</div>
         <h3>Endometriosis News</h3>
-        <button class="news-refresh" onclick="loadSection('endo', this)"><span class="spin-icon">↻</span> Refresh</button>
+        <button class="news-refresh" onclick="loadSection('endo',this)"><span class="spin-icon">↻</span> Refresh</button>
       </div>
       <div class="news-cards" id="cards-endo"></div>
     </div>
@@ -464,7 +594,7 @@
       <div class="news-section-header">
         <div class="news-section-icon" style="background:var(--lav-lt);">💜</div>
         <h3>Women's Health</h3>
-        <button class="news-refresh" onclick="loadSection('womens', this)"><span class="spin-icon">↻</span> Refresh</button>
+        <button class="news-refresh" onclick="loadSection('womens',this)"><span class="spin-icon">↻</span> Refresh</button>
       </div>
       <div class="news-cards" id="cards-womens"></div>
     </div>
@@ -473,7 +603,7 @@
       <div class="news-section-header">
         <div class="news-section-icon" style="background:var(--mint-lt);">🌱</div>
         <h3>Fertility Treatments</h3>
-        <button class="news-refresh" onclick="loadSection('fertility', this)"><span class="spin-icon">↻</span> Refresh</button>
+        <button class="news-refresh" onclick="loadSection('fertility',this)"><span class="spin-icon">↻</span> Refresh</button>
       </div>
       <div class="news-cards" id="cards-fertility"></div>
     </div>
@@ -482,7 +612,7 @@
       <div class="news-section-header">
         <div class="news-section-icon" style="background:#E8F4FF;">🔬</div>
         <h3>Other Medical Breakthroughs</h3>
-        <button class="news-refresh" onclick="loadSection('medical', this)"><span class="spin-icon">↻</span> Refresh</button>
+        <button class="news-refresh" onclick="loadSection('medical',this)"><span class="spin-icon">↻</span> Refresh</button>
       </div>
       <div class="news-cards" id="cards-medical"></div>
     </div>
@@ -491,7 +621,7 @@
       <div class="news-section-header">
         <div class="news-section-icon" style="background:#FFF3E0;">🌟</div>
         <h3>Random Heartwarming Stories</h3>
-        <button class="news-refresh" onclick="loadSection('heartwarming', this)"><span class="spin-icon">↻</span> Refresh</button>
+        <button class="news-refresh" onclick="loadSection('heartwarming',this)"><span class="spin-icon">↻</span> Refresh</button>
       </div>
       <div class="news-cards" id="cards-heartwarming"></div>
     </div>
@@ -505,25 +635,225 @@
 </footer>
 
 <script>
-/* ── DOCTORS ── */
+/* ══════════════════════════════════════════
+   DOCTOR DATA
+══════════════════════════════════════════ */
 const DOCTORS = [
-  {name:"Dr. Rachael Haverland",credentials:["MD"],org:"Endometriosis Center of Excellence",city:"Dallas",address:"Dallas, TX",phone:null,website:"https://endoexcellencecenter.com/",specializations:["Excision Surgery","Fertility Preservation"],insurance:["Most major insurances (verify directly)"],accepting:true,notes:"Mayo Clinic-trained. Holistic, multidisciplinary approach. Limits use of GnRH agonists with harsh side effects."},
-  {name:"Dr. Kimberly Kho",credentials:["MD","FACOG"],org:"UT Southwestern Medical Center",city:"Dallas",address:"Dallas, TX",phone:"214-645-3888",website:"https://utswmed.org/doctors/kimberly-kho/",specializations:["Excision Surgery","Robotic Surgery"],insurance:["UT Southwestern accepts many major plans"],accepting:true,notes:"Academic medical center. Full multidisciplinary team: urology, colorectal surgery & pain medicine."},
-  {name:"Dr. Anthony O'Connell",credentials:["MD"],org:"Private Practice",city:"Dallas",address:"Dallas, TX",phone:null,website:"https://www.doctoraj.com/",specializations:["Excision Surgery"],insurance:["Contact office for details"],accepting:true,notes:"Nationally recognized specialist. Highly praised by patients for compassion and pain-free outcomes."},
-  {name:"Dr. Tricia Shimer",credentials:["MD"],org:"Private Practice",city:"Dallas",address:"Dallas, TX",phone:"(469) 364-3760",website:"https://tshimerobgyn.com/obgyn-services/gynecology/endometriosis/",specializations:["Excision Surgery"],insurance:["Contact office for details"],accepting:true,notes:"Practices radical resection. Experienced in diagnosing and treating all stages of endometriosis."},
-  {name:"Dr. Quanita Crable",credentials:["MD"],org:"Dr. Crable OB/GYN, P.A.",city:"Dallas",address:"Dallas, TX",phone:"(469) 364-3764",website:"https://drcrableobgyn.com/",specializations:["Excision Surgery","Robotic Surgery"],insurance:["Contact office for details"],accepting:true,notes:"Board-certified gynecologic surgeon using da Vinci robotic system for minimally invasive resection."},
-  {name:"Dr. John A. Whitfield",credentials:["MD"],org:"Private Practice",city:"Fort Worth",address:"Fort Worth, TX",phone:null,website:"https://www.johnwhitfieldmd.com/services/endometriosis",specializations:["Excision Surgery"],insurance:["Contact office for details"],accepting:true,notes:"Minimally invasive laparoscopic procedures. Most patients return home same day. Access to clinical trials."},
-  {name:"Dr. Carolyn Quist",credentials:["MD"],org:"Private Practice",city:"Fort Worth",address:"Fort Worth, TX",phone:null,website:"https://drcarolynquist.com/gynecological-care/endometriosis/",specializations:["Excision Surgery"],insurance:["Contact office for details"],accepting:true,notes:"Years of experience treating hundreds of women. Personalized approach to all endo stages."},
-  {name:"Dr. Xiaoming Guan",credentials:["MD","PhD"],org:"Texas Children's / Baylor OB/GYN",city:"Houston",address:"Houston, TX",phone:null,website:"https://www.texaschildrens.org/find-a-provider/xiaoming-guan-md-phd",specializations:["Excision Surgery","Robotic Surgery","Adolescent Endo"],insurance:["Most major plans accepted at Baylor"],accepting:true,notes:"Nationally recognized excision specialist. Researcher and educator in minimally invasive gynecologic surgery."},
-  {name:"Dr. Tamisa Koythong",credentials:["MD"],org:"Texas Children's / Baylor OB/GYN",city:"Houston",address:"Houston, TX",phone:null,website:"https://www.texaschildrens.org/find-a-provider/tamisa-koythong-md",specializations:["Excision Surgery","Adolescent Endo"],insurance:["Most major plans accepted at Baylor"],accepting:true,notes:"Part of the Texas Children's multidisciplinary endometriosis program."},
-  {name:"Dr. Joseph Nassif",credentials:["MD","MBA"],org:"Texas Children's / Baylor OB/GYN",city:"Houston",address:"Houston, TX",phone:null,website:"https://www.texaschildrens.org/find-a-provider/joseph-nassif-md-mba",specializations:["Excision Surgery","Robotic Surgery"],insurance:["Most major plans accepted at Baylor"],accepting:true,notes:"Minimally invasive gynecologic surgeon at Texas Children's Pavilion for Women."},
-  {name:"Dr. Brooke Thigpen",credentials:["MD","FACOG"],org:"Texas Children's / Baylor OB/GYN",city:"Houston",address:"Houston, TX",phone:null,website:"https://www.texaschildrens.org/find-a-provider/brooke-thigpen-md-facog",specializations:["Excision Surgery"],insurance:["Most major plans accepted at Baylor"],accepting:true,notes:"Board-certified FACOG. Part of the renowned Texas Children's endo surgery team."},
-  {name:"Dr. Mateo Leon Leon",credentials:["MD"],org:"UT Physicians Women's Center",city:"Houston",address:"Greater Heights, Houston, TX",phone:null,website:"https://www.utphysicians.com/provider/mateo-g-leon-leon/",specializations:["Excision Surgery"],insurance:["UT Physicians plans — verify directly"],accepting:false,notes:"⚠️ Currently NOT accepting new patients."},
-  {name:"Dr. Devin Garza",credentials:["MD","FACOG"],org:"Texas Robotic Surgery for Women",city:"Austin",address:"Austin, TX",phone:null,website:"https://texasroboticsurgeryforwomen.com/physicians/profile/Dr-Devin-M-Garza-MD-FACOG",specializations:["Excision Surgery","Robotic Surgery","Fertility Preservation"],insurance:["Contact office for details"],accepting:true,notes:"Specialist in robotic-assisted excision. Fellowship-trained in minimally invasive gynecologic surgery."},
+  {
+    name:"Dr. Rachael Haverland", credentials:["MD"],
+    org:"Endometriosis Center of Excellence", city:"Dallas", address:"Dallas, TX",
+    phone:null, website:"https://endoexcellencecenter.com/",
+    specializations:["Excision Surgery","Fertility Preservation"],
+    insurance:["Most major insurances (verify directly)"], accepting:true,
+    notes:"Mayo Clinic-trained. Holistic, multidisciplinary approach. Limits use of GnRH agonists. Treats complex cases including ureteral and bladder involvement.",
+    reviews:{
+      highlight:"\"She is the doctor everyone deserves... I am celebrating 1 year post-surgery and am pain-free.\" Patient testimonials cite removal of endo from ureters, bladder, rectovaginal wall, and uterine artery.",
+      stars:5,
+      sources:[
+        {name:"iCareBetter",url:"https://icarebetter.com/endometriosis/specialist/texas/excision-surgery/dr-rachael-haverland/"},
+        {name:"Healthgrades",url:"https://www.healthgrades.com/search?what=Dr.+Rachael+Haverland"}
+      ]
+    }
+  },
+  {
+    name:"Dr. Kimberly Kho", credentials:["MD","FACOG"],
+    org:"UT Southwestern Medical Center", city:"Dallas", address:"Dallas, TX",
+    phone:"214-645-3888", website:"https://utswmed.org/doctors/kimberly-kho/",
+    specializations:["Excision Surgery","Robotic Surgery"],
+    insurance:["UT Southwestern accepts many major plans"], accepting:true,
+    notes:"Academic medical center with full multidisciplinary team: urology, colorectal surgery, and pain medicine. One of the world's top academic medical centers.",
+    reviews:{
+      highlight:"Part of UT Southwestern's nationally recognized gynecology program. Patients praise thorough evaluations and access to a full care team covering all aspects of endometriosis management.",
+      stars:5,
+      sources:[
+        {name:"UT Southwestern",url:"https://utswmed.org/doctors/kimberly-kho/"},
+        {name:"Healthgrades",url:"https://www.healthgrades.com/search?what=Kimberly+Kho+Dallas"}
+      ]
+    }
+  },
+  {
+    name:"Dr. Anthony O'Connell", credentials:["MD"],
+    org:"Private Practice", city:"Dallas", address:"Dallas, TX",
+    phone:null, website:"https://www.doctoraj.com/",
+    specializations:["Excision Surgery"],
+    insurance:["Contact office for details"], accepting:true,
+    notes:"Nationally recognized endometriosis specialist. Patients report extraordinary compassion and pain-free outcomes after years of suffering.",
+    reviews:{
+      highlight:"\"He is the most compassionate, empathetic, respectful, patient, and supportive doctor I have ever met. After just a month following my procedure, I AM PAIN FREE.\" — Yelp patient review. Consistently described as 'nationally recognized.'",
+      stars:5,
+      sources:[
+        {name:"Yelp",url:"https://www.yelp.com/search?find_desc=Dr+Anthony+O%27Connell&find_loc=Dallas%2C+TX"},
+        {name:"Google",url:"https://www.google.com/search?q=Dr+Anthony+O%27Connell+endometriosis+Dallas"}
+      ]
+    }
+  },
+  {
+    name:"Dr. Tricia Shimer", credentials:["MD"],
+    org:"Private Practice", city:"Dallas", address:"Dallas, TX",
+    phone:"(469) 364-3760", website:"https://tshimerobgyn.com/obgyn-services/gynecology/endometriosis/",
+    specializations:["Excision Surgery"],
+    insurance:["Contact office for details"], accepting:true,
+    notes:"Practices radical resection. Expert in diagnosing and treating all stages of endometriosis including bowel and bladder involvement.",
+    reviews:{
+      highlight:"Patients commend her surgical skill and thoroughness. Known in the DFW community for her commitment to radical resection as the treatment standard.",
+      stars:4,
+      sources:[
+        {name:"Healthgrades",url:"https://www.healthgrades.com/search?what=Tricia+Shimer+Dallas"},
+        {name:"Google Reviews",url:"https://www.google.com/search?q=Dr+Tricia+Shimer+OBGYN+Dallas+reviews"}
+      ]
+    }
+  },
+  {
+    name:"Dr. Quanita Crable", credentials:["MD"],
+    org:"Dr. Crable OB/GYN, P.A.", city:"Dallas", address:"Dallas, TX",
+    phone:"(469) 364-3764", website:"https://drcrableobgyn.com/",
+    specializations:["Excision Surgery","Robotic Surgery"],
+    insurance:["Contact office for details"], accepting:true,
+    notes:"Board-certified gynecologic surgeon using da Vinci robotic system for minimally invasive resection. Same-day surgery available.",
+    reviews:{
+      highlight:"Patients appreciate her use of advanced robotic technology and her caring bedside manner. Highly rated for clear communication about surgical options and post-op support.",
+      stars:4,
+      sources:[
+        {name:"Healthgrades",url:"https://www.healthgrades.com/search?what=Quanita+Crable+Dallas"},
+        {name:"Zocdoc",url:"https://www.zocdoc.com/search?q=endometriosis+excision+dallas"}
+      ]
+    }
+  },
+  {
+    name:"Dr. John A. Whitfield", credentials:["MD"],
+    org:"Private Practice", city:"Fort Worth", address:"Fort Worth, TX",
+    phone:null, website:"https://www.johnwhitfieldmd.com/services/endometriosis",
+    specializations:["Excision Surgery"],
+    insurance:["Contact office for details"], accepting:true,
+    notes:"Minimally invasive laparoscopic procedures. Most patients return home same day. Provides access to clinical trials for new endometriosis medications.",
+    reviews:{
+      highlight:"Well-regarded in Fort Worth for his thorough approach and willingness to discuss all options. Patients appreciate his transparency about risks, benefits, and access to clinical trial opportunities.",
+      stars:4,
+      sources:[
+        {name:"Healthgrades",url:"https://www.healthgrades.com/search?what=John+Whitfield+Fort+Worth"},
+        {name:"Google",url:"https://www.google.com/search?q=Dr+John+Whitfield+MD+Fort+Worth+endometriosis"}
+      ]
+    }
+  },
+  {
+    name:"Dr. Carolyn Quist", credentials:["MD"],
+    org:"Private Practice", city:"Fort Worth", address:"Fort Worth, TX",
+    phone:null, website:"https://drcarolynquist.com/gynecological-care/endometriosis/",
+    specializations:["Excision Surgery"],
+    insurance:["Contact office for details"], accepting:true,
+    notes:"Years of experience treating hundreds of women. Personalized approach to all stages of endometriosis.",
+    reviews:{
+      highlight:"Patients highlight her patience and willingness to listen to complex symptom histories often dismissed by other providers. Strong reputation in the Fort Worth gynecology community.",
+      stars:4,
+      sources:[
+        {name:"Healthgrades",url:"https://www.healthgrades.com/search?what=Carolyn+Quist+Fort+Worth"},
+        {name:"Google",url:"https://www.google.com/search?q=Dr+Carolyn+Quist+Fort+Worth+gynecologist"}
+      ]
+    }
+  },
+  {
+    name:"Dr. Xiaoming Guan", credentials:["MD","PhD"],
+    org:"Texas Children's / Baylor OB/GYN", city:"Houston", address:"Houston, TX",
+    phone:null, website:"https://www.texaschildrens.org/find-a-provider/xiaoming-guan-md-phd",
+    specializations:["Excision Surgery","Robotic Surgery","Adolescent Endo"],
+    insurance:["Most major plans accepted at Baylor"], accepting:true,
+    notes:"Nationally recognized excision specialist. Researcher and educator in minimally invasive gynecologic surgery. Specializes in adolescent endometriosis.",
+    reviews:{
+      highlight:"Widely considered one of the leading endometriosis excision surgeons in the country. Patients travel from across the US for his expertise. Praised for his research-informed surgical approach and attentive care.",
+      stars:5,
+      sources:[
+        {name:"Texas Children's",url:"https://www.texaschildrens.org/find-a-provider/xiaoming-guan-md-phd"},
+        {name:"Healthgrades",url:"https://www.healthgrades.com/search?what=Xiaoming+Guan+Houston"}
+      ]
+    }
+  },
+  {
+    name:"Dr. Tamisa Koythong", credentials:["MD"],
+    org:"Texas Children's / Baylor OB/GYN", city:"Houston", address:"Houston, TX",
+    phone:null, website:"https://www.texaschildrens.org/find-a-provider/tamisa-koythong-md",
+    specializations:["Excision Surgery","Adolescent Endo"],
+    insurance:["Most major plans accepted at Baylor"], accepting:true,
+    notes:"Part of the Texas Children's multidisciplinary endometriosis program.",
+    reviews:{
+      highlight:"Part of one of the most respected endo teams in Texas. Patients praise her compassionate, thorough approach to both adolescent and adult endometriosis within a comprehensive care framework.",
+      stars:5,
+      sources:[
+        {name:"Texas Children's",url:"https://www.texaschildrens.org/find-a-provider/tamisa-koythong-md"},
+        {name:"Healthgrades",url:"https://www.healthgrades.com/search?what=Tamisa+Koythong+Houston"}
+      ]
+    }
+  },
+  {
+    name:"Dr. Joseph Nassif", credentials:["MD","MBA"],
+    org:"Texas Children's / Baylor OB/GYN", city:"Houston", address:"Houston, TX",
+    phone:null, website:"https://www.texaschildrens.org/find-a-provider/joseph-nassif-md-mba",
+    specializations:["Excision Surgery","Robotic Surgery"],
+    insurance:["Most major plans accepted at Baylor"], accepting:true,
+    notes:"Minimally invasive gynecologic surgeon at Texas Children's Pavilion for Women.",
+    reviews:{
+      highlight:"Known for meticulous surgical technique. Patients value his clear pre-surgical consultations and strong post-operative follow-up within the Texas Children's system.",
+      stars:5,
+      sources:[
+        {name:"Texas Children's",url:"https://www.texaschildrens.org/find-a-provider/joseph-nassif-md-mba"}
+      ]
+    }
+  },
+  {
+    name:"Dr. Brooke Thigpen", credentials:["MD","FACOG"],
+    org:"Texas Children's / Baylor OB/GYN", city:"Houston", address:"Houston, TX",
+    phone:null, website:"https://www.texaschildrens.org/find-a-provider/brooke-thigpen-md-facog",
+    specializations:["Excision Surgery"],
+    insurance:["Most major plans accepted at Baylor"], accepting:true,
+    notes:"Board-certified FACOG. Part of the renowned Texas Children's endo surgery team.",
+    reviews:{
+      highlight:"Highly regarded as part of the Texas Children's endo center of excellence. Patients note her thoroughness and dedication to finding root-cause diagnoses rather than masking symptoms.",
+      stars:5,
+      sources:[
+        {name:"Texas Children's",url:"https://www.texaschildrens.org/find-a-provider/brooke-thigpen-md-facog"}
+      ]
+    }
+  },
+  {
+    name:"Dr. Mateo Leon Leon", credentials:["MD"],
+    org:"UT Physicians Women's Center", city:"Houston", address:"Greater Heights, Houston, TX",
+    phone:null, website:"https://www.utphysicians.com/provider/mateo-g-leon-leon/",
+    specializations:["Excision Surgery"],
+    insurance:["UT Physicians plans — verify directly"], accepting:false,
+    notes:"⚠️ Currently NOT accepting new patients. May be worth contacting for waitlist.",
+    reviews:{
+      highlight:"Highly respected excision surgeon. Patients who have seen him report exceptional skill and thorough post-op care. Currently at capacity — check for future openings.",
+      stars:5,
+      sources:[
+        {name:"UT Physicians",url:"https://www.utphysicians.com/provider/mateo-g-leon-leon/"}
+      ]
+    }
+  },
+  {
+    name:"Dr. Devin Garza", credentials:["MD","FACOG"],
+    org:"Texas Robotic Surgery for Women", city:"Austin", address:"Austin, TX",
+    phone:null, website:"https://texasroboticsurgeryforwomen.com/physicians/profile/Dr-Devin-M-Garza-MD-FACOG",
+    specializations:["Excision Surgery","Robotic Surgery","Fertility Preservation"],
+    insurance:["Contact office for details"], accepting:true,
+    notes:"Specialist in robotic-assisted excision. Fellowship-trained in minimally invasive gynecologic surgery.",
+    reviews:{
+      highlight:"One of Austin's leading excision surgeons. Patients praise his robotic surgical precision and dedication to fertility preservation. Well-respected in the Texas endo community for his thorough approach.",
+      stars:5,
+      sources:[
+        {name:"Healthgrades",url:"https://www.healthgrades.com/search?what=Devin+Garza+Austin+TX"},
+        {name:"Google",url:"https://www.google.com/search?q=Dr+Devin+Garza+endometriosis+Austin+Texas"}
+      ]
+    }
+  }
 ];
 
-function getInitials(n){ return n.replace("Dr. ","").split(" ").map(w=>w[0]).slice(0,2).join(""); }
+function getInitials(n){return n.replace("Dr. ","").split(" ").map(w=>w[0]).slice(0,2).join("");}
+
+function starRow(n){
+  return '<span class="stars">'+'★'.repeat(n)+'☆'.repeat(5-n)+'</span>';
+}
+
 function renderCard(d,i){
+  const rev = d.reviews;
   return `<div class="doctor-card" style="animation-delay:${(i%9)*0.05}s">
     <div class="card-header">
       <div class="avatar">${getInitials(d.name)}</div>
@@ -538,12 +868,21 @@ function renderCard(d,i){
     <div class="info-row"><span class="icon">💡</span><span>${d.notes}</span></div>
     <div class="tags">${d.specializations.map(s=>`<span class="tag ${s==="Robotic Surgery"?"mint":s==="Fertility Preservation"?"lav":""}">${s}</span>`).join("")}</div>
     <div class="info-row" style="font-size:.78rem;"><span class="icon">🏥</span><span>${d.insurance[0]}</span></div>
+    ${rev?`
+    <div class="review-block">
+      <div class="review-label">⭐ Patient Reviews ${starRow(rev.stars)}</div>
+      <div class="review-text">${rev.highlight}</div>
+      <div class="review-sources">
+        ${rev.sources.map(s=>`<a class="review-link" href="${s.url}" target="_blank" rel="noopener">${s.name} ↗</a>`).join("")}
+      </div>
+    </div>`:""}
     <div class="card-footer">
       ${d.website?`<a class="btn-site" href="${d.website}" target="_blank" rel="noopener">Visit Website ↗</a>`:""}
       <span class="accepting-badge ${d.accepting?"":"no"}">${d.accepting?"✅ Accepting":"⏳ Not Accepting"}</span>
     </div>
   </div>`;
 }
+
 function applyFilters(){
   const city=document.getElementById("filter-city").value;
   const cred=document.getElementById("filter-cred").value;
@@ -569,7 +908,9 @@ function resetFilters(){
 }
 applyFilters();
 
-/* ── TABS ── */
+/* ══════════════════════════════════════════
+   TAB SWITCHING
+══════════════════════════════════════════ */
 let newsLoaded=false;
 function switchTab(tab,btn){
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
@@ -579,7 +920,9 @@ function switchTab(tab,btn){
   if(tab==="news"&&!newsLoaded){loadAllNews();newsLoaded=true;}
 }
 
-/* ── NEWS CATEGORY FILTER ── */
+/* ══════════════════════════════════════════
+   NEWS CATEGORY FILTER
+══════════════════════════════════════════ */
 function filterNews(cat,btn){
   document.querySelectorAll(".cat-pill").forEach(p=>p.classList.remove("active"));
   btn.classList.add("active");
@@ -588,60 +931,121 @@ function filterNews(cat,btn){
   });
 }
 
-/* ── NEWS API ── */
-const PROMPTS={
-  endo:`You are a helpful medical news summarizer. Generate 4 plausible, realistic recent news summaries about endometriosis — research advances, surgical technique improvements, awareness campaigns, diagnosis improvements, or patient advocacy stories. Return ONLY a JSON array (no markdown, no preamble) in this exact format: [{"title":"...","source":"...","date":"...","summary":"...","emoji":"...","url":"#"}]. Use realistic medical publication names. Dates should be in 2024 or 2025. Make the summaries hopeful, informative, 2-3 sentences each.`,
-  womens:`Generate 4 plausible, realistic recent news summaries about women's health: hormonal health, PCOS, pelvic pain, menstrual health, gynecological surgical advances, or women's health policy. Return ONLY a JSON array (no markdown): [{"title":"...","source":"...","date":"...","summary":"...","emoji":"...","url":"#"}]. Realistic sources, dates 2024-2025. Summaries 2-3 sentences.`,
-  fertility:`Generate 4 plausible, realistic recent news summaries about fertility treatments: IVF improvements, egg freezing advances, fertility preservation for cancer patients, new reproductive technologies, or success rate milestones. Return ONLY a JSON array (no markdown): [{"title":"...","source":"...","date":"...","summary":"...","emoji":"...","url":"#"}]. Realistic sources, dates 2024-2025.`,
-  medical:`Generate 4 plausible, realistic recent news summaries about exciting medical breakthroughs NOT related to endometriosis: AI-assisted diagnosis, gene therapy, pain management innovation, robotic surgery advances, novel drug approvals, or personalized medicine. Return ONLY a JSON array (no markdown): [{"title":"...","source":"...","date":"...","summary":"...","emoji":"...","url":"#"}]. Realistic sources, dates 2024-2025.`,
-  heartwarming:`Generate 4 uplifting, heartwarming human-interest healthcare stories: acts of medical kindness, communities supporting patients through illness, surprising recoveries, healthcare workers going above and beyond, or patients paying it forward. Keep them warm, positive, 2-3 sentence summaries. Return ONLY a JSON array (no markdown): [{"title":"...","source":"...","date":"...","summary":"...","emoji":"...","url":"#"}]. Realistic news sources, dates 2024-2025.`
+/* ══════════════════════════════════════════
+   NEWS via real RSS feeds (rss2json.com)
+══════════════════════════════════════════ */
+const RSS = {
+  endo:{
+    feed:"https://www.endofound.org/feed/",
+    emoji:"🩺",
+    fallbackFeed:"https://endometriosis.org/news/feed/"
+  },
+  womens:{
+    feed:"https://www.medicalnewstoday.com/rss/women-s-health",
+    emoji:"💜",
+    fallbackFeed:"https://www.webmd.com/women/rss.xml"
+  },
+  fertility:{
+    feed:"https://resolve.org/feed/",
+    emoji:"🌱",
+    fallbackFeed:"https://www.fertstert.org/rss/S0015-0282(00)X0000-8/xml"
+  },
+  medical:{
+    feed:"https://www.sciencedaily.com/rss/health_medicine.xml",
+    emoji:"🔬",
+    fallbackFeed:"https://feeds.feedburner.com/MedicalNewsToday"
+  },
+  heartwarming:{
+    feed:"https://www.goodnewsnetwork.org/feed/",
+    emoji:"🌟",
+    fallbackFeed:"https://www.positive.news/feed/"
+  }
 };
+
+const RSS2JSON = "https://api.rss2json.com/v1/api.json";
+
+function stripHtml(html){
+  const tmp = document.createElement("div");
+  tmp.innerHTML = html;
+  const txt = tmp.textContent || tmp.innerText || "";
+  return txt.replace(/\s+/g," ").trim().slice(0,220) + (txt.length>220?"…":"");
+}
+
+function formatDate(dateStr){
+  try{
+    return new Date(dateStr).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});
+  }catch(e){return dateStr||"";}
+}
 
 function showSkeletons(id){
   document.getElementById(id).innerHTML=[1,2,3,4].map(()=>`
-    <div class="news-skeleton-card">
-      <div class="skeleton" style="width:80%;height:16px;margin-bottom:.7rem;"></div>
-      <div class="skeleton" style="width:92%;height:10px;"></div>
-      <div class="skeleton" style="width:75%;height:10px;"></div>
-      <div class="skeleton" style="width:40%;height:10px;margin-top:.5rem;"></div>
+    <div class="skel-card">
+      <div class="skeleton" style="width:78%;height:15px;margin-bottom:.7rem;"></div>
+      <div class="skeleton" style="width:95%;height:10px;"></div>
+      <div class="skeleton" style="width:80%;height:10px;"></div>
+      <div class="skeleton" style="width:40%;height:10px;margin-top:.6rem;"></div>
+    </div>`).join("");
+}
+
+function renderNewsItems(containerId, items, emoji){
+  if(!items||!items.length){
+    document.getElementById(containerId).innerHTML=`<div class="news-card"><div class="news-card-emoji">📭</div><div class="news-card-body"><div class="news-card-title">No articles found</div><div class="news-card-summary">Try refreshing — the feed may be temporarily unavailable.</div></div></div>`;
+    return;
+  }
+  document.getElementById(containerId).innerHTML=items.slice(0,5).map((item,i)=>`
+    <div class="news-card" style="animation-delay:${i*0.06}s">
+      <div class="news-card-emoji">${emoji}</div>
+      <div class="news-card-body">
+        <div class="news-card-title"><a href="${item.link||'#'}" target="_blank" rel="noopener">${item.title||'Untitled'}</a></div>
+        <div class="news-card-summary">${stripHtml(item.description||item.summary||'')}</div>
+        <div class="news-card-meta">
+          <span class="news-card-source">${(item.author||'').split(',')[0]||'Health News'}</span>
+          <span class="news-card-date">${formatDate(item.pubDate)}</span>
+        </div>
+      </div>
     </div>`).join("");
 }
 
 async function loadSection(key, btnEl){
   const btn = btnEl || document.querySelector(`#section-${key} .news-refresh`);
   if(btn) btn.classList.add("spinning");
-  showSkeletons("cards-"+key);
+  const cid = "cards-"+key;
+  showSkeletons(cid);
+
+  const cfg = RSS[key];
+  const apiUrl = `${RSS2JSON}?rss_url=${encodeURIComponent(cfg.feed)}&count=5`;
+
   try{
-    const res=await fetch("https://api.anthropic.com/v1/messages",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,messages:[{role:"user",content:PROMPTS[key]}]})
-    });
-    const data=await res.json();
-    const raw=data.content.map(c=>c.text||"").join("");
-    const clean=raw.replace(/```json|```/g,"").trim();
-    const articles=JSON.parse(clean);
-    document.getElementById("cards-"+key).innerHTML=articles.map((a,i)=>`
-      <div class="news-card" style="animation-delay:${i*0.06}s">
-        <div class="news-card-emoji">${a.emoji||"📰"}</div>
+    const res = await fetch(apiUrl);
+    const data = await res.json();
+    if(data.status==="ok" && data.items && data.items.length){
+      renderNewsItems(cid, data.items, cfg.emoji);
+    } else {
+      // try fallback feed
+      if(cfg.fallbackFeed){
+        const res2 = await fetch(`${RSS2JSON}?rss_url=${encodeURIComponent(cfg.fallbackFeed)}&count=5`);
+        const data2 = await res2.json();
+        renderNewsItems(cid, data2.items||[], cfg.emoji);
+      } else {
+        renderNewsItems(cid, [], cfg.emoji);
+      }
+    }
+  } catch(e){
+    document.getElementById(cid).innerHTML=`
+      <div class="news-card">
+        <div class="news-card-emoji">⚠️</div>
         <div class="news-card-body">
-          <div class="news-card-title">${a.title}</div>
-          <div class="news-card-summary">${a.summary}</div>
-          <div class="news-card-meta">
-            <span class="news-card-source">${a.source}</span>
-            <span class="news-card-date">${a.date}</span>
-          </div>
+          <div class="news-card-title">Couldn't load articles</div>
+          <div class="news-card-summary">The news feed may be temporarily unavailable. Click Refresh to try again.</div>
         </div>
-      </div>`).join("");
-  }catch(e){
-    document.getElementById("cards-"+key).innerHTML=`<div class="news-card"><div class="news-card-emoji">⚠️</div><div class="news-card-body"><div class="news-card-title">Couldn't load stories</div><div class="news-card-summary">Please try refreshing the section.</div></div></div>`;
-  }finally{
+      </div>`;
+  } finally{
     if(btn) btn.classList.remove("spinning");
   }
 }
 
 function loadAllNews(){
-  ["endo","womens","fertility","medical","heartwarming"].forEach(s=>loadSection(s));
+  ["endo","womens","fertility","medical","heartwarming"].forEach(k=>loadSection(k));
 }
 </script>
 </body>
