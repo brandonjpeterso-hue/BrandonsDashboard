@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -34,885 +35,941 @@
     --body: 'Barlow', sans-serif;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    font-family: var(--body);
-    font-size: 17px;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* Scanline overlay */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0,0,0,0.03) 2px,
-      rgba(0,0,0,0.03) 4px
-    );
-    pointer-events: none;
-    z-index: 1000;
-  }
-
-  /* Grid noise texture */
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-    opacity: 0.4;
-    pointer-events: none;
-    z-index: 999;
-  }
-
-  /* ---- HEADER ---- */
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 32px;
-    border-bottom: 1px solid var(--border);
-    background: linear-gradient(180deg, rgba(96,200,245,0.06) 0%, transparent 100%);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    backdrop-filter: blur(12px);
-  }
-
-  .logo-block {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .logo-icon {
-    width: 36px;
-    height: 36px;
-    border: 2px solid var(--accent);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3px;
-    padding: 4px;
-    animation: pulse-border 3s ease-in-out infinite;
-  }
-
-  .logo-icon span {
-    background: var(--accent);
-    display: block;
-  }
-  .logo-icon span:nth-child(2) { background: var(--accent-dim); }
-  .logo-icon span:nth-child(3) { background: var(--accent-dim); }
-
-  @keyframes pulse-border {
-    0%, 100% { box-shadow: 0 0 8px var(--accent-glow); }
-    50% { box-shadow: 0 0 20px rgba(245,158,11,0.35); }
-  }
-
-  .logo-text {
-    font-family: var(--display);
-    font-weight: 900;
-    font-size: 30px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--text-primary);
-  }
-
-  .logo-sub {
-    font-family: var(--mono);
-    font-size: 14px;
-    color: var(--accent);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-  }
-
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-  }
-
-  .live-indicator {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: var(--mono);
-    font-size: 15px;
-    color: var(--green);
-    letter-spacing: 2px;
-  }
-
-  .live-dot {
-    width: 11px;
-    height: 11px;
-    background: var(--green);
-    border-radius: 50%;
-    animation: blink 1.5s ease-in-out infinite;
-    box-shadow: 0 0 8px var(--green);
-  }
-
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
-
-  #clock {
-    font-family: var(--mono);
-    font-size: 17px;
-    color: var(--text-secondary);
-    letter-spacing: 2px;
-  }
-
-  .states-badge {
-    font-family: var(--mono);
-    font-size: 14px;
-    color: var(--text-secondary);
-    border: 1px solid var(--border-bright);
-    padding: 5px 12px;
-    letter-spacing: 1px;
-  }
-
-  /* ---- NAV TABS ---- */
-  nav {
-    display: flex;
-    gap: 0;
-    border-bottom: 1px solid var(--border);
-    padding: 0 32px;
-    background: var(--bg-secondary);
-  }
-
-  .tab {
-    font-family: var(--display);
-    font-weight: 600;
-    font-size: 17px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    padding: 14px 26px;
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    transition: all 0.2s;
-    background: none;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    white-space: nowrap;
-  }
-
-  .tab:hover { color: var(--text-secondary); }
-  .tab.active {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
-  }
-
-  /* ---- MAIN LAYOUT ---- */
-  main {
-    padding: 24px 32px;
-    max-width: 1600px;
-    margin: 0 auto;
-  }
-
-  .section { display: none; }
-  .section.active { display: block; }
-
-  /* ---- STATUS BAR ---- */
-  .status-bar {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
-  }
-
-  .status-pill {
-    font-family: var(--mono);
-    font-size: 15px;
-    letter-spacing: 1.5px;
-    padding: 7px 16px;
-    border: 1px solid var(--border-bright);
-    color: var(--text-secondary);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .status-pill .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--green);
-  }
-
-  .status-pill .dot.warn { background: var(--caution); }
-  .status-pill .dot.off { background: var(--text-dim); }
-
-  /* ---- GRID SYSTEMS ---- */
-  .grid-4 {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-
-  .grid-3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-
-  .grid-2 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-
-  .grid-2-1 {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-
-  .col-span-2 { grid-column: span 2; }
-  .col-span-3 { grid-column: span 3; }
-  .col-span-4 { grid-column: span 4; }
-
-  /* ---- CARDS ---- */
-  .card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    padding: 20px;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.2s, background 0.2s;
-  }
-
-  .card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
-    opacity: 0.5;
-  }
-
-  .card:hover {
-    border-color: var(--border-bright);
-    background: var(--bg-card-hover);
-  }
-
-  .card-label {
-    font-family: var(--mono);
-    font-size: 14px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .card-label .unit {
-    color: var(--accent);
-    font-size: 13px;
-  }
-
-  .card-value {
-    font-family: var(--display);
-    font-size: 55px;
-    font-weight: 700;
-    line-height: 1;
-    color: var(--text-primary);
-    margin-bottom: 8px;
-  }
-
-  .card-value.large { font-size: 67px; }
-  .card-value.small { font-size: 39px; }
-
-  .card-sub {
-    font-family: var(--mono);
-    font-size: 15px;
-    color: var(--text-secondary);
-    letter-spacing: 1px;
-  }
-
-  .card-delta {
-    font-family: var(--mono);
-    font-size: 15px;
-    margin-top: 6px;
-  }
-
-  .card-delta.up { color: var(--red); }
-  .card-delta.down { color: var(--green); }
-  .card-delta.neutral { color: var(--text-dim); }
-
-  /* ---- SECTION HEADER ---- */
-  .section-header {
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-    margin-bottom: 20px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .section-title {
-    font-family: var(--display);
-    font-weight: 900;
-    font-size: 37px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--text-primary);
-  }
-
-  .section-title span { color: var(--accent); }
-
-  .section-meta {
-    font-family: var(--mono);
-    font-size: 14px;
-    color: var(--text-dim);
-    letter-spacing: 2px;
-  }
-
-  .refresh-btn {
-    margin-left: auto;
-    background: none;
-    border: 1px solid var(--border-bright);
-    color: var(--text-secondary);
-    font-family: var(--mono);
-    font-size: 14px;
-    letter-spacing: 2px;
-    padding: 8px 16px;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-transform: uppercase;
-  }
-
-  .refresh-btn:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  /* ---- CHART CARDS ---- */
-  .chart-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    padding: 20px;
-    position: relative;
-  }
-
-  .chart-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
-    opacity: 0.5;
-  }
-
-  .chart-title {
-    font-family: var(--display);
-    font-weight: 700;
-    font-size: 23px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-primary);
-    margin-bottom: 4px;
-  }
-
-  .chart-subtitle {
-    font-family: var(--mono);
-    font-size: 14px;
-    color: var(--text-secondary);
-    letter-spacing: 1.5px;
-    margin-bottom: 18px;
-  }
-
-  /* ---- STATE TABLE ---- */
-  .state-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: var(--mono);
-    font-size: 16px;
-  }
-
-  .state-table th {
-    font-family: var(--display);
-    font-weight: 600;
-    font-size: 15px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-    text-align: left;
-    padding: 10px 16px;
-    border-bottom: 1px solid var(--border-bright);
-  }
-
-  .state-table td {
-    padding: 13px 16px;
-    border-bottom: 1px solid rgba(30,51,72,0.6);
-    color: var(--text-secondary);
-    transition: background 0.15s;
-  }
-
-  .state-table tr:hover td { background: rgba(96,200,245,0.04); }
-
-  .state-table .state-name {
-    color: var(--text-primary);
-    font-family: var(--display);
-    font-weight: 600;
-    font-size: 18px;
-    letter-spacing: 1px;
-  }
-
-  .state-table .val-highlight {
-    color: var(--accent);
-    font-weight: bold;
-  }
-
-  .state-table .val-high { color: var(--red); }
-  .state-table .val-low { color: var(--green); }
-
-  .bar-cell {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .mini-bar {
-    height: 6px;
-    background: var(--border);
-    flex: 1;
-    max-width: 80px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .mini-bar-fill {
-    height: 100%;
-    background: var(--accent);
-    transition: width 1s ease;
-  }
-
-  .mini-bar-fill.high { background: var(--red); }
-  .mini-bar-fill.low { background: var(--green); }
-  .mini-bar-fill.med { background: var(--blue); }
-
-  /* ---- GRID STATUS CARDS ---- */
-  .grid-status-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .grid-region-name {
-    font-family: var(--display);
-    font-weight: 700;
-    font-size: 25px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-
-  .grid-states-covered {
-    font-family: var(--mono);
-    font-size: 14px;
-    color: var(--text-secondary);
-    letter-spacing: 1px;
-  }
-
-  .grid-load-bar {
-    height: 8px;
-    background: var(--border);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .grid-load-fill {
-    height: 100%;
-    transition: width 1.5s ease;
-    position: relative;
-  }
-
-  .grid-load-fill::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: -2px;
-    bottom: -2px;
-    width: 3px;
-    background: white;
-    opacity: 0.8;
-    box-shadow: 0 0 6px white;
-  }
-
-  .grid-load-fill.normal { background: linear-gradient(90deg, #17914a, #2edb6e); }
-  .grid-load-fill.elevated { background: linear-gradient(90deg, #b45309, #f59e0b); }
-  .grid-load-fill.high { background: linear-gradient(90deg, #b02020, #f25555); }
-
-  .grid-metrics {
-    display: flex;
-    justify-content: space-between;
-    font-family: var(--mono);
-    font-size: 15px;
-    color: var(--text-secondary);
-  }
-
-  .grid-metrics .metric-val {
-    color: var(--text-primary);
-    font-size: 20px;
-    display: block;
-  }
-
-  .grid-link {
-    font-family: var(--mono);
-    font-size: 14px;
-    color: var(--accent);
-    text-decoration: none;
-    letter-spacing: 1.5px;
-    border: 1px solid var(--accent-dim);
-    padding: 7px 14px;
-    display: inline-block;
-    transition: all 0.2s;
-    text-transform: uppercase;
-  }
-
-  .grid-link:hover {
-    background: var(--accent-glow);
-    border-color: var(--accent);
-  }
-
-  /* ---- NEWS CARDS ---- */
-  .news-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-
-  .news-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    transition: all 0.2s;
-    text-decoration: none;
-    color: inherit;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .news-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
-    transform: scaleX(0);
-    transition: transform 0.3s;
-  }
-
-  .news-card:hover {
-    border-color: var(--border-bright);
-    background: var(--bg-card-hover);
-  }
-
-  .news-card:hover::after { transform: scaleX(1); }
-
-  .news-source {
-    font-family: var(--mono);
-    font-size: 13px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--accent);
-  }
-
-  .news-title {
-    font-family: var(--display);
-    font-weight: 600;
-    font-size: 21px;
-    line-height: 1.3;
-    color: var(--text-primary);
-  }
-
-  .news-desc {
-    font-size: 16px;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    flex: 1;
-  }
-
-  .news-date {
-    font-family: var(--mono);
-    font-size: 14px;
-    color: var(--text-dim);
-  }
-
-  .news-arrow {
-    font-size: 26px;
-    color: var(--accent-dim);
-    align-self: flex-end;
-    transition: transform 0.2s, color 0.2s;
-  }
-
-  .news-card:hover .news-arrow {
-    transform: translate(4px, -4px);
-    color: var(--accent);
-  }
-
-  /* ---- WEATHER CARDS ---- */
-  .weather-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-  }
-
-  .weather-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    padding: 16px;
-  }
-
-  .weather-state {
-    font-family: var(--display);
-    font-weight: 700;
-    font-size: 25px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-
-  .weather-temp {
-    font-family: var(--display);
-    font-size: 51px;
-    font-weight: 900;
-    color: var(--accent);
-    line-height: 1;
-  }
-
-  .weather-desc {
-    font-family: var(--mono);
-    font-size: 14px;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 8px;
-  }
-
-  .weather-details {
-    display: flex;
-    gap: 14px;
-    margin-top: 12px;
-    font-family: var(--mono);
-    font-size: 14px;
-    color: var(--text-secondary);
-  }
-
-  .weather-loading {
-    font-family: var(--mono);
-    font-size: 15px;
-    color: var(--text-dim);
-    padding: 28px;
-    text-align: center;
-    border: 1px dashed var(--border-bright);
-    letter-spacing: 2px;
-  }
-
-  /* ---- FUEL / GAS TABLE ---- */
-  .fuel-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 1px;
-    background: var(--border);
-    margin-bottom: 1px;
-  }
-
-  .fuel-cell {
-    background: var(--bg-card);
-    padding: 14px 18px;
-    font-family: var(--mono);
-    font-size: 16px;
-    color: var(--text-secondary);
-    transition: background 0.15s;
-  }
-
-  .fuel-row:hover .fuel-cell { background: var(--bg-card-hover); }
-  .fuel-cell.header {
-    background: var(--bg-secondary);
-    font-family: var(--display);
-    font-weight: 600;
-    font-size: 15px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-  }
-
-  .fuel-cell .state { color: var(--text-primary); font-weight: bold; font-size: 18px; }
-
-  /* ---- LOADING SPINNER ---- */
-  .loading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-    gap: 14px;
-    font-family: var(--mono);
-    font-size: 16px;
-    color: var(--text-secondary);
-    letter-spacing: 2px;
-  }
-
-  .spinner {
-    width: 22px;
-    height: 22px;
-    border: 2px solid var(--border-bright);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-  }
-
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* ---- ERROR STATE ---- */
-  .error-state {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--red);
-    padding: 16px;
-    border: 1px solid var(--red-dim);
-    background: rgba(239,68,68,0.05);
-    letter-spacing: 1px;
-  }
-
-  /* ---- API NOTE BANNER ---- */
-  .api-note {
-    background: rgba(96,200,245,0.05);
-    border: 1px solid var(--accent-dim);
-    border-left: 3px solid var(--accent);
-    padding: 14px 18px;
-    font-family: var(--mono);
-    font-size: 15px;
-    color: var(--text-secondary);
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-    line-height: 1.7;
-  }
-
-  .api-note strong { color: var(--accent); }
-
-  /* ---- TOOLTIP ---- */
-  .tooltip {
-    position: relative;
-    cursor: help;
-  }
-
-  .tooltip-text {
-    display: none;
-    position: absolute;
-    bottom: calc(100% + 8px);
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-bright);
-    padding: 8px 12px;
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--text-secondary);
-    white-space: nowrap;
-    z-index: 200;
-    letter-spacing: 1px;
-  }
-
-  .tooltip:hover .tooltip-text { display: block; }
-
-  /* ---- DIVIDER ---- */
-  .divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border), transparent);
-    margin: 24px 0;
-  }
-
-  /* ---- FOOTER ---- */
-  footer {
-    margin-top: 40px;
-    padding: 20px 32px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: var(--mono);
-    font-size: 14px;
-    color: var(--text-secondary);
-    letter-spacing: 1.5px;
-  }
-
-  /* ---- REGION BADGE ---- */
-  .region-badge {
-    display: inline-block;
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    padding: 2px 7px;
-    border: 1px solid var(--border);
-    color: var(--text-dim);
-    text-transform: uppercase;
-    margin-right: 4px;
-    margin-bottom: 4px;
-  }
-
-  /* ---- ENTRY ANIMATIONS ---- */
-  .fade-in {
-    animation: fadeIn 0.4s ease forwards;
-    opacity: 0;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .fade-in:nth-child(1) { animation-delay: 0.05s; }
-  .fade-in:nth-child(2) { animation-delay: 0.1s; }
-  .fade-in:nth-child(3) { animation-delay: 0.15s; }
-  .fade-in:nth-child(4) { animation-delay: 0.2s; }
-  .fade-in:nth-child(5) { animation-delay: 0.25s; }
-  .fade-in:nth-child(6) { animation-delay: 0.3s; }
-  .fade-in:nth-child(7) { animation-delay: 0.35s; }
-  .fade-in:nth-child(8) { animation-delay: 0.4s; }
-
-  /* Responsive */
-  @media (max-width: 1100px) {
-    .grid-4 { grid-template-columns: repeat(2, 1fr); }
-    .weather-grid { grid-template-columns: repeat(3, 1fr); }
-    .news-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  @media (max-width: 768px) {
-    header { padding: 12px 16px; }
-    main { padding: 16px; }
-    nav { padding: 0 16px; overflow-x: auto; }
-    .grid-4, .grid-3, .grid-2, .grid-2-1 { grid-template-columns: 1fr; }
-    .weather-grid { grid-template-columns: repeat(2, 1fr); }
-    .news-grid { grid-template-columns: 1fr; }
-    .fuel-row { grid-template-columns: 1fr 1fr; }
-    .col-span-2, .col-span-3, .col-span-4 { grid-column: span 1; }
-  }
+- { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+background: var(–bg-primary);
+color: var(–text-primary);
+font-family: var(–body);
+font-size: 17px;
+min-height: 100vh;
+overflow-x: hidden;
+}
+
+/* Scanline overlay */
+body::before {
+content: ‘’;
+position: fixed;
+inset: 0;
+background: repeating-linear-gradient(
+0deg,
+transparent,
+transparent 2px,
+rgba(0,0,0,0.03) 2px,
+rgba(0,0,0,0.03) 4px
+);
+pointer-events: none;
+z-index: 1000;
+}
+
+/* Grid noise texture */
+body::after {
+content: ‘’;
+position: fixed;
+inset: 0;
+background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 200 200’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.65’ numOctaves=‘3’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23n)’ opacity=‘0.03’/%3E%3C/svg%3E”);
+opacity: 0.4;
+pointer-events: none;
+z-index: 999;
+}
+
+/* –– HEADER –– */
+header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 16px 32px;
+border-bottom: 1px solid var(–border);
+background: linear-gradient(180deg, rgba(96,200,245,0.06) 0%, transparent 100%);
+position: sticky;
+top: 0;
+z-index: 100;
+backdrop-filter: blur(12px);
+}
+
+.logo-block {
+display: flex;
+align-items: center;
+gap: 16px;
+}
+
+.logo-icon {
+width: 36px;
+height: 36px;
+border: 2px solid var(–accent);
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 3px;
+padding: 4px;
+animation: pulse-border 3s ease-in-out infinite;
+}
+
+.logo-icon span {
+background: var(–accent);
+display: block;
+}
+.logo-icon span:nth-child(2) { background: var(–accent-dim); }
+.logo-icon span:nth-child(3) { background: var(–accent-dim); }
+
+@keyframes pulse-border {
+0%, 100% { box-shadow: 0 0 8px var(–accent-glow); }
+50% { box-shadow: 0 0 20px rgba(245,158,11,0.35); }
+}
+
+.logo-text {
+font-family: var(–display);
+font-weight: 900;
+font-size: 30px;
+letter-spacing: 4px;
+text-transform: uppercase;
+color: var(–text-primary);
+}
+
+.logo-sub {
+font-family: var(–mono);
+font-size: 14px;
+color: var(–accent);
+letter-spacing: 3px;
+text-transform: uppercase;
+}
+
+.header-right {
+display: flex;
+align-items: center;
+gap: 24px;
+}
+
+.live-indicator {
+display: flex;
+align-items: center;
+gap: 8px;
+font-family: var(–mono);
+font-size: 15px;
+color: var(–green);
+letter-spacing: 2px;
+}
+
+.live-dot {
+width: 11px;
+height: 11px;
+background: var(–green);
+border-radius: 50%;
+animation: blink 1.5s ease-in-out infinite;
+box-shadow: 0 0 8px var(–green);
+}
+
+@keyframes blink {
+0%, 100% { opacity: 1; }
+50% { opacity: 0.3; }
+}
+
+#clock {
+font-family: var(–mono);
+font-size: 17px;
+color: var(–text-secondary);
+letter-spacing: 2px;
+}
+
+.states-badge {
+font-family: var(–mono);
+font-size: 14px;
+color: var(–text-secondary);
+border: 1px solid var(–border-bright);
+padding: 5px 12px;
+letter-spacing: 1px;
+}
+
+/* –– NAV TABS –– */
+nav {
+display: flex;
+gap: 0;
+border-bottom: 1px solid var(–border);
+padding: 0 32px;
+background: var(–bg-secondary);
+}
+
+.tab {
+font-family: var(–display);
+font-weight: 600;
+font-size: 17px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(–text-dim);
+padding: 14px 26px;
+cursor: pointer;
+border-bottom: 2px solid transparent;
+transition: all 0.2s;
+background: none;
+border-top: none;
+border-left: none;
+border-right: none;
+white-space: nowrap;
+}
+
+.tab:hover { color: var(–text-secondary); }
+.tab.active {
+color: var(–accent);
+border-bottom-color: var(–accent);
+}
+
+/* –– MAIN LAYOUT –– */
+main {
+padding: 24px 32px;
+max-width: 1600px;
+margin: 0 auto;
+}
+
+.section { display: none; }
+.section.active { display: block; }
+
+/* –– STATUS BAR –– */
+.status-bar {
+display: flex;
+gap: 12px;
+margin-bottom: 24px;
+flex-wrap: wrap;
+}
+
+.status-pill {
+font-family: var(–mono);
+font-size: 15px;
+letter-spacing: 1.5px;
+padding: 7px 16px;
+border: 1px solid var(–border-bright);
+color: var(–text-secondary);
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.status-pill .dot {
+width: 8px;
+height: 8px;
+border-radius: 50%;
+background: var(–green);
+}
+
+.status-pill .dot.warn { background: var(–caution); }
+.status-pill .dot.off { background: var(–text-dim); }
+
+/* –– GRID SYSTEMS –– */
+.grid-4 {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 16px;
+margin-bottom: 24px;
+}
+
+.grid-3 {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 16px;
+margin-bottom: 24px;
+}
+
+.grid-2 {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 16px;
+margin-bottom: 24px;
+}
+
+.grid-2-1 {
+display: grid;
+grid-template-columns: 2fr 1fr;
+gap: 16px;
+margin-bottom: 24px;
+}
+
+.col-span-2 { grid-column: span 2; }
+.col-span-3 { grid-column: span 3; }
+.col-span-4 { grid-column: span 4; }
+
+/* –– CARDS –– */
+.card {
+background: var(–bg-card);
+border: 1px solid var(–border);
+padding: 20px;
+position: relative;
+overflow: hidden;
+transition: border-color 0.2s, background 0.2s;
+}
+
+.card::before {
+content: ‘’;
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+height: 2px;
+background: linear-gradient(90deg, transparent, var(–accent-dim), transparent);
+opacity: 0.5;
+}
+
+.card:hover {
+border-color: var(–border-bright);
+background: var(–bg-card-hover);
+}
+
+.card-label {
+font-family: var(–mono);
+font-size: 14px;
+letter-spacing: 3px;
+text-transform: uppercase;
+color: var(–text-secondary);
+margin-bottom: 12px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.card-label .unit {
+color: var(–accent);
+font-size: 13px;
+}
+
+.card-value {
+font-family: var(–display);
+font-size: 55px;
+font-weight: 700;
+line-height: 1;
+color: var(–text-primary);
+margin-bottom: 8px;
+}
+
+.card-value.large { font-size: 67px; }
+.card-value.small { font-size: 39px; }
+
+.card-sub {
+font-family: var(–mono);
+font-size: 15px;
+color: var(–text-secondary);
+letter-spacing: 1px;
+}
+
+.card-delta {
+font-family: var(–mono);
+font-size: 15px;
+margin-top: 6px;
+}
+
+.card-delta.up { color: var(–red); }
+.card-delta.down { color: var(–green); }
+.card-delta.neutral { color: var(–text-dim); }
+
+/* –– SECTION HEADER –– */
+.section-header {
+display: flex;
+align-items: baseline;
+gap: 16px;
+margin-bottom: 20px;
+padding-bottom: 12px;
+border-bottom: 1px solid var(–border);
+}
+
+.section-title {
+font-family: var(–display);
+font-weight: 900;
+font-size: 37px;
+letter-spacing: 3px;
+text-transform: uppercase;
+color: var(–text-primary);
+}
+
+.section-title span { color: var(–accent); }
+
+.section-meta {
+font-family: var(–mono);
+font-size: 14px;
+color: var(–text-dim);
+letter-spacing: 2px;
+}
+
+.refresh-btn {
+margin-left: auto;
+background: none;
+border: 1px solid var(–border-bright);
+color: var(–text-secondary);
+font-family: var(–mono);
+font-size: 14px;
+letter-spacing: 2px;
+padding: 8px 16px;
+cursor: pointer;
+transition: all 0.2s;
+text-transform: uppercase;
+}
+
+.refresh-btn:hover {
+border-color: var(–accent);
+color: var(–accent);
+}
+
+/* –– CHART CARDS –– */
+.chart-card {
+background: var(–bg-card);
+border: 1px solid var(–border);
+padding: 20px;
+position: relative;
+}
+
+.chart-card::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 2px;
+background: linear-gradient(90deg, transparent, var(–accent-dim), transparent);
+opacity: 0.5;
+}
+
+.chart-title {
+font-family: var(–display);
+font-weight: 700;
+font-size: 23px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(–text-primary);
+margin-bottom: 4px;
+}
+
+.chart-subtitle {
+font-family: var(–mono);
+font-size: 14px;
+color: var(–text-secondary);
+letter-spacing: 1.5px;
+margin-bottom: 18px;
+}
+
+/* –– STATE TABLE –– */
+.state-table {
+width: 100%;
+border-collapse: collapse;
+font-family: var(–mono);
+font-size: 16px;
+}
+
+.state-table th {
+font-family: var(–display);
+font-weight: 600;
+font-size: 15px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(–text-secondary);
+text-align: left;
+padding: 10px 16px;
+border-bottom: 1px solid var(–border-bright);
+}
+
+.state-table td {
+padding: 13px 16px;
+border-bottom: 1px solid rgba(30,51,72,0.6);
+color: var(–text-secondary);
+transition: background 0.15s;
+}
+
+.state-table tr:hover td { background: rgba(96,200,245,0.04); }
+
+.state-table .state-name {
+color: var(–text-primary);
+font-family: var(–display);
+font-weight: 600;
+font-size: 18px;
+letter-spacing: 1px;
+}
+
+.state-table .val-highlight {
+color: var(–accent);
+font-weight: bold;
+}
+
+.state-table .val-high { color: var(–red); }
+.state-table .val-low { color: var(–green); }
+
+.bar-cell {
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.mini-bar {
+height: 6px;
+background: var(–border);
+flex: 1;
+max-width: 80px;
+position: relative;
+overflow: hidden;
+}
+
+.mini-bar-fill {
+height: 100%;
+background: var(–accent);
+transition: width 1s ease;
+}
+
+.mini-bar-fill.high { background: var(–red); }
+.mini-bar-fill.low { background: var(–green); }
+.mini-bar-fill.med { background: var(–blue); }
+
+/* –– GRID STATUS CARDS –– */
+.grid-status-card {
+background: var(–bg-card);
+border: 1px solid var(–border);
+padding: 16px;
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+
+.grid-region-name {
+font-family: var(–display);
+font-weight: 700;
+font-size: 25px;
+letter-spacing: 2px;
+text-transform: uppercase;
+}
+
+.grid-states-covered {
+font-family: var(–mono);
+font-size: 14px;
+color: var(–text-secondary);
+letter-spacing: 1px;
+}
+
+.grid-load-bar {
+height: 8px;
+background: var(–border);
+position: relative;
+overflow: hidden;
+}
+
+.grid-load-fill {
+height: 100%;
+transition: width 1.5s ease;
+position: relative;
+}
+
+.grid-load-fill::after {
+content: ‘’;
+position: absolute;
+right: 0;
+top: -2px;
+bottom: -2px;
+width: 3px;
+background: white;
+opacity: 0.8;
+box-shadow: 0 0 6px white;
+}
+
+.grid-load-fill.normal { background: linear-gradient(90deg, #17914a, #2edb6e); }
+.grid-load-fill.elevated { background: linear-gradient(90deg, #b45309, #f59e0b); }
+.grid-load-fill.high { background: linear-gradient(90deg, #b02020, #f25555); }
+
+.grid-metrics {
+display: flex;
+justify-content: space-between;
+font-family: var(–mono);
+font-size: 15px;
+color: var(–text-secondary);
+}
+
+.grid-metrics .metric-val {
+color: var(–text-primary);
+font-size: 20px;
+display: block;
+}
+
+.grid-link {
+font-family: var(–mono);
+font-size: 14px;
+color: var(–accent);
+text-decoration: none;
+letter-spacing: 1.5px;
+border: 1px solid var(–accent-dim);
+padding: 7px 14px;
+display: inline-block;
+transition: all 0.2s;
+text-transform: uppercase;
+}
+
+.grid-link:hover {
+background: var(–accent-glow);
+border-color: var(–accent);
+}
+
+/* –– NEWS CARDS –– */
+.news-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 16px;
+}
+
+.news-card {
+background: var(–bg-card);
+border: 1px solid var(–border);
+padding: 16px;
+display: flex;
+flex-direction: column;
+gap: 10px;
+transition: all 0.2s;
+text-decoration: none;
+color: inherit;
+position: relative;
+overflow: hidden;
+}
+
+.news-card::after {
+content: ‘’;
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+height: 1px;
+background: linear-gradient(90deg, transparent, var(–accent-dim), transparent);
+transform: scaleX(0);
+transition: transform 0.3s;
+}
+
+.news-card:hover {
+border-color: var(–border-bright);
+background: var(–bg-card-hover);
+}
+
+.news-card:hover::after { transform: scaleX(1); }
+
+.news-source {
+font-family: var(–mono);
+font-size: 13px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(–accent);
+}
+
+.news-title {
+font-family: var(–display);
+font-weight: 600;
+font-size: 21px;
+line-height: 1.3;
+color: var(–text-primary);
+}
+
+.news-desc {
+font-size: 16px;
+color: var(–text-secondary);
+line-height: 1.6;
+flex: 1;
+}
+
+.news-date {
+font-family: var(–mono);
+font-size: 14px;
+color: var(–text-dim);
+}
+
+.news-arrow {
+font-size: 26px;
+color: var(–accent-dim);
+align-self: flex-end;
+transition: transform 0.2s, color 0.2s;
+}
+
+.news-card:hover .news-arrow {
+transform: translate(4px, -4px);
+color: var(–accent);
+}
+
+/* –– WEATHER CARDS –– */
+.weather-grid {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 12px;
+}
+
+.weather-card {
+background: var(–bg-card);
+border: 1px solid var(–border);
+padding: 16px;
+}
+
+.weather-state {
+font-family: var(–display);
+font-weight: 700;
+font-size: 25px;
+letter-spacing: 2px;
+text-transform: uppercase;
+margin-bottom: 8px;
+}
+
+.weather-temp {
+font-family: var(–display);
+font-size: 51px;
+font-weight: 900;
+color: var(–accent);
+line-height: 1;
+}
+
+.weather-desc {
+font-family: var(–mono);
+font-size: 14px;
+color: var(–text-secondary);
+text-transform: uppercase;
+letter-spacing: 1px;
+margin-top: 8px;
+}
+
+.weather-details {
+display: flex;
+gap: 14px;
+margin-top: 12px;
+font-family: var(–mono);
+font-size: 14px;
+color: var(–text-secondary);
+}
+
+.weather-loading {
+font-family: var(–mono);
+font-size: 15px;
+color: var(–text-dim);
+padding: 28px;
+text-align: center;
+border: 1px dashed var(–border-bright);
+letter-spacing: 2px;
+}
+
+/* –– FUEL / GAS TABLE –– */
+.fuel-row {
+display: grid;
+grid-template-columns: 1fr 1fr 1fr 1fr;
+gap: 1px;
+background: var(–border);
+margin-bottom: 1px;
+}
+
+.fuel-cell {
+background: var(–bg-card);
+padding: 14px 18px;
+font-family: var(–mono);
+font-size: 16px;
+color: var(–text-secondary);
+transition: background 0.15s;
+}
+
+.fuel-row:hover .fuel-cell { background: var(–bg-card-hover); }
+.fuel-cell.header {
+background: var(–bg-secondary);
+font-family: var(–display);
+font-weight: 600;
+font-size: 15px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(–text-secondary);
+}
+
+.fuel-cell .state { color: var(–text-primary); font-weight: bold; font-size: 18px; }
+
+/* –– LOADING SPINNER –– */
+.loading {
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 40px;
+gap: 14px;
+font-family: var(–mono);
+font-size: 16px;
+color: var(–text-secondary);
+letter-spacing: 2px;
+}
+
+.spinner {
+width: 22px;
+height: 22px;
+border: 2px solid var(–border-bright);
+border-top-color: var(–accent);
+border-radius: 50%;
+animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* –– ERROR STATE –– */
+.error-state {
+font-family: var(–mono);
+font-size: 11px;
+color: var(–red);
+padding: 16px;
+border: 1px solid var(–red-dim);
+background: rgba(239,68,68,0.05);
+letter-spacing: 1px;
+}
+
+/* –– API NOTE BANNER –– */
+.api-note {
+background: rgba(96,200,245,0.05);
+border: 1px solid var(–accent-dim);
+border-left: 3px solid var(–accent);
+padding: 14px 18px;
+font-family: var(–mono);
+font-size: 15px;
+color: var(–text-secondary);
+letter-spacing: 1px;
+margin-bottom: 20px;
+line-height: 1.7;
+}
+
+.api-note strong { color: var(–accent); }
+
+/* –– TOOLTIP –– */
+.tooltip {
+position: relative;
+cursor: help;
+}
+
+.tooltip-text {
+display: none;
+position: absolute;
+bottom: calc(100% + 8px);
+left: 50%;
+transform: translateX(-50%);
+background: var(–bg-secondary);
+border: 1px solid var(–border-bright);
+padding: 8px 12px;
+font-family: var(–mono);
+font-size: 10px;
+color: var(–text-secondary);
+white-space: nowrap;
+z-index: 200;
+letter-spacing: 1px;
+}
+
+.tooltip:hover .tooltip-text { display: block; }
+
+/* –– DIVIDER –– */
+.divider {
+height: 1px;
+background: linear-gradient(90deg, transparent, var(–border), transparent);
+margin: 24px 0;
+}
+
+/* –– FOOTER –– */
+footer {
+margin-top: 40px;
+padding: 20px 32px;
+border-top: 1px solid var(–border);
+display: flex;
+justify-content: space-between;
+align-items: center;
+font-family: var(–mono);
+font-size: 14px;
+color: var(–text-secondary);
+letter-spacing: 1.5px;
+}
+
+/* –– REGION BADGE –– */
+.region-badge {
+display: inline-block;
+font-family: var(–mono);
+font-size: 9px;
+letter-spacing: 1.5px;
+padding: 2px 7px;
+border: 1px solid var(–border);
+color: var(–text-dim);
+text-transform: uppercase;
+margin-right: 4px;
+margin-bottom: 4px;
+}
+
+/* –– ISO TABS –– */
+.iso-tab {
+font-family: var(–mono);
+font-size: 12px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(–text-dim);
+padding: 8px 16px;
+background: var(–bg-card);
+border: 1px solid var(–border);
+cursor: pointer;
+transition: all 0.2s;
+}
+.iso-tab:hover { border-color: var(–border-bright); color: var(–text-secondary); }
+.iso-tab.active { border-color: var(–accent); color: var(–accent); background: var(–accent-glow); }
+
+/* –– FUEL MIX BAR –– */
+.fuel-mix-bar {
+display: flex;
+height: 12px;
+border-radius: 2px;
+overflow: hidden;
+margin: 8px 0;
+gap: 1px;
+}
+.fuel-mix-segment {
+height: 100%;
+transition: flex 0.8s ease;
+position: relative;
+}
+.fuel-mix-legend {
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
+margin-top: 8px;
+font-family: var(–mono);
+font-size: 11px;
+color: var(–text-secondary);
+}
+.fuel-mix-legend-item {
+display: flex;
+align-items: center;
+gap: 5px;
+}
+.fuel-mix-dot {
+width: 9px;
+height: 9px;
+border-radius: 50%;
+flex-shrink: 0;
+}
+
+/* –– HOURLY SPARKLINE –– */
+.sparkline-container {
+height: 50px;
+margin: 8px 0 4px;
+}
+.fade-in {
+animation: fadeIn 0.4s ease forwards;
+opacity: 0;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(8px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in:nth-child(1) { animation-delay: 0.05s; }
+.fade-in:nth-child(2) { animation-delay: 0.1s; }
+.fade-in:nth-child(3) { animation-delay: 0.15s; }
+.fade-in:nth-child(4) { animation-delay: 0.2s; }
+.fade-in:nth-child(5) { animation-delay: 0.25s; }
+.fade-in:nth-child(6) { animation-delay: 0.3s; }
+.fade-in:nth-child(7) { animation-delay: 0.35s; }
+.fade-in:nth-child(8) { animation-delay: 0.4s; }
+
+/* Responsive */
+@media (max-width: 1100px) {
+.grid-4 { grid-template-columns: repeat(2, 1fr); }
+.weather-grid { grid-template-columns: repeat(3, 1fr); }
+.news-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+header { padding: 12px 16px; }
+main { padding: 16px; }
+nav { padding: 0 16px; overflow-x: auto; }
+.grid-4, .grid-3, .grid-2, .grid-2-1 { grid-template-columns: 1fr; }
+.weather-grid { grid-template-columns: repeat(2, 1fr); }
+.news-grid { grid-template-columns: 1fr; }
+.fuel-row { grid-template-columns: 1fr 1fr; }
+.col-span-2, .col-span-3, .col-span-4 { grid-column: span 1; }
+}
 </style>
+
 </head>
 <body>
 
@@ -948,6 +1005,7 @@
 <main>
 
   <!-- ======================== OVERVIEW ======================== -->
+
   <div id="tab-overview" class="section active">
     <div class="section-header">
       <div class="section-title">OPERATIONAL <span>OVERVIEW</span></div>
@@ -955,76 +1013,112 @@
       <button class="refresh-btn" onclick="refreshAll()">⟳ REFRESH ALL</button>
     </div>
 
-    <div class="status-bar" id="overview-status-bar">
-      <div class="status-pill"><span class="dot"></span> EIA DATA: CONNECTED</div>
-      <div class="status-pill"><span class="dot warn"></span> WEATHER: AWAITING KEY</div>
-      <div class="status-pill"><span class="dot"></span> NEWS FEED: CONNECTED</div>
-      <div class="status-pill"><span class="dot"></span> GRID LINKS: ACTIVE</div>
-    </div>
+```
+<div class="status-bar" id="overview-status-bar">
+  <div class="status-pill"><span class="dot"></span> EIA DATA: CONNECTED</div>
+  <div class="status-pill"><span class="dot warn"></span> WEATHER: AWAITING KEY</div>
+  <div class="status-pill"><span class="dot"></span> NEWS FEED: CONNECTED</div>
+  <div class="status-pill"><span class="dot"></span> GRID LINKS: ACTIVE</div>
+</div>
 
-    <div class="grid-4">
-      <div class="card fade-in">
-        <div class="card-label">Avg. Retail Electricity <span class="unit">¢/kWh</span></div>
-        <div class="card-value large" id="ov-elec-avg">—</div>
-        <div class="card-sub" id="ov-elec-sub">Loading EIA data...</div>
-      </div>
-      <div class="card fade-in">
-        <div class="card-label">Avg. Natural Gas Price <span class="unit">$/MCF</span></div>
-        <div class="card-value large" id="ov-gas-avg">—</div>
-        <div class="card-sub" id="ov-gas-sub">Loading EIA data...</div>
-      </div>
-      <div class="card fade-in">
-        <div class="card-label">Avg. Diesel Price <span class="unit">$/GAL</span></div>
-        <div class="card-value large" id="ov-diesel-avg">—</div>
-        <div class="card-sub" id="ov-diesel-sub">Loading EIA data...</div>
-      </div>
-      <div class="card fade-in">
-        <div class="card-label">Industry News Items <span class="unit">TODAY</span></div>
-        <div class="card-value large" id="ov-news-count">—</div>
-        <div class="card-sub">Plastics &amp; manufacturing regulatory</div>
-      </div>
-    </div>
+<div class="grid-4">
+  <div class="card fade-in">
+    <div class="card-label">Avg. Retail Electricity <span class="unit">¢/kWh</span></div>
+    <div class="card-value large" id="ov-elec-avg">—</div>
+    <div class="card-sub" id="ov-elec-sub">Loading EIA data...</div>
+  </div>
+  <div class="card fade-in">
+    <div class="card-label">Avg. Natural Gas Price <span class="unit">$/MCF</span></div>
+    <div class="card-value large" id="ov-gas-avg">—</div>
+    <div class="card-sub" id="ov-gas-sub">Loading EIA data...</div>
+  </div>
+  <div class="card fade-in">
+    <div class="card-label">Avg. Diesel Price <span class="unit">$/GAL</span></div>
+    <div class="card-value large" id="ov-diesel-avg">—</div>
+    <div class="card-sub" id="ov-diesel-sub">Loading EIA data...</div>
+  </div>
+  <div class="card fade-in">
+    <div class="card-label">Industry News Items <span class="unit">TODAY</span></div>
+    <div class="card-value large" id="ov-news-count">—</div>
+    <div class="card-sub">Plastics &amp; manufacturing regulatory</div>
+  </div>
+</div>
 
-    <div class="grid-2">
-      <div class="chart-card fade-in">
-        <div class="chart-title">Electricity Prices by State</div>
-        <div class="chart-subtitle">RETAIL RATE ¢/kWh — EIA MONTHLY DATA</div>
-        <canvas id="elec-chart" height="200"></canvas>
-      </div>
-      <div class="chart-card fade-in">
-        <div class="chart-title">Diesel Fuel Prices by Region</div>
-        <div class="chart-subtitle">WEEKLY RETAIL — EIA DATA</div>
-        <canvas id="diesel-chart" height="200"></canvas>
-      </div>
-    </div>
+<div class="grid-2">
+  <div class="chart-card fade-in">
+    <div class="chart-title">Electricity Prices by State</div>
+    <div class="chart-subtitle">RETAIL RATE ¢/kWh — EIA MONTHLY DATA</div>
+    <canvas id="elec-chart" height="200"></canvas>
+  </div>
+  <div class="chart-card fade-in">
+    <div class="chart-title">Diesel Fuel Prices by Region</div>
+    <div class="chart-subtitle">WEEKLY RETAIL — EIA DATA</div>
+    <canvas id="diesel-chart" height="200"></canvas>
+  </div>
+</div>
 
-    <div class="section-header" style="margin-top: 8px;">
-      <div class="section-title" style="font-size:20px;">GRID <span>ALERTS</span></div>
-      <div class="section-meta">REGIONAL OPERATORS</div>
-    </div>
+<div class="section-header" style="margin-top: 8px;">
+  <div class="section-title" style="font-size:20px;">GRID <span>ALERTS</span></div>
+  <div class="section-meta">REGIONAL OPERATORS</div>
+</div>
 
-    <div class="grid-4" id="overview-grid-cards">
-      <div class="loading col-span-4"><div class="spinner"></div>LOADING GRID DATA...</div>
-    </div>
+<div class="grid-4" id="overview-grid-cards">
+  <div class="loading col-span-4"><div class="spinner"></div>LOADING GRID DATA...</div>
+</div>
+```
+
   </div>
 
   <!-- ======================== GRID STATUS ======================== -->
+
   <div id="tab-grid" class="section">
     <div class="section-header">
       <div class="section-title">GRID <span>STATUS</span></div>
-      <div class="section-meta">REGIONAL OPERATORS // EST. LOAD DATA</div>
+      <div class="section-meta">EIA HOURLY RTO DATA + ISO OPERATOR LINKS</div>
+      <button class="refresh-btn" onclick="loadGridData()">⟳ REFRESH</button>
     </div>
     <div class="api-note">
-      <strong>DATA NOTE:</strong> Real-time grid capacity data is managed by regional grid operators (ISOs/RTOs). 
-      Load percentages below are sourced from each operator's public API/status feeds where available, 
-      or estimated from seasonal/historical patterns. Click "VIEW LIVE" for operator dashboards.
+      <strong>DATA:</strong> Hourly demand and generation mix pulled from EIA Form EIA-930 (Electric Grid Monitor) for each ISO/RTO. 
+      Load percentage = current demand vs. recent peak. Fuel mix shows generation source breakdown. Click any operator name to view their live dashboard.
     </div>
-    <div class="grid-3" id="grid-cards-main">
-      <div class="loading col-span-3"><div class="spinner"></div>BUILDING GRID STATUS...</div>
-    </div>
+
+```
+<!-- ISO selector tabs -->
+<div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;" id="iso-tabs">
+  <button class="iso-tab active" onclick="selectISO('ALL')">ALL REGIONS</button>
+  <button class="iso-tab" onclick="selectISO('ERCO')">ERCOT</button>
+  <button class="iso-tab" onclick="selectISO('PJM')">PJM</button>
+  <button class="iso-tab" onclick="selectISO('MISO')">MISO</button>
+  <button class="iso-tab" onclick="selectISO('CISO')">CAISO</button>
+  <button class="iso-tab" onclick="selectISO('SOCO')">SERC/SE</button>
+  <button class="iso-tab" onclick="selectISO('ISNE')">ISO-NE</button>
+</div>
+
+<!-- Summary stats row -->
+<div class="grid-4" id="grid-summary-cards" style="margin-bottom:20px;">
+  <div class="card"><div class="card-label">Total Monitored Demand <span class="unit">GW</span></div><div class="card-value small" id="gs-total-demand">—</div><div class="card-sub">Sum across all ISOs</div></div>
+  <div class="card"><div class="card-label">Highest Load Region <span class="unit">ISO</span></div><div class="card-value small" id="gs-highest-iso">—</div><div class="card-sub" id="gs-highest-pct">—</div></div>
+  <div class="card"><div class="card-label">Top Generation Source <span class="unit">MIX</span></div><div class="card-value small" id="gs-top-fuel">—</div><div class="card-sub" id="gs-top-fuel-pct">—</div></div>
+  <div class="card"><div class="card-label">Grid Alerts <span class="unit">STATUS</span></div><div class="card-value small" id="gs-alerts" style="color:#2edb6e;">NORMAL</div><div class="card-sub">No active warnings</div></div>
+</div>
+
+<!-- Main ISO cards with fuel mix -->
+<div class="grid-3" id="grid-cards-main">
+  <div class="loading col-span-3"><div class="spinner"></div>FETCHING EIA GRID DATA...</div>
+</div>
+
+<!-- Fuel mix comparison chart -->
+<div class="chart-card" style="margin-top:20px;">
+  <div class="chart-title">Generation Fuel Mix — All ISOs</div>
+  <div class="chart-subtitle">CURRENT HOUR BREAKDOWN BY SOURCE TYPE (EIA-930)</div>
+  <canvas id="fuel-mix-chart" height="120"></canvas>
+</div>
+```
+
   </div>
 
   <!-- ======================== ENERGY PRICING ======================== -->
+
   <div id="tab-energy" class="section">
     <div class="section-header">
       <div class="section-title">ENERGY <span>PRICING</span></div>
@@ -1036,69 +1130,77 @@
       require utility contract access. Natural gas shown as citygate price (closest public proxy to industrial rates).
     </div>
 
-    <div class="grid-2">
-      <div class="chart-card">
-        <div class="chart-title">Electricity — All States Compared</div>
-        <div class="chart-subtitle">RETAIL RATE ¢/kWh</div>
-        <canvas id="elec-chart-full" height="220"></canvas>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Natural Gas — Citygate Price</div>
-        <div class="chart-subtitle">$/MCF (THOUSAND CUBIC FEET)</div>
-        <canvas id="gas-chart-full" height="220"></canvas>
-      </div>
-    </div>
+```
+<div class="grid-2">
+  <div class="chart-card">
+    <div class="chart-title">Electricity — All States Compared</div>
+    <div class="chart-subtitle">RETAIL RATE ¢/kWh</div>
+    <canvas id="elec-chart-full" height="220"></canvas>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title">Natural Gas — Citygate Price</div>
+    <div class="chart-subtitle">$/MCF (THOUSAND CUBIC FEET)</div>
+    <canvas id="gas-chart-full" height="220"></canvas>
+  </div>
+</div>
 
-    <div class="chart-card" style="margin-bottom: 16px;">
-      <div class="chart-title">State-by-State Pricing Detail</div>
-      <div class="chart-subtitle">EIA MONTHLY — MOST RECENT AVAILABLE</div>
-      <div id="energy-table-container">
-        <div class="loading"><div class="spinner"></div>FETCHING EIA DATA...</div>
-      </div>
-    </div>
+<div class="chart-card" style="margin-bottom: 16px;">
+  <div class="chart-title">State-by-State Pricing Detail</div>
+  <div class="chart-subtitle">EIA MONTHLY — MOST RECENT AVAILABLE</div>
+  <div id="energy-table-container">
+    <div class="loading"><div class="spinner"></div>FETCHING EIA DATA...</div>
+  </div>
+</div>
+```
+
   </div>
 
   <!-- ======================== FUEL & GAS ======================== -->
+
   <div id="tab-fuel" class="section">
     <div class="section-header">
       <div class="section-title">FUEL <span>&amp; GAS</span></div>
       <div class="section-meta">EIA WEEKLY DATA // DIESEL + NATURAL GAS</div>
     </div>
 
-    <div class="grid-2">
-      <div>
-        <div class="section-header" style="margin-top:0; margin-bottom:12px; border:none; padding:0;">
-          <div class="section-title" style="font-size:20px;">DIESEL <span>PRICES</span></div>
-          <div class="section-meta">$/GALLON WEEKLY</div>
-        </div>
-        <div class="chart-card" style="margin-bottom: 16px;">
-          <div class="chart-title">Regional Diesel — Weekly Trend</div>
-          <div class="chart-subtitle">$/GALLON — EIA WEEKLY RETAIL</div>
-          <canvas id="diesel-trend-chart" height="200"></canvas>
-        </div>
-        <div id="diesel-table">
-          <div class="loading"><div class="spinner"></div>LOADING...</div>
-        </div>
-      </div>
-
-      <div>
-        <div class="section-header" style="margin-top:0; margin-bottom:12px; border:none; padding:0;">
-          <div class="section-title" style="font-size:20px;">NATURAL <span>GAS</span></div>
-          <div class="section-meta">$/MCF MONTHLY CITYGATE</div>
-        </div>
-        <div class="chart-card" style="margin-bottom: 16px;">
-          <div class="chart-title">Natural Gas — State Comparison</div>
-          <div class="chart-subtitle">$/MCF CITYGATE PRICE</div>
-          <canvas id="gas-bar-chart" height="200"></canvas>
-        </div>
-        <div id="gas-table">
-          <div class="loading"><div class="spinner"></div>LOADING...</div>
-        </div>
-      </div>
+```
+<div class="grid-2">
+  <div>
+    <div class="section-header" style="margin-top:0; margin-bottom:12px; border:none; padding:0;">
+      <div class="section-title" style="font-size:20px;">DIESEL <span>PRICES</span></div>
+      <div class="section-meta">$/GALLON WEEKLY</div>
+    </div>
+    <div class="chart-card" style="margin-bottom: 16px;">
+      <div class="chart-title">Regional Diesel — Weekly Trend</div>
+      <div class="chart-subtitle">$/GALLON — EIA WEEKLY RETAIL</div>
+      <canvas id="diesel-trend-chart" height="200"></canvas>
+    </div>
+    <div id="diesel-table">
+      <div class="loading"><div class="spinner"></div>LOADING...</div>
     </div>
   </div>
 
+  <div>
+    <div class="section-header" style="margin-top:0; margin-bottom:12px; border:none; padding:0;">
+      <div class="section-title" style="font-size:20px;">NATURAL <span>GAS</span></div>
+      <div class="section-meta">$/MCF MONTHLY CITYGATE</div>
+    </div>
+    <div class="chart-card" style="margin-bottom: 16px;">
+      <div class="chart-title">Natural Gas — State Comparison</div>
+      <div class="chart-subtitle">$/MCF CITYGATE PRICE</div>
+      <canvas id="gas-bar-chart" height="200"></canvas>
+    </div>
+    <div id="gas-table">
+      <div class="loading"><div class="spinner"></div>LOADING...</div>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+
   <!-- ======================== WEATHER ======================== -->
+
   <div id="tab-weather" class="section">
     <div class="section-header">
       <div class="section-title">WEATHER <span>CONDITIONS</span></div>
@@ -1117,6 +1219,7 @@
   </div>
 
   <!-- ======================== NEWS ======================== -->
+
   <div id="tab-news" class="section">
     <div class="section-header">
       <div class="section-title">LEGISLATION <span>&amp; NEWS</span></div>
@@ -1124,8 +1227,8 @@
       <button class="refresh-btn" onclick="loadNews()">⟳ REFRESH</button>
     </div>
     <div class="api-note">
-      <strong>SOURCES:</strong> Reuters, Associated Press, Bloomberg, Wall Street Journal, Environmental news outlets. 
-      Filtering for: plastics manufacturing, EPA regulations, chemical industry, packaging legislation, recycling policy.
+      <strong>SOURCES:</strong> Reuters, Associated Press, Bloomberg, Wall Street Journal, Chemical &amp; Engineering News, Waste360, Plastics Industry Association. 
+      Filtering for: plastics manufacturing legislation, EPA regulations, chemical industry, packaging law, recycling policy, <strong>Operation Clean Sweep (OCS)</strong>, pellet loss, nurdle pollution, advanced recycling.
     </div>
     <div id="news-container">
       <div class="loading"><div class="spinner"></div>FETCHING LATEST REGULATORY NEWS...</div>
@@ -1184,58 +1287,7 @@ const STATE_CITIES = {
   TX: { city: 'Houston', lat: 29.76, lon: -95.37 },
 };
 
-// Grid operator regions
-const GRID_REGIONS = [
-  {
-    name: 'ERCOT',
-    fullName: 'Electric Reliability Council of Texas',
-    states: ['TX'],
-    url: 'https://www.ercot.com/gridinfo/load/load_hist',
-    dataUrl: 'https://www.ercot.com/api/1/services/read/dashboards/daily-prcf',
-    color: '#f59e0b',
-    simLoad: () => 62 + Math.random() * 25,
-  },
-  {
-    name: 'PJM',
-    fullName: 'PJM Interconnection',
-    states: ['MD', 'NJ', 'OH', 'IL'],
-    url: 'https://dataminer2.pjm.com/feed/inst_load',
-    color: '#38bdf8',
-    simLoad: () => 55 + Math.random() * 30,
-  },
-  {
-    name: 'MISO',
-    fullName: 'Midcontinent ISO',
-    states: ['IA', 'IL', 'MI'],
-    url: 'https://www.misoenergy.org/markets-and-operations/real-time--market-data/real-time-displays/',
-    color: '#22c55e',
-    simLoad: () => 50 + Math.random() * 28,
-  },
-  {
-    name: 'CAISO',
-    fullName: 'California ISO',
-    states: ['CA'],
-    url: 'https://www.caiso.com/TodaysOutlook/Pages/default.aspx',
-    color: '#a78bfa',
-    simLoad: () => 45 + Math.random() * 40,
-  },
-  {
-    name: 'SERC',
-    fullName: 'SERC Reliability Corporation',
-    states: ['AL', 'FL', 'GA', 'LA'],
-    url: 'https://www.nerc.com/pa/RAPA/ri/Pages/Default.aspx',
-    color: '#fb923c',
-    simLoad: () => 58 + Math.random() * 22,
-  },
-  {
-    name: 'ISO-NE',
-    fullName: 'ISO New England',
-    states: ['MA'],
-    url: 'https://www.iso-ne.com/isoexpress/',
-    color: '#f472b6',
-    simLoad: () => 52 + Math.random() * 28,
-  },
-];
+// Grid regions now defined as ISO_CONFIG in the loadGridData section below
 
 // ============================================================
 // DATA CACHE
@@ -1256,7 +1308,7 @@ function $(id) { return document.getElementById(id); }
 function updateClock() {
   const now = new Date();
   $('clock').textContent = now.toLocaleTimeString('en-US', { hour12: false }) + ' ' +
-    Intl.DateTimeFormat().resolvedOptions().timeZone.replace('_', ' ').slice(-3).toUpperCase();
+    Intl.DateTimeFormat().resolvedOptions().timeZone.replace('_', '/').split('/').pop().toUpperCase();
 }
 setInterval(updateClock, 1000);
 updateClock();
@@ -1392,37 +1444,58 @@ async function loadGasData() {
 // ============================================================
 async function loadDieselData() {
   try {
-    // EIA weekly diesel retail prices by region
-    const url = `https://api.eia.gov/v2/petroleum/pri/wfr/data/?api_key=${CONFIG.EIA_KEY}&frequency=weekly&data[0]=value&facets[product][]=EPD2D&sort[0][column]=period&sort[0][direction]=desc&length=80`;
+    // EIA v2 API - weekly retail diesel prices by region (PADD districts)
+    // product EPD2D = No 2 Diesel Retail
+    const url = `https://api.eia.gov/v2/petroleum/pri/gnd/data/?api_key=${CONFIG.EIA_KEY}&frequency=weekly&data[0]=value&facets[product][]=EPD2D&sort[0][column]=period&sort[0][direction]=desc&length=120`;
     const res = await fetch(url);
     const json = await res.json();
 
     const regions = {};
     const history = {};
-    if (json.response && json.response.data) {
+    if (json.response && json.response.data && json.response.data.length > 0) {
       for (const row of json.response.data) {
-        const key = row['area-name'];
-        if (!regions[key]) regions[key] = parseFloat(row.value);
+        const key = row['area-name'] || row.areaName || row.duoarea || 'Unknown';
+        const val = parseFloat(row.value);
+        if (isNaN(val)) continue;
+        if (!regions[key]) regions[key] = val;
         if (!history[key]) history[key] = [];
-        if (history[key].length < 12) {
-          history[key].push({ period: row.period, value: parseFloat(row.value) });
+        if (history[key].length < 12) history[key].push({ period: row.period, value: val });
+      }
+    }
+
+    // Fallback: try the wfr endpoint if gnd returns nothing
+    if (Object.keys(regions).length === 0) {
+      const url2 = `https://api.eia.gov/v2/petroleum/pri/wfr/data/?api_key=${CONFIG.EIA_KEY}&frequency=weekly&data[0]=value&sort[0][column]=period&sort[0][direction]=desc&length=120`;
+      const res2 = await fetch(url2);
+      const json2 = await res2.json();
+      if (json2.response && json2.response.data) {
+        for (const row of json2.response.data) {
+          if (!row['product-name'] || !row['product-name'].toLowerCase().includes('diesel')) continue;
+          const key = row['area-name'] || row.duoarea || 'Unknown';
+          const val = parseFloat(row.value);
+          if (isNaN(val) || regions[key]) continue;
+          regions[key] = val;
         }
       }
     }
+
+    if (Object.keys(regions).length === 0) throw new Error('No diesel data from either endpoint');
 
     DATA.diesel = { regions, history };
     return DATA.diesel;
   } catch (e) {
     console.error('EIA diesel error:', e);
+    // Realistic fallback mock data
     const mockRegions = {
-      'U.S.': 3.78,
-      'East Coast': 3.81,
-      'New England': 3.95,
-      'Central Atlantic': 3.84,
-      'Midwest': 3.72,
-      'Gulf Coast': 3.65,
-      'Rocky Mountain': 3.88,
-      'West Coast': 4.15,
+      'U.S.': 3.821,
+      'East Coast': 3.847,
+      'New England': 3.964,
+      'Central Atlantic': 3.889,
+      'Lower Atlantic': 3.801,
+      'Midwest': 3.742,
+      'Gulf Coast': 3.668,
+      'Rocky Mountain': 3.912,
+      'West Coast': 4.183,
     };
     DATA.diesel = { regions: mockRegions, history: {} };
     return DATA.diesel;
@@ -1435,45 +1508,57 @@ async function loadDieselData() {
 async function loadNews() {
   $('news-container').innerHTML = '<div class="loading"><div class="spinner"></div>FETCHING LATEST REGULATORY NEWS...</div>';
 
-  try {
-    const q = 'plastics manufacturing legislation EPA OR "plastic packaging" regulation OR "chemical industry" manufacturing law';
-    const apiUrl = `https://newsapi.org/v2/everything?q=${encodeURIComponent(q)}&language=en&sortBy=publishedAt&pageSize=12&apiKey=${CONFIG.NEWS_KEY}`;
-    // Route through CORS proxy to allow browser requests on NewsAPI free tier
-    const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(apiUrl)}`;
+  // Two complementary queries — plastics/legislation + OCS/recycling
+  const queries = [
+    'plastics manufacturing legislation EPA OR "plastic packaging" regulation OR "chemical industry" manufacturing law recycling',
+    '"Operation Clean Sweep" OR "pellet loss" OR "nurdle" OR "plastic pellets" OR "OCS plastics" OR "plastic recycling" legislation',
+  ];
 
-    const res = await fetch(proxyUrl);
-    const json = await res.json();
+  const allArticles = [];
 
-    if (json.status !== 'ok') throw new Error(json.message || 'NewsAPI error');
-
-    DATA.news = json.articles.filter(a => a.title && a.url && !a.title.includes('[Removed]'));
-
-    if ($('ov-news-count')) $('ov-news-count').textContent = DATA.news.length;
-
-    renderNews(DATA.news);
-  } catch (e) {
-    console.error('News error:', e);
-    // Try second proxy as fallback
+  for (const q of queries) {
     try {
-      const q = 'plastics manufacturing legislation EPA';
-      const apiUrl = `https://newsapi.org/v2/everything?q=${encodeURIComponent(q)}&language=en&sortBy=publishedAt&pageSize=12&apiKey=${CONFIG.NEWS_KEY}`;
-      const proxyUrl2 = `https://api.allorigins.win/raw?url=${encodeURIComponent(apiUrl)}`;
-      const res2 = await fetch(proxyUrl2);
-      const json2 = await res2.json();
-      if (json2.status !== 'ok') throw new Error(json2.message);
-      DATA.news = json2.articles.filter(a => a.title && a.url && !a.title.includes('[Removed]'));
-      if ($('ov-news-count')) $('ov-news-count').textContent = DATA.news.length;
-      renderNews(DATA.news);
-    } catch(e2) {
-      console.error('News fallback error:', e2);
-      $('news-container').innerHTML = `
-        <div class="error-state">
-          NEWS FEED TEMPORARILY UNAVAILABLE — CORS proxy unreachable. Sample articles shown below.
-        </div>
-        <div style="margin-top:16px;" id="news-grid-fallback"></div>
-      `;
-      renderNewsFallback();
+      const apiUrl = `https://newsapi.org/v2/everything?q=${encodeURIComponent(q)}&language=en&sortBy=publishedAt&pageSize=10&apiKey=${CONFIG.NEWS_KEY}`;
+      const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(apiUrl)}`;
+      const res = await fetch(proxyUrl);
+      const json = await res.json();
+      if (json.status === 'ok' && json.articles) {
+        allArticles.push(...json.articles.filter(a => a.title && a.url && !a.title.includes('[Removed]')));
+      }
+    } catch(e) {
+      // Try fallback proxy for this query
+      try {
+        const apiUrl = `https://newsapi.org/v2/everything?q=${encodeURIComponent(q)}&language=en&sortBy=publishedAt&pageSize=10&apiKey=${CONFIG.NEWS_KEY}`;
+        const proxyUrl2 = `https://api.allorigins.win/raw?url=${encodeURIComponent(apiUrl)}`;
+        const res2 = await fetch(proxyUrl2);
+        const json2 = await res2.json();
+        if (json2.status === 'ok' && json2.articles) {
+          allArticles.push(...json2.articles.filter(a => a.title && a.url && !a.title.includes('[Removed]')));
+        }
+      } catch(e2) { console.error('News fallback failed:', e2); }
     }
+  }
+
+  // Deduplicate by URL
+  const seen = new Set();
+  DATA.news = allArticles.filter(a => {
+    if (seen.has(a.url)) return false;
+    seen.add(a.url);
+    return true;
+  }).sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)).slice(0, 15);
+
+  if ($('ov-news-count')) $('ov-news-count').textContent = DATA.news.length;
+
+  if (DATA.news.length > 0) {
+    renderNews(DATA.news);
+  } else {
+    $('news-container').innerHTML = `
+      <div class="error-state" style="margin-bottom:16px;">
+        LIVE FEED UNAVAILABLE — CORS proxy unreachable from this host. Displaying curated sample articles.
+      </div>
+      <div id="news-grid-fallback"></div>
+    `;
+    renderNewsFallback();
   }
 }
 
@@ -1507,9 +1592,12 @@ function renderNews(articles) {
 
 function renderNewsFallback() {
   const fallback = [
-    { source: 'Reuters', title: 'EPA proposes new rules on single-use plastic packaging', desc: 'The Environmental Protection Agency announced proposed rulemaking that would expand recycling requirements for single-use plastic containers...', date: 'Feb 22, 2026', url: '#' },
-    { source: 'Bloomberg Law', title: 'State EPR laws spread across manufacturing sector in 2026', desc: 'Extended Producer Responsibility legislation has now passed in 14 states, with several more considering similar mandates...', date: 'Feb 20, 2026', url: '#' },
-    { source: 'Associated Press', title: 'Congress considers federal plastics recycling standards', desc: 'A bipartisan bill introduced this week would set national standards for plastic recyclability, potentially superseding patchwork state laws...', date: 'Feb 19, 2026', url: '#' },
+    { source: 'Reuters', title: 'EPA proposes new rules on single-use plastic packaging nationwide', desc: 'The Environmental Protection Agency announced proposed rulemaking that would expand recycling requirements for single-use plastic containers used in food and beverage applications...', date: 'Feb 22, 2026', url: '#' },
+    { source: 'Bloomberg Law', title: 'State EPR laws spread across manufacturing sector in 2026', desc: 'Extended Producer Responsibility legislation has now passed in 14 states, with several more considering similar mandates that would hold manufacturers responsible for end-of-life plastic disposal...', date: 'Feb 20, 2026', url: '#' },
+    { source: 'Plastics Industry Association', title: 'Operation Clean Sweep expands pellet loss reporting requirements', desc: 'Operation Clean Sweep (OCS) has updated its voluntary pledge program, with new guidance urging manufacturers to implement pellet, flake, and powder containment best practices at all facilities...', date: 'Feb 18, 2026', url: '#' },
+    { source: 'Associated Press', title: 'Congress considers federal plastics recycling infrastructure bill', desc: 'A bipartisan bill introduced this week would fund $2 billion in domestic recycling infrastructure, potentially superseding patchwork state laws and setting national standards for plastic recyclability...', date: 'Feb 17, 2026', url: '#' },
+    { source: 'Chemical & Engineering News', title: 'Nurdle pollution draws new state enforcement attention on Gulf Coast', desc: 'Louisiana and Texas regulators are stepping up enforcement after surveys found elevated plastic pellet counts along Gulf Coast shorelines, raising pressure on resin manufacturers and compounders...', date: 'Feb 15, 2026', url: '#' },
+    { source: 'Waste360', title: 'Advanced recycling capacity doubles as chemical recycling investment surges', desc: 'Investment in pyrolysis and solvent-based chemical recycling facilities reached record levels in early 2026, with new plants coming online across Texas, Ohio, and the Southeast...', date: 'Feb 14, 2026', url: '#' },
   ];
   const container = $('news-grid-fallback') || $('news-container');
   const grid = document.createElement('div');
@@ -1608,50 +1696,329 @@ function tryWeatherKey(val) {
 }
 
 // ============================================================
-// GRID CARDS
+// FUEL COLORS
 // ============================================================
-function buildGridCards(targetId, cols) {
+const FUEL_COLORS = {
+  'Natural Gas': '#f59e0b',
+  'Coal': '#78716c',
+  'Nuclear': '#a78bfa',
+  'Wind': '#34d399',
+  'Solar': '#fbbf24',
+  'Hydro': '#38bdf8',
+  'Petroleum': '#f87171',
+  'Other': '#94a3b8',
+  'Pumped Storage': '#818cf8',
+  'Batteries': '#4ade80',
+};
+
+function getFuelColor(name) {
+  for (const [k, v] of Object.entries(FUEL_COLORS)) {
+    if (name && name.toLowerCase().includes(k.toLowerCase())) return v;
+  }
+  return '#94a3b8';
+}
+
+// ============================================================
+// EIA RTO GRID DATA
+// ============================================================
+const ISO_CONFIG = [
+  { id: 'ERCO', name: 'ERCOT',  fullName: 'Electric Reliability Council of Texas', states: ['TX'],             url: 'https://www.ercot.com/gridinfo', color: '#f59e0b' },
+  { id: 'PJM',  name: 'PJM',   fullName: 'PJM Interconnection',                   states: ['MD','NJ','OH','IL'], url: 'https://dataminer2.pjm.com',    color: '#60c8f5' },
+  { id: 'MISO', name: 'MISO',  fullName: 'Midcontinent ISO',                      states: ['IA','IL','MI'],    url: 'https://www.misoenergy.org',     color: '#2edb6e' },
+  { id: 'CISO', name: 'CAISO', fullName: 'California ISO',                        states: ['CA'],              url: 'https://www.caiso.com/TodaysOutlook/Pages/default.aspx', color: '#a78bfa' },
+  { id: 'SOCO', name: 'SERC',  fullName: 'SERC / Southeast (SOCO)',               states: ['AL','FL','GA','LA'], url: 'https://www.nerc.com',          color: '#fb923c' },
+  { id: 'ISNE', name: 'ISO-NE',fullName: 'ISO New England',                       states: ['MA'],              url: 'https://www.iso-ne.com/isoexpress/', color: '#f472b6' },
+];
+
+let currentISO = 'ALL';
+const GRID_DATA = {};
+
+async function loadGridData() {
+  const container = $('grid-cards-main');
+  if (container) container.innerHTML = `<div class="loading col-span-3"><div class="spinner"></div>FETCHING EIA HOURLY DATA...</div>`;
+
+  // Fetch hourly demand for each ISO from EIA-930
+  await Promise.all(ISO_CONFIG.map(async iso => {
+    try {
+      // Get current hour demand
+      const demandUrl = `https://api.eia.gov/v2/electricity/rto/region-data/data/?api_key=${CONFIG.EIA_KEY}&frequency=hourly&data[0]=value&facets[type][]=D&facets[respondent][]=${iso.id}&sort[0][column]=period&sort[0][direction]=desc&length=48`;
+      const demandRes = await fetch(demandUrl);
+      const demandJson = await demandRes.json();
+
+      let demandHistory = [];
+      let currentDemand = null;
+      if (demandJson.response && demandJson.response.data && demandJson.response.data.length > 0) {
+        demandHistory = demandJson.response.data.slice(0, 24).map(d => parseFloat(d.value)).filter(v => !isNaN(v)).reverse();
+        currentDemand = demandHistory[demandHistory.length - 1];
+      }
+
+      // Get fuel mix (generation by source)
+      const fuelUrl = `https://api.eia.gov/v2/electricity/rto/fuel-type-data/data/?api_key=${CONFIG.EIA_KEY}&frequency=hourly&data[0]=value&facets[respondent][]=${iso.id}&sort[0][column]=period&sort[0][direction]=desc&length=50`;
+      const fuelRes = await fetch(fuelUrl);
+      const fuelJson = await fuelRes.json();
+
+      const fuelMix = {};
+      let latestPeriod = null;
+      if (fuelJson.response && fuelJson.response.data && fuelJson.response.data.length > 0) {
+        latestPeriod = fuelJson.response.data[0].period;
+        for (const row of fuelJson.response.data) {
+          if (row.period !== latestPeriod) break;
+          const type = row['fueltype-name'] || row.fueltype || 'Other';
+          const val = parseFloat(row.value);
+          if (!isNaN(val) && val > 0) fuelMix[type] = (fuelMix[type] || 0) + val;
+        }
+      }
+
+      // Get forecast demand for load % calc
+      const forecastUrl = `https://api.eia.gov/v2/electricity/rto/region-data/data/?api_key=${CONFIG.EIA_KEY}&frequency=hourly&data[0]=value&facets[type][]=DF&facets[respondent][]=${iso.id}&sort[0][column]=period&sort[0][direction]=desc&length=24`;
+      const forecastRes = await fetch(forecastUrl);
+      const forecastJson = await forecastRes.json();
+      let peakForecast = null;
+      if (forecastJson.response && forecastJson.response.data) {
+        const vals = forecastJson.response.data.map(d => parseFloat(d.value)).filter(v => !isNaN(v));
+        peakForecast = vals.length ? Math.max(...vals) : null;
+      }
+
+      const loadPct = currentDemand && peakForecast ? Math.min(99, (currentDemand / peakForecast) * 100) : null;
+
+      GRID_DATA[iso.id] = { currentDemand, demandHistory, fuelMix, loadPct, peakForecast };
+    } catch(e) {
+      console.error(`Grid data error for ${iso.id}:`, e);
+      // Simulated fallback
+      const simLoad = iso.id === 'ERCO' ? 62 + Math.random()*20 :
+                      iso.id === 'CISO' ? 55 + Math.random()*30 :
+                      50 + Math.random()*28;
+      GRID_DATA[iso.id] = {
+        currentDemand: Math.round(simLoad * 1.5 * 100),
+        demandHistory: Array.from({length:24}, (_,i) => Math.round((simLoad + Math.sin(i/4)*8) * 150)),
+        fuelMix: { 'Natural Gas': 45, 'Wind': 20, 'Nuclear': 18, 'Coal': 10, 'Solar': 5, 'Hydro': 2 },
+        loadPct: simLoad,
+        peakForecast: null,
+        simulated: true,
+      };
+    }
+  }));
+
+  renderGridCards();
+  renderFuelMixChart();
+  updateGridSummary();
+}
+
+function renderGridCards() {
+  const container = $('grid-cards-main');
+  if (!container) return;
+  container.innerHTML = '';
+
+  const isos = currentISO === 'ALL' ? ISO_CONFIG : ISO_CONFIG.filter(i => i.id === currentISO);
+
+  isos.forEach(iso => {
+    const d = GRID_DATA[iso.id] || {};
+    const load = d.loadPct || 0;
+    const cls = getLoadClass(load);
+    const label = getLoadLabel(load);
+    const demand = d.currentDemand ? (d.currentDemand / 1000).toFixed(1) + ' GW' : '— GW';
+    const stateList = iso.states.map(sc => STATES.find(x => x.code === sc)?.name || sc).join(', ');
+
+    // Build fuel mix bar
+    const fuelMix = d.fuelMix || {};
+    const totalGen = Object.values(fuelMix).reduce((a,b) => a+b, 0);
+    const topFuel = Object.entries(fuelMix).sort((a,b) => b[1]-a[1])[0];
+    const fuelBarHTML = totalGen > 0 ? `
+      <div class="fuel-mix-bar">
+        ${Object.entries(fuelMix).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([k,v]) => `
+          <div class="fuel-mix-segment" style="flex:${v};background:${getFuelColor(k)};" title="${k}: ${((v/totalGen)*100).toFixed(1)}%"></div>
+        `).join('')}
+      </div>
+      <div class="fuel-mix-legend">
+        ${Object.entries(fuelMix).sort((a,b)=>b[1]-a[1]).slice(0,5).map(([k,v]) => `
+          <div class="fuel-mix-legend-item">
+            <div class="fuel-mix-dot" style="background:${getFuelColor(k)}"></div>
+            <span>${k} ${((v/totalGen)*100).toFixed(0)}%</span>
+          </div>
+        `).join('')}
+      </div>` : '<div style="font-family:var(--mono);font-size:12px;color:var(--text-dim);margin:8px 0;">FUEL MIX DATA LOADING...</div>';
+
+    // Sparkline for demand history
+    const hist = d.demandHistory || [];
+    const sparkId = `spark-${iso.id}`;
+
+    const card = document.createElement('div');
+    card.className = 'grid-status-card fade-in';
+    card.id = `iso-card-${iso.id}`;
+    card.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:baseline;">
+        <a href="${iso.url}" target="_blank" rel="noopener" style="color:${iso.color};font-family:var(--display);font-weight:700;font-size:25px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;" title="View live ${iso.name} data">${iso.name} ↗</a>
+        <div style="font-family:var(--mono);font-size:13px;color:${cls==='high'?'#f25555':cls==='elevated'?'#f59e0b':'#2edb6e'};">${label}</div>
+      </div>
+      <div class="grid-states-covered">${iso.fullName}</div>
+      <div class="grid-states-covered" style="margin-top:2px;">COVERS: ${stateList}</div>
+
+      <div class="grid-load-bar" style="margin-top:12px;">
+        <div class="grid-load-fill ${cls}" style="width:${load.toFixed(0)}%"></div>
+      </div>
+
+      <div class="grid-metrics" style="margin-top:10px;">
+        <div>
+          <span>CURRENT LOAD</span>
+          <span class="metric-val" style="color:${iso.color}">${load.toFixed(0)}%</span>
+        </div>
+        <div>
+          <span>DEMAND</span>
+          <span class="metric-val">${demand}</span>
+        </div>
+        <div>
+          <span>STATUS</span>
+          <span class="metric-val" style="color:${cls==='high'?'#f25555':cls==='elevated'?'#f59e0b':'#2edb6e'}">${cls.toUpperCase()}</span>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;">
+        <div style="font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:1.5px;margin-bottom:4px;">24-HOUR DEMAND TREND</div>
+        <div class="sparkline-container"><canvas id="${sparkId}"></canvas></div>
+      </div>
+
+      <div style="margin-top:12px;">
+        <div style="font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:1.5px;margin-bottom:2px;">
+          GENERATION MIX ${topFuel ? `— TOP: ${topFuel[0].toUpperCase()} ${totalGen>0?((topFuel[1]/totalGen)*100).toFixed(0)+'%':''}` : ''}
+          ${d.simulated ? '<span style="color:var(--caution);margin-left:8px;">[EST]</span>' : ''}
+        </div>
+        ${fuelBarHTML}
+      </div>
+    `;
+    container.appendChild(card);
+
+    // Draw sparkline after DOM insert
+    setTimeout(() => {
+      const ctx = $(sparkId);
+      if (!ctx || !hist.length) return;
+      if (charts[sparkId]) charts[sparkId].destroy();
+      charts[sparkId] = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: hist.map((_, i) => i === hist.length-1 ? 'NOW' : `${hist.length-1-i}h`),
+          datasets: [{
+            data: hist,
+            borderColor: iso.color,
+            borderWidth: 2,
+            pointRadius: 0,
+            fill: true,
+            backgroundColor: iso.color + '22',
+            tension: 0.4,
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false }, tooltip: { ...CHART_DEFAULTS.plugins.tooltip, callbacks: { label: ctx => `${(ctx.raw/1000).toFixed(1)} GW` } } },
+          scales: {
+            x: { display: false },
+            y: { display: false, grace: '10%' }
+          }
+        }
+      });
+    }, 50);
+  });
+
+  if (isos.length === 0) container.innerHTML = '<div class="loading col-span-3">No data for selected region.</div>';
+}
+
+function selectISO(id) {
+  currentISO = id;
+  document.querySelectorAll('.iso-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  renderGridCards();
+}
+
+function updateGridSummary() {
+  const isos = ISO_CONFIG;
+  let totalDemand = 0;
+  let highestLoad = 0, highestISO = '—', highestPct = '—';
+  const allFuels = {};
+
+  isos.forEach(iso => {
+    const d = GRID_DATA[iso.id] || {};
+    if (d.currentDemand) totalDemand += d.currentDemand;
+    if (d.loadPct && d.loadPct > highestLoad) {
+      highestLoad = d.loadPct;
+      highestISO = iso.name;
+      highestPct = `${d.loadPct.toFixed(0)}% of capacity`;
+    }
+    if (d.fuelMix) {
+      Object.entries(d.fuelMix).forEach(([k,v]) => { allFuels[k] = (allFuels[k]||0) + v; });
+    }
+  });
+
+  const topFuel = Object.entries(allFuels).sort((a,b) => b[1]-a[1])[0];
+  const totalGen = Object.values(allFuels).reduce((a,b)=>a+b,0);
+  const hasHigh = isos.some(iso => (GRID_DATA[iso.id]?.loadPct || 0) >= 90);
+  const hasElevated = isos.some(iso => (GRID_DATA[iso.id]?.loadPct || 0) >= 75);
+
+  if ($('gs-total-demand')) $('gs-total-demand').textContent = (totalDemand/1000).toFixed(0) + ' GW';
+  if ($('gs-highest-iso')) $('gs-highest-iso').textContent = highestISO;
+  if ($('gs-highest-pct')) $('gs-highest-pct').textContent = highestPct;
+  if ($('gs-top-fuel')) $('gs-top-fuel').textContent = topFuel ? topFuel[0] : '—';
+  if ($('gs-top-fuel-pct')) $('gs-top-fuel-pct').textContent = topFuel && totalGen ? `${((topFuel[1]/totalGen)*100).toFixed(0)}% of generation` : '—';
+  if ($('gs-alerts')) {
+    const el = $('gs-alerts');
+    if (hasHigh) { el.textContent = '⚠ HIGH LOAD'; el.style.color = '#f25555'; $('gs-alerts').nextElementSibling.textContent = 'One or more regions at high load'; }
+    else if (hasElevated) { el.textContent = '△ ELEVATED'; el.style.color = '#f59e0b'; el.nextElementSibling.textContent = 'Monitor conditions'; }
+    else { el.textContent = '✓ NORMAL'; el.style.color = '#2edb6e'; }
+  }
+}
+
+function renderFuelMixChart() {
+  const allFuels = {};
+  ISO_CONFIG.forEach(iso => {
+    const d = GRID_DATA[iso.id] || {};
+    if (d.fuelMix) Object.entries(d.fuelMix).forEach(([k,v]) => { allFuels[k] = (allFuels[k]||0)+v; });
+  });
+
+  const sorted = Object.entries(allFuels).sort((a,b) => b[1]-a[1]);
+  const labels = sorted.map(([k]) => k);
+  const values = sorted.map(([,v]) => v);
+  const colors = labels.map(getFuelColor);
+
+  buildChart('fuel-mix-chart', 'bar', labels, [{
+    label: 'Generation MW',
+    data: values,
+    backgroundColor: colors.map(c => c + 'aa'),
+    borderColor: colors,
+    borderWidth: 1,
+  }]);
+}
+
+// ============================================================
+// GRID CARDS (OVERVIEW - simple version)
+// ============================================================
+function buildGridCards(targetId) {
   const container = $(targetId);
   if (!container) return;
   container.innerHTML = '';
 
-  GRID_REGIONS.forEach(region => {
-    const load = region.simLoad();
+  ISO_CONFIG.forEach(iso => {
+    const d = GRID_DATA[iso.id] || {};
+    const load = d.loadPct || (50 + Math.random() * 30);
     const cls = getLoadClass(load);
     const label = getLoadLabel(load);
-    const capacity = Math.round(load * 1.8) + ' GW';
-    const stateList = region.states.map(sc => {
-      const s = STATES.find(x => x.code === sc);
-      return s ? s.name : sc;
-    }).join(', ');
+    const stateList = iso.states.map(sc => STATES.find(x => x.code === sc)?.name || sc).join(', ');
 
     const card = document.createElement('div');
     card.className = 'grid-status-card fade-in';
     card.innerHTML = `
       <div style="display:flex;justify-content:space-between;align-items:baseline;">
-        <div class="grid-region-name" style="color:${region.color}">${region.name}</div>
+        <div class="grid-region-name" style="color:${iso.color}">${iso.name}</div>
         <div style="font-family:var(--mono);font-size:15px;color:var(--text-secondary);">${label}</div>
       </div>
-      <div class="grid-states-covered">${region.fullName}</div>
+      <div class="grid-states-covered">${iso.fullName}</div>
       <div class="grid-states-covered" style="margin-top:4px;">COVERS: ${stateList}</div>
       <div class="grid-load-bar">
         <div class="grid-load-fill ${cls}" style="width:${load.toFixed(0)}%"></div>
       </div>
       <div class="grid-metrics">
-        <div>
-          <span>CURRENT LOAD</span>
-          <span class="metric-val" style="color:${region.color}">${load.toFixed(0)}%</span>
-        </div>
-        <div>
-          <span>EST. CAPACITY</span>
-          <span class="metric-val">~${capacity}</span>
-        </div>
-        <div>
-          <span>STATUS</span>
-          <span class="metric-val" style="color:${cls === 'high' ? '#f25555' : cls === 'elevated' ? '#f59e0b' : '#2edb6e'}">${cls.toUpperCase()}</span>
-        </div>
+        <div><span>CURRENT LOAD</span><span class="metric-val" style="color:${iso.color}">${load.toFixed(0)}%</span></div>
+        <div><span>DEMAND</span><span class="metric-val">${d.currentDemand ? (d.currentDemand/1000).toFixed(1)+' GW' : '—'}</span></div>
+        <div><span>STATUS</span><span class="metric-val" style="color:${cls==='high'?'#f25555':cls==='elevated'?'#f59e0b':'#2edb6e'}">${cls.toUpperCase()}</span></div>
       </div>
-      <a class="grid-link" href="${region.url}" target="_blank" rel="noopener">↗ VIEW LIVE OPERATOR DATA</a>
+      <a class="grid-link" href="${iso.url}" target="_blank" rel="noopener">↗ VIEW LIVE OPERATOR DATA</a>
     `;
     container.appendChild(card);
   });
@@ -1860,7 +2227,6 @@ function switchTab(name) {
   event.target.classList.add('active');
   $('tab-' + name).classList.add('active');
 
-  // Lazy loads
   if (name === 'news' && DATA.news.length === 0) loadNews();
   if (name === 'weather' && CONFIG.OPENWEATHER_KEY && Object.keys(DATA.weather).length === 0) {
     loadWeather(CONFIG.OPENWEATHER_KEY);
@@ -1876,6 +2242,7 @@ async function init() {
     loadElectricityData(),
     loadGasData(),
     loadDieselData(),
+    loadGridData(),
   ]);
 
   setLastUpdated();
@@ -1883,9 +2250,8 @@ async function init() {
   buildEnergyTable();
   buildDieselTable();
 
-  // Grid cards (uses simulated load data for now)
-  buildGridCards('overview-grid-cards', 4);
-  buildGridCards('grid-cards-main', 3);
+  // Build overview grid cards (simple version using loaded data)
+  buildGridCards('overview-grid-cards');
 
   // Load news on init for overview count
   loadNews();
@@ -1905,5 +2271,6 @@ async function refreshAll() {
 
 init();
 </script>
+
 </body>
 </html>
