@@ -89,13 +89,14 @@ header {
 display: flex;
 align-items: center;
 justify-content: space-between;
-padding: 16px 32px;
-border-bottom: 1px solid var(–border);
-background: linear-gradient(180deg, rgba(96,200,245,0.06) 0%, transparent 100%);
+padding: 18px 32px;
+border-bottom: 2px solid var(–accent);
+background: linear-gradient(180deg, rgba(96,200,245,0.12) 0%, rgba(6,10,13,0.98) 100%);
 position: sticky;
 top: 0;
 z-index: 100;
 backdrop-filter: blur(12px);
+box-shadow: 0 4px 32px rgba(96,200,245,0.08);
 }
 
 .logo-block {
@@ -134,20 +135,22 @@ font-size: 30px;
 letter-spacing: 4px;
 text-transform: uppercase;
 color: var(–text-primary);
+line-height: 1.1;
 }
 
 .logo-sub {
 font-family: var(–mono);
-font-size: 14px;
+font-size: 13px;
 color: var(–accent);
 letter-spacing: 3px;
 text-transform: uppercase;
+opacity: 0.85;
 }
 
 .header-right {
 display: flex;
 align-items: center;
-gap: 24px;
+gap: 28px;
 }
 
 .live-indicator {
@@ -157,7 +160,8 @@ gap: 8px;
 font-family: var(–mono);
 font-size: 15px;
 color: var(–green);
-letter-spacing: 2px;
+letter-spacing: 3px;
+font-weight: bold;
 }
 
 .live-dot {
@@ -166,28 +170,28 @@ height: 11px;
 background: var(–green);
 border-radius: 50%;
 animation: blink 1.5s ease-in-out infinite;
-box-shadow: 0 0 8px var(–green);
+box-shadow: 0 0 10px var(–green);
 }
 
 @keyframes blink {
 0%, 100% { opacity: 1; }
-50% { opacity: 0.3; }
+50% { opacity: 0.2; }
 }
 
 #clock {
 font-family: var(–mono);
-font-size: 17px;
-color: var(–text-secondary);
 letter-spacing: 2px;
 }
 
 .states-badge {
 font-family: var(–mono);
-font-size: 14px;
-color: var(–text-secondary);
-border: 1px solid var(–border-bright);
-padding: 5px 12px;
+font-size: 13px;
+color: var(–accent);
+border: 1px solid var(–accent);
+padding: 6px 14px;
 letter-spacing: 1px;
+background: rgba(96,200,245,0.07);
+white-space: nowrap;
 }
 
 /* –– NAV TABS –– */
@@ -887,6 +891,38 @@ margin-right: 4px;
 margin-bottom: 4px;
 }
 
+/* –– NEWS SUB-TABS –– */
+.news-subtab-bar {
+display: flex;
+gap: 0;
+border-bottom: 1px solid var(–border-bright);
+margin-bottom: 24px;
+}
+
+.news-subtab {
+font-family: var(–mono);
+font-size: 14px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(–text-dim);
+padding: 12px 28px;
+background: none;
+border: none;
+border-bottom: 3px solid transparent;
+cursor: pointer;
+transition: all 0.2s;
+white-space: nowrap;
+}
+.news-subtab:hover { color: var(–text-secondary); }
+.news-subtab.active {
+color: var(–accent);
+border-bottom-color: var(–accent);
+background: rgba(96,200,245,0.04);
+}
+
+.news-subtab-content { display: none; }
+.news-subtab-content.active { display: block; }
+
 /* –– ISO TABS –– */
 .iso-tab {
 font-family: var(–mono);
@@ -990,7 +1026,7 @@ nav { padding: 0 16px; overflow-x: auto; }
       <span></span><span></span><span></span><span></span>
     </div>
     <div>
-      <div class="logo-text">OPS INTELLIGENCE</div>
+      <div class="logo-text">OPS <span style="color:var(--accent)">INTELLIGENCE</span></div>
       <div class="logo-sub">Energy &amp; Regulatory Dashboard</div>
     </div>
   </div>
@@ -999,7 +1035,10 @@ nav { padding: 0 16px; overflow-x: auto; }
       <div class="live-dot"></div>
       LIVE
     </div>
-    <div id="clock">--:--:--</div>
+    <div id="clock" style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;">
+      <div id="clock-time" style="font-family:var(--mono);font-size:19px;color:var(--text-primary);letter-spacing:2px;">--:--:--</div>
+      <div id="clock-tz" style="font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:2px;">--</div>
+    </div>
     <div class="states-badge">13 STATES MONITORED</div>
   </div>
 </header>
@@ -1010,7 +1049,7 @@ nav { padding: 0 16px; overflow-x: auto; }
   <button class="tab" onclick="switchTab('energy')">Energy Pricing</button>
   <button class="tab" onclick="switchTab('fuel')">Fuel &amp; Gas</button>
   <button class="tab" onclick="switchTab('weather')">Weather</button>
-  <button class="tab" onclick="switchTab('news')">Legislation &amp; News</button>
+  <button class="tab" onclick="switchTab('news')">News &amp; Intelligence</button>
 </nav>
 
 <main>
@@ -1226,17 +1265,47 @@ nav { padding: 0 16px; overflow-x: auto; }
 
   <div id="tab-news" class="section">
     <div class="section-header">
-      <div class="section-title">LEGISLATION <span>&amp; NEWS</span></div>
-      <div class="section-meta">NEWSAPI.ORG // PLASTICS + MANUFACTURING REGULATORY</div>
-      <button class="refresh-btn" onclick="loadNews()">⟳ REFRESH</button>
+      <div class="section-title">INDUSTRY <span>&amp; NEWS</span></div>
+      <div class="section-meta">NEWSAPI.ORG // INDUSTRY INTELLIGENCE</div>
+      <button class="refresh-btn" onclick="loadAllNews()">⟳ REFRESH</button>
     </div>
-    <div class="api-note">
-      <strong>SOURCES:</strong> Reuters, Associated Press, Bloomberg, Wall Street Journal, Chemical &amp; Engineering News, Waste360, Plastics Industry Association. 
-      Filtering for: plastics manufacturing legislation, EPA regulations, chemical industry, packaging law, recycling policy, <strong>Operation Clean Sweep (OCS)</strong>, pellet loss, nurdle pollution, advanced recycling.
-    </div>
-    <div id="news-container">
-      <div class="loading"><div class="spinner"></div>FETCHING LATEST REGULATORY NEWS...</div>
-    </div>
+
+```
+<!-- News sub-tabs -->
+<div class="news-subtab-bar">
+  <button class="news-subtab active" id="subtab-btn-plastics" onclick="switchNewsTab('plastics')">
+    ♻ PLASTICS &amp; MANUFACTURING
+  </button>
+  <button class="news-subtab" id="subtab-btn-energy" onclick="switchNewsTab('energy')">
+    ⚡ ENERGY &amp; SUPPLY CHAIN
+  </button>
+</div>
+
+<!-- Plastics sub-tab -->
+<div id="news-subtab-plastics" class="news-subtab-content active">
+  <div class="api-note" style="margin-bottom:18px;">
+    <strong>PLASTICS FOCUS:</strong> Industry developments, sustainability initiatives, recycling technology, 
+    Operation Clean Sweep (OCS), pellet loss &amp; nurdle regulation, extended producer responsibility (EPR), 
+    packaging legislation, and EPA rulemaking affecting plastic manufacturers.
+  </div>
+  <div id="news-plastics-container">
+    <div class="loading"><div class="spinner"></div>FETCHING PLASTICS NEWS...</div>
+  </div>
+</div>
+
+<!-- Energy sub-tab -->
+<div id="news-subtab-energy" class="news-subtab-content">
+  <div class="api-note" style="margin-bottom:18px;">
+    <strong>ENERGY FOCUS:</strong> US electricity grid capacity and reliability, natural gas &amp; diesel supply chains, 
+    FERC rulemakings, power market developments, renewable integration, fuel pricing trends, 
+    and energy infrastructure news affecting industrial manufacturers.
+  </div>
+  <div id="news-energy-container">
+    <div class="loading"><div class="spinner"></div>FETCHING ENERGY NEWS...</div>
+  </div>
+</div>
+```
+
   </div>
 
 </main>
@@ -1311,8 +1380,13 @@ function $(id) { return document.getElementById(id); }
 
 function updateClock() {
   const now = new Date();
-  $('clock').textContent = now.toLocaleTimeString('en-US', { hour12: false }) + ' ' +
-    Intl.DateTimeFormat().resolvedOptions().timeZone.replace('_', '/').split('/').pop().toUpperCase();
+  const timeStr = now.toLocaleTimeString('en-US', { hour12: false });
+  // Get a clean short timezone abbreviation
+  const tzFull = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+  const tzParts = tzFull.split('/');
+  const tzCity = tzParts[tzParts.length - 1].replace(/_/g, ' ');
+  $('clock-time').textContent = timeStr;
+  $('clock-tz').textContent = tzCity.toUpperCase();
 }
 setInterval(updateClock, 1000);
 updateClock();
@@ -1516,133 +1590,145 @@ async function loadDieselData() {
 }
 
 // ============================================================
-// NEWS DATA (NewsAPI)
+// NEWS SUB-TAB SWITCHING
 // ============================================================
-async function loadNews() {
-  $('news-container').innerHTML = '<div class="loading"><div class="spinner"></div>FETCHING LATEST REGULATORY NEWS...</div>';
+function switchNewsTab(tab) {
+  document.querySelectorAll('.news-subtab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.news-subtab-content').forEach(c => c.classList.remove('active'));
+  $(`subtab-btn-${tab}`).classList.add('active');
+  $(`news-subtab-${tab}`).classList.add('active');
+}
 
-  // Two complementary queries — plastics/legislation + OCS/recycling
-  const queries = [
-    'plastics manufacturing legislation EPA OR "plastic packaging" regulation OR "chemical industry" manufacturing law recycling',
-    '"Operation Clean Sweep" OR "pellet loss" OR "nurdle" OR "plastic pellets" OR "OCS plastics" OR "plastic recycling" legislation',
-  ];
-
-  const allArticles = [];
-
-  for (const q of queries) {
-    try {
-      const apiUrl = `https://newsapi.org/v2/everything?q=${encodeURIComponent(q)}&language=en&sortBy=publishedAt&pageSize=10&apiKey=${CONFIG.NEWS_KEY}`;
-      const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(apiUrl)}`;
-      const res = await fetch(proxyUrl);
-      const json = await res.json();
-      if (json.status === 'ok' && json.articles) {
-        allArticles.push(...json.articles.filter(a => a.title && a.url && !a.title.includes('[Removed]')));
-      }
-    } catch(e) {
-      // Try fallback proxy for this query
-      try {
-        const apiUrl = `https://newsapi.org/v2/everything?q=${encodeURIComponent(q)}&language=en&sortBy=publishedAt&pageSize=10&apiKey=${CONFIG.NEWS_KEY}`;
-        const proxyUrl2 = `https://api.allorigins.win/raw?url=${encodeURIComponent(apiUrl)}`;
-        const res2 = await fetch(proxyUrl2);
-        const json2 = await res2.json();
-        if (json2.status === 'ok' && json2.articles) {
-          allArticles.push(...json2.articles.filter(a => a.title && a.url && !a.title.includes('[Removed]')));
-        }
-      } catch(e2) { console.error('News fallback failed:', e2); }
-    }
-  }
-
-  // Deduplicate by URL and apply strict relevance filter
-  const REQUIRED_TERMS = [
-    'plastic', 'recycl', 'epa', 'packaging', 'resin', 'pellet', 'nurdle',
-    'polymer', 'chemical', 'manufacturing', 'operation clean sweep',
-    'extended producer', 'epr', 'single-use', 'bioplastic', 'sustainability',
-    'waste', 'regulation', 'legislation', 'energy', 'diesel', 'natural gas',
-    'electricity', 'grid', 'fuel', 'carbon', 'emission',
-  ];
-
-  function isRelevant(article) {
-    const text = ((article.title || '') + ' ' + (article.description || '')).toLowerCase();
-    return REQUIRED_TERMS.some(term => text.includes(term));
-  }
-
-  const seen = new Set();
-  DATA.news = allArticles.filter(a => {
-    if (seen.has(a.url)) return false;
-    seen.add(a.url);
-    return isRelevant(a);
-  }).sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)).slice(0, 15);
-
+// ============================================================
+// NEWS DATA (NewsAPI) — Two focused feeds
+// ============================================================
+async function loadAllNews() {
+  DATA.news = [];
+  await Promise.all([loadPlasticsNews(), loadEnergyNews()]);
   if ($('ov-news-count')) $('ov-news-count').textContent = DATA.news.length;
+}
 
-  if (DATA.news.length > 0) {
-    renderNews(DATA.news);
-  } else {
-    $('news-container').innerHTML = `
-      <div class="error-state" style="margin-bottom:16px;">
-        LIVE FEED UNAVAILABLE — CORS proxy unreachable from this host. Displaying curated sample articles.
-      </div>
-      <div id="news-grid-fallback"></div>
-    `;
-    renderNewsFallback();
+async function fetchNewsQuery(query, containerId) {
+  const container = $(containerId);
+  if (container) container.innerHTML = '<div class="loading"><div class="spinner"></div>FETCHING...</div>';
+  const articles = [];
+  try {
+    const apiUrl = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&language=en&sortBy=publishedAt&pageSize=15&apiKey=${CONFIG.NEWS_KEY}`;
+    const res = await fetch(`https://corsproxy.io/?${encodeURIComponent(apiUrl)}`);
+    const json = await res.json();
+    if (json.status === 'ok' && json.articles) articles.push(...json.articles);
+  } catch(e) {
+    try {
+      const apiUrl = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&language=en&sortBy=publishedAt&pageSize=15&apiKey=${CONFIG.NEWS_KEY}`;
+      const res2 = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(apiUrl)}`);
+      const json2 = await res2.json();
+      if (json2.status === 'ok' && json2.articles) articles.push(...json2.articles);
+    } catch(e2) { console.error('News proxy failed:', e2); }
   }
+  return articles.filter(a => a.title && a.url && !a.title.includes('[Removed]'));
 }
 
-function renderNews(articles) {
+async function loadPlasticsNews() {
+  const query = '(plastic OR plastics OR "plastic packaging" OR "plastic recycling" OR "Operation Clean Sweep" OR "pellet loss" OR nurdle OR bioplastic OR "PET resin" OR "extended producer responsibility" OR polypropylene OR polyethylene) AND (manufacturing OR regulation OR sustainability OR legislation OR EPA OR recycling OR industry)';
+  const TERMS = ['plastic', 'recycl', 'resin', 'pellet', 'nurdle', 'polymer', 'packaging',
+    'bioplastic', 'polypropylene', 'polyethylene', 'epr', 'operation clean sweep',
+    'single-use', 'microplastic', 'chemical recycling', 'pyrolysis'];
+
+  const raw = await fetchNewsQuery(query, 'news-plastics-container');
+  const seen = new Set();
+  const result = raw.filter(a => {
+    const txt = ((a.title||'') + ' ' + (a.description||'')).toLowerCase();
+    if (!TERMS.some(t => txt.includes(t))) return false;
+    if (seen.has(a.url)) return false;
+    seen.add(a.url); return true;
+  }).sort((a,b) => new Date(b.publishedAt)-new Date(a.publishedAt)).slice(0,12);
+
+  DATA.news = [...DATA.news, ...result];
+  if (result.length > 0) renderNewsToContainer('news-plastics-container', result);
+  else renderNewsFallbackToContainer('news-plastics-container', 'plastics');
+}
+
+async function loadEnergyNews() {
+  const query = '(electricity OR "natural gas" OR diesel OR "energy grid" OR "power grid" OR "grid capacity" OR FERC OR "energy supply" OR "fuel prices" OR "energy infrastructure" OR "power market" OR "grid reliability") AND (US OR "United States" OR manufacturing OR industrial OR "supply chain" OR capacity OR utility)';
+  const TERMS = ['electricity', 'natural gas', 'diesel', 'grid', 'energy', 'power', 'ferc',
+    'fuel', 'solar', 'wind', 'nuclear', 'coal', 'lng', 'pipeline', 'refinery',
+    'capacity', 'utility', 'kwh', 'megawatt', 'gigawatt', 'renewable', 'iso', 'rto'];
+
+  const raw = await fetchNewsQuery(query, 'news-energy-container');
+  const seen = new Set();
+  const result = raw.filter(a => {
+    const txt = ((a.title||'') + ' ' + (a.description||'')).toLowerCase();
+    if (!TERMS.some(t => txt.includes(t))) return false;
+    if (seen.has(a.url)) return false;
+    seen.add(a.url); return true;
+  }).sort((a,b) => new Date(b.publishedAt)-new Date(a.publishedAt)).slice(0,12);
+
+  if (result.length > 0) renderNewsToContainer('news-energy-container', result);
+  else renderNewsFallbackToContainer('news-energy-container', 'energy');
+}
+
+function renderNewsToContainer(containerId, articles) {
+  const container = $(containerId);
+  if (!container) return;
+  container.innerHTML = '';
   const grid = document.createElement('div');
   grid.className = 'news-grid';
-
-  articles.slice(0, 12).forEach(a => {
-    const date = a.publishedAt ? new Date(a.publishedAt).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'}) : '';
-    const source = a.source?.name || 'SOURCE UNKNOWN';
-    const desc = a.description ? a.description.slice(0, 120) + '...' : '';
-
+  articles.forEach(a => {
+    const date = a.publishedAt ? new Date(a.publishedAt).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
     const card = document.createElement('a');
     card.className = 'news-card';
-    card.href = a.url;
-    card.target = '_blank';
-    card.rel = 'noopener';
+    card.href = a.url; card.target='_blank'; card.rel='noopener';
     card.innerHTML = `
-      <div class="news-source">${source.toUpperCase()}</div>
+      <div class="news-source">${(a.source?.name||'NEWS').toUpperCase()}</div>
       <div class="news-title">${a.title}</div>
-      <div class="news-desc">${desc}</div>
+      <div class="news-desc">${(a.description||'').slice(0,130)}...</div>
       <div class="news-date">${date}</div>
-      <div class="news-arrow">↗</div>
-    `;
-    grid.appendChild(card);
-  });
-
-  $('news-container').innerHTML = '';
-  $('news-container').appendChild(grid);
-}
-
-function renderNewsFallback() {
-  const fallback = [
-    { source: 'Reuters', title: 'EPA proposes new rules on single-use plastic packaging nationwide', desc: 'The Environmental Protection Agency announced proposed rulemaking that would expand recycling requirements for single-use plastic containers used in food and beverage applications...', date: 'Feb 22, 2026', url: '#' },
-    { source: 'Bloomberg Law', title: 'State EPR laws spread across manufacturing sector in 2026', desc: 'Extended Producer Responsibility legislation has now passed in 14 states, with several more considering similar mandates that would hold manufacturers responsible for end-of-life plastic disposal...', date: 'Feb 20, 2026', url: '#' },
-    { source: 'Plastics Industry Association', title: 'Operation Clean Sweep expands pellet loss reporting requirements', desc: 'Operation Clean Sweep (OCS) has updated its voluntary pledge program, with new guidance urging manufacturers to implement pellet, flake, and powder containment best practices at all facilities...', date: 'Feb 18, 2026', url: '#' },
-    { source: 'Associated Press', title: 'Congress considers federal plastics recycling infrastructure bill', desc: 'A bipartisan bill introduced this week would fund $2 billion in domestic recycling infrastructure, potentially superseding patchwork state laws and setting national standards for plastic recyclability...', date: 'Feb 17, 2026', url: '#' },
-    { source: 'Chemical & Engineering News', title: 'Nurdle pollution draws new state enforcement attention on Gulf Coast', desc: 'Louisiana and Texas regulators are stepping up enforcement after surveys found elevated plastic pellet counts along Gulf Coast shorelines, raising pressure on resin manufacturers and compounders...', date: 'Feb 15, 2026', url: '#' },
-    { source: 'Waste360', title: 'Advanced recycling capacity doubles as chemical recycling investment surges', desc: 'Investment in pyrolysis and solvent-based chemical recycling facilities reached record levels in early 2026, with new plants coming online across Texas, Ohio, and the Southeast...', date: 'Feb 14, 2026', url: '#' },
-  ];
-  const container = $('news-grid-fallback') || $('news-container');
-  const grid = document.createElement('div');
-  grid.className = 'news-grid';
-  fallback.forEach(a => {
-    const card = document.createElement('a');
-    card.className = 'news-card';
-    card.href = a.url;
-    card.innerHTML = `
-      <div class="news-source">[SAMPLE] ${a.source.toUpperCase()}</div>
-      <div class="news-title">${a.title}</div>
-      <div class="news-desc">${a.desc}</div>
-      <div class="news-date">${a.date}</div>
-      <div class="news-arrow">↗</div>
-    `;
+      <div class="news-arrow">↗</div>`;
     grid.appendChild(card);
   });
   container.appendChild(grid);
 }
+
+function renderNewsFallbackToContainer(containerId, type) {
+  const container = $(containerId);
+  if (!container) return;
+  const FALLBACK = {
+    plastics: [
+      {source:'PLASTICS INDUSTRY ASSOC.',title:'Operation Clean Sweep expands pellet containment reporting',desc:'OCS updated its voluntary pledge program with new guidance urging manufacturers to implement pellet, flake, and powder containment best practices at all production facilities...',date:'Feb 22, 2026'},
+      {source:'CHEMICAL & ENGINEERING NEWS',title:'Nurdle pollution enforcement ramps up along Gulf Coast',desc:'Louisiana and Texas regulators are increasing enforcement after surveys found elevated plastic pellet counts along shorelines, raising pressure on resin manufacturers and compounders...',date:'Feb 20, 2026'},
+      {source:'BLOOMBERG LAW',title:'State EPR packaging laws spread to 16 states in 2026',desc:'Extended Producer Responsibility legislation now passed in 16 states, with several more considering mandates holding manufacturers responsible for end-of-life plastic disposal costs...',date:'Feb 18, 2026'},
+      {source:'REUTERS',title:'EPA proposes expanded recycled content requirements for packaging',desc:'The EPA announced proposed rulemaking that would expand minimum recycled content requirements for plastic packaging used in food and beverage manufacturing...',date:'Feb 15, 2026'},
+      {source:'WASTE360',title:'Advanced recycling capacity doubles as chemical recycling investment surges',desc:'Investment in pyrolysis and solvent-based chemical recycling reached record levels, with new plants coming online in Texas, Ohio, and the Southeast...',date:'Feb 12, 2026'},
+      {source:'ASSOCIATED PRESS',title:'Congress considers federal plastics recycling infrastructure bill',desc:'A bipartisan bill would fund $2 billion in domestic recycling infrastructure, setting national recyclability standards that could supersede the current patchwork of state laws...',date:'Feb 10, 2026'},
+    ],
+    energy: [
+      {source:'S&P GLOBAL',title:'ERCOT reports record operating reserves despite February demand surge',desc:'Texas grid operator ERCOT maintained over 9,500 MW of operating reserves during last week\'s demand spike, citing improved capacity planning and new generation since 2021...',date:'Feb 22, 2026'},
+      {source:'BLOOMBERG',title:'Natural gas prices stabilize as storage levels return to 5-year average',desc:'Henry Hub spot prices pulled back as storage injections outpaced seasonal norms, providing relief to industrial consumers who use natural gas as both fuel and feedstock...',date:'Feb 20, 2026'},
+      {source:'E&E NEWS',title:'FERC approves new transmission rules to support industrial load growth',desc:'The Federal Energy Regulatory Commission approved updated transmission planning standards requiring grid operators to account for large industrial load additions...',date:'Feb 18, 2026'},
+      {source:'REUTERS',title:'Diesel prices ease as refinery utilization rates climb to seasonal highs',desc:'US diesel retail prices declined for the third consecutive week as Gulf Coast refinery runs increased, benefiting logistics-intensive manufacturers facing elevated freight costs...',date:'Feb 15, 2026'},
+      {source:'WALL STREET JOURNAL',title:'Industrial electricity rates diverge sharply across US regions',desc:'Manufacturing facilities in the Southeast and Gulf Coast continue to pay significantly less for electricity than counterparts in New England and California...',date:'Feb 12, 2026'},
+      {source:'POWER MAGAZINE',title:'PJM capacity auction results signal tighter supply in Mid-Atlantic',desc:'The latest PJM capacity auction cleared at elevated prices, raising concerns for industrial consumers in Maryland, New Jersey, and Ohio about energy costs in 2027-2028...',date:'Feb 10, 2026'},
+    ]
+  };
+  const items = FALLBACK[type] || [];
+  container.innerHTML = '<div class="error-state" style="margin-bottom:16px;">LIVE FEED UNAVAILABLE — Displaying curated sample articles.</div>';
+  const grid = document.createElement('div');
+  grid.className = 'news-grid';
+  items.forEach(a => {
+    const card = document.createElement('div');
+    card.className = 'news-card';
+    card.innerHTML = `<div class="news-source">[SAMPLE] ${a.source}</div><div class="news-title">${a.title}</div><div class="news-desc">${a.desc}</div><div class="news-date">${a.date}</div>`;
+    grid.appendChild(card);
+  });
+  container.appendChild(grid);
+}
+
+// Backward compatibility
+function loadNews() { return loadAllNews(); }
+function renderNews(a) { renderNewsToContainer('news-plastics-container', a); }
+function renderNewsFallback() { renderNewsFallbackToContainer('news-plastics-container','plastics'); }
+
+
 
 // ============================================================
 // WEATHER
@@ -2296,7 +2382,7 @@ function switchTab(name) {
   event.target.classList.add('active');
   $('tab-' + name).classList.add('active');
 
-  if (name === 'news' && DATA.news.length === 0) loadNews();
+  if (name === 'news' && DATA.news.length === 0) loadAllNews();
   if (name === 'weather' && CONFIG.OPENWEATHER_KEY && Object.keys(DATA.weather).length === 0) {
     loadWeather(CONFIG.OPENWEATHER_KEY);
   }
@@ -2335,8 +2421,8 @@ async function init() {
     });
   }
 
-  // News
-  loadNews().then(() => {
+  // News — runs both feeds in parallel
+  loadAllNews().then(() => {
     updateStatusPill('pill-news', DATA.news.length > 0, `NEWS: ${DATA.news.length > 0 ? 'LIVE' : 'SAMPLE'}`);
   });
 }
