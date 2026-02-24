@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EndoFind Texas — Find Your Excision Surgeon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --rose:    #E8587A;
+      --rose-lt: #F9D0DA;
+      --rose-dk: #C03060;
+      --peach:   #FAB89B;
+      --lavender:#C3A8E0;
+      --lav-lt:  #EDE4F8;
+      --mint:    #7ECFB3;
+      --cream:   #FFF8F5;
+      --charcoal:#2D1B2E;
+      --muted:   #7A6175;
+      --card-bg: #FFFFFF;
+      --border:  #F0E4EE;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      min-height: 100vh;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #3D1153 0%, #6B2660 40%, var(--rose-dk) 100%);
+      padding: 3rem 1.5rem 5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 30%, rgba(250,184,155,.25) 0%, transparent 60%),
+                  radial-gradient(ellipse at 20% 80%, rgba(195,168,224,.2) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .hero-ribbon {
+      display: inline-block;
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.3);
+      backdrop-filter: blur(4px);
+      color: #fff;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: .35rem 1rem;
+      border-radius: 99px;
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 6vw, 3.6rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: .8rem;
+    }
+    .hero h1 em { font-style: italic; color: var(--peach); }
+    .hero p {
+      color: rgba(255,255,255,.82);
+      font-size: 1.05rem;
+      max-width: 540px;
+      margin: 0 auto 2rem;
+      line-height: 1.65;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .stat {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 12px;
+      padding: .7rem 1.4rem;
+      color: #fff;
+    }
+    .stat strong { display: block; font-size: 1.5rem; font-family: 'Fraunces', serif; }
+    .stat span   { font-size: .78rem; opacity: .75; text-transform: uppercase; letter-spacing: .08em; }
+
+    /* ── WAVE ── */
+    .wave {
+      display: block;
+      width: 100%; height: 60px;
+      background: var(--cream);
+      clip-path: ellipse(55% 100% at 50% 100%);
+      margin-top: -2px;
+    }
+
+    /* ── FILTER BAR ── */
+    .filter-section {
+      max-width: 900px;
+      margin: -2rem auto 2.5rem;
+      padding: 0 1.5rem;
+    }
+    .filter-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      box-shadow: 0 8px 40px rgba(45,27,46,.12);
+      padding: 1.8rem 2rem;
+    }
+    .filter-card h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.15rem;
+      margin-bottom: 1.2rem;
+      color: var(--charcoal);
+    }
+    .filters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+    .filter-group label {
+      display: block;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: .4rem;
+    }
+    .filter-group select,
+    .filter-group input {
+      width: 100%;
+      padding: .6rem .85rem;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .92rem;
+      color: var(--charcoal);
+      background: var(--cream);
+      outline: none;
+      transition: border-color .2s;
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+    .filter-group select:focus,
+    .filter-group input:focus {
+      border-color: var(--rose);
+    }
+    .select-wrap { position: relative; }
+    .select-wrap::after {
+      content: '▾';
+      position: absolute; right: .85rem; top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: var(--muted);
+      font-size: .85rem;
+    }
+    .filter-actions {
+      display: flex;
+      gap: .75rem;
+      margin-top: 1.2rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .btn-search {
+      background: linear-gradient(135deg, var(--rose-dk), var(--rose));
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: .65rem 1.8rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity .2s, transform .15s;
+    }
+    .btn-search:hover { opacity: .9; transform: translateY(-1px); }
+    .btn-reset {
+      background: none;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: .63rem 1.2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .88rem;
+      color: var(--muted);
+      cursor: pointer;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-reset:hover { border-color: var(--rose); color: var(--rose); }
+    #result-count {
+      margin-left: auto;
+      font-size: .85rem;
+      color: var(--muted);
+    }
+
+    /* ── CARDS ── */
+    .results-section {
+      max-width: 900px;
+      margin: 0 auto 4rem;
+      padding: 0 1.5rem;
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 1.25rem;
+    }
+    .doctor-card {
+      background: var(--card-bg);
+      border-radius: 18px;
+      border: 1.5px solid var(--border);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      transition: box-shadow .2s, transform .2s;
+      animation: fadeUp .4s ease both;
+    }
+    .doctor-card:hover {
+      box-shadow: 0 12px 36px rgba(45,27,46,.13);
+      transform: translateY(-3px);
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: .9rem;
+    }
+    .avatar {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--lav-lt), var(--rose-lt));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fraunces', serif;
+      font-size: 1.25rem;
+      color: var(--rose-dk);
+      flex-shrink: 0;
+      font-weight: 700;
+    }
+    .doctor-name {
+      font-family: 'Fraunces', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      line-height: 1.3;
+    }
+    .doctor-credential {
+      display: inline-block;
+      background: var(--lav-lt);
+      color: #6740A0;
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      padding: .2rem .55rem;
+      border-radius: 6px;
+      margin-top: .25rem;
+    }
+    .doctor-org {
+      font-size: .82rem;
+      color: var(--muted);
+      margin-top: .15rem;
+    }
+
+    .info-row {
+      display: flex;
+      align-items: flex-start;
+      gap: .5rem;
+      font-size: .85rem;
+      color: var(--muted);
+    }
+    .info-row .icon { font-size: 1rem; flex-shrink: 0; margin-top: .05rem; }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+    }
+    .tag {
+      background: var(--rose-lt);
+      color: var(--rose-dk);
+      font-size: .72rem;
+      font-weight: 600;
+      padding: .22rem .65rem;
+      border-radius: 99px;
+    }
+    .tag.mint  { background: #D4F4EC; color: #1E7A5A; }
+    .tag.lav   { background: var(--lav-lt); color: #6740A0; }
+
+    .card-footer {
+      margin-top: auto;
+      padding-top: .5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: .6rem;
+      flex-wrap: wrap;
+    }
+    .btn-site {
+      background: linear-gradient(135deg, var(--rose-dk), var(--rose));
+      color: #fff;
+      text-decoration: none;
+      font-size: .82rem;
+      font-weight: 600;
+      padding: .45rem 1rem;
+      border-radius: 8px;
+      transition: opacity .18s;
+    }
+    .btn-site:hover { opacity: .85; }
+    .accepting-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      font-size: .78rem;
+      font-weight: 600;
+      padding: .4rem .85rem;
+      border-radius: 8px;
+      background: #D4F4EC;
+      color: #1E7A5A;
+    }
+    .accepting-badge.no {
+      background: #FDE8D4;
+      color: #B94A1A;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty {
+      text-align: center;
+      padding: 4rem 1rem;
+      color: var(--muted);
+      display: none;
+    }
+    .empty-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .empty h3 { font-family: 'Fraunces', serif; font-size: 1.3rem; color: var(--charcoal); margin-bottom: .5rem; }
+
+    /* ── DISCLAIMER ── */
+    .disclaimer {
+      max-width: 900px;
+      margin: 0 auto 3rem;
+      padding: 0 1.5rem;
+    }
+    .disclaimer-box {
+      background: var(--lav-lt);
+      border-left: 4px solid var(--lavender);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      font-size: .82rem;
+      color: #5A3E80;
+      line-height: 1.65;
+    }
+    .disclaimer-box strong { display: block; margin-bottom: .3rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem 3rem;
+      font-size: .82rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--rose); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 520px) {
+      .filter-card { padding: 1.2rem; }
+      .filters-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<header class="hero">
+  <div class="hero-ribbon">🌸 Endometriosis Excision Surgeon Finder</div>
+  <h1>Find Your <em>Excision</em> Surgeon<br>in Texas</h1>
+  <p>Laparoscopic excision is the gold-standard treatment for endometriosis. These surgeons specialize in complete excision — not just ablation.</p>
+  <div class="hero-stats">
+    <div class="stat"><strong>10+</strong><span>Verified Surgeons</span></div>
+    <div class="stat"><strong>Texas</strong><span>DFW · Houston · Austin</span></div>
+    <div class="stat"><strong>Free</strong><span>No sign-up needed</span></div>
+  </div>
+</header>
+<div class="wave"></div>
+
+<!-- ── FILTERS ── -->
+<section class="filter-section">
+  <div class="filter-card">
+    <h2>🔍 Filter Surgeons</h2>
+    <div class="filters-grid">
+      <div class="filter-group">
+        <label>City / Region</label>
+        <div class="select-wrap">
+          <select id="filter-city">
+            <option value="">All Texas</option>
+            <option value="Dallas">Dallas</option>
+            <option value="Fort Worth">Fort Worth</option>
+            <option value="Houston">Houston</option>
+            <option value="Austin">Austin</option>
+          </select>
+        </div>
+      </div>
+      <div class="filter-group">
+        <label>Credential</label>
+        <div class="select-wrap">
+          <select id="filter-cred">
+            <option value="">Any Credential</option>
+            <option value="MD">MD</option>
+            <option value="DO">DO</option>
+            <option value="FACOG">FACOG</option>
+          </select>
+        </div>
+      </div>
+      <div class="filter-group">
+        <label>Specialization</label>
+        <div class="select-wrap">
+          <select id="filter-spec">
+            <option value="">Any Focus</option>
+            <option value="Excision Surgery">Excision Surgery</option>
+            <option value="Robotic Surgery">Robotic Surgery</option>
+            <option value="Fertility Preservation">Fertility Preservation</option>
+            <option value="Adolescent Endo">Adolescent Endo</option>
+          </select>
+        </div>
+      </div>
+      <div class="filter-group">
+        <label>Accepting Patients</label>
+        <div class="select-wrap">
+          <select id="filter-accepting">
+            <option value="">Any Status</option>
+            <option value="true">Yes — Accepting</option>
+            <option value="false">No — Waitlist/Closed</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="filter-actions">
+      <button class="btn-search" onclick="applyFilters()">Search Surgeons</button>
+      <button class="btn-reset" onclick="resetFilters()">Reset</button>
+      <span id="result-count"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ── RESULTS ── -->
+<main class="results-section">
+  <div class="cards-grid" id="cards-grid"></div>
+  <div class="empty" id="empty-state">
+    <div class="empty-icon">🌸</div>
+    <h3>No surgeons match your filters</h3>
+    <p>Try removing some filters to see more results.</p>
+  </div>
+</main>
+
+<!-- ── DISCLAIMER ── -->
+<section class="disclaimer">
+  <div class="disclaimer-box">
+    <strong>⚠️ Important Disclaimer</strong>
+    This directory is based on community recommendations, patient experiences, and publicly available information. It is <em>not</em> a medical endorsement or guarantee of outcomes. Always research your options thoroughly, verify insurance coverage directly with the provider, and consult with a healthcare professional before making any medical decisions. Every patient's journey is unique.
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>Data sourced from the <a href="https://www.efhou.org/find-a-doctor" target="_blank">Endometriosis Foundation of Houston</a> and community recommendations.</p>
+  <p style="margin-top:.5rem;">Built with 💜 to help endo warriors find the care they deserve.</p>
+</footer>
+
+<script>
+const DOCTORS = [
+  // ── DFW ──
+  {
+    name: "Dr. Rachael Haverland",
+    credentials: ["MD"],
+    org: "Endometriosis Center of Excellence",
+    city: "Dallas",
+    region: "DFW",
+    address: "Dallas, TX",
+    phone: null,
+    website: "https://endoexcellencecenter.com/",
+    specializations: ["Excision Surgery", "Fertility Preservation"],
+    insurance: ["Most major insurances (verify directly)"],
+    accepting: true,
+    notes: "Mayo Clinic-trained. Holistic, multidisciplinary approach. Avoids Lupron/Orilissa unless necessary.",
+    featured: true,
+  },
+  {
+    name: "Dr. Kimberly Kho",
+    credentials: ["MD", "FACOG"],
+    org: "UT Southwestern Medical Center",
+    city: "Dallas",
+    region: "DFW",
+    address: "Dallas, TX",
+    phone: "214-645-3888",
+    website: "https://utswmed.org/doctors/kimberly-kho/",
+    specializations: ["Excision Surgery", "Robotic Surgery"],
+    insurance: ["UT Southwestern accepts many major plans"],
+    accepting: true,
+    notes: "Academic medical center with a full multidisciplinary team including urology, colorectal surgery & pain medicine.",
+    featured: false,
+  },
+  {
+    name: "Dr. Anthony O'Connell",
+    credentials: ["MD"],
+    org: "Private Practice",
+    city: "Dallas",
+    region: "DFW",
+    address: "Dallas, TX",
+    phone: null,
+    website: "https://www.doctoraj.com/",
+    specializations: ["Excision Surgery"],
+    insurance: ["Contact office for details"],
+    accepting: true,
+    notes: "Highly rated by patients for compassion and results. Consistently praised for pain-free outcomes.",
+    featured: false,
+  },
+  {
+    name: "Dr. Tricia Shimer",
+    credentials: ["MD"],
+    org: "Private Practice",
+    city: "Dallas",
+    region: "DFW",
+    address: "Dallas, TX",
+    phone: "(469) 364-3760",
+    website: "https://tshimerobgyn.com/obgyn-services/gynecology/endometriosis/",
+    specializations: ["Excision Surgery"],
+    insurance: ["Contact office for details"],
+    accepting: true,
+    notes: "Practices radical resection. Experienced in diagnosing and treating all stages of endometriosis.",
+    featured: false,
+  },
+  {
+    name: "Dr. Quanita Crable",
+    credentials: ["MD"],
+    org: "Dr. Crable OB/GYN, P.A.",
+    city: "Dallas",
+    region: "DFW",
+    address: "Dallas, TX",
+    phone: "(469) 364-3764",
+    website: "https://drcrableobgyn.com/",
+    specializations: ["Excision Surgery", "Robotic Surgery"],
+    insurance: ["Contact office for details"],
+    accepting: true,
+    notes: "Board-certified gynecologic surgeon. Uses da Vinci robotic system for minimally invasive resection.",
+    featured: false,
+  },
+  {
+    name: "Dr. John A. Whitfield",
+    credentials: ["MD"],
+    org: "Private Practice",
+    city: "Fort Worth",
+    region: "DFW",
+    address: "Fort Worth, TX",
+    phone: null,
+    website: "https://www.johnwhitfieldmd.com/services/endometriosis",
+    specializations: ["Excision Surgery"],
+    insurance: ["Contact office for details"],
+    accepting: true,
+    notes: "Minimally invasive laparoscopic procedures. Most patients return home same day. Access to clinical trials.",
+    featured: false,
+  },
+  {
+    name: "Dr. Carolyn Quist",
+    credentials: ["MD"],
+    org: "Private Practice",
+    city: "Fort Worth",
+    region: "DFW",
+    address: "Fort Worth, TX",
+    phone: null,
+    website: "https://drcarolynquist.com/gynecological-care/endometriosis/",
+    specializations: ["Excision Surgery"],
+    insurance: ["Contact office for details"],
+    accepting: true,
+    notes: "Years of experience treating hundreds of women. Personalized approach to all stages of endometriosis.",
+    featured: false,
+  },
+  // ── HOUSTON ──
+  {
+    name: "Dr. Xiaoming Guan",
+    credentials: ["MD", "PhD"],
+    org: "Texas Children's / Baylor OB/GYN",
+    city: "Houston",
+    region: "Houston",
+    address: "Houston, TX",
+    phone: null,
+    website: "https://www.texaschildrens.org/find-a-provider/xiaoming-guan-md-phd",
+    specializations: ["Excision Surgery", "Robotic Surgery", "Adolescent Endo"],
+    insurance: ["Most major plans accepted at Baylor"],
+    accepting: true,
+    notes: "Nationally recognized excision specialist. Researcher and educator in minimally invasive gynecologic surgery.",
+    featured: true,
+  },
+  {
+    name: "Dr. Tamisa Koythong",
+    credentials: ["MD"],
+    org: "Texas Children's / Baylor OB/GYN",
+    city: "Houston",
+    region: "Houston",
+    address: "Houston, TX",
+    phone: null,
+    website: "https://www.texaschildrens.org/find-a-provider/tamisa-koythong-md",
+    specializations: ["Excision Surgery", "Adolescent Endo"],
+    insurance: ["Most major plans accepted at Baylor"],
+    accepting: true,
+    notes: "Part of the Texas Children's multidisciplinary endometriosis program.",
+    featured: false,
+  },
+  {
+    name: "Dr. Joseph Nassif",
+    credentials: ["MD", "MBA"],
+    org: "Texas Children's / Baylor OB/GYN",
+    city: "Houston",
+    region: "Houston",
+    address: "Houston, TX",
+    phone: null,
+    website: "https://www.texaschildrens.org/find-a-provider/joseph-nassif-md-mba",
+    specializations: ["Excision Surgery", "Robotic Surgery"],
+    insurance: ["Most major plans accepted at Baylor"],
+    accepting: true,
+    notes: "Minimally invasive gynecologic surgeon at Texas Children's Pavilion for Women.",
+    featured: false,
+  },
+  {
+    name: "Dr. Brooke Thigpen",
+    credentials: ["MD", "FACOG"],
+    org: "Texas Children's / Baylor OB/GYN",
+    city: "Houston",
+    region: "Houston",
+    address: "Houston, TX",
+    phone: null,
+    website: "https://www.texaschildrens.org/find-a-provider/brooke-thigpen-md-facog",
+    specializations: ["Excision Surgery"],
+    insurance: ["Most major plans accepted at Baylor"],
+    accepting: true,
+    notes: "Board-certified fellow of ACOG. Part of the renowned Texas Children's endo surgery team.",
+    featured: false,
+  },
+  {
+    name: "Dr. Mateo Leon Leon",
+    credentials: ["MD"],
+    org: "UT Physicians Women's Center",
+    city: "Houston",
+    region: "Houston",
+    address: "Greater Heights, Houston, TX",
+    phone: null,
+    website: "https://www.utphysicians.com/provider/mateo-g-leon-leon/",
+    specializations: ["Excision Surgery"],
+    insurance: ["UT Physicians plans — verify directly"],
+    accepting: false,
+    notes: "⚠️ Currently NOT accepting new patients.",
+    featured: false,
+  },
+  // ── AUSTIN ──
+  {
+    name: "Dr. Devin Garza",
+    credentials: ["MD", "FACOG"],
+    org: "Texas Robotic Surgery for Women",
+    city: "Austin",
+    region: "Austin",
+    address: "Austin, TX",
+    phone: null,
+    website: "https://texasroboticsurgeryforwomen.com/physicians/profile/Dr-Devin-M-Garza-MD-FACOG",
+    specializations: ["Excision Surgery", "Robotic Surgery", "Fertility Preservation"],
+    insurance: ["Contact office for details"],
+    accepting: true,
+    notes: "Specialist in robotic-assisted excision surgery. Fellowship-trained in minimally invasive gynecologic surgery.",
+    featured: false,
+  },
+];
+
+function getInitials(name) {
+  return name.replace("Dr. ", "").split(" ").map(w => w[0]).slice(0, 2).join("");
+}
+
+function renderCard(doc, i) {
+  const delay = (i % 9) * 0.05;
+  return `
+  <div class="doctor-card" style="animation-delay:${delay}s">
+    <div class="card-header">
+      <div class="avatar">${getInitials(doc.name)}</div>
+      <div>
+        <div class="doctor-name">${doc.name}</div>
+        ${doc.credentials.map(c => `<span class="doctor-credential">${c}</span> `).join("")}
+        <div class="doctor-org">${doc.org}</div>
+      </div>
+    </div>
+
+    <div class="info-row">
+      <span class="icon">📍</span>
+      <span>${doc.address}</span>
+    </div>
+
+    ${doc.phone ? `
+    <div class="info-row">
+      <span class="icon">📞</span>
+      <span><a href="tel:${doc.phone}" style="color:var(--rose-dk);text-decoration:none;">${doc.phone}</a></span>
+    </div>` : ""}
+
+    <div class="info-row">
+      <span class="icon">💡</span>
+      <span>${doc.notes}</span>
+    </div>
+
+    <div class="tags">
+      ${doc.specializations.map(s => {
+        let cls = s === "Robotic Surgery" ? "mint" : s === "Fertility Preservation" ? "lav" : "";
+        return `<span class="tag ${cls}">${s}</span>`;
+      }).join("")}
+    </div>
+
+    <div class="info-row" style="font-size:.78rem;">
+      <span class="icon">🏥</span>
+      <span>${doc.insurance[0]}</span>
+    </div>
+
+    <div class="card-footer">
+      ${doc.website ? `<a class="btn-site" href="${doc.website}" target="_blank" rel="noopener">Visit Website ↗</a>` : ""}
+      <span class="accepting-badge ${doc.accepting ? "" : "no"}">
+        ${doc.accepting ? "✅ Accepting Patients" : "⏳ Not Accepting"}
+      </span>
+    </div>
+  </div>`;
+}
+
+function applyFilters() {
+  const city      = document.getElementById("filter-city").value;
+  const cred      = document.getElementById("filter-cred").value;
+  const spec      = document.getElementById("filter-spec").value;
+  const accepting = document.getElementById("filter-accepting").value;
+
+  const filtered = DOCTORS.filter(d => {
+    if (city && d.city !== city) return false;
+    if (cred && !d.credentials.includes(cred)) return false;
+    if (spec && !d.specializations.includes(spec)) return false;
+    if (accepting === "true"  && !d.accepting) return false;
+    if (accepting === "false" &&  d.accepting) return false;
+    return true;
+  });
+
+  const grid  = document.getElementById("cards-grid");
+  const empty = document.getElementById("empty-state");
+  const count = document.getElementById("result-count");
+
+  if (filtered.length === 0) {
+    grid.innerHTML = "";
+    empty.style.display = "block";
+    count.textContent = "0 results";
+  } else {
+    empty.style.display = "none";
+    grid.innerHTML = filtered.map((d, i) => renderCard(d, i)).join("");
+    count.textContent = `${filtered.length} surgeon${filtered.length > 1 ? "s" : ""} found`;
+  }
+}
+
+function resetFilters() {
+  document.getElementById("filter-city").value = "";
+  document.getElementById("filter-cred").value = "";
+  document.getElementById("filter-spec").value = "";
+  document.getElementById("filter-accepting").value = "";
+  applyFilters();
+}
+
+// initial render
+applyFilters();
+</script>
+</body>
+</html>
