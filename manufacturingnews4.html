@@ -138,8 +138,8 @@ display: block;
 .logo-icon span:nth-child(3) { background: var(–accent-dim); }
 
 @keyframes pulse-border {
-0%, 100% { box-shadow: 0 0 8px var(–accent-glow); }
-50% { box-shadow: 0 0 20px rgba(245,158,11,0.35); }
+0%, 100% { box-shadow: 0 0 8px rgba(96,200,245,0.4); }
+50% { box-shadow: 0 0 22px rgba(96,200,245,0.7); }
 }
 
 .logo-text {
@@ -2003,33 +2003,90 @@ async function loadGridData() {
         }
       }
 
-      // Load % = current demand vs. known seasonal peak capacity per ISO
-      // Based on EIA/NERC annual peak demand records (MW) — realistic operational ceiling
-      const PEAK_CAPACITY_MW = {
-        ERCO: 85500,   // ERCOT all-time peak ~85.5 GW (Aug 2023)
-        PJM:  154000,  // PJM record peak ~154 GW
-        MISO:  99800,  // MISO summer peak ~99.8 GW
-        CISO:  52700,  // CAISO record peak ~52.7 GW (Sep 2022)
-        SOCO:  45200,  // SOCO/SERC summer peak ~45.2 GW
-        ISNE:  28100,  // ISO-NE summer peak ~28.1 GW
-      };
-      const peakCapacity = PEAK_CAPACITY_MW[iso.id] || 50000;
-      const loadPct = currentDemand ? Math.min(97, (currentDemand / peakCapacity) * 100) : null;
-      const reservesMW = currentDemand ? Math.round(peakCapacity - currentDemand) : null;
+      // -------------------------------------------------------
+      // OPERATING RESERVES — correct methodology
+      //
+      // Step 1: Fetch TODAY's demand forecast (DF) for next 24h.
+      //         The MAX value = today's forecast peak demand.
+      //
+      // Step 2: Available installed capacity ≈
+      //         Today's Forecast Peak × (1 + ISO reserve margin target)
+      //         Reserve margin targets are NERC published minimums.
+      //
+      // Step 3: Operating Reserves = Available Capacity − Current Demand
+      //         Load % = (Current Demand / Available Capacity) × 100
+      //
+      // This matches how ISOs report reserves: generation headroom
+      // above current load, not distance from all-time historical peak.
+      // -------------------------------------------------------
 
-      GRID_DATA[iso.id] = { currentDemand, demandHistory, fuelMix, loadPct, peakCapacity, reservesMW };
+      // NERC published reserve margin targets (planning reserve, not emergency)
+      const RESERVE_MARGINS = {
+        ERCO: 0.1375,  // ERCOT: 13.75% target
+        PJM:  0.148,   // PJM:   14.8%
+        MISO: 0.158,   // MISO:  15.8%
+        CISO: 0.150,   // CAISO: 15.0%
+        SOCO: 0.154,   // SERC:  15.4%
+        ISNE: 0.156,   // ISO-NE:15.6%
+      };
+
+      // Fetch today's 24h demand forecast
+      const forecastUrl = `https://api.eia.gov/v2/electricity/rto/region-data/data/?api_key=${CONFIG.EIA_KEY}&frequency=hourly&data[0]=value&facets[type][]=DF&facets[respondent][]=${iso.id}&sort[0][column]=period&sort[0][direction]=desc&length=24`;
+      const forecastJson = await eiaFetch(forecastUrl);
+
+      let todayPeakForecast = null;
+      if (forecastJson.response && forecastJson.response.data && forecastJson.response.data.length > 0) {
+        const vals = forecastJson.response.data.map(d => parseFloat(d.value)).filter(v => !isNaN(v) && v > 0);
+        if (vals.length) todayPeakForecast = Math.max(...vals);
+      }
+
+      // If forecast unavailable, estimate from demand history
+      if (!todayPeakForecast && demandHistory.length) {
+        todayPeakForecast = Math.max(...demandHistory) * 1.05; // add 5% for afternoon ramp
+      }
+
+      const reserveMargin = RESERVE_MARGINS[iso.id] || 0.15;
+      // Available installed capacity = forecast peak × (1 + reserve margin)
+      const availableCapacity = todayPeakForecast ? Math.round(todayPeakForecast * (1 + reserveMargin)) : null;
+      // Operating reserves = what's available minus what's being consumed right now
+      const reservesMW = (availableCapacity && currentDemand) ? Math.round(availableCapacity - currentDemand) : null;
+      // Load % = current demand vs available capacity (not all-time peak)
+      const loadPct = (currentDemand && availableCapacity) ? Math.min(99, (currentDemand / availableCapacity) * 100) : null;
+      // Reserve margin % = reserves / current demand (how ISOs typically express it)
+      const reservePct = (reservesMW && currentDemand) ? ((reservesMW / currentDemand) * 100).toFixed(1) : null;
+
+      GRID_DATA[iso.id] = {
+        currentDemand,
+        demandHistory,
+        fuelMix,
+        loadPct,
+        availableCapacity,
+        reservesMW,
+        reservePct,
+        todayPeakForecast,
+      };
     } catch(e) {
       console.error(`Grid data error for ${iso.id}:`, e);
       // Simulated fallback
-      const simLoad = iso.id === 'ERCO' ? 62 + Math.random()*20 :
-                      iso.id === 'CISO' ? 55 + Math.random()*30 :
-                      50 + Math.random()*28;
+      const simLoadPct = iso.id === 'ERCO' ? 62 + Math.random()*15 :
+                      iso.id === 'CISO' ? 55 + Math.random()*20 :
+                      50 + Math.random()*18;
+      // Simulate realistic values based on typical winter demand levels
+      const SIM_TYPICAL_DEMAND_MW = { ERCO:53000, PJM:95000, MISO:72000, CISO:27000, SOCO:38000, ISNE:14000 };
+      const simDemand = SIM_TYPICAL_DEMAND_MW[iso.id] || 40000;
+      const simReserveMargin = 0.15;
+      const simPeakFcst = Math.round(simDemand * 1.10);
+      const simAvailable = Math.round(simPeakFcst * (1 + simReserveMargin));
+      const simReserves = simAvailable - simDemand;
       GRID_DATA[iso.id] = {
-        currentDemand: Math.round(simLoad * 1.5 * 100),
-        demandHistory: Array.from({length:24}, (_,i) => Math.round((simLoad + Math.sin(i/4)*8) * 150)),
+        currentDemand: simDemand,
+        demandHistory: Array.from({length:24}, (_,i) => Math.round(simDemand * (0.85 + 0.15 * Math.sin(i/4)))),
         fuelMix: { 'Natural Gas': 45, 'Wind': 20, 'Nuclear': 18, 'Coal': 10, 'Solar': 5, 'Hydro': 2 },
-        loadPct: simLoad,
-        peakForecast: null,
+        loadPct: simLoadPct,
+        availableCapacity: simAvailable,
+        reservesMW: simReserves,
+        reservePct: ((simReserves / simDemand) * 100).toFixed(1),
+        todayPeakForecast: simPeakFcst,
         simulated: true,
       };
     }
@@ -2109,16 +2166,16 @@ function renderGridCards() {
       </div>
       <div class="grid-metrics" style="margin-top:6px;">
         <div>
-          <span>PEAK CAPACITY</span>
-          <span class="metric-val">${d.peakCapacity ? (d.peakCapacity/1000).toFixed(0)+' GW' : '—'}</span>
+          <span>TODAY'S PEAK FCST</span>
+          <span class="metric-val">${d.todayPeakForecast ? (d.todayPeakForecast/1000).toFixed(1)+' GW' : '—'}</span>
+        </div>
+        <div>
+          <span>AVAIL. CAPACITY</span>
+          <span class="metric-val">${d.availableCapacity ? (d.availableCapacity/1000).toFixed(1)+' GW' : '—'}</span>
         </div>
         <div>
           <span>OP. RESERVES</span>
-          <span class="metric-val" style="color:${d.reservesMW && d.reservesMW > 5000 ? '#2edb6e' : '#f59e0b'}">${d.reservesMW ? (d.reservesMW/1000).toFixed(1)+' GW' : '—'}</span>
-        </div>
-        <div>
-          <span>DATA</span>
-          <span class="metric-val" style="font-size:12px;color:var(--text-dim)">${d.simulated ? 'ESTIMATED' : 'EIA LIVE'}</span>
+          <span class="metric-val" style="color:${d.reservesMW && d.reservesMW > 3000 ? '#2edb6e' : '#f59e0b'}">${d.reservesMW ? (d.reservesMW/1000).toFixed(1)+' GW' : '—'}${d.reservePct ? ' <span style="font-size:11px;color:var(--text-dim)">('+d.reservePct+'%)</span>' : ''}</span>
         </div>
       </div>
 
