@@ -1271,7 +1271,31 @@
       <div class="status-pill" id="pill-grid"><span class="dot"></span> GRID DATA: CONNECTING...</div>
     </div>
 
-    <div class="grid-4">
+    <!-- 1. Grid summary first -->
+    <div class="section-header" style="margin-top:8px;">
+      <div class="section-title" style="font-size:20px;">GRID <span>ALERTS</span></div>
+      <div class="section-meta">REGIONAL OPERATORS</div>
+    </div>
+    <div class="grid-4" id="overview-grid-cards">
+      <div class="loading col-span-4"><div class="spinner"></div>LOADING GRID DATA...</div>
+    </div>
+
+    <!-- 2. Charts -->
+    <div class="grid-2" style="margin-top:8px;">
+      <div class="chart-card fade-in">
+        <div class="chart-title">Electricity Prices by State</div>
+        <div class="chart-subtitle">RETAIL RATE ¢/kWh — EIA MONTHLY DATA</div>
+        <canvas id="elec-chart" height="200"></canvas>
+      </div>
+      <div class="chart-card fade-in">
+        <div class="chart-title">Diesel Fuel Prices by Region</div>
+        <div class="chart-subtitle">WEEKLY RETAIL — EIA DATA</div>
+        <canvas id="diesel-chart" height="200"></canvas>
+      </div>
+    </div>
+
+    <!-- 3. Fact cards last -->
+    <div class="grid-4" style="margin-top:8px;">
       <div class="card fade-in">
         <div class="card-label">Avg. Retail Electricity <span class="unit">¢/kWh</span></div>
         <div class="card-value large" id="ov-elec-avg">—</div>
@@ -1292,28 +1316,6 @@
         <div class="card-value large" id="ov-news-count">—</div>
         <div class="card-sub">Plastics &amp; manufacturing regulatory</div>
       </div>
-    </div>
-
-    <div class="grid-2">
-      <div class="chart-card fade-in">
-        <div class="chart-title">Electricity Prices by State</div>
-        <div class="chart-subtitle">RETAIL RATE ¢/kWh — EIA MONTHLY DATA</div>
-        <canvas id="elec-chart" height="200"></canvas>
-      </div>
-      <div class="chart-card fade-in">
-        <div class="chart-title">Diesel Fuel Prices by Region</div>
-        <div class="chart-subtitle">WEEKLY RETAIL — EIA DATA</div>
-        <canvas id="diesel-chart" height="200"></canvas>
-      </div>
-    </div>
-
-    <div class="section-header" style="margin-top: 8px;">
-      <div class="section-title" style="font-size:20px;">GRID <span>ALERTS</span></div>
-      <div class="section-meta">REGIONAL OPERATORS</div>
-    </div>
-
-    <div class="grid-4" id="overview-grid-cards">
-      <div class="loading col-span-4"><div class="spinner"></div>LOADING GRID DATA...</div>
     </div>
   </div>
 
@@ -1414,7 +1416,7 @@
     <div class="chart-card" style="margin-bottom:16px;">
       <div class="chart-title">Regional Diesel — Weekly Prices</div>
       <div class="chart-subtitle">$/GALLON — EIA WEEKLY RETAIL BY REGION</div>
-      <canvas id="diesel-trend-chart" height="180"></canvas>
+      <canvas id="diesel-trend-chart" height="220"></canvas>
     </div>
     <div id="diesel-table" style="margin-bottom:24px;">
       <div class="loading"><div class="spinner"></div>LOADING...</div>
