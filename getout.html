@@ -4,33 +4,44 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Safe Harbor Texas — Women's Resource Hub</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --sage:       #7a9e87;
-      --sage-light: #b8d4c0;
-      --sage-pale:  #e8f2ec;
-      --terra:      #c4724a;
-      --terra-light:#e8a882;
-      --cream:      #faf6f0;
-      --warm-white: #fff9f4;
-      --brown:      #5c3d2e;
-      --brown-light:#8a6252;
-      --gold:       #c9973a;
-      --text-main:  #3a2e28;
-      --text-soft:  #7a6a62;
-      --card-bg:    #ffffff;
-      --border:     #e8ddd6;
-      --shadow:     0 4px 24px rgba(90,60,40,0.10);
-      --shadow-sm:  0 2px 10px rgba(90,60,40,0.07);
-      --radius:     16px;
-      --radius-sm:  10px;
+      --sage:        #7a9e87;
+      --sage-dark:   #5a7e67;
+      --sage-light:  #b8d4c0;
+      --sage-pale:   #e8f2ec;
+      --terra:       #c4724a;
+      --terra-light: #e8a882;
+      --terra-pale:  #fceee6;
+      --cream:       #faf6f0;
+      --warm-white:  #fff9f4;
+      --brown:       #5c3d2e;
+      --brown-light: #8a6252;
+      --gold:        #c9973a;
+      --gold-pale:   #fdf4e3;
+      --blue:        #5a7ab8;
+      --blue-pale:   #e8eef7;
+      --rose:        #c47a8a;
+      --rose-pale:   #fceef2;
+      --teal:        #4a8e8e;
+      --teal-pale:   #e4f2f2;
+      --plum:        #8e6aa0;
+      --plum-pale:   #f2eef7;
+      --red:         #c43a3a;
+      --red-pale:    #fce8e8;
+      --text-main:   #3a2e28;
+      --text-soft:   #7a6a62;
+      --card-bg:     #ffffff;
+      --border:      #e8ddd6;
+      --shadow:      0 4px 24px rgba(90,60,40,0.10);
+      --shadow-sm:   0 2px 10px rgba(90,60,40,0.07);
+      --radius:      16px;
+      --radius-sm:   10px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
-
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--cream);
@@ -38,7 +49,42 @@
       min-height: 100vh;
     }
 
-    /* ── EMERGENCY BANNER ── */
+    /* ─── QUICK EXIT ─── */
+    #quickExit {
+      position: fixed;
+      bottom: 20px;
+      right: 16px;
+      z-index: 9999;
+      background: var(--red);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 13px 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(196,58,58,0.45);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: transform 0.15s, box-shadow 0.15s;
+      text-transform: uppercase;
+      animation: pulseBtn 3s ease-in-out infinite;
+    }
+    #quickExit:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 6px 28px rgba(196,58,58,0.55);
+      animation: none;
+    }
+    @keyframes pulseBtn {
+      0%,100% { box-shadow: 0 4px 20px rgba(196,58,58,0.45); }
+      50%      { box-shadow: 0 4px 28px rgba(196,58,58,0.7); }
+    }
+    .exit-icon { font-size: 1rem; }
+
+    /* ─── EMERGENCY BAR ─── */
     .emergency-bar {
       background: var(--terra);
       color: #fff;
@@ -47,14 +93,31 @@
       font-size: 0.82rem;
       font-weight: 500;
       letter-spacing: 0.02em;
+      line-height: 1.7;
     }
     .emergency-bar a { color: #ffe8dc; font-weight: 700; text-decoration: none; }
     .emergency-bar a:hover { text-decoration: underline; }
 
-    /* ── HEADER ── */
+    /* ─── SAFETY NOTICE ─── */
+    .safety-notice {
+      background: var(--brown);
+      color: #f5ede6;
+      text-align: center;
+      padding: 8px 16px;
+      font-size: 0.75rem;
+      letter-spacing: 0.01em;
+      line-height: 1.6;
+    }
+    .safety-notice a {
+      color: var(--terra-light);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    /* ─── HEADER ─── */
     header {
       background: linear-gradient(135deg, #fff9f4 0%, #e8f2ec 100%);
-      padding: 32px 20px 28px;
+      padding: 28px 20px 24px;
       text-align: center;
       border-bottom: 1px solid var(--border);
       position: relative;
@@ -67,6 +130,7 @@
       width: 220px; height: 220px;
       background: radial-gradient(circle, rgba(122,158,135,0.18) 0%, transparent 70%);
       border-radius: 50%;
+      pointer-events: none;
     }
     header::after {
       content: '';
@@ -75,6 +139,7 @@
       width: 160px; height: 160px;
       background: radial-gradient(circle, rgba(196,114,74,0.12) 0%, transparent 70%);
       border-radius: 50%;
+      pointer-events: none;
     }
     .logo-mark {
       display: inline-flex;
@@ -83,15 +148,15 @@
       margin-bottom: 8px;
     }
     .logo-icon {
-      width: 36px; height: 36px;
+      width: 34px; height: 34px;
       background: var(--sage);
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
     .logo-text {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.0rem;
+      font-size: 0.95rem;
       font-weight: 600;
       color: var(--sage);
       letter-spacing: 0.08em;
@@ -99,7 +164,7 @@
     }
     h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.8rem, 6vw, 2.8rem);
+      font-size: clamp(1.8rem, 6vw, 2.6rem);
       font-weight: 700;
       color: var(--brown);
       line-height: 1.15;
@@ -107,16 +172,30 @@
     }
     h1 span { color: var(--sage); }
     .header-sub {
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       color: var(--text-soft);
       max-width: 400px;
       margin: 0 auto;
       line-height: 1.6;
+      font-style: italic;
+    }
+    .header-stat {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 14px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 5px 14px;
+      font-size: 0.75rem;
+      color: var(--brown-light);
+      font-weight: 500;
     }
 
-    /* ── SEARCH ── */
+    /* ─── SEARCH ─── */
     .search-section {
-      padding: 20px 16px 0;
+      padding: 18px 16px 0;
       max-width: 560px;
       margin: 0 auto;
     }
@@ -136,12 +215,12 @@
     }
     .search-box input {
       flex: 1;
-      border: none;
-      outline: none;
+      border: none; outline: none;
       font-family: 'DM Sans', sans-serif;
       font-size: 0.95rem;
       color: var(--text-main);
       background: transparent;
+      min-width: 0;
     }
     .search-box input::placeholder { color: var(--text-soft); }
     .search-btn {
@@ -149,26 +228,26 @@
       color: #fff;
       border: none;
       border-radius: 50px;
-      padding: 10px 20px;
+      padding: 10px 18px;
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       font-weight: 600;
       cursor: pointer;
       transition: background 0.2s, transform 0.1s;
       white-space: nowrap;
     }
-    .search-btn:hover { background: #6a8e77; }
+    .search-btn:hover { background: var(--sage-dark); }
     .search-btn:active { transform: scale(0.97); }
     .search-hint {
       text-align: center;
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       color: var(--text-soft);
-      margin-top: 8px;
+      margin-top: 7px;
     }
 
-    /* ── CATEGORY TABS ── */
+    /* ─── CATEGORY TABS ─── */
     .categories {
-      padding: 20px 16px 0;
+      padding: 16px 16px 0;
       max-width: 560px;
       margin: 0 auto;
       overflow-x: auto;
@@ -178,7 +257,7 @@
     .categories::-webkit-scrollbar { display: none; }
     .cat-scroll {
       display: flex;
-      gap: 8px;
+      gap: 7px;
       padding-bottom: 4px;
       width: max-content;
       min-width: 100%;
@@ -186,82 +265,124 @@
     .cat-btn {
       display: flex;
       align-items: center;
-      gap: 6px;
-      padding: 8px 14px;
+      gap: 5px;
+      padding: 7px 13px;
       border-radius: 50px;
       border: 1.5px solid var(--border);
       background: var(--card-bg);
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       font-weight: 500;
       color: var(--text-soft);
       cursor: pointer;
       white-space: nowrap;
       transition: all 0.2s;
     }
-    .cat-btn .icon { font-size: 1rem; }
     .cat-btn:hover { border-color: var(--sage-light); color: var(--sage); }
-    .cat-btn.active {
-      background: var(--sage);
-      border-color: var(--sage);
-      color: #fff;
-    }
-    .cat-btn.active .icon { filter: brightness(2); }
+    .cat-btn.active { background: var(--sage); border-color: var(--sage); color: #fff; }
 
-    /* ── MAIN CONTENT ── */
+    /* ─── MAIN ─── */
     main {
       max-width: 560px;
       margin: 0 auto;
-      padding: 20px 16px 80px;
+      padding: 16px 16px 120px;
     }
 
-    /* ── SECTION HEADER ── */
+    /* ─── SECTION HEADER ─── */
     .section-header {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin: 28px 0 14px;
+      margin: 26px 0 12px;
     }
     .section-icon {
-      width: 34px; height: 34px; min-width: 34px;
-      border-radius: 10px;
+      width: 32px; height: 32px; min-width: 32px;
+      border-radius: 9px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
-    .section-icon.green { background: var(--sage-pale); }
-    .section-icon.terra { background: #fceee6; }
-    .section-icon.gold  { background: #fdf4e3; }
-    .section-icon.blue  { background: #e8eef7; }
-    .section-icon.rose  { background: #fceef2; }
+    .si-green  { background: var(--sage-pale); }
+    .si-terra  { background: var(--terra-pale); }
+    .si-gold   { background: var(--gold-pale); }
+    .si-blue   { background: var(--blue-pale); }
+    .si-rose   { background: var(--rose-pale); }
+    .si-teal   { background: var(--teal-pale); }
+    .si-plum   { background: var(--plum-pale); }
+    .si-red    { background: var(--red-pale); }
     .section-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 700;
       color: var(--brown);
     }
     .section-count {
       margin-left: auto;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 600;
       color: var(--text-soft);
       background: var(--border);
       padding: 2px 8px;
       border-radius: 20px;
+      white-space: nowrap;
     }
 
-    /* ── CARDS ── */
+    /* ─── DISCLAIMER ─── */
+    .disclaimer {
+      background: var(--gold-pale);
+      border: 1px solid #e8cc90;
+      border-radius: var(--radius-sm);
+      padding: 11px 14px;
+      font-size: 0.76rem;
+      color: #7a6030;
+      line-height: 1.55;
+      margin: 14px 0 6px;
+    }
+
+    /* ─── CALLOUT BANNER ─── */
+    .callout-banner {
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 14px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      animation: fadeUp 0.35s ease both;
+    }
+    .callout-banner.green { background: var(--sage-pale); border: 1px solid var(--sage-light); }
+    .callout-banner.terra { background: var(--terra-pale); border: 1px solid #e8b8a0; }
+    .callout-banner.plum  { background: var(--plum-pale); border: 1px solid #c8b0d8; }
+    .callout-banner.teal  { background: var(--teal-pale); border: 1px solid #a0c8c8; }
+    .callout-icon { font-size: 1.4rem; line-height: 1; padding-top: 1px; }
+    .callout-text { flex: 1; }
+    .callout-text strong {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--brown);
+      margin-bottom: 3px;
+    }
+    .callout-text p {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      line-height: 1.55;
+    }
+    .callout-text a { color: var(--terra); text-decoration: none; font-weight: 600; }
+    .callout-text a:hover { text-decoration: underline; }
+
+    /* ─── CARDS ─── */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 18px;
-      margin-bottom: 12px;
+      padding: 16px;
+      margin-bottom: 11px;
       box-shadow: var(--shadow-sm);
       transition: transform 0.15s, box-shadow 0.15s;
       animation: fadeUp 0.35s ease both;
+      position: relative;
     }
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(12px); }
+      from { opacity: 0; transform: translateY(10px); }
       to   { opacity: 1; transform: translateY(0); }
     }
     .card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
@@ -269,765 +390,1394 @@
     .card-top {
       display: flex;
       align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 10px;
+      gap: 10px;
+      margin-bottom: 8px;
     }
     .card-dot {
-      width: 8px; height: 8px; min-width: 8px;
+      width: 7px; height: 7px; min-width: 7px;
       border-radius: 50%;
-      margin-top: 7px;
+      margin-top: 6px;
     }
-    .card-dot.green { background: var(--sage); }
-    .card-dot.terra { background: var(--terra); }
-    .card-dot.gold  { background: var(--gold); }
-    .card-dot.blue  { background: #6a8ec4; }
-    .card-dot.rose  { background: #c47a8a; }
+    .dot-green { background: var(--sage); }
+    .dot-terra { background: var(--terra); }
+    .dot-gold  { background: var(--gold); }
+    .dot-blue  { background: var(--blue); }
+    .dot-rose  { background: var(--rose); }
+    .dot-teal  { background: var(--teal); }
+    .dot-plum  { background: var(--plum); }
 
+    .card-info { flex: 1; min-width: 0; }
     .card-name {
       font-weight: 600;
-      font-size: 0.97rem;
+      font-size: 0.93rem;
       color: var(--brown);
       line-height: 1.3;
     }
     .card-location {
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       color: var(--text-soft);
       margin-top: 2px;
     }
-    .card-badge {
+    .card-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
       margin-left: auto;
-      font-size: 0.68rem;
-      font-weight: 600;
-      padding: 3px 8px;
+      flex-shrink: 0;
+    }
+    .badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 2px 7px;
       border-radius: 20px;
       white-space: nowrap;
+      letter-spacing: 0.02em;
     }
-    .badge-24 { background: #e8f2ec; color: var(--sage); }
-    .badge-free { background: #fdf4e3; color: var(--gold); }
-    .badge-legal { background: #e8eef7; color: #5a7ab8; }
-    .badge-hotline { background: #fceee6; color: var(--terra); }
+    .b-24h   { background: var(--sage-pale); color: var(--sage-dark); }
+    .b-free  { background: var(--gold-pale); color: #7a5a10; }
+    .b-legal { background: var(--blue-pale); color: #3a5a98; }
+    .b-hot   { background: var(--terra-pale); color: #8a3a1a; }
+    .b-pet   { background: #f0ffe8; color: #3a6a20; border: 1px solid #b8d890; }
+    .b-bilingual { background: var(--teal-pale); color: #2a5e5e; }
+    .b-imm   { background: var(--plum-pale); color: #5a3a72; }
+    .b-trans { background: #fff0e8; color: #8a4820; border: 1px solid #f0c8a8; }
+    .b-rural { background: #f8f0e0; color: #6a4820; border: 1px solid #d8b870; }
 
     .card-desc {
-      font-size: 0.83rem;
+      font-size: 0.8rem;
       color: var(--text-soft);
       line-height: 1.55;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
-
     .card-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 7px;
+      gap: 6px;
     }
     .action-btn {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      padding: 7px 13px;
+      gap: 4px;
+      padding: 6px 12px;
       border-radius: 50px;
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.8rem;
+      font-size: 0.76rem;
       font-weight: 500;
       text-decoration: none;
       cursor: pointer;
       transition: all 0.15s;
       border: 1.5px solid transparent;
     }
-    .action-btn.call {
-      background: var(--sage-pale);
-      color: var(--sage);
-      border-color: var(--sage-light);
-    }
-    .action-btn.call:hover { background: var(--sage); color: #fff; }
-    .action-btn.web {
-      background: #fceee6;
-      color: var(--terra);
-      border-color: var(--terra-light);
-    }
-    .action-btn.web:hover { background: var(--terra); color: #fff; }
-    .action-btn.text {
-      background: #fdf4e3;
-      color: var(--gold);
-      border-color: #e8cc90;
-    }
-    .action-btn.text:hover { background: var(--gold); color: #fff; }
-    .action-btn.map {
-      background: #e8eef7;
-      color: #5a7ab8;
-      border-color: #b8cce4;
-    }
-    .action-btn.map:hover { background: #5a7ab8; color: #fff; }
+    .ab-call { background: var(--sage-pale); color: var(--sage-dark); border-color: var(--sage-light); }
+    .ab-call:hover { background: var(--sage); color: #fff; }
+    .ab-web  { background: var(--terra-pale); color: var(--terra); border-color: var(--terra-light); }
+    .ab-web:hover { background: var(--terra); color: #fff; }
+    .ab-text { background: var(--gold-pale); color: #7a5a10; border-color: #e8cc90; }
+    .ab-text:hover { background: var(--gold); color: #fff; }
+    .ab-map  { background: var(--blue-pale); color: var(--blue); border-color: #b8cce4; }
+    .ab-map:hover { background: var(--blue); color: #fff; }
 
-    /* ── INFO CARDS (rights/legal) ── */
+    /* ─── INFO CARDS (accordion) ─── */
     .info-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       overflow: hidden;
-      margin-bottom: 12px;
+      margin-bottom: 11px;
       box-shadow: var(--shadow-sm);
       animation: fadeUp 0.35s ease both;
     }
     .info-card-header {
-      padding: 14px 18px;
+      padding: 13px 16px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: space-between;
       user-select: none;
+      gap: 8px;
     }
     .info-card-header:hover { background: var(--sage-pale); }
-    .info-header-left {
-      display: flex; align-items: center; gap: 10px;
-    }
+    .info-header-left { display: flex; align-items: center; gap: 9px; }
     .info-card-title {
       font-weight: 600;
-      font-size: 0.93rem;
+      font-size: 0.9rem;
       color: var(--brown);
+      line-height: 1.3;
     }
     .info-card-toggle {
-      font-size: 1rem;
+      font-size: 0.9rem;
       color: var(--text-soft);
       transition: transform 0.25s;
+      flex-shrink: 0;
     }
     .info-card.open .info-card-toggle { transform: rotate(180deg); }
     .info-card-body {
       display: none;
-      padding: 0 18px 16px;
-      font-size: 0.83rem;
+      padding: 0 16px 14px;
+      font-size: 0.8rem;
       color: var(--text-soft);
       line-height: 1.65;
     }
     .info-card.open .info-card-body { display: block; }
-    .info-card-body ol, .info-card-body ul {
-      padding-left: 18px;
-      margin-top: 8px;
-    }
-    .info-card-body li { margin-bottom: 6px; }
+    .info-card-body ol, .info-card-body ul { padding-left: 18px; margin-top: 8px; }
+    .info-card-body li { margin-bottom: 5px; }
     .info-card-body strong { color: var(--brown); }
     .info-card-body .note {
       margin-top: 10px;
-      padding: 10px 12px;
+      padding: 9px 12px;
       background: var(--sage-pale);
       border-left: 3px solid var(--sage);
       border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
     }
-    .info-card-body a {
-      color: var(--terra);
-      text-decoration: none;
+    .info-card-body .note-gold {
+      background: var(--gold-pale);
+      border-left-color: var(--gold);
     }
+    .info-card-body .note-terra {
+      background: var(--terra-pale);
+      border-left-color: var(--terra);
+    }
+    .info-card-body a { color: var(--terra); text-decoration: none; font-weight: 500; }
     .info-card-body a:hover { text-decoration: underline; }
 
-    /* ── NO RESULTS ── */
-    .no-results {
-      text-align: center;
-      padding: 40px 20px;
+    /* ─── CHECKLIST ─── */
+    .checklist {
+      margin-top: 10px;
+    }
+    .check-category {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--brown);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin: 12px 0 6px;
+    }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .check-item:last-child { border-bottom: none; }
+    .check-item input[type="checkbox"] {
+      width: 16px; height: 16px; min-width: 16px;
+      margin-top: 1px;
+      accent-color: var(--sage);
+      cursor: pointer;
+    }
+    .check-item label {
+      font-size: 0.8rem;
+      color: var(--text-main);
+      cursor: pointer;
+      line-height: 1.45;
+    }
+    .check-item.checked label {
+      text-decoration: line-through;
       color: var(--text-soft);
     }
-    .no-results .emoji { font-size: 2.5rem; margin-bottom: 10px; }
-    .no-results p { font-size: 0.9rem; line-height: 1.6; }
-
-    /* ── COMING SOON BANNER ── */
-    .coming-soon {
-      background: linear-gradient(135deg, var(--sage-pale), #fdf4e3);
-      border: 1px dashed var(--sage-light);
-      border-radius: var(--radius);
-      padding: 20px;
-      text-align: center;
-      margin-top: 32px;
+    .checklist-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
     }
-    .coming-soon h3 {
+    .cl-btn {
+      flex: 1;
+      padding: 9px;
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border: 1.5px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text-soft);
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: center;
+    }
+    .cl-btn:hover { background: var(--sage-pale); border-color: var(--sage-light); color: var(--sage-dark); }
+    .cl-btn.primary { background: var(--sage); border-color: var(--sage); color: #fff; }
+    .cl-btn.primary:hover { background: var(--sage-dark); }
+    .checklist-progress {
+      margin-top: 12px;
+      font-size: 0.75rem;
+      color: var(--text-soft);
+      text-align: center;
+    }
+    .progress-bar {
+      height: 5px;
+      background: var(--border);
+      border-radius: 10px;
+      margin-top: 6px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--sage);
+      border-radius: 10px;
+      transition: width 0.3s ease;
+    }
+
+    /* ─── CVC BOX ─── */
+    .cvc-box {
+      background: linear-gradient(135deg, var(--gold-pale), #fff);
+      border: 1.5px solid #d8aa60;
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-bottom: 14px;
+      animation: fadeUp 0.35s ease both;
+    }
+    .cvc-title {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.1rem;
       font-weight: 700;
       color: var(--brown);
       margin-bottom: 6px;
     }
-    .coming-soon p {
-      font-size: 0.82rem;
+    .cvc-sub {
+      font-size: 0.79rem;
       color: var(--text-soft);
+      line-height: 1.6;
       margin-bottom: 12px;
     }
-    .state-pills {
-      display: flex;
-      flex-wrap: wrap;
+    .cvc-covers {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 6px;
-      justify-content: center;
+      margin: 10px 0;
     }
-    .state-pill {
-      padding: 4px 12px;
-      border-radius: 20px;
+    .cvc-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
       font-size: 0.75rem;
+      color: var(--text-main);
+    }
+    .cvc-dot {
+      width: 6px; height: 6px; min-width: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    /* ─── NO RESULTS ─── */
+    .no-results {
+      text-align: center;
+      padding: 36px 20px;
+      color: var(--text-soft);
+    }
+    .no-results .emoji { font-size: 2.2rem; margin-bottom: 10px; }
+    .no-results p { font-size: 0.88rem; line-height: 1.65; }
+    .no-results a { color: var(--terra); font-weight: 600; text-decoration: none; }
+
+    /* ─── COMING SOON ─── */
+    .coming-soon {
+      background: linear-gradient(135deg, var(--sage-pale), var(--gold-pale));
+      border: 1px dashed var(--sage-light);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+      margin-top: 30px;
+    }
+    .coming-soon h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--brown);
+      margin-bottom: 5px;
+    }
+    .coming-soon p { font-size: 0.8rem; color: var(--text-soft); margin-bottom: 12px; }
+    .state-pills { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; }
+    .state-pill {
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.72rem;
       font-weight: 500;
       background: #fff;
       border: 1px solid var(--border);
       color: var(--text-soft);
     }
 
-    /* ── FOOTER ── */
+    /* ─── FOOTER ─── */
     footer {
       text-align: center;
-      padding: 20px 16px;
-      font-size: 0.75rem;
+      padding: 18px 16px;
+      font-size: 0.73rem;
       color: var(--text-soft);
       border-top: 1px solid var(--border);
       background: var(--warm-white);
     }
     footer a { color: var(--sage); text-decoration: none; }
 
-    /* ── HIDDEN ── */
     .hidden { display: none !important; }
 
-    /* ── DISCLAIMER ── */
-    .disclaimer {
-      background: #fdf4e3;
-      border: 1px solid #e8cc90;
-      border-radius: var(--radius-sm);
-      padding: 12px 14px;
-      font-size: 0.78rem;
-      color: #7a6030;
-      line-height: 1.5;
-      margin: 16px 0;
+    /* ─── SECTION DIVIDER ─── */
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 22px 0 0;
     }
   </style>
 </head>
 <body>
 
-<!-- EMERGENCY BAR -->
+<!-- ════════════════════════════════
+     QUICK EXIT BUTTON
+════════════════════════════════ -->
+<button id="quickExit" onclick="quickExit()" title="Quickly leave this page">
+  <span class="exit-icon">✕</span> Quick Exit
+</button>
+
+<!-- ════════════════════════════════
+     EMERGENCY BAR
+════════════════════════════════ -->
 <div class="emergency-bar">
-  🆘 In immediate danger? Call <a href="tel:911">911</a> &nbsp;|&nbsp;
-  National DV Hotline: <a href="tel:18007997233">1-800-799-7233</a> &nbsp;|&nbsp;
-  Text "START" to <a href="sms:88788">88788</a>
+  🆘 In danger now? Call <a href="tel:911">911</a> &nbsp;|&nbsp;
+  DV Hotline 24/7: <a href="tel:18007997233">1-800-799-7233</a> &nbsp;|&nbsp;
+  Text START to <a href="sms:88788">88788</a>
 </div>
 
-<!-- HEADER -->
+<!-- ════════════════════════════════
+     SAFETY NOTICE
+════════════════════════════════ -->
+<div class="safety-notice">
+  🔒 <strong>Your safety first:</strong> Someone may be monitoring your phone or computer.
+  Use a device they can't access, or <a onclick="quickExit()">click here to leave quickly</a>.
+  Clear your browser history after visiting.
+</div>
+
+<!-- ════════════════════════════════
+     HEADER
+════════════════════════════════ -->
 <header>
   <div class="logo-mark">
     <div class="logo-icon">🌿</div>
     <span class="logo-text">Safe Harbor Texas</span>
   </div>
-  <h1>You are not<br/><span>alone.</span></h1>
-  <p class="header-sub">A resource guide for women seeking safety, shelter, and legal support across Texas.</p>
+  <h1>You deserve<br/><span>to be safe.</span></h1>
+  <p class="header-sub">A free resource guide connecting Texas women to shelter, legal help, and support — wherever you are.</p>
+  <div class="header-stat">🤝 1 in 3 Texans experiences domestic violence — you are not alone</div>
 </header>
 
-<!-- SEARCH -->
+<!-- ════════════════════════════════
+     SEARCH
+════════════════════════════════ -->
 <div class="search-section">
   <div class="search-box">
     <input id="searchInput" type="text" placeholder="Search by city or ZIP code…" autocomplete="off" />
     <button class="search-btn" onclick="doSearch()">Search</button>
   </div>
-  <p class="search-hint">Try "Austin", "Houston", "Dallas", "San Antonio", "78701"…</p>
+  <p class="search-hint">Try "Austin", "Houston", "Dallas", "McAllen", "Tyler", "Lubbock"…</p>
 </div>
 
-<!-- CATEGORY TABS -->
+<!-- ════════════════════════════════
+     CATEGORY TABS
+════════════════════════════════ -->
 <div class="categories">
   <div class="cat-scroll">
-    <button class="cat-btn active" data-cat="all" onclick="setCategory(this, 'all')">
-      <span class="icon">🏠</span> All Resources
-    </button>
-    <button class="cat-btn" data-cat="shelter" onclick="setCategory(this, 'shelter')">
-      <span class="icon">🛡️</span> Shelters
-    </button>
-    <button class="cat-btn" data-cat="legal" onclick="setCategory(this, 'legal')">
-      <span class="icon">⚖️</span> Legal Help
-    </button>
-    <button class="cat-btn" data-cat="order" onclick="setCategory(this, 'order')">
-      <span class="icon">📋</span> Protective Orders
-    </button>
-    <button class="cat-btn" data-cat="custody" onclick="setCategory(this, 'custody')">
-      <span class="icon">👶</span> Custody Rights
-    </button>
-    <button class="cat-btn" data-cat="hotline" onclick="setCategory(this, 'hotline')">
-      <span class="icon">📞</span> Hotlines
-    </button>
+    <button class="cat-btn active" data-cat="all" onclick="setCategory(this,'all')">🏠 All Resources</button>
+    <button class="cat-btn" data-cat="shelter"  onclick="setCategory(this,'shelter')">🛡️ Shelters</button>
+    <button class="cat-btn" data-cat="legal"    onclick="setCategory(this,'legal')">⚖️ Legal Help</button>
+    <button class="cat-btn" data-cat="order"    onclick="setCategory(this,'order')">📋 Protective Orders</button>
+    <button class="cat-btn" data-cat="custody"  onclick="setCategory(this,'custody')">👶 Custody & Housing</button>
+    <button class="cat-btn" data-cat="hotline"  onclick="setCategory(this,'hotline')">📞 Hotlines</button>
+    <button class="cat-btn" data-cat="financial" onclick="setCategory(this,'financial')">💰 Financial Help</button>
+    <button class="cat-btn" data-cat="safety"   onclick="setCategory(this,'safety')">🎒 Safety Planning</button>
   </div>
 </div>
 
-<!-- MAIN -->
+<!-- ════════════════════════════════
+     MAIN CONTENT
+════════════════════════════════ -->
 <main id="mainContent">
 
   <div class="disclaimer">
-    ⚠️ Resource information may change. Always call ahead to confirm availability and hours. This guide is for informational purposes only and is not legal advice.
+    ⚠️ Resource information may change. Always call ahead to confirm availability. This guide is for informational purposes — not legal advice. Shelter locations are kept confidential for safety.
   </div>
 
-  <!-- ═══════════════════════════════
-       HOTLINES SECTION
-  ═══════════════════════════════ -->
+  <!-- ══════════════════════════════
+       HOTLINES
+  ══════════════════════════════ -->
   <div class="resource-section" data-cat="hotline">
     <div class="section-header">
-      <div class="section-icon terra">📞</div>
-      <span class="section-title">Hotlines &amp; Crisis Support</span>
-      <span class="section-count">4 resources</span>
+      <div class="section-icon si-terra">📞</div>
+      <span class="section-title">Hotlines & Crisis Lines</span>
+      <span class="section-count">6 lines</span>
     </div>
 
     <div class="card" data-city="statewide" data-zip="">
       <div class="card-top">
-        <div class="card-dot terra"></div>
-        <div>
-          <div class="card-name">Texas Council on Family Violence (TCFV)</div>
-          <div class="card-location">📍 Statewide — 24/7 Hotline</div>
+        <div class="card-dot dot-terra"></div>
+        <div class="card-info">
+          <div class="card-name">Texas Council on Family Violence — Local Shelter Finder</div>
+          <div class="card-location">📍 Statewide — connects you to your nearest shelter</div>
         </div>
-        <span class="card-badge badge-24">24/7</span>
+        <div class="card-badges"><span class="badge b-24h">24/7</span></div>
       </div>
-      <div class="card-desc">Connects survivors to local shelters and services across Texas. Can help you find a shelter near you immediately.</div>
+      <div class="card-desc">Call to be instantly connected to a shelter or advocate in your area. This is your #1 call if you need a bed tonight.</div>
       <div class="card-actions">
-        <a class="action-btn call" href="tel:18007997233">📞 1-800-799-7233</a>
-        <a class="action-btn web" href="https://tcfv.org" target="_blank">🌐 tcfv.org</a>
-        <a class="action-btn text" href="sms:88788">💬 Text START to 88788</a>
+        <a class="action-btn ab-call" href="tel:18007997233">📞 1-800-799-7233</a>
+        <a class="action-btn ab-web" href="https://tcfv.org" target="_blank">🌐 tcfv.org</a>
+        <a class="action-btn ab-text" href="sms:88788">💬 Text START to 88788</a>
       </div>
     </div>
 
     <div class="card" data-city="statewide" data-zip="">
       <div class="card-top">
-        <div class="card-dot terra"></div>
-        <div>
+        <div class="card-dot dot-terra"></div>
+        <div class="card-info">
           <div class="card-name">National Domestic Violence Hotline</div>
-          <div class="card-location">📍 Available in Texas &amp; All 50 States</div>
+          <div class="card-location">📍 All 50 states — 200+ languages — live chat available</div>
         </div>
-        <span class="card-badge badge-24">24/7</span>
+        <div class="card-badges"><span class="badge b-24h">24/7</span><span class="badge b-bilingual">200+ lang</span></div>
       </div>
-      <div class="card-desc">Free, confidential support. Advocates available in 200+ languages. Chat available at thehotline.org.</div>
+      <div class="card-desc">Free, confidential crisis support. Chat at thehotline.org if calling isn't safe. Their AI advocate "Ruth" is available when live staff are busy.</div>
       <div class="card-actions">
-        <a class="action-btn call" href="tel:18007997233">📞 1-800-799-7233</a>
-        <a class="action-btn web" href="https://www.thehotline.org" target="_blank">🌐 thehotline.org</a>
-        <a class="action-btn text" href="sms:88788">💬 Text LOVEIS to 22522</a>
+        <a class="action-btn ab-call" href="tel:18007997233">📞 1-800-799-7233</a>
+        <a class="action-btn ab-web" href="https://www.thehotline.org" target="_blank">🌐 Live Chat</a>
+        <a class="action-btn ab-text" href="sms:22522">💬 Text LOVEIS to 22522</a>
       </div>
     </div>
 
     <div class="card" data-city="statewide" data-zip="">
       <div class="card-top">
-        <div class="card-dot terra"></div>
-        <div>
-          <div class="card-name">Texas Stalking &amp; Protective Order Helpline</div>
-          <div class="card-location">📍 Texas Crime Victims Institute</div>
+        <div class="card-dot dot-terra"></div>
+        <div class="card-info">
+          <div class="card-name">Texas Advocacy Project — Hope Line</div>
+          <div class="card-location">📍 Statewide — staffed by real attorneys</div>
         </div>
-        <span class="card-badge badge-free">Free</span>
+        <div class="card-badges"><span class="badge b-free">Free</span><span class="badge b-legal">Attorney</span></div>
       </div>
-      <div class="card-desc">Resources specifically for stalking victims, including safety planning and information on Texas protective orders.</div>
+      <div class="card-desc">Free legal phone line for DV, stalking, sexual assault & trafficking. Attorneys answer Mon–Fri 9am–5pm. This is the #1 legal hotline in Texas for survivors.</div>
       <div class="card-actions">
-        <a class="action-btn web" href="https://www.tcvi.org" target="_blank">🌐 tcvi.org</a>
+        <a class="action-btn ab-call" href="tel:18003744673">📞 800-374-HOPE (4673)</a>
+        <a class="action-btn ab-web" href="https://www.texasadvocacyproject.org" target="_blank">🌐 texasadvocacyproject.org</a>
       </div>
     </div>
 
     <div class="card" data-city="statewide" data-zip="">
       <div class="card-top">
-        <div class="card-dot terra"></div>
-        <div>
-          <div class="card-name">Safe2Help Texas</div>
-          <div class="card-location">📍 Statewide anonymous tip line</div>
+        <div class="card-dot dot-terra"></div>
+        <div class="card-info">
+          <div class="card-name">Families to Freedom — North TX & Houston Helpline</div>
+          <div class="card-location">📍 North Texas, East Texas, Greater Houston</div>
         </div>
-        <span class="card-badge badge-24">24/7</span>
+        <div class="card-badges"><span class="badge b-trans">Transport Help</span></div>
       </div>
-      <div class="card-desc">Anonymous reporting for safety concerns. Can also be used to alert authorities about immediate stalking threats.</div>
+      <div class="card-desc">Provides safety planning, shelter referrals — and critically, <strong>transportation to shelters</strong> when victims can't get there. Covers 50+ safehouses.</div>
       <div class="card-actions">
-        <a class="action-btn call" href="tel:18445234563">📞 1-844-523-4563</a>
-        <a class="action-btn text" href="sms:274637">💬 Text SAFE2HELP</a>
+        <a class="action-btn ab-call" href="tel:18339037233">📞 833-903-SAFE (7233)</a>
+        <a class="action-btn ab-web" href="https://familiestofreedom.org" target="_blank">🌐 familiestofreedom.org</a>
+      </div>
+    </div>
+
+    <div class="card" data-city="statewide" data-zip="">
+      <div class="card-top">
+        <div class="card-dot dot-terra"></div>
+        <div class="card-info">
+          <div class="card-name">StrongHearts Native Helpline</div>
+          <div class="card-location">📍 For Native American & Alaska Native survivors</div>
+        </div>
+        <div class="card-badges"><span class="badge b-24h">24/7</span></div>
+      </div>
+      <div class="card-desc">Culturally appropriate crisis support for Indigenous women experiencing DV or stalking. Confidential and free.</div>
+      <div class="card-actions">
+        <a class="action-btn ab-call" href="tel:18447628483">📞 1-844-762-8483</a>
+        <a class="action-btn ab-web" href="https://strongheartshelpline.org" target="_blank">🌐 strongheartshelpline.org</a>
+      </div>
+    </div>
+
+    <div class="card" data-city="statewide" data-zip="">
+      <div class="card-top">
+        <div class="card-dot dot-terra"></div>
+        <div class="card-info">
+          <div class="card-name">The Deaf Hotline</div>
+          <div class="card-location">📍 Nationwide — for Deaf & Hard of Hearing survivors</div>
+        </div>
+        <div class="card-badges"><span class="badge b-24h">24/7</span></div>
+      </div>
+      <div class="card-desc">Videophone and TTY-based crisis support. Available 24/7 for Deaf, DeafBlind, and Hard of Hearing survivors of domestic violence.</div>
+      <div class="card-actions">
+        <a class="action-btn ab-call" href="tel:18558121001">📞 VP: 855-812-1001</a>
+        <a class="action-btn ab-web" href="https://www.thedeafhotline.org" target="_blank">🌐 thedeafhotline.org</a>
       </div>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════
-       SHELTERS SECTION
-  ═══════════════════════════════ -->
+  <!-- ══════════════════════════════
+       SHELTERS
+  ══════════════════════════════ -->
   <div class="resource-section" data-cat="shelter">
     <div class="section-header">
-      <div class="section-icon green">🛡️</div>
-      <span class="section-title">Women's Shelters &amp; Protective Services</span>
-      <span class="section-count">7 resources</span>
+      <div class="section-icon si-green">🛡️</div>
+      <span class="section-title">Emergency Shelters</span>
+      <span class="section-count">20 locations</span>
     </div>
 
-    <div class="card" data-city="austin" data-zip="78701 78702 78703 78704 78705">
+    <div class="callout-banner green" data-city="statewide" data-zip="">
+      <div class="callout-icon">🐾</div>
+      <div class="callout-text">
+        <strong>Have a pet? You can still leave.</strong>
+        <p>Several Texas shelters accept pets. Shelters marked <span class="badge b-pet">🐾 Pet-Friendly</span> welcome animals. Can't find one? <a href="https://www.safehavensforpets.org" target="_blank">SafeHavensForPets.org</a> lists pet-friendly shelters near you — or ask your local shelter to board your pet nearby.</p>
+      </div>
+    </div>
+
+    <!-- Austin area -->
+    <div class="card" data-city="austin" data-zip="78701 78702 78703 78704 78705 78741 78745 78748 78749">
       <div class="card-top">
-        <div class="card-dot green"></div>
-        <div>
+        <div class="card-dot dot-green"></div>
+        <div class="card-info">
           <div class="card-name">SafePlace Austin (Any Baby Can)</div>
-          <div class="card-location">📍 Austin, TX (Travis County)</div>
+          <div class="card-location">📍 Austin — Travis County</div>
         </div>
-        <span class="card-badge badge-24">24/7</span>
+        <div class="card-badges"><span class="badge b-24h">24/7</span></div>
       </div>
-      <div class="card-desc">Austin's primary DV shelter offering emergency shelter, counseling, legal advocacy, and children's programs. Confidential location.</div>
+      <div class="card-desc">Austin's primary DV shelter. Emergency housing, counseling, legal advocacy, children's programs. Confidential location — call first.</div>
       <div class="card-actions">
-        <a class="action-btn call" href="tel:15122671000">📞 512-267-1000</a>
-        <a class="action-btn web" href="https://safeplace.org" target="_blank">🌐 safeplace.org</a>
+        <a class="action-btn ab-call" href="tel:15122671000">📞 512-267-1000</a>
+        <a class="action-btn ab-web" href="https://safeplace.org" target="_blank">🌐 safeplace.org</a>
       </div>
     </div>
 
-    <div class="card" data-city="houston" data-zip="77001 77002 77003 77004 77005 77006 77007 77008">
+    <div class="card" data-city="austin san marcos kyle buda" data-zip="78666 78640 78610">
       <div class="card-top">
-        <div class="card-dot green"></div>
-        <div>
+        <div class="card-dot dot-green"></div>
+        <div class="card-info">
+          <div class="card-name">Hays-Caldwell Women's Center</div>
+          <div class="card-location">📍 San Marcos — Hays & Caldwell Counties</div>
+        </div>
+        <div class="card-badges"><span class="badge b-24h">24/7</span><span class="badge b-bilingual">Bilingual</span></div>
+      </div>
+      <div class="card-desc">Serves the Austin suburbs — San Marcos, Kyle, Buda. Emergency shelter, counseling, legal advocacy, and community outreach in English and Spanish.</div>
+      <div class="card-actions">
+        <a class="action-btn ab-call" href="tel:15125962799">📞 512-396-SAFE (7233)</a>
+        <a class="action-btn ab-web" href="https://hcwc.org" target="_blank">🌐 hcwc.org</a>
+      </div>
+    </div>
+
+    <!-- Houston area -->
+    <div class="card" data-city="houston" data-zip="77001 77002 77003 77004 77005 77006 77007 77008 77009 77010">
+      <div class="card-top">
+        <div class="card-dot dot-green"></div>
+        <div class="card-info">
           <div class="card-name">Houston Area Women's Center (HAWC)</div>
-          <div class="card-location">📍 Houston, TX (Harris County)</div>
+          <div class="card-location">📍 Houston — Harris County</div>
         </div>
-        <span class="card-badge badge-24">24/7</span>
+        <div class="card-badges"><span class="badge b-24h">24/7</span><span class="badge b-bilingual">Bilingual</span></div>
       </div>
-      <div class="card-desc">Emergency shelter, rape crisis, legal services, and counseling. Serves thousands of women and children each year.</div>
+      <div class="card-desc">Emergency shelter, rape crisis, legal services, counseling. One of Houston's largest DV organizations serving thousands annually.</div>
       <div class="card-actions">
-        <a class="action-btn call" href="tel:17139289022">📞 713-528-6798 (Crisis)</a>
-        <a class="action-btn web" href="https://hawc.org" target="_blank">🌐 hawc.org</a>
+        <a class="action-btn ab-call" href="tel:17135286798">📞 713-528-6798 (Crisis)</a>
+        <a class="action-btn ab-web" href="https://hawc.org" target="_blank">🌐 hawc.org</a>
       </div>
     </div>
 
-    <div class="card" data-city="dallas" data-zip="75201 75202 75203 75204 75205 75206 75207 75208">
+    <div class="card" data-city="houston webster league city clear lake galveston" data-zip="77598 77573 77058 77059">
       <div class="card-top">
-        <div class="card-dot green"></div>
-        <div>
+        <div class="card-dot dot-green"></div>
+        <div class="card-info">
+          <div class="card-name">Bay Area Turning Point</div>
+          <div class="card-location">📍 Webster — Clear Lake / Bay Area Houston</div>
+        </div>
+        <div class="card-badges"><span class="badge b-24h">24/7</span></div>
+      </div>
+      <div class="card-desc">Serves the Houston Bay Area / South Houston suburbs. Emergency shelter, counseling, legal advocacy, and transitional housing programs.</div>
+      <div class="card-actions">
+        <a class="action-btn ab-call" href="tel:12812862525">📞 281-286-2525</a>
+        <a class="action-btn ab-web" href="https://bayareaturningpoint.org" target="_blank">🌐 bayareaturningpoint.org</a>
+      </div>
+    </div>
+
+    <div class="card" data-city="houston the woodlands spring conroe" data-zip="77380 77381 77382 77384 77385 77386 77387 77388 77389">
+      <div class="card-top">
+        <div class="card-dot dot-green"></div>
+        <div class="card-info">
+          <div class="card-name">Montgomery County Women's Center</div>
+          <div class="card-location">📍 The Woodlands / Spring — Montgomery County</div>
+        </div>
+        <div class="card-badges"><span class="badge b-24h">24/7</span></div>
+      </div>
+      <div class="card-desc">Emergency shelter, advocacy, counseling, and legal services for The Woodlands and North Houston suburbs. Bilingual staff available.</div>
+      <div class="card-actions">
+        <a class="action-btn ab-call" href="tel:19364417273">📞 936-441-7273</a>
+        <a class="action-btn ab-web" href="https://mcwctx.org" target="_blank">🌐 mcwctx.org</a>
+      </div>
+    </div>
+
+    <!-- Dallas area -->
+    <div class="card" data-city="dallas" data-zip="75201 75202 75203 75204 75205 75206 75207 75208 75209 75210 75211 75212 75214 75215 75216">
+      <div class="card-top">
+        <div class="card-dot dot-green"></div>
+        <div class="card-info">
+          <div class="card-name">Genesis Women's Shelter & Support</div>
+          <div class="card-location">📍 Dallas — Dallas County</div>
+        </div>
+        <div class="card-badges"><span class="badge b-24h">24/7</span><span class="badge b-free">Free Legal</span><span class="badge b-bilingual">Bilingual</span></div>
+      </div>
+      <div class="card-desc">40+ years serving Dallas. Free on-site legal help, emergency shelter, counseling, and transitional housing. Serves 3,700+ survivors/year. Call or text.</div>
+      <div class="card-actions">
+        <a class="action-btn ab-call" href="tel:12149464357">📞 214-946-HELP (4357)</a>
+        <a class="action-btn ab-web" href="https://genesisshelter.org" target="_blank">🌐 genesisshelter.org</a>
+      </div>
+    </div>
+
+    <div class="card" data-city="dallas the family place" data-zip="75201 75219 75220 75225 75230">
+      <div class="card-top">
+        <div class="card-dot dot-green"></div>
+        <div class="card-info">
           <div class="card-name">The Family Place</div>
-          <div class="card-location">📍 Dallas, TX (Dallas County)</div>
+          <div class="card-location">📍 Dallas — 3 emergency shelters + can check availability at 15 partner shelters</div>
         </div>
-        <span class="card-badge badge-24">24/7</span>
+        <div class="card-badges"><span class="badge b-24h">24/7</span><span class="badge b-pet">🐾 Pets OK</span></div>
       </div>
-      <div class="card-desc">Largest DV agency in North Texas. Offers emergency shelter, legal services, counseling, and transitional housing.</div>
+      <div class="card-desc">Largest DV agency in North Texas. Accepts family pets. Medical & dental care on-site, K–2 school, job training, transitional housing. Can also refer to 15 partner shelters statewide.</div>
       <div class="card-actions">
-        <a class="action-btn call" href="tel:12144418988">📞 214-941-1991 (Hotline)</a>
-        <a class="action-btn web" href="https://familyplace.org" target="_blank">🌐 familyplace.org</a>
+        <a class="action-btn ab-call" href="tel:12149411991">📞 214-941-1991</a>
+        <a class="action-btn ab-web" href="https://familyplace.org" target="_blank">🌐 familyplace.org</a>
       </div>
     </div>
 
-    <div class="card" data-city="fort worth" data-zip="76101 76102 76103 76104 76105 76106 76107 76108">
+    <div class="card" data-city="plano garland mckinney frisco allen richardson" data-zip="75023 75024 75025 75026 75074 75075 75093 75094">
       <div class="card-top">
-        <div class="card-dot green"></div>
-        <div>
-          <div class="card-name">SafeHaven of Tarrant County</div>
-          <div class="card-location">📍 Fort Worth, TX (Tarrant County)</div>
+        <div class="card-dot dot-green"></div>
+        <div class="card-info">
+          <div class="card-name">Hope's Door New Beginning Center</div>
+          <div class="card-location">📍 Plano & Garland — Collin & Dallas Counties</div>
         </div>
-        <span class="card-badge badge-24">24/7</span>
+        <div class="card-badges"><span class="badge b-24h">24/7</span><span class="badge b-free">Free Legal</span></div>
       </div>
-      <div class="card-desc">Emergency shelter, transitional housing, court advocacy, and safety planning for DV and stalking survivors.</div>
+      <div class="card-desc">Serves the North Dallas suburbs. Emergency shelter, legal advocacy, counseling, transitional housing. Inclusive — welcomes LGBTQ+ survivors.</div>
       <div class="card-actions">
-        <a class="action-btn call" href="tel:18776010133">📞 1-877-701-SAFE (7233)</a>
-        <a class="action-btn web" href="https://safehaventc.org" target="_blank">🌐 safehaventc.org</a>
+        <a class="action-btn ab-call" href="tel:12142760057">📞 214-276-0057 (Hotline)</a>
+        <a class="action-btn ab-web" href="https://hdnbc.org" target="_blank">🌐 hdnbc.org</a>
       </div>
     </div>
 
-    <div class="card" data-city="san antonio" data-zip="78201 78202 78203 78204 78205 78206 78207 78208 78209 78210">
+    <!-- Fort Worth area -->
+    <div class="card" data-city="fort worth arlington grand prairie" data-zip="76101 76102 76103 76104 76105 76106 76107 76108 76010 76011 76012 76013 76014 76015">
       <div class="card-top">
-        <div class="card-dot green"></div>
-        <div>
+        <div class="card-dot dot-green"></div>
+        <div class="card-info">
+          <div class="card-name">The Archway / SafeHaven of Tarrant County</div>
+          <div class="card-location">📍 Arlington & Fort Worth — Tarrant County</div>
+        </div>
+        <div class="card-badges"><span class="badge b-24h">24/7</span></div>
+      </div>
+      <div class="card-desc">50+ years serving North Texas. Emergency shelter, safety planning, court advocacy, transitional housing. Largest DV organization in Tarrant County.</div>
+      <div class="card-actions">
+        <a class="action-btn ab-call" href="tel:18777017233">📞 1-877-701-SAFE (7233)</a>
+        <a class="action-btn ab-web" href="https://safehaventc.org" target="_blank">🌐 safehaventc.org</a>
+      </div>
+    </div>
+
+    <!-- San Antonio area -->
+    <div class="card" data-city="san antonio" data-zip="78201 78202 78203 78204 78205 78206 78207 78208 78209 78210 78211 78212 78213 78214 78215 78216 78217 78218 78219 78220">
+      <div class="card-top">
+        <div class="card-dot dot-green"></div>
+        <div class="card-info">
           <div class="card-name">Family Violence Prevention Services (FVPS)</div>
-          <div class="card-location">📍 San Antonio, TX (Bexar County)</div>
+          <div class="card-location">📍 San Antonio — Bexar County</div>
         </div>
-        <span class="card-badge badge-24">24/7</span>
+        <div class="card-badges"><span class="badge b-24h">24/7</span><span class="badge b-bilingual">Bilingual</span></div>
       </div>
-      <div class="card-desc">Largest family violence shelter in Bexar County. Battered Women's and Children's Shelter, legal advocacy, case management.</div>
+      <div class="card-desc">Largest family violence shelter in Bexar County. Battered Women's & Children's Shelter, legal advocacy, case management, and transitional housing.</div>
       <div class="card-actions">
-        <a class="action-btn call" href="tel:12102276805">📞 210-227-9ISO (9476)</a>
-        <a class="action-btn web" href="https://fvps.org" target="_blank">🌐 fvps.org</a>
+        <a class="action-btn ab-call" href="tel:12102279ISO">📞 210-227-9ISO (9476)</a>
+        <a class="action-btn ab-web" href="https://fvps.org" target="_blank">🌐 fvps.org</a>
       </div>
     </div>
 
-    <div class="card" data-city="corpus christi" data-zip="78401 78402 78403 78404 78405 78406 78407 78408 78409 78410">
+    <!-- El Paso -->
+    <div class="card" data-city="el paso" data-zip="79901 79902 79903 79904 79905 79906 79907 79908 79910 79911 79912 79915 79920 79922 79924 79925 79927 79928 79930 79935 79936">
       <div class="card-top">
-        <div class="card-dot green"></div>
-        <div>
-          <div class="card-name">Women's Shelter of South Texas</div>
-          <div class="card-location">📍 Corpus Christi, TX</div>
+        <div class="card-dot dot-green"></div>
+        <div class="card-info">
+          <div class="card-name">Center Against Sexual & Family Violence (CASFV)</div>
+          <div class="card-location">📍 El Paso — El Paso County</div>
         </div>
-        <span class="card-badge badge-24">24/7</span>
+        <div class="card-badges"><span class="badge b-24h">24/7</span><span class="badge b-bilingual">Bilingual</span></div>
+      </div>
+      <div class="card-desc">Emergency shelter, crisis hotline, advocacy, and transitional housing for El Paso area survivors. Bilingual English/Spanish services.</div>
+      <div class="card-actions">
+        <a class="action-btn ab-call" href="tel:19155939020">📞 915-593-9020</a>
+        <a class="action-btn ab-web" href="https://casfv.org" target="_blank">🌐 casfv.org</a>
+      </div>
+    </div>
+
+    <!-- Corpus Christi -->
+    <div class="card" data-city="corpus christi" data-zip="78401 78402 78403 78404 78405 78406 78407 78408 78409 78410 78411 78412 78413 78414 78415 78416 78417 78418">
+      <div class="card-top">
+        <div class="card-dot dot-green"></div>
+        <div class="card-info">
+          <div class="card-name">Women's Shelter of South Texas</div>
+          <div class="card-location">📍 Corpus Christi — Nueces County</div>
+        </div>
+        <div class="card-badges"><span class="badge b-24h">24/7</span></div>
       </div>
       <div class="card-desc">Confidential emergency shelter, legal advocacy, and community education for South Texas families.</div>
       <div class="card-actions">
-        <a class="action-btn call" href="tel:13618818888">📞 361-881-8888</a>
-        <a class="action-btn web" href="https://wssotx.org" target="_blank">🌐 wssotx.org</a>
+        <a class="action-btn ab-call" href="tel:13618818888">📞 361-881-8888</a>
+        <a class="action-btn ab-web" href="https://wssotx.org" target="_blank">🌐 wssotx.org</a>
       </div>
     </div>
 
-    <div class="card" data-city="el paso" data-zip="79901 79902 79903 79904 79905 79906 79907 79908 79910 79911">
+    <!-- McAllen / RGV -->
+    <div class="card" data-city="mcallen harlingen brownsville edinburg mission weslaco" data-zip="78501 78502 78503 78504 78516 78520 78521 78539 78540 78541 78542 78550 78552 78557 78559 78570 78572 78574 78577 78578 78579 78583 78586 78596 78599">
       <div class="card-top">
-        <div class="card-dot green"></div>
-        <div>
-          <div class="card-name">Center Against Sexual &amp; Family Violence (CASFV)</div>
-          <div class="card-location">📍 El Paso, TX</div>
+        <div class="card-dot dot-green"></div>
+        <div class="card-info">
+          <div class="card-name">Mujeres Unidas / Women Together Foundation</div>
+          <div class="card-location">📍 McAllen — Rio Grande Valley (Hidalgo County)</div>
         </div>
-        <span class="card-badge badge-24">24/7</span>
+        <div class="card-badges"><span class="badge b-24h">24/7</span><span class="badge b-bilingual">Bilingual</span><span class="badge b-imm">Immigrant Friendly</span></div>
       </div>
-      <div class="card-desc">Emergency shelter, hotline, advocacy, and transitional housing for El Paso area survivors.</div>
+      <div class="card-desc">Bilingual DV shelter serving the Rio Grande Valley. Serves immigrant survivors regardless of documentation status. Counseling, legal advocacy, transitional housing.</div>
       <div class="card-actions">
-        <a class="action-btn call" href="tel:19155939020">📞 915-593-9020</a>
-        <a class="action-btn web" href="https://casfv.org" target="_blank">🌐 casfv.org</a>
+        <a class="action-btn ab-call" href="tel:19565804879">📞 956-580-4879</a>
+      </div>
+    </div>
+
+    <!-- Lubbock / South Plains -->
+    <div class="card" data-city="lubbock midland odessa amarillo abilene" data-zip="79401 79402 79403 79404 79405 79406 79407 79408 79410 79411 79412 79413 79414 79415 79416 79423 79424 79453">
+      <div class="card-top">
+        <div class="card-dot dot-green"></div>
+        <div class="card-info">
+          <div class="card-name">Women's Protective Services of Lubbock</div>
+          <div class="card-location">📍 Lubbock — covers 12 West Texas counties / 10,500 sq mi</div>
+        </div>
+        <div class="card-badges"><span class="badge b-24h">24/7</span><span class="badge b-rural">Rural Coverage</span></div>
+      </div>
+      <div class="card-desc">Serves over 3,000 clients/year across a vast rural region. Emergency shelter, counseling, legal help for the South Plains. Covers Bailey, Cochran, Crosby, Dickens, Garza, Hockley, King, Lamb, Lubbock, Lynn, Terry, Yoakum counties.</div>
+      <div class="card-actions">
+        <a class="action-btn ab-call" href="tel:18067476491">📞 806-747-6491</a>
+        <a class="action-btn ab-call" href="tel:18007366491">📞 1-800-736-6491</a>
+        <a class="action-btn ab-web" href="https://wpslubbock.org" target="_blank">🌐 wpslubbock.org</a>
+      </div>
+    </div>
+
+    <!-- Midland / Odessa Permian Basin -->
+    <div class="card" data-city="midland odessa permian basin" data-zip="79701 79702 79703 79704 79705 79706 79707 79762 79763 79764 79765 79766">
+      <div class="card-top">
+        <div class="card-dot dot-green"></div>
+        <div class="card-info">
+          <div class="card-name">Safe Place of the Permian Basin</div>
+          <div class="card-location">📍 Midland & Odessa — Permian Basin</div>
+        </div>
+        <div class="card-badges"><span class="badge b-24h">24/7</span></div>
+      </div>
+      <div class="card-desc">Emergency shelter and crisis services for Midland, Odessa, and surrounding Permian Basin communities.</div>
+      <div class="card-actions">
+        <a class="action-btn ab-call" href="tel:18005701465">📞 1-800-570-1465</a>
+        <a class="action-btn ab-call" href="tel:14325225202">📞 432-522-7202</a>
+      </div>
+    </div>
+
+    <!-- Amarillo -->
+    <div class="card" data-city="amarillo" data-zip="79101 79102 79103 79104 79105 79106 79107 79108 79109 79110 79111 79112 79114 79118 79119 79120 79121 79124">
+      <div class="card-top">
+        <div class="card-dot dot-green"></div>
+        <div class="card-info">
+          <div class="card-name">Family Support Services of Amarillo</div>
+          <div class="card-location">📍 Amarillo — Potter & Randall Counties</div>
+        </div>
+        <div class="card-badges"><span class="badge b-24h">24/7</span></div>
+      </div>
+      <div class="card-desc">DV shelter, crisis intervention, counseling, and legal advocacy for the Texas Panhandle region.</div>
+      <div class="card-actions">
+        <a class="action-btn ab-call" href="tel:18007499026">📞 1-800-749-9026</a>
+        <a class="action-btn ab-call" href="tel:18063745433">📞 806-374-5433</a>
+      </div>
+    </div>
+
+    <!-- Waco / Central TX -->
+    <div class="card" data-city="waco temple killeen belton" data-zip="76701 76702 76703 76704 76705 76706 76707 76708 76710 76711 76712 76798">
+      <div class="card-top">
+        <div class="card-dot dot-green"></div>
+        <div class="card-info">
+          <div class="card-name">Family Abuse Center (Waco)</div>
+          <div class="card-location">📍 Waco — McLennan County & surrounding rural areas</div>
+        </div>
+        <div class="card-badges"><span class="badge b-24h">24/7</span><span class="badge b-rural">Rural Outreach</span></div>
+      </div>
+      <div class="card-desc">Serves Waco and surrounding rural counties. Case management, counseling, financial planning classes, housing assistance, and legal services.</div>
+      <div class="card-actions">
+        <a class="action-btn ab-call" href="tel:12547527233">📞 254-752-7233 (SAFE)</a>
+        <a class="action-btn ab-web" href="https://familyabusecenter.org" target="_blank">🌐 familyabusecenter.org</a>
+      </div>
+    </div>
+
+    <!-- Tyler / East TX -->
+    <div class="card" data-city="tyler longview lufkin nacogdoches" data-zip="75701 75702 75703 75704 75705 75706 75707 75708 75709 75711 75750 75751">
+      <div class="card-top">
+        <div class="card-dot dot-green"></div>
+        <div class="card-info">
+          <div class="card-name">East Texas Crisis Center</div>
+          <div class="card-location">📍 Tyler & Athens — East Texas</div>
+        </div>
+        <div class="card-badges"><span class="badge b-24h">24/7</span></div>
+      </div>
+      <div class="card-desc">Emergency shelter, crisis hotline, and advocacy for East Texas survivors. Offices in Tyler and Athens serving Smith, Henderson, and surrounding counties.</div>
+      <div class="card-actions">
+        <a class="action-btn ab-call" href="tel:19035092526">📞 903-509-2526 (Tyler)</a>
+        <a class="action-btn ab-call" href="tel:19036751600">📞 903-675-1600 (Athens)</a>
+      </div>
+    </div>
+
+    <!-- Beaumont / SE TX -->
+    <div class="card" data-city="beaumont port arthur orange" data-zip="77701 77702 77703 77704 77705 77706 77707 77708 77709 77710 77713 77720 77725 77726">
+      <div class="card-top">
+        <div class="card-dot dot-green"></div>
+        <div class="card-info">
+          <div class="card-name">Family Services of Southeast Texas</div>
+          <div class="card-location">📍 Beaumont — Jefferson, Jasper Counties</div>
+        </div>
+        <div class="card-badges"><span class="badge b-24h">24/7</span></div>
+      </div>
+      <div class="card-desc">65-bed shelter with 24/7 security, 3 meals daily, computer lab, children's programs. Also operates Piney Woods Safe House in Jasper County.</div>
+      <div class="card-actions">
+        <a class="action-btn ab-call" href="tel:14098327575">📞 409-832-7575</a>
+        <a class="action-btn ab-call" href="tel:18006218882">📞 1-800-621-8882</a>
+        <a class="action-btn ab-web" href="https://westrengthenfamilies.org" target="_blank">🌐 westrengthenfamilies.org</a>
+      </div>
+    </div>
+
+    <!-- Rockwall / Hunt County -->
+    <div class="card" data-city="rockwall greenville commerce" data-zip="75032 75087 75088 75089 75401 75402 75403 75404 75407 75409">
+      <div class="card-top">
+        <div class="card-dot dot-green"></div>
+        <div class="card-info">
+          <div class="card-name">Women in Need (WIN) of Texas</div>
+          <div class="card-location">📍 Greenville — Hunt & Rockwall Counties</div>
+        </div>
+        <div class="card-badges"><span class="badge b-24h">24/7</span><span class="badge b-rural">Rural Coverage</span></div>
+      </div>
+      <div class="card-desc">Refuge, empowerment, and restoration for families affected by DV in Hunt and Rockwall County. Serves the rural northeast Dallas metro area.</div>
+      <div class="card-actions">
+        <a class="action-btn ab-call" href="tel:19034544357">📞 903-454-HELP (4357)</a>
+        <a class="action-btn ab-web" href="https://wintexas.org" target="_blank">🌐 wintexas.org</a>
       </div>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════
-       LEGAL HELP SECTION
-  ═══════════════════════════════ -->
+  <!-- ══════════════════════════════
+       LEGAL HELP
+  ══════════════════════════════ -->
   <div class="resource-section" data-cat="legal">
     <div class="section-header">
-      <div class="section-icon blue">⚖️</div>
-      <span class="section-title">DV &amp; Family Law Legal Help</span>
-      <span class="section-count">5 resources</span>
+      <div class="section-icon si-blue">⚖️</div>
+      <span class="section-title">Legal Help — Free & Low-Cost</span>
+      <span class="section-count">8 resources</span>
+    </div>
+
+    <div class="callout-banner terra" data-city="statewide" data-zip="">
+      <div class="callout-icon">⚠️</div>
+      <div class="callout-text">
+        <strong>You don't need money to get legal help.</strong>
+        <p>All resources below are free or very low-cost for DV survivors. Start with the <strong>Texas Advocacy Project Hope Line</strong> (800-374-4673) for immediate attorney guidance — regardless of income.</p>
+      </div>
     </div>
 
     <div class="card" data-city="statewide" data-zip="">
       <div class="card-top">
-        <div class="card-dot blue"></div>
-        <div>
+        <div class="card-dot dot-blue"></div>
+        <div class="card-info">
+          <div class="card-name">Texas Advocacy Project (TAP)</div>
+          <div class="card-location">📍 Statewide — free attorney-staffed hotline</div>
+        </div>
+        <div class="card-badges"><span class="badge b-free">Free</span><span class="badge b-legal">Attorney</span></div>
+      </div>
+      <div class="card-desc">Texas's #1 legal resource for DV survivors. Real attorneys available by phone M–F 9am–5pm. Covers protective orders, custody, divorce, stalking, and trafficking. Can apply for full representation online.</div>
+      <div class="card-actions">
+        <a class="action-btn ab-call" href="tel:18003744673">📞 800-374-HOPE (4673)</a>
+        <a class="action-btn ab-web" href="https://www.texasadvocacyproject.org/get-help" target="_blank">🌐 Apply Online</a>
+      </div>
+    </div>
+
+    <div class="card" data-city="houston harris fort bend galveston austin grimes waller washington" data-zip="77001 77002 77003 77004 77005 77006 77007 77008 77009 77010 77401 77002 77025">
+      <div class="card-top">
+        <div class="card-dot dot-blue"></div>
+        <div class="card-info">
+          <div class="card-name">AVDA — Aid to Victims of Domestic Abuse</div>
+          <div class="card-location">📍 Houston area — Harris, Fort Bend, Austin, Grimes, Waller, Washington Counties</div>
+        </div>
+        <div class="card-badges"><span class="badge b-free">Free</span><span class="badge b-legal">Full Representation</span></div>
+      </div>
+      <div class="card-desc">Staff attorneys represent 200+ DV victims in Harris County family courts at <em>no cost</em>. Covers protective orders, divorce, child custody/support, adoption. Also has an "Expanded Services" program for those who earn too much for traditional legal aid but can't afford private lawyers.</div>
+      <div class="card-actions">
+        <a class="action-btn ab-call" href="tel:17132249911">📞 713-224-9911 (Harris)</a>
+        <a class="action-btn ab-call" href="tel:12812072312">📞 281-207-2312 (Fort Bend)</a>
+        <a class="action-btn ab-web" href="https://avda.org/get-help/legal-aid" target="_blank">🌐 avda.org</a>
+      </div>
+    </div>
+
+    <div class="card" data-city="statewide south west texas san antonio laredo" data-zip="">
+      <div class="card-top">
+        <div class="card-dot dot-blue"></div>
+        <div class="card-info">
           <div class="card-name">Texas RioGrande Legal Aid (TRLA)</div>
-          <div class="card-location">📍 Statewide — Free Civil Legal Services</div>
+          <div class="card-location">📍 68 counties — South & West Texas</div>
         </div>
-        <span class="card-badge badge-free">Free</span>
+        <div class="card-badges"><span class="badge b-free">Free</span><span class="badge b-imm">Immigrant Friendly</span><span class="badge b-bilingual">Bilingual</span></div>
       </div>
-      <div class="card-desc">Free legal help for low-income Texans on DV, protective orders, divorce, and custody. Serves 68 counties in South/West Texas.</div>
+      <div class="card-desc">Free legal help for low-income Texans in 68 southwest counties. Handles DV, protective orders, divorce, custody, and immigration-related DV matters (VAWA). Serves regardless of citizenship status.</div>
       <div class="card-actions">
-        <a class="action-btn call" href="tel:18004491819">📞 1-800-369-TRLA</a>
-        <a class="action-btn web" href="https://trla.org" target="_blank">🌐 trla.org</a>
+        <a class="action-btn ab-call" href="tel:18889889996">📞 1-888-988-9996</a>
+        <a class="action-btn ab-web" href="https://trla.org/domestic-violence-family-law" target="_blank">🌐 trla.org</a>
       </div>
     </div>
 
-    <div class="card" data-city="statewide" data-zip="">
+    <div class="card" data-city="dallas fort worth denton north texas" data-zip="75201 76101 76102 76103 76104 76105">
       <div class="card-top">
-        <div class="card-dot blue"></div>
-        <div>
-          <div class="card-name">Legal Aid of NorthWest Texas</div>
-          <div class="card-location">📍 North & West Texas (114 counties)</div>
+        <div class="card-dot dot-blue"></div>
+        <div class="card-info">
+          <div class="card-name">Legal Aid of NorthWest Texas (LANWT)</div>
+          <div class="card-location">📍 114 counties — North & West Texas</div>
         </div>
-        <span class="card-badge badge-free">Free</span>
+        <div class="card-badges"><span class="badge b-free">Free</span></div>
       </div>
-      <div class="card-desc">Provides free civil legal assistance including DV, protective orders, and family law in North and West Texas.</div>
+      <div class="card-desc">Free civil legal assistance including DV, protective orders, and family law across 114 North and West Texas counties. Dallas and Fort Worth offices available.</div>
       <div class="card-actions">
-        <a class="action-btn call" href="tel:18882298818">📞 1-888-529-5277</a>
-        <a class="action-btn web" href="https://lanwt.org" target="_blank">🌐 lanwt.org</a>
+        <a class="action-btn ab-call" href="tel:18885295277">📞 1-888-529-5277</a>
+        <a class="action-btn ab-web" href="https://lanwt.org" target="_blank">🌐 lanwt.org</a>
       </div>
     </div>
 
-    <div class="card" data-city="statewide" data-zip="">
+    <div class="card" data-city="houston east texas south texas" data-zip="">
       <div class="card-top">
-        <div class="card-dot blue"></div>
-        <div>
+        <div class="card-dot dot-blue"></div>
+        <div class="card-info">
           <div class="card-name">Lone Star Legal Aid</div>
-          <div class="card-location">📍 Houston, East &amp; South Texas</div>
+          <div class="card-location">📍 Houston, East & South Texas</div>
         </div>
-        <span class="card-badge badge-free">Free</span>
+        <div class="card-badges"><span class="badge b-free">Free</span></div>
       </div>
-      <div class="card-desc">Free civil legal services including family law, DV protective orders, and housing for low-income individuals in East/South Texas.</div>
+      <div class="card-desc">Free civil legal services for family law, DV protective orders, and housing for low-income individuals in East and South Texas.</div>
       <div class="card-actions">
-        <a class="action-btn call" href="tel:17133285700">📞 713-228-0732</a>
-        <a class="action-btn web" href="https://lonestarlegal.org" target="_blank">🌐 lonestarlegal.org</a>
+        <a class="action-btn ab-call" href="tel:17132280732">📞 713-228-0732</a>
+        <a class="action-btn ab-web" href="https://lonestarlegal.org" target="_blank">🌐 lonestarlegal.org</a>
+      </div>
+    </div>
+
+    <div class="card" data-city="dallas fort worth" data-zip="75201 75243 76101">
+      <div class="card-top">
+        <div class="card-dot dot-blue"></div>
+        <div class="card-info">
+          <div class="card-name">Mosaic Family Services</div>
+          <div class="card-location">📍 Dallas — DV + Immigration Law</div>
+        </div>
+        <div class="card-badges"><span class="badge b-free">Free</span><span class="badge b-imm">Immigration</span><span class="badge b-bilingual">Multilingual</span></div>
+      </div>
+      <div class="card-desc">Specializes in DV cases involving immigrant and refugee survivors. Provides DV, sexual assault, human trafficking, and immigration law representation. Critical resource for undocumented survivors.</div>
+      <div class="card-actions">
+        <a class="action-btn ab-call" href="tel:12148215393">📞 214-821-5393</a>
+        <a class="action-btn ab-web" href="https://mosaicservices.org" target="_blank">🌐 mosaicservices.org</a>
       </div>
     </div>
 
     <div class="card" data-city="statewide" data-zip="">
       <div class="card-top">
-        <div class="card-dot blue"></div>
-        <div>
-          <div class="card-name">Texas Law Help (Self-Help Legal)</div>
-          <div class="card-location">📍 Online Statewide Resource</div>
+        <div class="card-dot dot-blue"></div>
+        <div class="card-info">
+          <div class="card-name">Texas Law Help — Self-Help Legal Center</div>
+          <div class="card-location">📍 Online — free forms & guides endorsed by Texas Supreme Court</div>
         </div>
-        <span class="card-badge badge-free">Free</span>
+        <div class="card-badges"><span class="badge b-free">Free</span></div>
       </div>
-      <div class="card-desc">Free legal information and forms for protective orders, divorce, custody, and more. Endorsed by the Texas Supreme Court.</div>
+      <div class="card-desc">Free legal information, step-by-step guides, and court forms for protective orders, divorce, custody, and lease termination. Do-it-yourself with official court-approved forms.</div>
       <div class="card-actions">
-        <a class="action-btn web" href="https://texaslawhelp.org" target="_blank">🌐 texaslawhelp.org</a>
+        <a class="action-btn ab-web" href="https://texaslawhelp.org" target="_blank">🌐 texaslawhelp.org</a>
+        <a class="action-btn ab-web" href="https://txaccess.org" target="_blank">💬 Live Custody Chat</a>
       </div>
     </div>
 
     <div class="card" data-city="statewide" data-zip="">
       <div class="card-top">
-        <div class="card-dot blue"></div>
-        <div>
+        <div class="card-dot dot-blue"></div>
+        <div class="card-info">
           <div class="card-name">State Bar of Texas — Lawyer Referral</div>
-          <div class="card-location">📍 Statewide Referral Service</div>
+          <div class="card-location">📍 Statewide — find a vetted private attorney</div>
         </div>
-        <span class="card-badge badge-legal">Referral</span>
+        <div class="card-badges"><span class="badge b-legal">Referral</span></div>
       </div>
-      <div class="card-desc">Connects you with a vetted Texas attorney for an initial consultation. Reduced-fee consultations available for DV cases.</div>
+      <div class="card-desc">If you need a private attorney, the State Bar connects you with a vetted Texas lawyer. Reduced-fee initial consultations available. Many DV attorneys offer payment plans.</div>
       <div class="card-actions">
-        <a class="action-btn call" href="tel:18008321900">📞 1-800-252-9690</a>
-        <a class="action-btn web" href="https://www.texasbar.com/findalawyer" target="_blank">🌐 Find a Lawyer</a>
+        <a class="action-btn ab-call" href="tel:18002529690">📞 1-800-252-9690</a>
+        <a class="action-btn ab-web" href="https://www.texasbar.com/findalawyer" target="_blank">🌐 Find a Lawyer</a>
       </div>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════
-       PROTECTIVE ORDERS SECTION
-  ═══════════════════════════════ -->
+  <!-- ══════════════════════════════
+       FINANCIAL HELP (NEW)
+  ══════════════════════════════ -->
+  <div class="resource-section" data-cat="financial">
+    <div class="section-header">
+      <div class="section-icon si-gold">💰</div>
+      <span class="section-title">Financial Help & Compensation</span>
+    </div>
+
+    <div class="cvc-box">
+      <div class="cvc-title">💵 Texas Crime Victims Compensation Fund</div>
+      <div class="cvc-sub">One of the most underused resources in Texas. If you've been a victim of DV, stalking, or sexual assault, the state may pay your bills — even if you can't afford a lawyer to apply.</div>
+      <div class="cvc-covers">
+        <div class="cvc-item"><div class="cvc-dot"></div>Medical & hospital bills</div>
+        <div class="cvc-item"><div class="cvc-dot"></div>Counseling & therapy</div>
+        <div class="cvc-item"><div class="cvc-dot"></div>Lost wages</div>
+        <div class="cvc-item"><div class="cvc-dot"></div>Relocation expenses</div>
+        <div class="cvc-item"><div class="cvc-dot"></div>Attorney fees (for CVC application)</div>
+        <div class="cvc-item"><div class="cvc-dot"></div>Crime scene cleanup</div>
+        <div class="cvc-item"><div class="cvc-dot"></div>Child care costs</div>
+        <div class="cvc-item"><div class="cvc-dot"></div>Travel to court/medical</div>
+      </div>
+      <div class="card-actions" style="margin-top:12px;">
+        <a class="action-btn ab-call" href="tel:18009839933">📞 1-800-983-9933</a>
+        <a class="action-btn ab-web" href="https://cvs.texasattorneygeneral.gov/portal/login" target="_blank">🌐 Apply Online</a>
+        <a class="action-btn ab-text" href="https://texaslawhelp.org/article/crime-victims-compensation-cvc-program" target="_blank">📄 Full Guide</a>
+      </div>
+    </div>
+
+    <div class="info-card" onclick="toggleInfo(this)">
+      <div class="info-card-header">
+        <div class="info-header-left"><span>🏠</span><span class="info-card-title">Address Confidentiality Program (ACP) — Hide Your Location</span></div>
+        <span class="info-card-toggle">▾</span>
+      </div>
+      <div class="info-card-body">
+        <p>Texas's ACP gives survivors a <strong>substitute address for all public records</strong> — DMV, voter registration, court documents, and more. Your stalker can't find your real address.</p>
+        <ul>
+          <li>Mail is forwarded confidentially from the substitute address to your real home</li>
+          <li>Free to apply through the Texas Attorney General's office</li>
+          <li>Available to DV, sexual assault, stalking, and human trafficking survivors</li>
+        </ul>
+        <div class="note">📞 Apply: <strong>512-936-1700</strong> or visit <a href="https://www.texasattorneygeneral.gov/crime-victims/address-confidentiality-program" target="_blank">texasattorneygeneral.gov/acp</a></div>
+      </div>
+    </div>
+
+    <div class="info-card" onclick="toggleInfo(this)">
+      <div class="info-card-header">
+        <div class="info-header-left"><span>📱</span><span class="info-card-title">Texas Law: Transfer Your Cell Phone Number Off His Plan</span></div>
+        <span class="info-card-toggle">▾</span>
+      </div>
+      <div class="info-card-body">
+        <p>Under <strong>Texas HB 1372 (2021)</strong>, a survivor with a protective order can legally transfer their cell phone number — and their children's numbers — off an abuser's family plan.</p>
+        <ol>
+          <li>Obtain a protective order (or apply — the right exists once you file)</li>
+          <li>Ask the court to include cell phone number transfer as a provision of the PO</li>
+          <li>Contact the carrier with your court order — they must transfer the number</li>
+          <li>The carrier cannot charge you a fee or penalize you for the transfer</li>
+        </ol>
+        <div class="note">💡 This also means he can no longer see your real-time location, call history, or texts through the family plan account.</div>
+      </div>
+    </div>
+
+    <div class="info-card" onclick="toggleInfo(this)">
+      <div class="info-card-header">
+        <div class="info-header-left"><span>💳</span><span class="info-card-title">Financial Independence — Steps to Take Now</span></div>
+        <span class="info-card-toggle">▾</span>
+      </div>
+      <div class="info-card-body">
+        <ul>
+          <li>Open a bank account <strong>in your name only</strong> at a different bank than his</li>
+          <li>Get a free credit report at <a href="https://annualcreditreport.com" target="_blank">annualcreditreport.com</a> — know what's in your name</li>
+          <li>Apply for TANF, SNAP, or Medicaid — DV survivors can request <strong>expedited processing</strong></li>
+          <li>Apply for the <strong>Texas ACP</strong> (above) so your new address stays private</li>
+          <li>Workforce Solutions Texas can help with job training and placement: <a href="https://workforce.texas.gov" target="_blank">workforce.texas.gov</a></li>
+          <li>If you have a joint credit card, call the issuer — you may be able to remove yourself from joint debt in DV situations</li>
+        </ul>
+        <div class="note note-gold">💡 Many DV shelters have financial literacy advocates who can help you build a financial independence plan for free.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       PROTECTIVE ORDERS
+  ══════════════════════════════ -->
   <div class="resource-section" data-cat="order">
     <div class="section-header">
-      <div class="section-icon rose">📋</div>
+      <div class="section-icon si-rose">📋</div>
       <span class="section-title">Protective Orders — Know Your Options</span>
     </div>
 
     <div class="info-card" onclick="toggleInfo(this)">
       <div class="info-card-header">
-        <div class="info-header-left">
-          <span>🔒</span>
-          <span class="info-card-title">Emergency Protective Order (EPO) — Immediate</span>
-        </div>
+        <div class="info-header-left"><span>🚨</span><span class="info-card-title">Emergency Protective Order (EPO) — Same Night</span></div>
         <span class="info-card-toggle">▾</span>
       </div>
       <div class="info-card-body">
-        <p><strong>What it is:</strong> A temporary order issued by a judge or magistrate — often the same night as an arrest. Lasts 31–61 days.</p>
+        <p><strong>What it is:</strong> Issued by a judge the same night as an arrest — lasts 31–61 days. You don't have to appear in court.</p>
         <ol>
           <li>Call 911 during or after an incident of violence or stalking</li>
           <li>Ask the responding officer to request an EPO from the on-call magistrate</li>
-          <li>The EPO is issued without you having to appear in court</li>
-          <li>It can prohibit contact, require the abuser to leave your home, and restrict access to your children</li>
+          <li>The EPO is issued that night — you don't go to court</li>
+          <li>It prohibits contact, can require him to leave your home, and restricts access to children</li>
         </ol>
-        <div class="note">✅ <strong>Best for:</strong> Immediate danger — same night protection.</div>
+        <div class="note">✅ <strong>Best for:</strong> Immediate same-night protection.</div>
       </div>
     </div>
 
     <div class="info-card" onclick="toggleInfo(this)">
       <div class="info-card-header">
-        <div class="info-header-left">
-          <span>🛡️</span>
-          <span class="info-card-title">Protective Order (PO) — Longer Term</span>
-        </div>
+        <div class="info-header-left"><span>🛡️</span><span class="info-card-title">Protective Order (PO) — Up to 2 Years (or Permanent)</span></div>
         <span class="info-card-toggle">▾</span>
       </div>
       <div class="info-card-body">
-        <p><strong>What it is:</strong> A civil court order that can last up to 2 years (or permanently in certain cases). More comprehensive than an EPO.</p>
+        <p><strong>What it is:</strong> A civil court order lasting up to 2 years — or permanently in cases of serious bodily injury or sexual assault. Covers DV, stalking, and sexual assault.</p>
         <ol>
-          <li>Go to your county courthouse — look for the "family violence" or "protective order" office</li>
-          <li>File an Application for Protective Order (free to file if family violence is involved)</li>
-          <li>A judge may issue a Temporary Ex Parte Order the same day — good for 20 days</li>
-          <li>A hearing is scheduled; you'll present your case, abuser is notified</li>
-          <li>If granted, the full order lasts 2 years or longer</li>
+          <li>Go to your county courthouse — ask for the "family violence" or "protective order" office</li>
+          <li>File an Application for Protective Order — <strong>free to file</strong> in DV cases</li>
+          <li>A Temporary Ex Parte Order (TEXPO) may be granted the same day — lasts 20 days</li>
+          <li>A hearing is scheduled — you present your case; abuser is notified</li>
+          <li>If granted, the full order lasts up to 2 years and can address custody, property, and support</li>
         </ol>
-        <div class="note">✅ <strong>Best for:</strong> Ongoing safety — stalking, repeated abuse, shared children.</div>
-        <p style="margin-top:10px;"><a href="https://texaslawhelp.org/issues/family/protective-orders" target="_blank">📄 Texas Law Help — Protective Order Guide →</a></p>
+        <div class="note">✅ <strong>Best for:</strong> Ongoing safety, shared children, stalking situations.</div>
+        <p style="margin-top:10px;"><a href="https://texaslawhelp.org/issues/family/protective-orders" target="_blank">📄 Protective Order forms & guide →</a></p>
       </div>
     </div>
 
     <div class="info-card" onclick="toggleInfo(this)">
       <div class="info-card-header">
-        <div class="info-header-left">
-          <span>⚠️</span>
-          <span class="info-card-title">PO vs. Restraining Order — What's the Difference?</span>
-        </div>
+        <div class="info-header-left"><span>⚠️</span><span class="info-card-title">Protective Order vs. Restraining Order — Critical Difference</span></div>
         <span class="info-card-toggle">▾</span>
       </div>
       <div class="info-card-body">
-        <p>In Texas, these are often confused. Here's the key difference:</p>
+        <p>These sound similar but have very different levels of protection in Texas:</p>
         <ul>
-          <li><strong>Protective Order (PO):</strong> A criminal law tool. Violating it is a <em>crime</em> — the abuser can be arrested. Stronger enforcement.</li>
-          <li><strong>Restraining Order:</strong> A civil court order, typically used in divorce/custody proceedings. Violation is contempt of court, not a criminal offense. Less immediate enforcement.</li>
+          <li><strong>Protective Order (PO):</strong> Violation is a <em>criminal offense</em> — he can be arrested on the spot. Enforced by police.</li>
+          <li><strong>Restraining Order:</strong> A civil court order used in divorce/custody cases. Violation is contempt of court — not a crime. Enforcement is weaker and slower.</li>
         </ul>
-        <div class="note">💡 For safety from domestic violence or stalking, <strong>always pursue a Protective Order</strong> — not just a restraining order.</div>
+        <div class="note note-terra">🚨 For safety from DV or stalking, <strong>always pursue a Protective Order</strong>, not just a restraining order. The difference can be life or death.</div>
       </div>
     </div>
 
     <div class="info-card" onclick="toggleInfo(this)">
       <div class="info-card-header">
-        <div class="info-header-left">
-          <span>📍</span>
-          <span class="info-card-title">Where to File in Texas — By County</span>
-        </div>
+        <div class="info-header-left"><span>📍</span><span class="info-card-title">Where to File — By County</span></div>
         <span class="info-card-toggle">▾</span>
       </div>
       <div class="info-card-body">
         <ul>
           <li><strong>Travis (Austin):</strong> Travis County Courthouse, 1000 Guadalupe St — Family Violence Unit</li>
           <li><strong>Harris (Houston):</strong> Harris County Civil Courthouse, 201 Caroline St</li>
-          <li><strong>Dallas:</strong> Family Violence Unit, Frank Crowley Courts Building</li>
+          <li><strong>Dallas:</strong> Frank Crowley Courts Building — Family Violence Unit</li>
           <li><strong>Tarrant (Fort Worth):</strong> Family Law Center, 200 E Weatherford St</li>
           <li><strong>Bexar (San Antonio):</strong> Paul Elizondo Tower, 101 W Nueva St</li>
-          <li><strong>Any County:</strong> Call <strong>1-800-799-7233</strong> to locate your nearest filing office</li>
+          <li><strong>Any County:</strong> Your local District or County Attorney's office can file for free on your behalf</li>
         </ul>
-        <div class="note">📌 You can file in the county where <em>you</em> live, where the <em>abuser</em> lives, or where the violence occurred.</div>
+        <div class="note">📌 You can file in the county where <em>you</em> live, where the <em>abuser</em> lives, or where the violence occurred. Call 800-374-HOPE if you need help choosing.</div>
       </div>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════
-       CUSTODY RIGHTS SECTION
-  ═══════════════════════════════ -->
+  <!-- ══════════════════════════════
+       CUSTODY & HOUSING RIGHTS
+  ══════════════════════════════ -->
   <div class="resource-section" data-cat="custody">
     <div class="section-header">
-      <div class="section-icon gold">👶</div>
-      <span class="section-title">Know Your Rights — Custody &amp; Housing</span>
+      <div class="section-icon si-gold">👶</div>
+      <span class="section-title">Custody & Housing Rights</span>
+    </div>
+
+    <div class="callout-banner green" data-city="statewide" data-zip="">
+      <div class="callout-icon">👶</div>
+      <div class="callout-text">
+        <strong>Myth: "If I leave, I'll lose my kids."</strong>
+        <p>This is one of the most common fears abusers use to keep women trapped. In reality, Texas law creates a <strong>legal presumption AGAINST</strong> abusers having joint custody. Leaving with your children is usually the right move — talk to the Texas Advocacy Project (800-374-4673) first.</p>
+      </div>
     </div>
 
     <div class="info-card" onclick="toggleInfo(this)">
       <div class="info-card-header">
-        <div class="info-header-left">
-          <span>🏠</span>
-          <span class="info-card-title">Breaking Your Lease for Safety (Texas Law)</span>
-        </div>
+        <div class="info-header-left"><span>🏠</span><span class="info-card-title">Breaking Your Lease Safely — Texas Law Protects You</span></div>
         <span class="info-card-toggle">▾</span>
       </div>
       <div class="info-card-body">
-        <p>Under <strong>Texas Property Code § 92.016</strong>, a domestic violence survivor can terminate their lease early <em>without penalty</em>.</p>
+        <p>Under <strong>Texas Property Code § 92.016</strong>, DV survivors can terminate a lease early <em>without penalty</em>.</p>
         <ol>
-          <li>Obtain documentation: a police report, protective order, or written statement from a licensed health care professional, licensed social worker, or family violence center advocate</li>
-          <li>Give your landlord written notice that you are terminating the lease due to family violence</li>
-          <li>You must give at least <strong>30 days' notice</strong> and a copy of your documentation</li>
-          <li>You are <strong>not liable</strong> for early termination fees or remaining rent</li>
-          <li>The landlord may not disclose your reason for leaving to the abuser</li>
+          <li>Gather one of: police report, protective order, OR written statement from a licensed healthcare provider, social worker, or family violence advocate</li>
+          <li>Give landlord written notice of termination due to family violence</li>
+          <li>Provide your documentation with the notice</li>
+          <li>Give at least <strong>30 days' notice</strong> — you owe nothing after vacating</li>
+          <li>No early termination fee, no remaining rent liability</li>
         </ol>
-        <div class="note">💡 The law also requires landlords to change your locks if you request it and pay the locksmith fee yourself.</div>
+        <div class="note">💡 The law also requires landlords to change your locks within 24 hours if you request it and provide the locksmith receipt. They cannot tell the abuser why you left.</div>
         <p style="margin-top:10px;"><a href="https://texaslawhelp.org/issues/housing/domestic-violence-and-housing" target="_blank">📄 Full tenant rights guide →</a></p>
       </div>
     </div>
 
     <div class="info-card" onclick="toggleInfo(this)">
       <div class="info-card-header">
-        <div class="info-header-left">
-          <span>👶</span>
-          <span class="info-card-title">Custody When There's Domestic Violence</span>
-        </div>
+        <div class="info-header-left"><span>👶</span><span class="info-card-title">Custody When There's Domestic Violence</span></div>
         <span class="info-card-toggle">▾</span>
       </div>
       <div class="info-card-body">
-        <p>Texas family courts must consider family violence when making custody decisions:</p>
         <ul>
-          <li><strong>Presumption Against Abuser:</strong> If there's credible evidence of DV in the past 2 years, there's a legal presumption that the abuser should NOT have joint managing conservatorship</li>
-          <li><strong>Emergency Custody Order:</strong> You can ask a court for an emergency order protecting children from immediate danger — same day in some cases</li>
-          <li><strong>Safety Planning:</strong> Exchange of children for visitation can be ordered to occur at a police station or neutral location</li>
-          <li><strong>Supervised Visitation:</strong> Courts can require all visitation to be supervised if children are at risk</li>
+          <li><strong>Presumption Against Abuser:</strong> If there's credible evidence of DV in the past 2 years, Texas law presumes the abuser should NOT have joint managing conservatorship</li>
+          <li><strong>Emergency Custody Order:</strong> Courts can issue same-day emergency orders to protect children from immediate danger</li>
+          <li><strong>Safe Exchange Locations:</strong> Courts can order that custody transfers happen at a police station or neutral location</li>
+          <li><strong>Supervised Visitation:</strong> All visits can be required to be supervised if children are at risk</li>
+          <li><strong>Document Everything:</strong> Save texts, voicemails, photos of injuries, police reports — courts need evidence</li>
         </ul>
-        <div class="note">📌 Document everything: texts, voicemails, photos of injuries, records of incidents, witnesses. Courts need evidence.</div>
+        <div class="note">📌 You leaving the home does NOT mean he automatically gets custody. An attorney can help you file for emergency custody protection immediately.</div>
       </div>
     </div>
 
     <div class="info-card" onclick="toggleInfo(this)">
       <div class="info-card-header">
-        <div class="info-header-left">
-          <span>📱</span>
-          <span class="info-card-title">Protecting Yourself from Stalking &amp; Digital Abuse</span>
-        </div>
+        <div class="info-header-left"><span>🌐</span><span class="info-card-title">For Immigrant Survivors — You Have Rights Too</span></div>
         <span class="info-card-toggle">▾</span>
       </div>
       <div class="info-card-body">
-        <p><strong>Digital safety steps to take now:</strong></p>
+        <p><strong>Texas and federal law protects DV survivors regardless of immigration status.</strong> Abusers often threaten deportation to keep victims silent — this is a control tactic.</p>
         <ul>
-          <li>Change all passwords on a device the abuser hasn't touched</li>
-          <li>Check your phone for tracking apps — consider a factory reset or new device</li>
-          <li>Enable two-factor authentication on a new email account</li>
-          <li>Disable location sharing on all apps (especially iPhone Find My, Google Maps)</li>
-          <li>Check your car for GPS trackers (wheel wells, under bumpers)</li>
-          <li>Log out of all shared accounts (streaming, Google, iCloud)</li>
+          <li><strong>VAWA (Violence Against Women Act):</strong> Undocumented survivors can self-petition for immigration status if married to a U.S. citizen or permanent resident who abused them</li>
+          <li><strong>U-Visa:</strong> Available to victims of certain crimes including DV and stalking who cooperate with law enforcement</li>
+          <li><strong>T-Visa:</strong> For survivors of human trafficking</li>
+          <li>All shelters and legal aid organizations listed here serve survivors <strong>regardless of documentation status</strong></li>
+          <li><strong>Mosaic Family Services</strong> (Dallas, 214-821-5393) specializes in immigrant DV cases</li>
+          <li><strong>TRLA</strong> (1-888-988-9996) handles VAWA and immigration-related DV cases</li>
         </ul>
-        <div class="note">🔒 <strong>Safety Check Tool:</strong> <a href="https://www.techsafety.org" target="_blank">techsafety.org</a> — free digital safety resources from the National Network to End DV</div>
+        <div class="note">💡 Calling a DV hotline or shelter does NOT trigger immigration enforcement. Your safety comes first.</div>
       </div>
     </div>
 
     <div class="info-card" onclick="toggleInfo(this)">
       <div class="info-card-header">
-        <div class="info-header-left">
-          <span>💼</span>
-          <span class="info-card-title">Financial Safety &amp; Independence</span>
+        <div class="info-header-left"><span>📱</span><span class="info-card-title">Digital Safety — Protecting Yourself from Tech Abuse</span></div>
+        <span class="info-card-toggle">▾</span>
+      </div>
+      <div class="info-card-body">
+        <p><strong>Do these steps on a device he hasn't touched:</strong></p>
+        <ul>
+          <li>Change all passwords — use a new email he doesn't know about</li>
+          <li>Check your phone for tracking/spyware apps — consider a factory reset or new device</li>
+          <li>Disable location sharing on all apps (iPhone Find My, Google Maps, Snapchat, etc.)</li>
+          <li>Check your car for GPS trackers (wheel wells, under bumpers, under the dash)</li>
+          <li>Log out of all shared accounts: streaming, Google, iCloud, Amazon</li>
+          <li>Enable two-factor authentication on all new accounts to a phone/email he can't access</li>
+          <li>Use incognito/private mode when browsing for help — or a library computer</li>
+        </ul>
+        <div class="note">🔒 Free tech safety help: <a href="https://www.techsafety.org" target="_blank">techsafety.org</a> — from the National Network to End Domestic Violence</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       SAFETY PLANNING (NEW)
+  ══════════════════════════════ -->
+  <div class="resource-section" data-cat="safety">
+    <div class="section-header">
+      <div class="section-icon si-teal">🎒</div>
+      <span class="section-title">Safety Planning & Go-Bag Checklist</span>
+    </div>
+
+    <div class="callout-banner teal" data-city="statewide" data-zip="">
+      <div class="callout-icon">💬</div>
+      <div class="callout-text">
+        <strong>You don't have to leave today to plan for tomorrow.</strong>
+        <p>Having a go-bag ready — even hidden — means you can leave in minutes if you ever need to. Check off items as you gather them. The most dangerous time is when you leave, so planning matters.</p>
+      </div>
+    </div>
+
+    <div class="info-card open" onclick="toggleInfo(this)">
+      <div class="info-card-header">
+        <div class="info-header-left"><span>🎒</span><span class="info-card-title">Go-Bag Checklist — Tap to Check Items Off</span></div>
+        <span class="info-card-toggle">▾</span>
+      </div>
+      <div class="info-card-body">
+        <div id="checklistProgress" class="checklist-progress">
+          <span id="checkCount">0 of 24 items packed</span>
+          <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
         </div>
+
+        <div class="checklist" id="goChecklist">
+          <div class="check-category">📄 Documents (originals or copies)</div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <label>Your photo ID or driver's license</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <label>Children's birth certificates</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <label>Your birth certificate</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <label>Social Security cards (yours + children's)</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <label>Passport(s) if you have them</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <label>Any protective order or court documents</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <label>Health insurance cards</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <label>Children's school/immunization records</label></div>
+
+          <div class="check-category">💳 Money & Access</div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <label>Cash (he can't track cash)</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <label>A prepaid debit or gift card</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <label>Keys to car, house, mailbox, safe deposit box</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <label>Bank account numbers / recent statements</label></div>
+
+          <div class="check-category">💊 Health & Safety</div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <label>Prescription medications (at least 2 weeks' worth)</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <label>Glasses or contacts + supplies</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <label>Phone charger</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <label>A second phone (prepaid/burner)</label></div>
+
+          <div class="check-category">👕 Clothes & Kids</div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <label>Several days of clothes for you</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <label>Clothes + comfort items for each child</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <label>Child's favorite toy or comfort object</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <label>Baby formula / diapers if applicable</label></div>
+
+          <div class="check-category">📝 Evidence & Records</div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <label>Photos of injuries saved to cloud/email</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <label>Screenshots of threatening texts/emails saved</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <label>A written record of incidents with dates</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <label>Trusted contact's phone number memorized or written</label></div>
+        </div>
+
+        <div class="checklist-actions">
+          <button class="cl-btn" onclick="resetChecklist(event)">↺ Reset</button>
+          <button class="cl-btn primary" onclick="printChecklist(event)">🖨️ Print Checklist</button>
+        </div>
+
+        <div class="note" style="margin-top:12px;">
+          💡 <strong>Hide your bag somewhere he won't look</strong> — a trusted neighbor's, your car trunk, a storage unit. If you can't get your bag when you leave, the hotline can help you get what you need. Don't let the bag being missing stop you from going.
+        </div>
+      </div>
+    </div>
+
+    <div class="info-card" onclick="toggleInfo(this)">
+      <div class="info-card-header">
+        <div class="info-header-left"><span>🗺️</span><span class="info-card-title">Safety Plan — Before You Leave</span></div>
         <span class="info-card-toggle">▾</span>
       </div>
       <div class="info-card-body">
         <ul>
-          <li>Open a bank account in your name only at a different bank</li>
-          <li>Get a free copy of your credit report at <a href="https://annualcreditreport.com" target="_blank">annualcreditreport.com</a></li>
-          <li>Apply for an Address Confidentiality Program (ACP) through the TX AG's office — gives you a substitute address for public records</li>
-          <li>Texas ACP: <a href="https://www.texasattorneygeneral.gov/crime-victims/address-confidentiality-program" target="_blank">texasattorneygeneral.gov</a> / 512-936-1700</li>
-          <li>Apply for TANF, SNAP, or Medicaid — DV survivors can request expedited processing</li>
+          <li><strong>Know your exit routes</strong> from every room in your home</li>
+          <li><strong>Choose a safe word</strong> with a trusted person — a signal you need help without saying it out loud</li>
+          <li><strong>Vary your routines</strong> — routes to work, stores, church — make your movements unpredictable</li>
+          <li><strong>Tell someone</strong> you trust where you're going when you leave home</li>
+          <li><strong>Teach children</strong> a code word to call for help — practice staying quiet and going to a safe room</li>
+          <li><strong>Call 911</strong> from a closet or bathroom if needed — even if you can't speak, leave the line open</li>
         </ul>
+        <div class="note">📋 Free personalized safety planning: Call the National DV Hotline at <strong>1-800-799-7233</strong> or chat at thehotline.org. They help you build a plan for your specific situation.</div>
+      </div>
+    </div>
+
+    <div class="info-card" onclick="toggleInfo(this)">
+      <div class="info-card-header">
+        <div class="info-header-left"><span>🧠</span><span class="info-card-title">Mental Health & Trauma Support in Texas</span></div>
+        <span class="info-card-toggle">▾</span>
+      </div>
+      <div class="info-card-body">
+        <p>Abuse takes a serious toll on your mental health. Trauma-informed therapy can be transformative — and much of it is free for survivors.</p>
+        <ul>
+          <li><strong>Free counseling at your shelter:</strong> Almost all Texas DV shelters offer free counseling to residents and non-residents</li>
+          <li><strong>NAMI Texas:</strong> Mental health support and advocacy — <a href="https://namitexas.org" target="_blank">namitexas.org</a> / 512-693-2000</li>
+          <li><strong>988 Lifeline:</strong> Call or text 988 — free mental health crisis line, 24/7</li>
+          <li><strong>Trauma-informed therapist finder:</strong> <a href="https://www.psychologytoday.com/us/therapists/tx?category=domestic-violence" target="_blank">PsychologyToday.com</a> — filter by "domestic violence" and "sliding scale fee"</li>
+          <li><strong>Open Path Collective:</strong> Affordable therapy ($30–$70/session) for low-income survivors — <a href="https://openpathcollective.org" target="_blank">openpathcollective.org</a></li>
+        </ul>
+        <div class="note note-gold">💡 What happened to you is not your fault. Healing is not linear — it's okay to need support for a long time.</div>
       </div>
     </div>
   </div>
 
   <!-- Coming Soon -->
   <div class="coming-soon">
-    <h3>🗺️ More States Coming Soon</h3>
-    <p>Safe Harbor will expand to cover all 50 states. Want to help? Contribute on GitHub.</p>
+    <h3>🗺️ Interactive Map & More States Coming</h3>
+    <p>We're building a live map view and expanding to all 50 states. Want to contribute shelter data or volunteer?</p>
     <div class="state-pills">
       <span class="state-pill">Florida</span>
       <span class="state-pill">California</span>
@@ -1036,22 +1786,38 @@
       <span class="state-pill">Arizona</span>
       <span class="state-pill">Colorado</span>
       <span class="state-pill">Tennessee</span>
+      <span class="state-pill">Oklahoma</span>
+      <span class="state-pill">Louisiana</span>
       <span class="state-pill">+ More</span>
     </div>
+    <p style="margin-top:12px; font-size:0.72rem;"><a href="https://github.com" target="_blank" style="color: var(--sage);">🐙 Contribute on GitHub</a></p>
   </div>
 
 </main>
 
 <footer>
-  <p>🌿 Safe Harbor Texas — A community resource guide. Not a substitute for legal advice.</p>
-  <p style="margin-top:6px;">
+  <p>🌿 <strong>Safe Harbor Texas</strong> — A free community resource guide. Not a substitute for legal advice.</p>
+  <p style="margin-top:5px;">
     <a href="https://github.com" target="_blank">Contribute on GitHub</a> &nbsp;·&nbsp;
-    <a href="https://tcfv.org" target="_blank">Texas Council on Family Violence</a>
+    <a href="https://tcfv.org" target="_blank">Texas Council on Family Violence</a> &nbsp;·&nbsp;
+    <a href="https://texasadvocacyproject.org" target="_blank">Texas Advocacy Project</a>
   </p>
-  <p style="margin-top:6px;">If you're in danger, please call 911 or 1-800-799-7233.</p>
+  <p style="margin-top:5px; font-style:italic;">If you're in danger, call 911 or 1-800-799-7233 (24/7).</p>
 </footer>
 
+<!-- ════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════ -->
 <script>
+  // ── Quick Exit ──
+  function quickExit() {
+    window.location.replace('https://www.google.com');
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') quickExit();
+  });
+
+  // ── Category Filter ──
   let currentCategory = 'all';
   let currentSearch = '';
 
@@ -1062,15 +1828,16 @@
     applyFilters();
   }
 
+  // ── Search ──
   function doSearch() {
     currentSearch = document.getElementById('searchInput').value.toLowerCase().trim();
     applyFilters();
   }
-
   document.getElementById('searchInput').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') doSearch();
   });
 
+  // ── Filter Logic ──
   function applyFilters() {
     const sections = document.querySelectorAll('.resource-section');
     let anyVisible = false;
@@ -1079,38 +1846,33 @@
       const sectionCat = section.getAttribute('data-cat');
       const catMatch = currentCategory === 'all' || sectionCat === currentCategory;
 
-      if (!catMatch) {
-        section.classList.add('hidden');
-        return;
-      }
+      if (!catMatch) { section.classList.add('hidden'); return; }
 
       if (!currentSearch) {
         section.classList.remove('hidden');
-        section.querySelectorAll('.card, .info-card').forEach(c => c.classList.remove('hidden'));
+        section.querySelectorAll('.card, .info-card, .callout-banner, .cvc-box').forEach(c => c.classList.remove('hidden'));
         anyVisible = true;
         return;
       }
 
-      // For info-cards, keep them visible when search is active (they're statewide)
-      section.querySelectorAll('.info-card').forEach(c => {
-        c.classList.remove('hidden');
-      });
+      // Info cards, callout banners, and CVC boxes are always shown when section matches
+      section.querySelectorAll('.info-card, .callout-banner, .cvc-box').forEach(c => c.classList.remove('hidden'));
 
       const cards = section.querySelectorAll('.card');
-      let sectionHasVisible = false;
-
-      // Check if any info-cards exist in this section
-      if (section.querySelectorAll('.info-card').length > 0) {
-        sectionHasVisible = true;
-      }
+      let sectionHasVisible = section.querySelectorAll('.info-card, .callout-banner, .cvc-box').length > 0;
 
       cards.forEach(card => {
         const city = (card.getAttribute('data-city') || '').toLowerCase();
         const zips = (card.getAttribute('data-zip') || '').toLowerCase();
         const text = card.innerText.toLowerCase();
-
         const isStatewide = city === 'statewide';
-        const cityMatch = isStatewide || city.includes(currentSearch) || currentSearch.includes(city.split(' ')[0]);
+        const cityParts = city.split(/\s+/);
+        const searchParts = currentSearch.split(/\s+/);
+
+        let cityMatch = isStatewide;
+        if (!cityMatch) {
+          cityMatch = cityParts.some(cp => cp && (searchParts.some(sp => sp && (cp.startsWith(sp) || sp.startsWith(cp)))));
+        }
         const zipMatch = zips.includes(currentSearch);
         const textMatch = text.includes(currentSearch);
 
@@ -1130,26 +1892,90 @@
       }
     });
 
-    // Show/hide no results
     const existing = document.getElementById('noResults');
     if (existing) existing.remove();
-    if (!anyVisible) {
+    if (!anyVisible && currentSearch) {
       const msg = document.createElement('div');
       msg.id = 'noResults';
       msg.className = 'no-results';
       msg.innerHTML = `
         <div class="emoji">🔍</div>
-        <p>No resources found for <strong>"${currentSearch}"</strong>.<br/>
-        Try a major city name (Austin, Houston, Dallas) or call the statewide hotline:<br/>
-        <a href="tel:18007997233" style="color:var(--terra);font-weight:600;">1-800-799-7233</a></p>
+        <p>No local resources found for <strong>"${currentSearch}"</strong>.<br/>
+        The statewide hotline can connect you to resources anywhere in Texas:<br/>
+        <a href="tel:18007997233">1-800-799-7233</a> (24/7, free, confidential)</p>
       `;
-      document.getElementById('mainContent').insertBefore(msg, document.querySelector('.coming-soon'));
+      const cs = document.querySelector('.coming-soon');
+      if (cs) document.getElementById('mainContent').insertBefore(msg, cs);
+      else document.getElementById('mainContent').appendChild(msg);
     }
   }
 
+  // ── Info Card Accordion ──
   function toggleInfo(card) {
     card.classList.toggle('open');
   }
+
+  // ── Checklist ──
+  function toggleCheck(item) {
+    const cb = item.querySelector('input[type="checkbox"]');
+    if (!cb) return;
+    cb.checked = !cb.checked;
+    item.classList.toggle('checked', cb.checked);
+    updateProgress();
+    event.stopPropagation();
+  }
+
+  function updateProgress() {
+    const all = document.querySelectorAll('#goChecklist .check-item');
+    const checked = document.querySelectorAll('#goChecklist .check-item.checked');
+    const total = all.length;
+    const done = checked.length;
+    document.getElementById('checkCount').textContent = `${done} of ${total} items packed`;
+    document.getElementById('progressFill').style.width = total ? `${(done/total)*100}%` : '0%';
+  }
+
+  function resetChecklist(e) {
+    e.stopPropagation();
+    document.querySelectorAll('#goChecklist .check-item').forEach(item => {
+      item.classList.remove('checked');
+      const cb = item.querySelector('input[type="checkbox"]');
+      if (cb) cb.checked = false;
+    });
+    updateProgress();
+  }
+
+  function printChecklist(e) {
+    e.stopPropagation();
+    const items = document.querySelectorAll('#goChecklist .check-item');
+    let rows = '';
+    let currentCat = '';
+    document.querySelectorAll('#goChecklist .check-category, #goChecklist .check-item').forEach(el => {
+      if (el.classList.contains('check-category')) {
+        rows += `<div style="font-weight:700; margin:14px 0 6px; font-size:13px; text-transform:uppercase; color:#5c3d2e; letter-spacing:0.06em;">${el.textContent}</div>`;
+      } else {
+        const label = el.querySelector('label').textContent;
+        const done = el.classList.contains('checked');
+        rows += `<div style="display:flex; align-items:center; gap:10px; padding:5px 0; border-bottom:1px solid #e8ddd6; font-size:13px;">
+          <div style="width:16px; height:16px; border: 2px solid ${done ? '#7a9e87' : '#b0a090'}; border-radius:3px; background:${done ? '#7a9e87' : 'white'}; flex-shrink:0;"></div>
+          <span style="${done ? 'text-decoration:line-through; color:#9a8a82;' : 'color:#3a2e28;'}">${label}</span>
+        </div>`;
+      }
+    });
+    const w = window.open('', '_blank', 'width=550,height=780');
+    w.document.write(`<!DOCTYPE html><html><head><title>Safe Harbor — Go-Bag Checklist</title></head>
+    <body style="font-family: Georgia, serif; padding: 32px; max-width: 480px; margin:0 auto; color:#3a2e28;">
+    <h2 style="font-size:1.3rem; margin-bottom:4px; color:#5c3d2e;">🌿 Safe Harbor Texas</h2>
+    <p style="font-size:0.82rem; color:#7a6a62; margin-bottom:20px;">Emergency Go-Bag Checklist — printed ${new Date().toLocaleDateString()}</p>
+    ${rows}
+    <p style="margin-top:24px; font-size:0.78rem; color:#7a6a62; border-top:1px solid #e8ddd6; padding-top:12px;">
+    DV Hotline 24/7: 1-800-799-7233 · Texas Advocacy Project: 800-374-4673
+    </p></body></html>`);
+    w.document.close();
+    w.print();
+  }
+
+  // ── Init ──
+  updateProgress();
 </script>
 </body>
 </html>
