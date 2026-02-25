@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en" style="background:#060a0d;color:#ffffff;">
 <head>
 <meta charset="UTF-8">
@@ -33,1193 +34,1197 @@
     background-color: #060a0d;
   }
 
-  :root {
-    --bg-primary: #060a0d;
-    --bg-secondary: #0b1015;
-    --bg-card: #0f1720;
-    --bg-card-hover: #141e2a;
-    --border: #1e3348;
-    --border-bright: #2d4d6e;
-    --accent: #60c8f5;
-    --accent-dim: #2d8bbf;
-    --accent-glow: rgba(96,200,245,0.15);
-    --caution: #f59e0b;
-    --caution-dim: #b45309;
-    --green: #2edb6e;
-    --green-dim: #17914a;
-    --red: #f25555;
-    --red-dim: #b02020;
-    --blue: #60c8f5;
-    --blue-dim: #2d8bbf;
-    --text-primary: #ffffff;
-    --text-secondary: #c2d4e8;
-    --text-dim: #6b8aaa;
-    /* Font stack: web font → system condensed → system default */
-    --mono: 'Share Tech Mono', 'Courier New', Courier, monospace;
-    --display: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
-    --body: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: #060a0d;
-    color: #ffffff;
-    font-family: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-    font-size: 17px;
-    overflow-x: hidden;
-  }
-
-  /* Scanline overlay */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0,0,0,0.03) 2px,
-      rgba(0,0,0,0.03) 4px
-    );
-    pointer-events: none;
-    z-index: 1000;
-  }
-
-  /* Grid noise texture */
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-    opacity: 0.4;
-    pointer-events: none;
-    z-index: 999;
-  }
-
-  /* ---- HEADER ---- */
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 32px;
-    border-bottom: 2px solid var(--accent);
-    background: linear-gradient(180deg, rgba(96,200,245,0.12) 0%, rgba(6,10,13,0.98) 100%);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 4px 32px rgba(96,200,245,0.08);
-  }
-
-  .logo-block {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .logo-icon {
-    width: 36px;
-    height: 36px;
-    border: 2px solid var(--accent);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3px;
-    padding: 4px;
-    animation: pulse-border 3s ease-in-out infinite;
-  }
-
-  .logo-icon span {
-    background: var(--accent);
-    display: block;
-  }
-  .logo-icon span:nth-child(2) { background: var(--accent-dim); }
-  .logo-icon span:nth-child(3) { background: var(--accent-dim); }
-
-  @keyframes pulse-border {
-    0%, 100% { box-shadow: 0 0 8px rgba(96,200,245,0.4); }
-    50% { box-shadow: 0 0 22px rgba(96,200,245,0.7); }
-  }
-
-  .logo-text {
-    font-family: var(--display);
-    font-weight: 900;
-    font-size: 30px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--text-primary);
-    line-height: 1.1;
-  }
-
-  .logo-sub {
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--accent);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    opacity: 0.85;
-  }
-
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 28px;
-  }
-
-  .live-indicator {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: var(--mono);
-    font-size: 15px;
-    color: var(--green);
-    letter-spacing: 3px;
-    font-weight: bold;
-  }
-
-  .live-dot {
-    width: 11px;
-    height: 11px;
-    background: var(--green);
-    border-radius: 50%;
-    animation: blink 1.5s ease-in-out infinite;
-    box-shadow: 0 0 10px var(--green);
-  }
-
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.2; }
-  }
-
-  #clock {
-    font-family: var(--mono);
-    letter-spacing: 2px;
-  }
-
-  .states-badge {
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    padding: 6px 14px;
-    letter-spacing: 1px;
-    background: rgba(96,200,245,0.07);
-    white-space: nowrap;
-  }
-
-  /* ---- NAV TABS ---- */
-  nav {
-    display: flex;
-    gap: 0;
-    border-bottom: 1px solid #1e3348;
-    padding: 0 32px;
-    background: #0b1015;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  nav::-webkit-scrollbar { display: none; }
-
-  .tab {
-    font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
-    font-weight: 600;
-    font-size: 17px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #6b8aaa;
-    padding: 14px 26px;
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    transition: all 0.2s;
-    background: none;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    white-space: nowrap;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .tab:hover { color: #c2d4e8; }
-  .tab.active {
-    color: #60c8f5;
-    border-bottom-color: #60c8f5;
-  }
-
-  /* ---- MAIN LAYOUT ---- */
-  main {
-    padding: 24px 32px;
-    max-width: 1600px;
-    margin: 0 auto;
-    background: #060a0d;
-    min-height: calc(100vh - 120px);
-  }
-
-  .section { display: none; background: #060a0d; }
-  .section.active { display: block; background: #060a0d; }
-
-  /* ---- STATUS BAR ---- */
-  .status-bar {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
-  }
-
-  .status-pill {
-    font-family: 'Share Tech Mono', 'Courier New', monospace;
-    font-size: 14px;
-    letter-spacing: 1.5px;
-    padding: 7px 16px;
-    border: 1px solid #2d4d6e;
-    background: #0f1720;
-    color: #c2d4e8;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .status-pill .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #2edb6e;
-    flex-shrink: 0;
-  }
-
-  .status-pill .dot.warn { background: #f59e0b; }
-  .status-pill .dot.off { background: #6b8aaa; }
-
-  /* ---- GRID SYSTEMS ---- */
-  .grid-4 {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-
-  .grid-3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-
-  .grid-2 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-
-  .grid-2-1 {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-
-  .col-span-2 { grid-column: span 2; }
-  .col-span-3 { grid-column: span 3; }
-  .col-span-4 { grid-column: span 4; }
-
-  /* ---- CARDS ---- */
-  .card {
-    background: #0f1720;
-    border: 1px solid #1e3348;
-    padding: 20px;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.2s, background 0.2s;
-  }
-
-  .card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #2d8bbf, transparent);
-    opacity: 0.5;
-  }
-
-  .card:hover {
-    border-color: #2d4d6e;
-    background: #141e2a;
-  }
-
-  .card-label {
-    font-family: 'Share Tech Mono', 'Courier New', monospace;
-    font-size: 14px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: #c2d4e8;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .card-label .unit { color: #60c8f5; font-size: 13px; }
-
-  .card-value {
-    font-family: var(--display);
-    font-size: 55px;
-    font-weight: 700;
-    line-height: 1;
-    color: var(--text-primary);
-    margin-bottom: 8px;
-  }
-
-  .card-value.large { font-size: 67px; }
-  .card-value.small { font-size: 39px; }
-
-  .card-sub {
-    font-family: var(--mono);
-    font-size: 15px;
-    color: var(--text-secondary);
-    letter-spacing: 1px;
-  }
-
-  .card-delta {
-    font-family: var(--mono);
-    font-size: 15px;
-    margin-top: 6px;
-  }
-
-  .card-delta.up { color: var(--red); }
-  .card-delta.down { color: var(--green); }
-  .card-delta.neutral { color: var(--text-dim); }
-
-  /* ---- SECTION HEADER ---- */
-  .section-header {
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-    margin-bottom: 20px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .section-title {
-    font-family: var(--display);
-    font-weight: 900;
-    font-size: 37px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--text-primary);
-  }
-
-  .section-title span { color: var(--accent); }
-
-  .section-meta {
-    font-family: var(--mono);
-    font-size: 14px;
-    color: var(--text-dim);
-    letter-spacing: 2px;
-  }
-
-  .refresh-btn {
-    margin-left: auto;
-    background: none;
-    border: 1px solid var(--border-bright);
-    color: var(--text-secondary);
-    font-family: var(--mono);
-    font-size: 14px;
-    letter-spacing: 2px;
-    padding: 8px 16px;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-transform: uppercase;
-  }
-
-  .refresh-btn:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  /* ---- CHART CARDS ---- */
-  .chart-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    padding: 20px;
-    position: relative;
-  }
-
-  .chart-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
-    opacity: 0.5;
-  }
-
-  .chart-title {
-    font-family: var(--display);
-    font-weight: 700;
-    font-size: 23px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-primary);
-    margin-bottom: 4px;
-  }
-
-  .chart-subtitle {
-    font-family: var(--mono);
-    font-size: 14px;
-    color: var(--text-secondary);
-    letter-spacing: 1.5px;
-    margin-bottom: 18px;
-  }
-
-  /* ---- STATE TABLE ---- */
-  .state-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: var(--mono);
-    font-size: 16px;
-  }
-
-  .state-table th {
-    font-family: var(--display);
-    font-weight: 600;
-    font-size: 15px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-    text-align: left;
-    padding: 10px 16px;
-    border-bottom: 1px solid var(--border-bright);
-  }
-
-  .state-table td {
-    padding: 13px 16px;
-    border-bottom: 1px solid rgba(30,51,72,0.6);
-    color: var(--text-secondary);
-    transition: background 0.15s;
-  }
-
-  .state-table tr:hover td { background: rgba(96,200,245,0.04); }
-
-  .state-table .state-name {
-    color: var(--text-primary);
-    font-family: var(--display);
-    font-weight: 600;
-    font-size: 18px;
-    letter-spacing: 1px;
-  }
-
-  .state-table .val-highlight {
-    color: var(--accent);
-    font-weight: bold;
-  }
-
-  .state-table .val-high { color: var(--red); }
-  .state-table .val-low { color: var(--green); }
-
-  .bar-cell {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .mini-bar {
-    height: 6px;
-    background: var(--border);
-    flex: 1;
-    max-width: 80px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .mini-bar-fill {
-    height: 100%;
-    background: var(--accent);
-    transition: width 1s ease;
-  }
-
-  .mini-bar-fill.high { background: var(--red); }
-  .mini-bar-fill.low { background: var(--green); }
-  .mini-bar-fill.med { background: var(--blue); }
-
-  /* ---- GRID STATUS CARDS ---- */
-  .grid-status-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .grid-region-name {
-    font-family: var(--display);
-    font-weight: 700;
-    font-size: 25px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-
-  .grid-states-covered {
-    font-family: var(--mono);
-    font-size: 14px;
-    color: var(--text-secondary);
-    letter-spacing: 1px;
-  }
-
-  .grid-load-bar {
-    height: 8px;
-    background: var(--border);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .grid-load-fill {
-    height: 100%;
-    transition: width 1.5s ease;
-    position: relative;
-  }
-
-  .grid-load-fill::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: -2px;
-    bottom: -2px;
-    width: 3px;
-    background: white;
-    opacity: 0.8;
-    box-shadow: 0 0 6px white;
-  }
-
-  .grid-load-fill.normal { background: linear-gradient(90deg, #17914a, #2edb6e); }
-  .grid-load-fill.elevated { background: linear-gradient(90deg, #b45309, #f59e0b); }
-  .grid-load-fill.high { background: linear-gradient(90deg, #b02020, #f25555); }
-
-  .grid-metrics {
-    display: flex;
-    justify-content: space-between;
-    font-family: var(--mono);
-    font-size: 15px;
-    color: var(--text-secondary);
-  }
-
-  .grid-metrics .metric-val {
-    color: var(--text-primary);
-    font-size: 20px;
-    display: block;
-  }
-
-  .grid-link {
-    font-family: var(--mono);
-    font-size: 14px;
-    color: var(--accent);
-    text-decoration: none;
-    letter-spacing: 1.5px;
-    border: 1px solid var(--accent-dim);
-    padding: 7px 14px;
-    display: inline-block;
-    transition: all 0.2s;
-    text-transform: uppercase;
-  }
-
-  .grid-link:hover {
-    background: var(--accent-glow);
-    border-color: var(--accent);
-  }
-
-  /* ---- NEWS CARDS ---- */
-  .news-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-
-  .news-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    transition: all 0.2s;
-    text-decoration: none;
-    color: inherit;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .news-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
-    transform: scaleX(0);
-    transition: transform 0.3s;
-  }
-
-  .news-card:hover {
-    border-color: var(--border-bright);
-    background: var(--bg-card-hover);
-  }
-
-  .news-card:hover::after { transform: scaleX(1); }
-
-  .news-source {
-    font-family: var(--mono);
-    font-size: 13px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--accent);
-  }
-
-  .news-title {
-    font-family: var(--display);
-    font-weight: 600;
-    font-size: 21px;
-    line-height: 1.3;
-    color: var(--text-primary);
-  }
-
-  .news-desc {
-    font-size: 16px;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    flex: 1;
-  }
-
-  .news-date {
-    font-family: var(--mono);
-    font-size: 14px;
-    color: var(--text-dim);
-  }
-
-  .news-arrow {
-    font-size: 26px;
-    color: var(--accent-dim);
-    align-self: flex-end;
-    transition: transform 0.2s, color 0.2s;
-  }
-
-  .news-card:hover .news-arrow {
-    transform: translate(4px, -4px);
-    color: var(--accent);
-  }
-
-  /* ---- WEATHER CARDS ---- */
-  .weather-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-  }
-
-  .weather-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    padding: 16px;
-  }
-
-  .weather-state {
-    font-family: var(--display);
-    font-weight: 700;
-    font-size: 25px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-
-  .weather-temp {
-    font-family: var(--display);
-    font-size: 51px;
-    font-weight: 900;
-    color: var(--accent);
-    line-height: 1;
-  }
-
-  .weather-desc {
-    font-family: var(--mono);
-    font-size: 14px;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 8px;
-  }
-
-  .weather-details {
-    display: flex;
-    gap: 14px;
-    margin-top: 12px;
-    font-family: var(--mono);
-    font-size: 14px;
-    color: var(--text-secondary);
-  }
-
-  .weather-loading {
-    font-family: var(--mono);
-    font-size: 15px;
-    color: var(--text-dim);
-    padding: 28px;
-    text-align: center;
-    border: 1px dashed var(--border-bright);
-    letter-spacing: 2px;
-  }
-
-  /* ---- FUEL / GAS TABLE ---- */
-  .fuel-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 1px;
-    background: var(--border);
-    margin-bottom: 1px;
-  }
-
-  .fuel-cell {
-    background: var(--bg-card);
-    padding: 14px 18px;
-    font-family: var(--mono);
-    font-size: 16px;
-    color: var(--text-secondary);
-    transition: background 0.15s;
-  }
-
-  .fuel-row:hover .fuel-cell { background: var(--bg-card-hover); }
-  .fuel-cell.header {
-    background: var(--bg-secondary);
-    font-family: var(--display);
-    font-weight: 600;
-    font-size: 15px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-  }
-
-  .fuel-cell .state { color: var(--text-primary); font-weight: bold; font-size: 18px; }
-
-  /* ---- LOADING SPINNER ---- */
-  .loading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-    gap: 14px;
-    font-family: var(--mono);
-    font-size: 16px;
-    color: var(--text-secondary);
-    letter-spacing: 2px;
-  }
-
-  .spinner {
-    width: 22px;
-    height: 22px;
-    border: 2px solid var(--border-bright);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-  }
-
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* ---- ERROR STATE ---- */
-  .error-state {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--red);
-    padding: 16px;
-    border: 1px solid var(--red-dim);
-    background: rgba(239,68,68,0.05);
-    letter-spacing: 1px;
-  }
-
-  /* ---- API NOTE BANNER ---- */
-  .api-note {
-    background: rgba(96,200,245,0.05);
-    border: 1px solid var(--accent-dim);
-    border-left: 3px solid var(--accent);
-    padding: 14px 18px;
-    font-family: var(--mono);
-    font-size: 15px;
-    color: var(--text-secondary);
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-    line-height: 1.7;
-  }
-
-  .api-note strong { color: var(--accent); }
-
-  /* ---- TOOLTIP ---- */
-  .tooltip {
-    position: relative;
-    cursor: help;
-  }
-
-  .tooltip-text {
-    display: none;
-    position: absolute;
-    bottom: calc(100% + 8px);
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-bright);
-    padding: 8px 12px;
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--text-secondary);
-    white-space: nowrap;
-    z-index: 200;
-    letter-spacing: 1px;
-  }
-
-  .tooltip:hover .tooltip-text { display: block; }
-
-  /* ---- DIVIDER ---- */
-  .divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border), transparent);
-    margin: 24px 0;
-  }
-
-  /* ---- FOOTER ---- */
-  footer {
-    margin-top: 40px;
-    padding: 20px 32px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: var(--mono);
-    font-size: 14px;
-    color: var(--text-secondary);
-    letter-spacing: 1.5px;
-  }
-
-  /* ---- REGION BADGE ---- */
-  .region-badge {
-    display: inline-block;
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    padding: 2px 7px;
-    border: 1px solid var(--border);
-    color: var(--text-dim);
-    text-transform: uppercase;
-    margin-right: 4px;
-    margin-bottom: 4px;
-  }
-
-  /* ---- NEWS SUB-TABS ---- */
-  .news-subtab-bar {
-    display: flex;
-    gap: 0;
-    border-bottom: 1px solid var(--border-bright);
-    margin-bottom: 24px;
-  }
-
-  .news-subtab {
-    font-family: var(--mono);
-    font-size: 14px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    padding: 12px 28px;
-    background: none;
-    border: none;
-    border-bottom: 3px solid transparent;
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap;
-  }
-  .news-subtab:hover { color: var(--text-secondary); }
-  .news-subtab.active {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
-    background: rgba(96,200,245,0.04);
-  }
-
-  .news-subtab-content { display: none; }
-  .news-subtab-content.active { display: block; }
-
-  /* ---- TOOLTIP ---- */
-  .has-tooltip { position: relative; display: inline-flex; align-items: center; gap: 4px; cursor: help; }
-  .tooltip-icon {
-    width: 14px; height: 14px; border-radius: 50%;
-    background: #2d4d6e; color: #60c8f5;
-    font-family: 'Share Tech Mono','Courier New',monospace;
-    font-size: 9px; display: inline-flex; align-items: center; justify-content: center;
-    flex-shrink: 0; line-height: 1;
-  }
-  .tooltip-box {
-    display: none;
-    position: absolute;
-    bottom: calc(100% + 8px);
-    left: 0;
-    width: 270px;
-    background: #0b1015;
-    border: 1px solid #2d4d6e;
-    padding: 10px 12px;
-    font-family: 'Share Tech Mono','Courier New',monospace;
-    font-size: 11px;
-    color: #c2d4e8;
-    letter-spacing: 0.5px;
-    line-height: 1.6;
-    z-index: 200;
-    pointer-events: none;
-  }
-  .has-tooltip:hover .tooltip-box,
-  .has-tooltip:focus-within .tooltip-box { display: block; }
-
-  /* ---- STATUS THRESHOLDS LEGEND ---- */
-  .status-legend {
-    display: flex;
-    gap: 0;
-    border: 1px solid #1e3348;
-    margin-bottom: 20px;
-    overflow: hidden;
-  }
-  .legend-item {
-    flex: 1;
-    padding: 10px 14px;
-    border-right: 1px solid #1e3348;
-  }
-  .legend-item:last-child { border-right: none; }
-  .legend-label {
-    font-family: 'Barlow Condensed','Arial Narrow',Arial,sans-serif;
-    font-weight: 700;
-    font-size: 15px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-  .legend-rules {
-    font-family: 'Share Tech Mono','Courier New',monospace;
-    font-size: 11px;
-    color: #6b8aaa;
-    letter-spacing: 0.5px;
-    line-height: 1.5;
-  }
-
-  /* ---- OFFICIAL RESERVES ROW ---- */
-  .official-reserves-row {
-    margin-top: 8px;
-    padding: 8px 10px;
-    background: rgba(96,200,245,0.04);
-    border: 1px solid #1e3348;
-    border-left: 3px solid #60c8f5;
-    font-family: 'Share Tech Mono','Courier New',monospace;
-    font-size: 11px;
-    color: #6b8aaa;
-    letter-spacing: 0.5px;
-    line-height: 1.6;
-  }
-  .official-reserves-row a {
-    color: #60c8f5;
-    text-decoration: none;
-    letter-spacing: 1px;
-  }
-  .official-reserves-row a:hover { text-decoration: underline; }
-  .official-reserves-val {
-    font-size: 13px;
-    color: #c2d4e8;
-    font-weight: bold;
-  }
-
-  /* ---- ISO TABS ---- */
-  .iso-tab {
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    padding: 8px 16px;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .iso-tab:hover { border-color: var(--border-bright); color: var(--text-secondary); }
-  .iso-tab.active { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
-
-  /* ---- FUEL MIX BAR ---- */
-  .fuel-mix-bar {
-    display: flex;
-    height: 12px;
-    border-radius: 2px;
-    overflow: hidden;
-    margin: 8px 0;
-    gap: 1px;
-  }
-  .fuel-mix-segment {
-    height: 100%;
-    transition: flex 0.8s ease;
-    position: relative;
-  }
-  .fuel-mix-legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 8px;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text-secondary);
-  }
-  .fuel-mix-legend-item {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  .fuel-mix-dot {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  /* ---- HOURLY SPARKLINE ---- */
-  .sparkline-container {
-    height: 50px;
-    margin: 8px 0 4px;
-  }
-  .fade-in {
-    animation: fadeIn 0.4s ease forwards;
-    opacity: 0;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .fade-in:nth-child(1) { animation-delay: 0.05s; }
-  .fade-in:nth-child(2) { animation-delay: 0.1s; }
-  .fade-in:nth-child(3) { animation-delay: 0.15s; }
-  .fade-in:nth-child(4) { animation-delay: 0.2s; }
-  .fade-in:nth-child(5) { animation-delay: 0.25s; }
-  .fade-in:nth-child(6) { animation-delay: 0.3s; }
-  .fade-in:nth-child(7) { animation-delay: 0.35s; }
-  .fade-in:nth-child(8) { animation-delay: 0.4s; }
-
-  /* ---- CHART CARDS — explicit backgrounds ---- */
-  .chart-card {
-    background: #0f1720;
-    border: 1px solid #1e3348;
-    padding: 20px;
-    position: relative;
-  }
-  .chart-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #2d8bbf, transparent);
-    opacity: 0.5;
-  }
-
-  /* ---- GRID STATUS CARDS — explicit backgrounds ---- */
-  .grid-status-card {
-    background: #0f1720 !important;
-    border: 1px solid #1e3348 !important;
-  }
-
-  /* ---- API NOTE / ERROR — explicit backgrounds ---- */
-  .api-note {
-    background: #0a1520 !important;
-    border: 1px solid #2d4d6e !important;
-    color: #c2d4e8 !important;
-  }
-  .error-state {
-    background: rgba(178,32,32,0.15) !important;
-    border: 1px solid #b02020 !important;
-    color: #f25555 !important;
-  }
-
-  /* ---- NEWS CARDS — explicit backgrounds ---- */
-  .news-card {
-    background: #0f1720 !important;
-    border: 1px solid #1e3348 !important;
-  }
-  .news-card:hover { border-color: #2d4d6e !important; }
-
-  /* ---- WEATHER CARDS — explicit backgrounds ---- */
-  .weather-card {
-    background: #0f1720 !important;
-    border: 1px solid #1e3348 !important;
-  }
-
-  /* ---- FOOTER ---- */
-  footer {
-    background: #0b1015 !important;
-    border-top: 1px solid #1e3348 !important;
-    color: #6b8aaa !important;
-  }
-
-  /* ---- RESPONSIVE: TABLET ---- */
-  @media (max-width: 1100px) {
-    .grid-4 { grid-template-columns: repeat(2, 1fr); }
-    .grid-3 { grid-template-columns: repeat(2, 1fr); }
-    .weather-grid { grid-template-columns: repeat(3, 1fr); }
-    .news-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  /* ---- RESPONSIVE: MOBILE ---- */
-  @media (max-width: 768px) {
-    header {
-      padding: 12px 16px;
-      gap: 12px;
-      flex-wrap: nowrap;
-    }
-    .logo-text { font-size: 22px; letter-spacing: 2px; }
-    .logo-sub { font-size: 10px; letter-spacing: 2px; }
-    .logo-icon { width: 28px; height: 28px; }
-    .header-right { gap: 12px; }
-    .states-badge { font-size: 10px; padding: 4px 8px; }
-    #clock-time { font-size: 14px; }
-    #clock-tz { font-size: 10px; }
-
-    nav { padding: 0 8px; }
-    .tab { font-size: 13px; padding: 12px 14px; letter-spacing: 1px; }
-
-    main { padding: 12px 16px; background: #060a0d; }
-    .section { background: #060a0d; }
-
-    .grid-4,
-    .grid-3,
-    .grid-2,
-    .grid-2-1 { grid-template-columns: 1fr; }
-
-    .col-span-2,
-    .col-span-3,
-    .col-span-4 { grid-column: span 1; }
-
-    .card { padding: 16px; }
-    .card-value { font-size: 40px; }
-    .card-value.large { font-size: 48px; }
-
-    .weather-grid { grid-template-columns: repeat(2, 1fr); }
-    .news-grid { grid-template-columns: 1fr; }
-    .fuel-row { grid-template-columns: 1fr 1fr; }
-
-    .section-title { font-size: 28px; }
-    .section-header { flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
-
-    .chart-card { padding: 14px; }
-    .chart-title { font-size: 18px; }
-
-    .status-pill { font-size: 12px; padding: 6px 12px; }
-
-    .grid-metrics { flex-direction: column; gap: 8px; }
-    .iso-tab { font-size: 11px; padding: 6px 12px; }
-  }
-
-  /* ---- RESPONSIVE: SMALL MOBILE (≤390px iPhone SE etc) ---- */
-  @media (max-width: 430px) {
-    .logo-text { font-size: 18px; }
-    .header-right { gap: 8px; }
-    .states-badge { display: none; }
-    .tab { font-size: 12px; padding: 10px 10px; }
-    main { padding: 10px 12px; }
-  }
+:root {
+–bg-primary: #060a0d;
+–bg-secondary: #0b1015;
+–bg-card: #0f1720;
+–bg-card-hover: #141e2a;
+–border: #1e3348;
+–border-bright: #2d4d6e;
+–accent: #60c8f5;
+–accent-dim: #2d8bbf;
+–accent-glow: rgba(96,200,245,0.15);
+–caution: #f59e0b;
+–caution-dim: #b45309;
+–green: #2edb6e;
+–green-dim: #17914a;
+–red: #f25555;
+–red-dim: #b02020;
+–blue: #60c8f5;
+–blue-dim: #2d8bbf;
+–text-primary: #ffffff;
+–text-secondary: #c2d4e8;
+–text-dim: #6b8aaa;
+/* Font stack: web font → system condensed → system default */
+–mono: ‘Share Tech Mono’, ‘Courier New’, Courier, monospace;
+–display: ‘Barlow Condensed’, ‘Arial Narrow’, Arial, sans-serif;
+–body: ‘Barlow’, -apple-system, BlinkMacSystemFont, ‘Segoe UI’, Arial, sans-serif;
+}
+
+- { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+background: #060a0d;
+color: #ffffff;
+font-family: ‘Barlow’, -apple-system, BlinkMacSystemFont, ‘Segoe UI’, Arial, sans-serif;
+font-size: 17px;
+overflow-x: hidden;
+}
+
+/* Scanline overlay */
+body::before {
+content: ‘’;
+position: fixed;
+inset: 0;
+background: repeating-linear-gradient(
+0deg,
+transparent,
+transparent 2px,
+rgba(0,0,0,0.03) 2px,
+rgba(0,0,0,0.03) 4px
+);
+pointer-events: none;
+z-index: 1000;
+}
+
+/* Grid noise texture */
+body::after {
+content: ‘’;
+position: fixed;
+inset: 0;
+background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 200 200’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.65’ numOctaves=‘3’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23n)’ opacity=‘0.03’/%3E%3C/svg%3E”);
+opacity: 0.4;
+pointer-events: none;
+z-index: 999;
+}
+
+/* –– HEADER –– */
+header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 18px 32px;
+border-bottom: 2px solid var(–accent);
+background: linear-gradient(180deg, rgba(96,200,245,0.12) 0%, rgba(6,10,13,0.98) 100%);
+position: sticky;
+top: 0;
+z-index: 100;
+backdrop-filter: blur(12px);
+box-shadow: 0 4px 32px rgba(96,200,245,0.08);
+}
+
+.logo-block {
+display: flex;
+align-items: center;
+gap: 16px;
+}
+
+.logo-icon {
+width: 36px;
+height: 36px;
+border: 2px solid var(–accent);
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 3px;
+padding: 4px;
+animation: pulse-border 3s ease-in-out infinite;
+}
+
+.logo-icon span {
+background: var(–accent);
+display: block;
+}
+.logo-icon span:nth-child(2) { background: var(–accent-dim); }
+.logo-icon span:nth-child(3) { background: var(–accent-dim); }
+
+@keyframes pulse-border {
+0%, 100% { box-shadow: 0 0 8px rgba(96,200,245,0.4); }
+50% { box-shadow: 0 0 22px rgba(96,200,245,0.7); }
+}
+
+.logo-text {
+font-family: var(–display);
+font-weight: 900;
+font-size: 30px;
+letter-spacing: 4px;
+text-transform: uppercase;
+color: var(–text-primary);
+line-height: 1.1;
+}
+
+.logo-sub {
+font-family: var(–mono);
+font-size: 13px;
+color: var(–accent);
+letter-spacing: 3px;
+text-transform: uppercase;
+opacity: 0.85;
+}
+
+.header-right {
+display: flex;
+align-items: center;
+gap: 28px;
+}
+
+.live-indicator {
+display: flex;
+align-items: center;
+gap: 8px;
+font-family: var(–mono);
+font-size: 15px;
+color: var(–green);
+letter-spacing: 3px;
+font-weight: bold;
+}
+
+.live-dot {
+width: 11px;
+height: 11px;
+background: var(–green);
+border-radius: 50%;
+animation: blink 1.5s ease-in-out infinite;
+box-shadow: 0 0 10px var(–green);
+}
+
+@keyframes blink {
+0%, 100% { opacity: 1; }
+50% { opacity: 0.2; }
+}
+
+#clock {
+font-family: var(–mono);
+letter-spacing: 2px;
+}
+
+.states-badge {
+font-family: var(–mono);
+font-size: 13px;
+color: var(–accent);
+border: 1px solid var(–accent);
+padding: 6px 14px;
+letter-spacing: 1px;
+background: rgba(96,200,245,0.07);
+white-space: nowrap;
+}
+
+/* –– NAV TABS –– */
+nav {
+display: flex;
+gap: 0;
+border-bottom: 1px solid #1e3348;
+padding: 0 32px;
+background: #0b1015;
+overflow-x: auto;
+-webkit-overflow-scrolling: touch;
+scrollbar-width: none;
+}
+nav::-webkit-scrollbar { display: none; }
+
+.tab {
+font-family: ‘Barlow Condensed’, ‘Arial Narrow’, Arial, sans-serif;
+font-weight: 600;
+font-size: 17px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: #6b8aaa;
+padding: 14px 26px;
+cursor: pointer;
+border-bottom: 2px solid transparent;
+transition: all 0.2s;
+background: none;
+border-top: none;
+border-left: none;
+border-right: none;
+white-space: nowrap;
+-webkit-tap-highlight-color: transparent;
+}
+
+.tab:hover { color: #c2d4e8; }
+.tab.active {
+color: #60c8f5;
+border-bottom-color: #60c8f5;
+}
+
+/* –– MAIN LAYOUT –– */
+main {
+padding: 24px 32px;
+max-width: 1600px;
+margin: 0 auto;
+background: #060a0d;
+min-height: calc(100vh - 120px);
+}
+
+.section { display: none; background: #060a0d; }
+.section.active { display: block; background: #060a0d; }
+
+/* –– STATUS BAR –– */
+.status-bar {
+display: flex;
+gap: 12px;
+margin-bottom: 24px;
+flex-wrap: wrap;
+}
+
+.status-pill {
+font-family: ‘Share Tech Mono’, ‘Courier New’, monospace;
+font-size: 14px;
+letter-spacing: 1.5px;
+padding: 7px 16px;
+border: 1px solid #2d4d6e;
+background: #0f1720;
+color: #c2d4e8;
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.status-pill .dot {
+width: 8px;
+height: 8px;
+border-radius: 50%;
+background: #2edb6e;
+flex-shrink: 0;
+}
+
+.status-pill .dot.warn { background: #f59e0b; }
+.status-pill .dot.off { background: #6b8aaa; }
+
+/* –– GRID SYSTEMS –– */
+.grid-4 {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 16px;
+margin-bottom: 24px;
+}
+
+.grid-3 {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 16px;
+margin-bottom: 24px;
+}
+
+.grid-2 {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 16px;
+margin-bottom: 24px;
+}
+
+.grid-2-1 {
+display: grid;
+grid-template-columns: 2fr 1fr;
+gap: 16px;
+margin-bottom: 24px;
+}
+
+.col-span-2 { grid-column: span 2; }
+.col-span-3 { grid-column: span 3; }
+.col-span-4 { grid-column: span 4; }
+
+/* –– CARDS –– */
+.card {
+background: #0f1720;
+border: 1px solid #1e3348;
+padding: 20px;
+position: relative;
+overflow: hidden;
+transition: border-color 0.2s, background 0.2s;
+}
+
+.card::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 2px;
+background: linear-gradient(90deg, transparent, #2d8bbf, transparent);
+opacity: 0.5;
+}
+
+.card:hover {
+border-color: #2d4d6e;
+background: #141e2a;
+}
+
+.card-label {
+font-family: ‘Share Tech Mono’, ‘Courier New’, monospace;
+font-size: 14px;
+letter-spacing: 3px;
+text-transform: uppercase;
+color: #c2d4e8;
+margin-bottom: 12px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.card-label .unit { color: #60c8f5; font-size: 13px; }
+
+.card-value {
+font-family: var(–display);
+font-size: 55px;
+font-weight: 700;
+line-height: 1;
+color: var(–text-primary);
+margin-bottom: 8px;
+}
+
+.card-value.large { font-size: 67px; }
+.card-value.small { font-size: 39px; }
+
+.card-sub {
+font-family: var(–mono);
+font-size: 15px;
+color: var(–text-secondary);
+letter-spacing: 1px;
+}
+
+.card-delta {
+font-family: var(–mono);
+font-size: 15px;
+margin-top: 6px;
+}
+
+.card-delta.up { color: var(–red); }
+.card-delta.down { color: var(–green); }
+.card-delta.neutral { color: var(–text-dim); }
+
+/* –– SECTION HEADER –– */
+.section-header {
+display: flex;
+align-items: baseline;
+gap: 16px;
+margin-bottom: 20px;
+padding-bottom: 12px;
+border-bottom: 1px solid var(–border);
+}
+
+.section-title {
+font-family: var(–display);
+font-weight: 900;
+font-size: 37px;
+letter-spacing: 3px;
+text-transform: uppercase;
+color: var(–text-primary);
+}
+
+.section-title span { color: var(–accent); }
+
+.section-meta {
+font-family: var(–mono);
+font-size: 14px;
+color: var(–text-dim);
+letter-spacing: 2px;
+}
+
+.refresh-btn {
+margin-left: auto;
+background: none;
+border: 1px solid var(–border-bright);
+color: var(–text-secondary);
+font-family: var(–mono);
+font-size: 14px;
+letter-spacing: 2px;
+padding: 8px 16px;
+cursor: pointer;
+transition: all 0.2s;
+text-transform: uppercase;
+}
+
+.refresh-btn:hover {
+border-color: var(–accent);
+color: var(–accent);
+}
+
+/* –– CHART CARDS –– */
+.chart-card {
+background: var(–bg-card);
+border: 1px solid var(–border);
+padding: 20px;
+position: relative;
+}
+
+.chart-card::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 2px;
+background: linear-gradient(90deg, transparent, var(–accent-dim), transparent);
+opacity: 0.5;
+}
+
+.chart-title {
+font-family: var(–display);
+font-weight: 700;
+font-size: 23px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(–text-primary);
+margin-bottom: 4px;
+}
+
+.chart-subtitle {
+font-family: var(–mono);
+font-size: 14px;
+color: var(–text-secondary);
+letter-spacing: 1.5px;
+margin-bottom: 18px;
+}
+
+/* –– STATE TABLE –– */
+.state-table {
+width: 100%;
+border-collapse: collapse;
+font-family: var(–mono);
+font-size: 16px;
+}
+
+.state-table th {
+font-family: var(–display);
+font-weight: 600;
+font-size: 15px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(–text-secondary);
+text-align: left;
+padding: 10px 16px;
+border-bottom: 1px solid var(–border-bright);
+}
+
+.state-table td {
+padding: 13px 16px;
+border-bottom: 1px solid rgba(30,51,72,0.6);
+color: var(–text-secondary);
+transition: background 0.15s;
+}
+
+.state-table tr:hover td { background: rgba(96,200,245,0.04); }
+
+.state-table .state-name {
+color: var(–text-primary);
+font-family: var(–display);
+font-weight: 600;
+font-size: 18px;
+letter-spacing: 1px;
+}
+
+.state-table .val-highlight {
+color: var(–accent);
+font-weight: bold;
+}
+
+.state-table .val-high { color: var(–red); }
+.state-table .val-low { color: var(–green); }
+
+.bar-cell {
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.mini-bar {
+height: 6px;
+background: var(–border);
+flex: 1;
+max-width: 80px;
+position: relative;
+overflow: hidden;
+}
+
+.mini-bar-fill {
+height: 100%;
+background: var(–accent);
+transition: width 1s ease;
+}
+
+.mini-bar-fill.high { background: var(–red); }
+.mini-bar-fill.low { background: var(–green); }
+.mini-bar-fill.med { background: var(–blue); }
+
+/* –– GRID STATUS CARDS –– */
+.grid-status-card {
+background: var(–bg-card);
+border: 1px solid var(–border);
+padding: 16px;
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+
+.grid-region-name {
+font-family: var(–display);
+font-weight: 700;
+font-size: 25px;
+letter-spacing: 2px;
+text-transform: uppercase;
+}
+
+.grid-states-covered {
+font-family: var(–mono);
+font-size: 14px;
+color: var(–text-secondary);
+letter-spacing: 1px;
+}
+
+.grid-load-bar {
+height: 8px;
+background: var(–border);
+position: relative;
+overflow: hidden;
+}
+
+.grid-load-fill {
+height: 100%;
+transition: width 1.5s ease;
+position: relative;
+}
+
+.grid-load-fill::after {
+content: ‘’;
+position: absolute;
+right: 0;
+top: -2px;
+bottom: -2px;
+width: 3px;
+background: white;
+opacity: 0.8;
+box-shadow: 0 0 6px white;
+}
+
+.grid-load-fill.normal { background: linear-gradient(90deg, #17914a, #2edb6e); }
+.grid-load-fill.elevated { background: linear-gradient(90deg, #b45309, #f59e0b); }
+.grid-load-fill.high { background: linear-gradient(90deg, #b02020, #f25555); }
+
+.grid-metrics {
+display: flex;
+justify-content: space-between;
+font-family: var(–mono);
+font-size: 15px;
+color: var(–text-secondary);
+}
+
+.grid-metrics .metric-val {
+color: var(–text-primary);
+font-size: 20px;
+display: block;
+}
+
+.grid-link {
+font-family: var(–mono);
+font-size: 14px;
+color: var(–accent);
+text-decoration: none;
+letter-spacing: 1.5px;
+border: 1px solid var(–accent-dim);
+padding: 7px 14px;
+display: inline-block;
+transition: all 0.2s;
+text-transform: uppercase;
+}
+
+.grid-link:hover {
+background: var(–accent-glow);
+border-color: var(–accent);
+}
+
+/* –– NEWS CARDS –– */
+.news-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 16px;
+}
+
+.news-card {
+background: var(–bg-card);
+border: 1px solid var(–border);
+padding: 16px;
+display: flex;
+flex-direction: column;
+gap: 10px;
+transition: all 0.2s;
+text-decoration: none;
+color: inherit;
+position: relative;
+overflow: hidden;
+}
+
+.news-card::after {
+content: ‘’;
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+height: 1px;
+background: linear-gradient(90deg, transparent, var(–accent-dim), transparent);
+transform: scaleX(0);
+transition: transform 0.3s;
+}
+
+.news-card:hover {
+border-color: var(–border-bright);
+background: var(–bg-card-hover);
+}
+
+.news-card:hover::after { transform: scaleX(1); }
+
+.news-source {
+font-family: var(–mono);
+font-size: 13px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(–accent);
+}
+
+.news-title {
+font-family: var(–display);
+font-weight: 600;
+font-size: 21px;
+line-height: 1.3;
+color: var(–text-primary);
+}
+
+.news-desc {
+font-size: 16px;
+color: var(–text-secondary);
+line-height: 1.6;
+flex: 1;
+}
+
+.news-date {
+font-family: var(–mono);
+font-size: 14px;
+color: var(–text-dim);
+}
+
+.news-arrow {
+font-size: 26px;
+color: var(–accent-dim);
+align-self: flex-end;
+transition: transform 0.2s, color 0.2s;
+}
+
+.news-card:hover .news-arrow {
+transform: translate(4px, -4px);
+color: var(–accent);
+}
+
+/* –– WEATHER CARDS –– */
+.weather-grid {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 12px;
+}
+
+.weather-card {
+background: var(–bg-card);
+border: 1px solid var(–border);
+padding: 16px;
+}
+
+.weather-state {
+font-family: var(–display);
+font-weight: 700;
+font-size: 25px;
+letter-spacing: 2px;
+text-transform: uppercase;
+margin-bottom: 8px;
+}
+
+.weather-temp {
+font-family: var(–display);
+font-size: 51px;
+font-weight: 900;
+color: var(–accent);
+line-height: 1;
+}
+
+.weather-desc {
+font-family: var(–mono);
+font-size: 14px;
+color: var(–text-secondary);
+text-transform: uppercase;
+letter-spacing: 1px;
+margin-top: 8px;
+}
+
+.weather-details {
+display: flex;
+gap: 14px;
+margin-top: 12px;
+font-family: var(–mono);
+font-size: 14px;
+color: var(–text-secondary);
+}
+
+.weather-loading {
+font-family: var(–mono);
+font-size: 15px;
+color: var(–text-dim);
+padding: 28px;
+text-align: center;
+border: 1px dashed var(–border-bright);
+letter-spacing: 2px;
+}
+
+/* –– FUEL / GAS TABLE –– */
+.fuel-row {
+display: grid;
+grid-template-columns: 1fr 1fr 1fr 1fr;
+gap: 1px;
+background: var(–border);
+margin-bottom: 1px;
+}
+
+.fuel-cell {
+background: var(–bg-card);
+padding: 14px 18px;
+font-family: var(–mono);
+font-size: 16px;
+color: var(–text-secondary);
+transition: background 0.15s;
+}
+
+.fuel-row:hover .fuel-cell { background: var(–bg-card-hover); }
+.fuel-cell.header {
+background: var(–bg-secondary);
+font-family: var(–display);
+font-weight: 600;
+font-size: 15px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(–text-secondary);
+}
+
+.fuel-cell .state { color: var(–text-primary); font-weight: bold; font-size: 18px; }
+
+/* –– LOADING SPINNER –– */
+.loading {
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 40px;
+gap: 14px;
+font-family: var(–mono);
+font-size: 16px;
+color: var(–text-secondary);
+letter-spacing: 2px;
+}
+
+.spinner {
+width: 22px;
+height: 22px;
+border: 2px solid var(–border-bright);
+border-top-color: var(–accent);
+border-radius: 50%;
+animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* –– ERROR STATE –– */
+.error-state {
+font-family: var(–mono);
+font-size: 11px;
+color: var(–red);
+padding: 16px;
+border: 1px solid var(–red-dim);
+background: rgba(239,68,68,0.05);
+letter-spacing: 1px;
+}
+
+/* –– API NOTE BANNER –– */
+.api-note {
+background: rgba(96,200,245,0.05);
+border: 1px solid var(–accent-dim);
+border-left: 3px solid var(–accent);
+padding: 14px 18px;
+font-family: var(–mono);
+font-size: 15px;
+color: var(–text-secondary);
+letter-spacing: 1px;
+margin-bottom: 20px;
+line-height: 1.7;
+}
+
+.api-note strong { color: var(–accent); }
+
+/* –– TOOLTIP –– */
+.tooltip {
+position: relative;
+cursor: help;
+}
+
+.tooltip-text {
+display: none;
+position: absolute;
+bottom: calc(100% + 8px);
+left: 50%;
+transform: translateX(-50%);
+background: var(–bg-secondary);
+border: 1px solid var(–border-bright);
+padding: 8px 12px;
+font-family: var(–mono);
+font-size: 10px;
+color: var(–text-secondary);
+white-space: nowrap;
+z-index: 200;
+letter-spacing: 1px;
+}
+
+.tooltip:hover .tooltip-text { display: block; }
+
+/* –– DIVIDER –– */
+.divider {
+height: 1px;
+background: linear-gradient(90deg, transparent, var(–border), transparent);
+margin: 24px 0;
+}
+
+/* –– FOOTER –– */
+footer {
+margin-top: 40px;
+padding: 20px 32px;
+border-top: 1px solid var(–border);
+display: flex;
+justify-content: space-between;
+align-items: center;
+font-family: var(–mono);
+font-size: 14px;
+color: var(–text-secondary);
+letter-spacing: 1.5px;
+}
+
+/* –– REGION BADGE –– */
+.region-badge {
+display: inline-block;
+font-family: var(–mono);
+font-size: 9px;
+letter-spacing: 1.5px;
+padding: 2px 7px;
+border: 1px solid var(–border);
+color: var(–text-dim);
+text-transform: uppercase;
+margin-right: 4px;
+margin-bottom: 4px;
+}
+
+/* –– NEWS SUB-TABS –– */
+.news-subtab-bar {
+display: flex;
+gap: 0;
+border-bottom: 1px solid var(–border-bright);
+margin-bottom: 24px;
+}
+
+.news-subtab {
+font-family: var(–mono);
+font-size: 14px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(–text-dim);
+padding: 12px 28px;
+background: none;
+border: none;
+border-bottom: 3px solid transparent;
+cursor: pointer;
+transition: all 0.2s;
+white-space: nowrap;
+}
+.news-subtab:hover { color: var(–text-secondary); }
+.news-subtab.active {
+color: var(–accent);
+border-bottom-color: var(–accent);
+background: rgba(96,200,245,0.04);
+}
+
+.news-subtab-content { display: none; }
+.news-subtab-content.active { display: block; }
+
+/* –– TOOLTIP –– */
+.has-tooltip { position: relative; display: inline-flex; align-items: center; gap: 4px; cursor: help; }
+.tooltip-icon {
+width: 14px; height: 14px; border-radius: 50%;
+background: #2d4d6e; color: #60c8f5;
+font-family: ‘Share Tech Mono’,‘Courier New’,monospace;
+font-size: 9px; display: inline-flex; align-items: center; justify-content: center;
+flex-shrink: 0; line-height: 1;
+}
+.tooltip-box {
+display: none;
+position: absolute;
+bottom: calc(100% + 8px);
+left: 0;
+width: 270px;
+background: #0b1015;
+border: 1px solid #2d4d6e;
+padding: 10px 12px;
+font-family: ‘Share Tech Mono’,‘Courier New’,monospace;
+font-size: 11px;
+color: #c2d4e8;
+letter-spacing: 0.5px;
+line-height: 1.6;
+z-index: 200;
+pointer-events: none;
+}
+.has-tooltip:hover .tooltip-box,
+.has-tooltip:focus-within .tooltip-box { display: block; }
+
+/* –– STATUS THRESHOLDS LEGEND –– */
+.status-legend {
+display: flex;
+gap: 0;
+border: 1px solid #1e3348;
+margin-bottom: 20px;
+overflow: hidden;
+}
+.legend-item {
+flex: 1;
+padding: 10px 14px;
+border-right: 1px solid #1e3348;
+}
+.legend-item:last-child { border-right: none; }
+.legend-label {
+font-family: ‘Barlow Condensed’,‘Arial Narrow’,Arial,sans-serif;
+font-weight: 700;
+font-size: 15px;
+letter-spacing: 2px;
+text-transform: uppercase;
+margin-bottom: 4px;
+}
+.legend-rules {
+font-family: ‘Share Tech Mono’,‘Courier New’,monospace;
+font-size: 11px;
+color: #6b8aaa;
+letter-spacing: 0.5px;
+line-height: 1.5;
+}
+
+/* –– OFFICIAL RESERVES ROW –– */
+.official-reserves-row {
+margin-top: 8px;
+padding: 8px 10px;
+background: rgba(96,200,245,0.04);
+border: 1px solid #1e3348;
+border-left: 3px solid #60c8f5;
+font-family: ‘Share Tech Mono’,‘Courier New’,monospace;
+font-size: 11px;
+color: #6b8aaa;
+letter-spacing: 0.5px;
+line-height: 1.6;
+}
+.official-reserves-row a {
+color: #60c8f5;
+text-decoration: none;
+letter-spacing: 1px;
+}
+.official-reserves-row a:hover { text-decoration: underline; }
+.official-reserves-val {
+font-size: 13px;
+color: #c2d4e8;
+font-weight: bold;
+}
+
+/* –– ISO TABS –– */
+.iso-tab {
+font-family: var(–mono);
+font-size: 12px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(–text-dim);
+padding: 8px 16px;
+background: var(–bg-card);
+border: 1px solid var(–border);
+cursor: pointer;
+transition: all 0.2s;
+}
+.iso-tab:hover { border-color: var(–border-bright); color: var(–text-secondary); }
+.iso-tab.active { border-color: var(–accent); color: var(–accent); background: var(–accent-glow); }
+
+/* –– FUEL MIX BAR –– */
+.fuel-mix-bar {
+display: flex;
+height: 12px;
+border-radius: 2px;
+overflow: hidden;
+margin: 8px 0;
+gap: 1px;
+}
+.fuel-mix-segment {
+height: 100%;
+transition: flex 0.8s ease;
+position: relative;
+}
+.fuel-mix-legend {
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
+margin-top: 8px;
+font-family: var(–mono);
+font-size: 11px;
+color: var(–text-secondary);
+}
+.fuel-mix-legend-item {
+display: flex;
+align-items: center;
+gap: 5px;
+}
+.fuel-mix-dot {
+width: 9px;
+height: 9px;
+border-radius: 50%;
+flex-shrink: 0;
+}
+
+/* –– HOURLY SPARKLINE –– */
+.sparkline-container {
+height: 50px;
+margin: 8px 0 4px;
+}
+.fade-in {
+animation: fadeIn 0.4s ease forwards;
+opacity: 0;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(8px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in:nth-child(1) { animation-delay: 0.05s; }
+.fade-in:nth-child(2) { animation-delay: 0.1s; }
+.fade-in:nth-child(3) { animation-delay: 0.15s; }
+.fade-in:nth-child(4) { animation-delay: 0.2s; }
+.fade-in:nth-child(5) { animation-delay: 0.25s; }
+.fade-in:nth-child(6) { animation-delay: 0.3s; }
+.fade-in:nth-child(7) { animation-delay: 0.35s; }
+.fade-in:nth-child(8) { animation-delay: 0.4s; }
+
+/* –– CHART CARDS — explicit backgrounds –– */
+.chart-card {
+background: #0f1720;
+border: 1px solid #1e3348;
+padding: 20px;
+position: relative;
+}
+.chart-card::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 2px;
+background: linear-gradient(90deg, transparent, #2d8bbf, transparent);
+opacity: 0.5;
+}
+
+/* –– GRID STATUS CARDS — explicit backgrounds –– */
+.grid-status-card {
+background: #0f1720 !important;
+border: 1px solid #1e3348 !important;
+}
+
+/* –– API NOTE / ERROR — explicit backgrounds –– */
+.api-note {
+background: #0a1520 !important;
+border: 1px solid #2d4d6e !important;
+color: #c2d4e8 !important;
+}
+.error-state {
+background: rgba(178,32,32,0.15) !important;
+border: 1px solid #b02020 !important;
+color: #f25555 !important;
+}
+
+/* –– NEWS CARDS — explicit backgrounds –– */
+.news-card {
+background: #0f1720 !important;
+border: 1px solid #1e3348 !important;
+}
+.news-card:hover { border-color: #2d4d6e !important; }
+
+/* –– WEATHER CARDS — explicit backgrounds –– */
+.weather-card {
+background: #0f1720 !important;
+border: 1px solid #1e3348 !important;
+}
+
+/* –– FOOTER –– */
+footer {
+background: #0b1015 !important;
+border-top: 1px solid #1e3348 !important;
+color: #6b8aaa !important;
+}
+
+/* –– RESPONSIVE: TABLET –– */
+@media (max-width: 1100px) {
+.grid-4 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(2, 1fr); }
+.weather-grid { grid-template-columns: repeat(3, 1fr); }
+.news-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* –– RESPONSIVE: MOBILE –– */
+@media (max-width: 768px) {
+header {
+padding: 12px 16px;
+gap: 12px;
+flex-wrap: nowrap;
+}
+.logo-text { font-size: 22px; letter-spacing: 2px; }
+.logo-sub { font-size: 10px; letter-spacing: 2px; }
+.logo-icon { width: 28px; height: 28px; }
+.header-right { gap: 12px; }
+.states-badge { font-size: 10px; padding: 4px 8px; }
+#clock-time { font-size: 14px; }
+#clock-tz { font-size: 10px; }
+
+```
+nav { padding: 0 8px; }
+.tab { font-size: 13px; padding: 12px 14px; letter-spacing: 1px; }
+
+main { padding: 12px 16px; background: #060a0d; }
+.section { background: #060a0d; }
+
+.grid-4,
+.grid-3,
+.grid-2,
+.grid-2-1 { grid-template-columns: 1fr; }
+
+.col-span-2,
+.col-span-3,
+.col-span-4 { grid-column: span 1; }
+
+.card { padding: 16px; }
+.card-value { font-size: 40px; }
+.card-value.large { font-size: 48px; }
+
+.weather-grid { grid-template-columns: repeat(2, 1fr); }
+.news-grid { grid-template-columns: 1fr; }
+.fuel-row { grid-template-columns: 1fr 1fr; }
+
+.section-title { font-size: 28px; }
+.section-header { flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+
+.chart-card { padding: 14px; }
+.chart-title { font-size: 18px; }
+
+.status-pill { font-size: 12px; padding: 6px 12px; }
+
+.grid-metrics { flex-direction: column; gap: 8px; }
+.iso-tab { font-size: 11px; padding: 6px 12px; }
+```
+
+}
+
+/* –– RESPONSIVE: SMALL MOBILE (≤390px iPhone SE etc) –– */
+@media (max-width: 430px) {
+.logo-text { font-size: 18px; }
+.header-right { gap: 8px; }
+.states-badge { display: none; }
+.tab { font-size: 12px; padding: 10px 10px; }
+main { padding: 10px 12px; }
+}
 </style>
+
 </head>
 <body>
 
@@ -1257,6 +1262,7 @@
 <main>
 
   <!-- ======================== OVERVIEW ======================== -->
+
   <div id="tab-overview" class="section active">
     <div class="section-header">
       <div class="section-title">OPERATIONAL <span>OVERVIEW</span></div>
@@ -1264,62 +1270,66 @@
       <button class="refresh-btn" onclick="refreshAll()">⟳ REFRESH ALL</button>
     </div>
 
-    <div class="status-bar" id="overview-status-bar">
-      <div class="status-pill" id="pill-eia"><span class="dot"></span> EIA DATA: CONNECTING...</div>
-      <div class="status-pill" id="pill-weather"><span class="dot warn"></span> WEATHER: CONNECTING...</div>
-      <div class="status-pill" id="pill-news"><span class="dot"></span> NEWS FEED: CONNECTING...</div>
-      <div class="status-pill" id="pill-grid"><span class="dot"></span> GRID DATA: CONNECTING...</div>
-    </div>
+```
+<div class="status-bar" id="overview-status-bar">
+  <div class="status-pill" id="pill-eia"><span class="dot"></span> EIA DATA: CONNECTING...</div>
+  <div class="status-pill" id="pill-weather"><span class="dot warn"></span> WEATHER: CONNECTING...</div>
+  <div class="status-pill" id="pill-news"><span class="dot"></span> NEWS FEED: CONNECTING...</div>
+  <div class="status-pill" id="pill-grid"><span class="dot"></span> GRID DATA: CONNECTING...</div>
+</div>
 
-    <!-- 1. Grid summary first -->
-    <div class="section-header" style="margin-top:8px;">
-      <div class="section-title" style="font-size:20px;">GRID <span>ALERTS</span></div>
-      <div class="section-meta">REGIONAL OPERATORS</div>
-    </div>
-    <div class="grid-4" id="overview-grid-cards">
-      <div class="loading col-span-4"><div class="spinner"></div>LOADING GRID DATA...</div>
-    </div>
+<!-- 1. Grid summary first -->
+<div class="section-header" style="margin-top:8px;">
+  <div class="section-title" style="font-size:20px;">GRID <span>ALERTS</span></div>
+  <div class="section-meta">REGIONAL OPERATORS</div>
+</div>
+<div class="grid-4" id="overview-grid-cards">
+  <div class="loading col-span-4"><div class="spinner"></div>LOADING GRID DATA...</div>
+</div>
 
-    <!-- 2. Charts -->
-    <div class="grid-2" style="margin-top:8px;">
-      <div class="chart-card fade-in">
-        <div class="chart-title">Electricity Prices by State</div>
-        <div class="chart-subtitle">RETAIL RATE ¢/kWh — EIA MONTHLY DATA</div>
-        <canvas id="elec-chart" height="200"></canvas>
-      </div>
-      <div class="chart-card fade-in">
-        <div class="chart-title">Diesel Fuel Prices by Region</div>
-        <div class="chart-subtitle">WEEKLY RETAIL — EIA DATA</div>
-        <canvas id="diesel-chart" height="200"></canvas>
-      </div>
-    </div>
+<!-- 2. Charts -->
+<div class="grid-2" style="margin-top:8px;">
+  <div class="chart-card fade-in">
+    <div class="chart-title">Electricity Prices by State</div>
+    <div class="chart-subtitle">RETAIL RATE ¢/kWh — EIA MONTHLY DATA</div>
+    <canvas id="elec-chart" height="200"></canvas>
+  </div>
+  <div class="chart-card fade-in">
+    <div class="chart-title">Diesel Fuel Prices by Region</div>
+    <div class="chart-subtitle">WEEKLY RETAIL — EIA DATA</div>
+    <canvas id="diesel-chart" height="200"></canvas>
+  </div>
+</div>
 
-    <!-- 3. Fact cards last -->
-    <div class="grid-4" style="margin-top:8px;">
-      <div class="card fade-in">
-        <div class="card-label">Avg. Retail Electricity <span class="unit">¢/kWh</span></div>
-        <div class="card-value large" id="ov-elec-avg">—</div>
-        <div class="card-sub" id="ov-elec-sub">Loading EIA data...</div>
-      </div>
-      <div class="card fade-in">
-        <div class="card-label">Avg. Natural Gas Price <span class="unit">$/MCF</span></div>
-        <div class="card-value large" id="ov-gas-avg">—</div>
-        <div class="card-sub" id="ov-gas-sub">Loading EIA data...</div>
-      </div>
-      <div class="card fade-in">
-        <div class="card-label">Avg. Diesel Price <span class="unit">$/GAL</span></div>
-        <div class="card-value large" id="ov-diesel-avg">—</div>
-        <div class="card-sub" id="ov-diesel-sub">Loading EIA data...</div>
-      </div>
-      <div class="card fade-in">
-        <div class="card-label">Industry News Items <span class="unit">TODAY</span></div>
-        <div class="card-value large" id="ov-news-count">—</div>
-        <div class="card-sub">Plastics &amp; manufacturing regulatory</div>
-      </div>
-    </div>
+<!-- 3. Fact cards last -->
+<div class="grid-4" style="margin-top:8px;">
+  <div class="card fade-in">
+    <div class="card-label">Avg. Retail Electricity <span class="unit">¢/kWh</span></div>
+    <div class="card-value large" id="ov-elec-avg">—</div>
+    <div class="card-sub" id="ov-elec-sub">Loading EIA data...</div>
+  </div>
+  <div class="card fade-in">
+    <div class="card-label">Avg. Natural Gas Price <span class="unit">$/MCF</span></div>
+    <div class="card-value large" id="ov-gas-avg">—</div>
+    <div class="card-sub" id="ov-gas-sub">Loading EIA data...</div>
+  </div>
+  <div class="card fade-in">
+    <div class="card-label">Avg. Diesel Price <span class="unit">$/GAL</span></div>
+    <div class="card-value large" id="ov-diesel-avg">—</div>
+    <div class="card-sub" id="ov-diesel-sub">Loading EIA data...</div>
+  </div>
+  <div class="card fade-in">
+    <div class="card-label">Industry News Items <span class="unit">TODAY</span></div>
+    <div class="card-value large" id="ov-news-count">—</div>
+    <div class="card-sub">Plastics &amp; manufacturing regulatory</div>
+  </div>
+</div>
+```
+
   </div>
 
   <!-- ======================== GRID STATUS ======================== -->
+
   <div id="tab-grid" class="section">
     <div class="section-header">
       <div class="section-title">GRID <span>STATUS</span></div>
@@ -1331,59 +1341,63 @@
       Load percentage = current demand vs. available capacity (forecast peak × target reserve margin). Fuel mix shows generation source breakdown. Click any operator name to view their live dashboard.
     </div>
 
-    <!-- Status thresholds legend -->
-    <div class="status-legend">
-      <div class="legend-item" style="background:rgba(46,219,110,0.05);">
-        <div class="legend-label" style="color:#2edb6e;">✓ NORMAL</div>
-        <div class="legend-rules">Load &lt; 75% of available capacity<br>Reserve margin &gt; 25%</div>
-      </div>
-      <div class="legend-item" style="background:rgba(245,158,11,0.05);">
-        <div class="legend-label" style="color:#f59e0b;">△ ELEVATED</div>
-        <div class="legend-rules">Load 75–90% of available capacity<br>Reserve margin 10–25%</div>
-      </div>
-      <div class="legend-item" style="background:rgba(242,85,85,0.05);">
-        <div class="legend-label" style="color:#f25555;">⚠ HIGH</div>
-        <div class="legend-rules">Load ≥ 90% of available capacity<br>Reserve margin &lt; 10%</div>
-      </div>
-      <div class="legend-item" style="background:#0b1015;">
-        <div class="legend-label" style="color:#6b8aaa;font-size:11px;letter-spacing:1px;">RESERVE NOTE</div>
-        <div class="legend-rules">Our reserves = Available Capacity − Current Demand<br>ISO official reserves include non-spin &amp; DR (typically higher)</div>
-      </div>
-    </div>
+```
+<!-- Status thresholds legend -->
+<div class="status-legend">
+  <div class="legend-item" style="background:rgba(46,219,110,0.05);">
+    <div class="legend-label" style="color:#2edb6e;">✓ NORMAL</div>
+    <div class="legend-rules">Load &lt; 75% of available capacity<br>Reserve margin &gt; 25%</div>
+  </div>
+  <div class="legend-item" style="background:rgba(245,158,11,0.05);">
+    <div class="legend-label" style="color:#f59e0b;">△ ELEVATED</div>
+    <div class="legend-rules">Load 75–90% of available capacity<br>Reserve margin 10–25%</div>
+  </div>
+  <div class="legend-item" style="background:rgba(242,85,85,0.05);">
+    <div class="legend-label" style="color:#f25555;">⚠ HIGH</div>
+    <div class="legend-rules">Load ≥ 90% of available capacity<br>Reserve margin &lt; 10%</div>
+  </div>
+  <div class="legend-item" style="background:#0b1015;">
+    <div class="legend-label" style="color:#6b8aaa;font-size:11px;letter-spacing:1px;">RESERVE NOTE</div>
+    <div class="legend-rules">Our reserves = Available Capacity − Current Demand<br>ISO official reserves include non-spin &amp; DR (typically higher)</div>
+  </div>
+</div>
 
-    <!-- ISO selector tabs -->
-    <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;" id="iso-tabs">
-      <button class="iso-tab active" onclick="selectISO('ALL')">ALL REGIONS</button>
-      <button class="iso-tab" onclick="selectISO('ERCO')">ERCOT</button>
-      <button class="iso-tab" onclick="selectISO('PJM')">PJM</button>
-      <button class="iso-tab" onclick="selectISO('MISO')">MISO</button>
-      <button class="iso-tab" onclick="selectISO('CISO')">CAISO</button>
-      <button class="iso-tab" onclick="selectISO('SOCO')">SERC/SE</button>
-      <button class="iso-tab" onclick="selectISO('ISNE')">ISO-NE</button>
-    </div>
+<!-- ISO selector tabs -->
+<div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;" id="iso-tabs">
+  <button class="iso-tab active" onclick="selectISO('ALL')">ALL REGIONS</button>
+  <button class="iso-tab" onclick="selectISO('ERCO')">ERCOT</button>
+  <button class="iso-tab" onclick="selectISO('PJM')">PJM</button>
+  <button class="iso-tab" onclick="selectISO('MISO')">MISO</button>
+  <button class="iso-tab" onclick="selectISO('CISO')">CAISO</button>
+  <button class="iso-tab" onclick="selectISO('SOCO')">SERC/SE</button>
+  <button class="iso-tab" onclick="selectISO('ISNE')">ISO-NE</button>
+</div>
 
-    <!-- Summary stats row -->
-    <div class="grid-4" id="grid-summary-cards" style="margin-bottom:20px;">
-      <div class="card"><div class="card-label">Total Monitored Demand <span class="unit">GW</span></div><div class="card-value small" id="gs-total-demand">—</div><div class="card-sub">Sum across all ISOs</div></div>
-      <div class="card"><div class="card-label">Highest Load Region <span class="unit">ISO</span></div><div class="card-value small" id="gs-highest-iso">—</div><div class="card-sub" id="gs-highest-pct">—</div></div>
-      <div class="card"><div class="card-label">Top Generation Source <span class="unit">MIX</span></div><div class="card-value small" id="gs-top-fuel">—</div><div class="card-sub" id="gs-top-fuel-pct">—</div></div>
-      <div class="card"><div class="card-label">Grid Alerts <span class="unit">STATUS</span></div><div class="card-value small" id="gs-alerts" style="color:#2edb6e;">NORMAL</div><div class="card-sub">No active warnings</div></div>
-    </div>
+<!-- Summary stats row -->
+<div class="grid-4" id="grid-summary-cards" style="margin-bottom:20px;">
+  <div class="card"><div class="card-label">Total Monitored Demand <span class="unit">GW</span></div><div class="card-value small" id="gs-total-demand">—</div><div class="card-sub">Sum across all ISOs</div></div>
+  <div class="card"><div class="card-label">Highest Load Region <span class="unit">ISO</span></div><div class="card-value small" id="gs-highest-iso">—</div><div class="card-sub" id="gs-highest-pct">—</div></div>
+  <div class="card"><div class="card-label">Top Generation Source <span class="unit">MIX</span></div><div class="card-value small" id="gs-top-fuel">—</div><div class="card-sub" id="gs-top-fuel-pct">—</div></div>
+  <div class="card"><div class="card-label">Grid Alerts <span class="unit">STATUS</span></div><div class="card-value small" id="gs-alerts" style="color:#2edb6e;">NORMAL</div><div class="card-sub">No active warnings</div></div>
+</div>
 
-    <!-- Main ISO cards with fuel mix -->
-    <div class="grid-3" id="grid-cards-main">
-      <div class="loading col-span-3"><div class="spinner"></div>FETCHING EIA GRID DATA...</div>
-    </div>
+<!-- Main ISO cards with fuel mix -->
+<div class="grid-3" id="grid-cards-main">
+  <div class="loading col-span-3"><div class="spinner"></div>FETCHING EIA GRID DATA...</div>
+</div>
 
-    <!-- Fuel mix comparison chart -->
-    <div class="chart-card" style="margin-top:20px;">
-      <div class="chart-title">Generation Fuel Mix — All ISOs</div>
-      <div class="chart-subtitle">CURRENT HOUR BREAKDOWN BY SOURCE TYPE (EIA-930)</div>
-      <canvas id="fuel-mix-chart" height="120"></canvas>
-    </div>
+<!-- Fuel mix comparison chart -->
+<div class="chart-card" style="margin-top:20px;">
+  <div class="chart-title">Generation Fuel Mix — All ISOs</div>
+  <div class="chart-subtitle">CURRENT HOUR BREAKDOWN BY SOURCE TYPE (EIA-930)</div>
+  <canvas id="fuel-mix-chart" height="120"></canvas>
+</div>
+```
+
   </div>
 
   <!-- ======================== ENERGY PRICING ======================== -->
+
   <div id="tab-energy" class="section">
     <div class="section-header">
       <div class="section-title">ENERGY <span>PRICING</span></div>
@@ -1394,45 +1408,51 @@
       Electricity rates are monthly retail averages. Natural gas shown as citygate price (closest public proxy to industrial rates). Diesel shown as weekly retail regional averages.
     </div>
 
-    <!-- Electricity + Gas charts side by side -->
-    <div class="grid-2">
-      <div class="chart-card">
-        <div class="chart-title">Electricity — All States Compared</div>
-        <div class="chart-subtitle">RETAIL RATE ¢/kWh</div>
-        <canvas id="elec-chart-full" height="220"></canvas>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Natural Gas — Citygate Price</div>
-        <div class="chart-subtitle">$/MCF (THOUSAND CUBIC FEET)</div>
-        <canvas id="gas-chart-full" height="220"></canvas>
-      </div>
-    </div>
+```
+<!-- Electricity + Gas charts side by side -->
+<div class="grid-2">
+  <div class="chart-card">
+    <div class="chart-title">Electricity — All States Compared</div>
+    <div class="chart-subtitle">RETAIL RATE ¢/kWh</div>
+    <canvas id="elec-chart-full" height="220"></canvas>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title">Natural Gas — Citygate Price</div>
+    <div class="chart-subtitle">$/MCF (THOUSAND CUBIC FEET)</div>
+    <canvas id="gas-chart-full" height="220"></canvas>
+  </div>
+</div>
 
-    <!-- Diesel regional chart -->
-    <div class="section-header" style="margin-top:8px;margin-bottom:12px;border:none;padding:0;">
-      <div class="section-title" style="font-size:20px;">DIESEL <span>PRICES</span></div>
-      <div class="section-meta">$/GALLON WEEKLY — EIA REGIONAL DATA</div>
-    </div>
-    <div class="chart-card" style="margin-bottom:16px;">
-      <div class="chart-title">Regional Diesel — Weekly Prices</div>
-      <div class="chart-subtitle">$/GALLON — EIA WEEKLY RETAIL BY REGION</div>
-      <canvas id="diesel-trend-chart" height="220"></canvas>
-    </div>
-    <div id="diesel-table" style="margin-bottom:24px;">
-      <div class="loading"><div class="spinner"></div>LOADING...</div>
-    </div>
+<!-- Diesel regional chart + table side by side -->
+<div class="section-header" style="margin-top:8px;margin-bottom:12px;border:none;padding:0;">
+  <div class="section-title" style="font-size:20px;">DIESEL <span>PRICES</span></div>
+  <div class="section-meta">$/GALLON WEEKLY — EIA REGIONAL DATA</div>
+</div>
+<div class="grid-2" style="align-items:start;">
+  <div class="chart-card">
+    <div class="chart-title">Regional Diesel — Weekly Prices</div>
+    <div class="chart-subtitle">$/GALLON — EIA WEEKLY RETAIL BY REGION</div>
+    <canvas id="diesel-trend-chart" height="220"></canvas>
+  </div>
+  <div id="diesel-table">
+    <div class="loading"><div class="spinner"></div>LOADING...</div>
+  </div>
+</div>
 
-    <!-- State-by-state detail table -->
-    <div class="chart-card" style="margin-bottom:16px;">
-      <div class="chart-title">State-by-State Pricing Detail</div>
-      <div class="chart-subtitle">EIA MONTHLY — ELECTRICITY, NATURAL GAS, &amp; GRID OPERATOR</div>
-      <div id="energy-table-container">
-        <div class="loading"><div class="spinner"></div>FETCHING EIA DATA...</div>
-      </div>
-    </div>
+<!-- State-by-state detail table -->
+<div class="chart-card" style="margin-bottom:16px;">
+  <div class="chart-title">State-by-State Pricing Detail</div>
+  <div class="chart-subtitle">EIA MONTHLY — ELECTRICITY, NATURAL GAS, &amp; GRID OPERATOR</div>
+  <div id="energy-table-container">
+    <div class="loading"><div class="spinner"></div>FETCHING EIA DATA...</div>
+  </div>
+</div>
+```
+
   </div>
 
   <!-- ======================== WEATHER ======================== -->
+
   <div id="tab-weather" class="section">
     <div class="section-header">
       <div class="section-title">WEATHER <span>CONDITIONS</span></div>
@@ -1444,6 +1464,7 @@
   </div>
 
   <!-- ======================== NEWS ======================== -->
+
   <div id="tab-news" class="section">
     <div class="section-header">
       <div class="section-title">INDUSTRY <span>&amp; NEWS</span></div>
@@ -1451,39 +1472,42 @@
       <button class="refresh-btn" onclick="loadAllNews()">⟳ REFRESH</button>
     </div>
 
-    <!-- News sub-tabs -->
-    <div class="news-subtab-bar">
-      <button class="news-subtab active" id="subtab-btn-plastics" onclick="switchNewsTab('plastics')">
-        ♻ PLASTICS &amp; MANUFACTURING
-      </button>
-      <button class="news-subtab" id="subtab-btn-energy" onclick="switchNewsTab('energy')">
-        ⚡ ENERGY &amp; SUPPLY CHAIN
-      </button>
-    </div>
+```
+<!-- News sub-tabs -->
+<div class="news-subtab-bar">
+  <button class="news-subtab active" id="subtab-btn-plastics" onclick="switchNewsTab('plastics')">
+    ♻ PLASTICS &amp; MANUFACTURING
+  </button>
+  <button class="news-subtab" id="subtab-btn-energy" onclick="switchNewsTab('energy')">
+    ⚡ ENERGY &amp; SUPPLY CHAIN
+  </button>
+</div>
 
-    <!-- Plastics sub-tab -->
-    <div id="news-subtab-plastics" class="news-subtab-content active">
-      <div class="api-note" style="margin-bottom:18px;">
-        <strong>PLASTICS FOCUS:</strong> Industry developments, sustainability initiatives, recycling technology, 
-        Operation Clean Sweep (OCS), pellet loss &amp; nurdle regulation, extended producer responsibility (EPR), 
-        packaging legislation, and EPA rulemaking affecting plastic manufacturers.
-      </div>
-      <div id="news-plastics-container">
-        <div class="loading"><div class="spinner"></div>FETCHING PLASTICS NEWS...</div>
-      </div>
-    </div>
+<!-- Plastics sub-tab -->
+<div id="news-subtab-plastics" class="news-subtab-content active">
+  <div class="api-note" style="margin-bottom:18px;">
+    <strong>PLASTICS FOCUS:</strong> Industry developments, sustainability initiatives, recycling technology, 
+    Operation Clean Sweep (OCS), pellet loss &amp; nurdle regulation, extended producer responsibility (EPR), 
+    packaging legislation, and EPA rulemaking affecting plastic manufacturers.
+  </div>
+  <div id="news-plastics-container">
+    <div class="loading"><div class="spinner"></div>FETCHING PLASTICS NEWS...</div>
+  </div>
+</div>
 
-    <!-- Energy sub-tab -->
-    <div id="news-subtab-energy" class="news-subtab-content">
-      <div class="api-note" style="margin-bottom:18px;">
-        <strong>ENERGY FOCUS:</strong> US electricity grid capacity and reliability, natural gas &amp; diesel supply chains, 
-        FERC rulemakings, power market developments, renewable integration, fuel pricing trends, 
-        and energy infrastructure news affecting industrial manufacturers.
-      </div>
-      <div id="news-energy-container">
-        <div class="loading"><div class="spinner"></div>FETCHING ENERGY NEWS...</div>
-      </div>
-    </div>
+<!-- Energy sub-tab -->
+<div id="news-subtab-energy" class="news-subtab-content">
+  <div class="api-note" style="margin-bottom:18px;">
+    <strong>ENERGY FOCUS:</strong> US electricity grid capacity and reliability, natural gas &amp; diesel supply chains, 
+    FERC rulemakings, power market developments, renewable integration, fuel pricing trends, 
+    and energy infrastructure news affecting industrial manufacturers.
+  </div>
+  <div id="news-energy-container">
+    <div class="loading"><div class="spinner"></div>FETCHING ENERGY NEWS...</div>
+  </div>
+</div>
+```
+
   </div>
 
 </main>
@@ -2812,5 +2836,6 @@ async function refreshAll() {
 
 init();
 </script>
+
 </body>
 </html>
