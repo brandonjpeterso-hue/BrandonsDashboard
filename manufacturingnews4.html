@@ -1223,6 +1223,101 @@ main { padding: 12px 16px; background: #060a0d; }
 .tab { font-size: 12px; padding: 10px 10px; }
 main { padding: 10px 12px; }
 }
+/* –– PRECIPITATION TAB –– */
+.precip-label {
+font-family: ‘Share Tech Mono’,‘Courier New’,monospace;
+font-size: 11px;
+letter-spacing: 2px;
+color: #6b8aaa;
+text-transform: uppercase;
+}
+.precip-select, .precip-input {
+font-family: ‘Share Tech Mono’,‘Courier New’,monospace;
+font-size: 14px;
+letter-spacing: 1px;
+background: #060a0d;
+color: #c2d4e8;
+border: 1px solid #2d4d6e;
+padding: 8px 12px;
+outline: none;
+min-width: 180px;
+cursor: pointer;
+-webkit-appearance: none;
+appearance: none;
+}
+.precip-select:focus, .precip-input:focus {
+border-color: #60c8f5;
+color: #ffffff;
+}
+.precip-select:disabled {
+opacity: 0.4;
+cursor: not-allowed;
+}
+/* Override browser date input styling */
+.precip-input[type=“date”]::-webkit-calendar-picker-indicator {
+filter: invert(0.7) sepia(1) saturate(3) hue-rotate(170deg);
+cursor: pointer;
+}
+.precip-submit {
+font-family: ‘Share Tech Mono’,‘Courier New’,monospace;
+font-size: 13px;
+letter-spacing: 2px;
+color: #060a0d;
+background: #60c8f5;
+border: none;
+padding: 9px 24px;
+cursor: pointer;
+text-transform: uppercase;
+transition: background 0.2s;
+white-space: nowrap;
+}
+.precip-submit:hover { background: #93d9f8; }
+.precip-submit:active { background: #2d8bbf; }
+
+/* Precipitation results table */
+.precip-table {
+width: 100%;
+border-collapse: collapse;
+font-family: ‘Share Tech Mono’,‘Courier New’,monospace;
+font-size: 14px;
+}
+.precip-table th {
+font-family: ‘Barlow Condensed’,‘Arial Narrow’,Arial,sans-serif;
+font-weight: 600;
+font-size: 13px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: #c2d4e8;
+text-align: left;
+padding: 10px 14px;
+border-bottom: 1px solid #2d4d6e;
+background: #0b1015;
+white-space: nowrap;
+}
+.precip-table td {
+padding: 9px 14px;
+border-bottom: 1px solid rgba(30,51,72,0.6);
+color: #c2d4e8;
+}
+.precip-table tr:hover td { background: rgba(96,200,245,0.04); }
+.precip-table .precip-zero { color: #2d4d6e; }
+.precip-table .precip-rain { color: #60c8f5; }
+.precip-table .precip-snow { color: #a5d8ff; }
+.precip-table .precip-total { color: #ffffff; font-weight: bold; }
+.precip-table .totals-row td {
+background: #0b1015;
+border-top: 2px solid #2d4d6e;
+border-bottom: none;
+color: #60c8f5;
+font-weight: bold;
+font-size: 15px;
+}
+.precip-table-wrap {
+border: 1px solid #1e3348;
+overflow-x: auto;
+-webkit-overflow-scrolling: touch;
+margin-bottom: 24px;
+}
 </style>
 
 </head>
@@ -1255,8 +1350,8 @@ main { padding: 10px 12px; }
   <button class="tab active" onclick="switchTab('overview')">Overview</button>
   <button class="tab" onclick="switchTab('grid')">Grid Status</button>
   <button class="tab" onclick="switchTab('energy')">Energy Pricing</button>
-  <button class="tab" onclick="switchTab('fuel')">Fuel &amp; Gas</button>
   <button class="tab" onclick="switchTab('weather')">Weather</button>
+  <button class="tab" onclick="switchTab('precip')">Precipitation</button>
   <button class="tab" onclick="switchTab('news')">News &amp; Intelligence</button>
 </nav>
 
@@ -1279,7 +1374,31 @@ main { padding: 10px 12px; }
   <div class="status-pill" id="pill-grid"><span class="dot"></span> GRID DATA: CONNECTING...</div>
 </div>
 
-<div class="grid-4">
+<!-- 1. Grid summary first -->
+<div class="section-header" style="margin-top:8px;">
+  <div class="section-title" style="font-size:20px;">GRID <span>ALERTS</span></div>
+  <div class="section-meta">REGIONAL OPERATORS</div>
+</div>
+<div class="grid-4" id="overview-grid-cards">
+  <div class="loading col-span-4"><div class="spinner"></div>LOADING GRID DATA...</div>
+</div>
+
+<!-- 2. Charts -->
+<div class="grid-2" style="margin-top:8px;">
+  <div class="chart-card fade-in">
+    <div class="chart-title">Electricity Prices by State</div>
+    <div class="chart-subtitle">RETAIL RATE ¢/kWh — EIA MONTHLY DATA</div>
+    <canvas id="elec-chart" height="200"></canvas>
+  </div>
+  <div class="chart-card fade-in">
+    <div class="chart-title">Diesel Fuel Prices by Region</div>
+    <div class="chart-subtitle">WEEKLY RETAIL — EIA DATA</div>
+    <canvas id="diesel-chart" height="200"></canvas>
+  </div>
+</div>
+
+<!-- 3. Fact cards last -->
+<div class="grid-4" style="margin-top:8px;">
   <div class="card fade-in">
     <div class="card-label">Avg. Retail Electricity <span class="unit">¢/kWh</span></div>
     <div class="card-value large" id="ov-elec-avg">—</div>
@@ -1300,28 +1419,6 @@ main { padding: 10px 12px; }
     <div class="card-value large" id="ov-news-count">—</div>
     <div class="card-sub">Plastics &amp; manufacturing regulatory</div>
   </div>
-</div>
-
-<div class="grid-2">
-  <div class="chart-card fade-in">
-    <div class="chart-title">Electricity Prices by State</div>
-    <div class="chart-subtitle">RETAIL RATE ¢/kWh — EIA MONTHLY DATA</div>
-    <canvas id="elec-chart" height="200"></canvas>
-  </div>
-  <div class="chart-card fade-in">
-    <div class="chart-title">Diesel Fuel Prices by Region</div>
-    <div class="chart-subtitle">WEEKLY RETAIL — EIA DATA</div>
-    <canvas id="diesel-chart" height="200"></canvas>
-  </div>
-</div>
-
-<div class="section-header" style="margin-top: 8px;">
-  <div class="section-title" style="font-size:20px;">GRID <span>ALERTS</span></div>
-  <div class="section-meta">REGIONAL OPERATORS</div>
-</div>
-
-<div class="grid-4" id="overview-grid-cards">
-  <div class="loading col-span-4"><div class="spinner"></div>LOADING GRID DATA...</div>
 </div>
 ```
 
@@ -1400,15 +1497,15 @@ main { padding: 10px 12px; }
   <div id="tab-energy" class="section">
     <div class="section-header">
       <div class="section-title">ENERGY <span>PRICING</span></div>
-      <div class="section-meta">EIA DATA // MONTHLY RETAIL RATES</div>
+      <div class="section-meta">EIA DATA // MONTHLY &amp; WEEKLY RETAIL RATES</div>
     </div>
     <div class="api-note">
-      <strong>DATA SOURCE:</strong> U.S. Energy Information Administration (EIA) Open Data API. 
-      Electricity rates shown are monthly retail averages. Industrial rates and real-time pricing 
-      require utility contract access. Natural gas shown as citygate price (closest public proxy to industrial rates).
+      <strong>DATA SOURCE:</strong> U.S. Energy Information Administration (EIA) Open Data API.
+      Electricity rates are monthly retail averages. Natural gas shown as citygate price (closest public proxy to industrial rates). Diesel shown as weekly retail regional averages.
     </div>
 
 ```
+<!-- Electricity + Gas charts side by side -->
 <div class="grid-2">
   <div class="chart-card">
     <div class="chart-title">Electricity — All States Compared</div>
@@ -1422,55 +1519,28 @@ main { padding: 10px 12px; }
   </div>
 </div>
 
-<div class="chart-card" style="margin-bottom: 16px;">
-  <div class="chart-title">State-by-State Pricing Detail</div>
-  <div class="chart-subtitle">EIA MONTHLY — MOST RECENT AVAILABLE</div>
-  <div id="energy-table-container">
-    <div class="loading"><div class="spinner"></div>FETCHING EIA DATA...</div>
+<!-- Diesel regional chart + table side by side -->
+<div class="section-header" style="margin-top:8px;margin-bottom:12px;border:none;padding:0;">
+  <div class="section-title" style="font-size:20px;">DIESEL <span>PRICES</span></div>
+  <div class="section-meta">$/GALLON WEEKLY — EIA REGIONAL DATA</div>
+</div>
+<div class="grid-2" style="align-items:start;">
+  <div class="chart-card">
+    <div class="chart-title">Regional Diesel — Weekly Prices</div>
+    <div class="chart-subtitle">$/GALLON — EIA WEEKLY RETAIL BY REGION</div>
+    <canvas id="diesel-trend-chart" height="220"></canvas>
+  </div>
+  <div id="diesel-table">
+    <div class="loading"><div class="spinner"></div>LOADING...</div>
   </div>
 </div>
-```
 
-  </div>
-
-  <!-- ======================== FUEL & GAS ======================== -->
-
-  <div id="tab-fuel" class="section">
-    <div class="section-header">
-      <div class="section-title">FUEL <span>&amp; GAS</span></div>
-      <div class="section-meta">EIA WEEKLY DATA // DIESEL + NATURAL GAS</div>
-    </div>
-
-```
-<div class="grid-2">
-  <div>
-    <div class="section-header" style="margin-top:0; margin-bottom:12px; border:none; padding:0;">
-      <div class="section-title" style="font-size:20px;">DIESEL <span>PRICES</span></div>
-      <div class="section-meta">$/GALLON WEEKLY</div>
-    </div>
-    <div class="chart-card" style="margin-bottom: 16px;">
-      <div class="chart-title">Regional Diesel — Weekly Trend</div>
-      <div class="chart-subtitle">$/GALLON — EIA WEEKLY RETAIL</div>
-      <canvas id="diesel-trend-chart" height="200"></canvas>
-    </div>
-    <div id="diesel-table">
-      <div class="loading"><div class="spinner"></div>LOADING...</div>
-    </div>
-  </div>
-
-  <div>
-    <div class="section-header" style="margin-top:0; margin-bottom:12px; border:none; padding:0;">
-      <div class="section-title" style="font-size:20px;">NATURAL <span>GAS</span></div>
-      <div class="section-meta">$/MCF MONTHLY CITYGATE</div>
-    </div>
-    <div class="chart-card" style="margin-bottom: 16px;">
-      <div class="chart-title">Natural Gas — State Comparison</div>
-      <div class="chart-subtitle">$/MCF CITYGATE PRICE</div>
-      <canvas id="gas-bar-chart" height="200"></canvas>
-    </div>
-    <div id="gas-table">
-      <div class="loading"><div class="spinner"></div>LOADING...</div>
-    </div>
+<!-- State-by-state detail table -->
+<div class="chart-card" style="margin-bottom:16px;">
+  <div class="chart-title">State-by-State Pricing Detail</div>
+  <div class="chart-subtitle">EIA MONTHLY — ELECTRICITY, NATURAL GAS, &amp; GRID OPERATOR</div>
+  <div id="energy-table-container">
+    <div class="loading"><div class="spinner"></div>FETCHING EIA DATA...</div>
   </div>
 </div>
 ```
@@ -1487,6 +1557,59 @@ main { padding: 10px 12px; }
     <div id="weather-container">
       <div class="loading"><div class="spinner"></div>FETCHING WEATHER DATA...</div>
     </div>
+  </div>
+
+  <!-- ======================== PRECIPITATION ======================== -->
+
+  <div id="tab-precip" class="section">
+    <div class="section-header">
+      <div class="section-title">PRECIPITATION <span>HISTORY</span></div>
+      <div class="section-meta">OPEN-METEO HISTORICAL DATA // DAILY RAINFALL &amp; SNOWFALL</div>
+    </div>
+    <div class="api-note">
+      <strong>DATA SOURCE:</strong> Open-Meteo Historical Weather API — free, no key required.
+      Rainfall and snowfall converted to inches. Maximum query range is 366 days.
+      Data availability begins January 1, 1940.
+    </div>
+
+```
+<!-- Query form -->
+<div class="card" style="margin-bottom:20px;">
+  <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;">
+
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <label class="precip-label" for="precip-state">STATE</label>
+      <select id="precip-state" class="precip-select" onchange="precipPopulateCities()">
+        <option value="">— Select State —</option>
+      </select>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <label class="precip-label" for="precip-city">CITY</label>
+      <select id="precip-city" class="precip-select" disabled>
+        <option value="">— Select City —</option>
+      </select>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <label class="precip-label" for="precip-start">START DATE</label>
+      <input id="precip-start" class="precip-input" type="date">
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <label class="precip-label" for="precip-end">END DATE</label>
+      <input id="precip-end" class="precip-input" type="date">
+    </div>
+
+    <button class="precip-submit" onclick="runPrecipQuery()">▶ FETCH DATA</button>
+  </div>
+  <div id="precip-error" style="margin-top:12px;font-family:'Share Tech Mono','Courier New',monospace;font-size:12px;color:#f25555;letter-spacing:1px;display:none;"></div>
+</div>
+
+<!-- Results table -->
+<div id="precip-results"></div>
+```
+
   </div>
 
   <!-- ======================== NEWS ======================== -->
@@ -1588,7 +1711,15 @@ const STATE_CITIES = {
   TX: { city: 'Houston', lat: 29.76, lon: -95.37 },
 };
 
-// Grid regions now defined as ISO_CONFIG in the loadGridData section below
+// Maps state codes to their grid operator name (for the energy pricing table)
+const GRID_REGIONS = [
+  { name: 'ERCOT',   states: ['TX'] },
+  { name: 'PJM',     states: ['MD','NJ','OH','IL'] },
+  { name: 'MISO',    states: ['IA','IL','MI'] },
+  { name: 'CAISO',   states: ['CA'] },
+  { name: 'SERC',    states: ['AL','FL','GA','LA'] },
+  { name: 'ISO-NE',  states: ['MA'] },
+];
 
 // ============================================================
 // DATA CACHE
@@ -1840,24 +1971,40 @@ async function fetchNewsQuery(query, containerId) {
   const container = $(containerId);
   if (container) container.innerHTML = '<div class="loading"><div class="spinner"></div>FETCHING...</div>';
   const articles = [];
-  try {
-    const apiUrl = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&language=en&sortBy=publishedAt&pageSize=15&apiKey=${CONFIG.NEWS_KEY}`;
-    const res = await fetch(`https://corsproxy.io/?${encodeURIComponent(apiUrl)}`);
-    const json = await res.json();
-    if (json.status === 'ok' && json.articles) articles.push(...json.articles);
-  } catch(e) {
+
+  // Four proxy attempts in sequence — stop as soon as one works
+  const apiUrl = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&language=en&sortBy=publishedAt&pageSize=15&apiKey=${CONFIG.NEWS_KEY}`;
+  const proxies = [
+    `https://corsproxy.io/?${encodeURIComponent(apiUrl)}`,
+    `https://api.allorigins.win/raw?url=${encodeURIComponent(apiUrl)}`,
+    `https://thingproxy.freeboard.io/fetch/${apiUrl}`,
+    `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(apiUrl)}`,
+  ];
+
+  for (const proxy of proxies) {
     try {
-      const apiUrl = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&language=en&sortBy=publishedAt&pageSize=15&apiKey=${CONFIG.NEWS_KEY}`;
-      const res2 = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(apiUrl)}`);
-      const json2 = await res2.json();
-      if (json2.status === 'ok' && json2.articles) articles.push(...json2.articles);
-    } catch(e2) { console.error('News proxy failed:', e2); }
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 7000);
+      const res = await fetch(proxy, { signal: controller.signal });
+      clearTimeout(timer);
+      if (!res.ok) continue;
+      const json = await res.json();
+      if (json.status === 'ok' && json.articles && json.articles.length > 0) {
+        articles.push(...json.articles);
+        break; // success — stop trying proxies
+      }
+    } catch(e) {
+      // timeout or network error — try next proxy
+      continue;
+    }
   }
+
   return articles.filter(a => a.title && a.url && !a.title.includes('[Removed]'));
 }
 
 async function loadPlasticsNews() {
-  const query = '(plastic OR plastics OR "plastic packaging" OR "plastic recycling" OR "Operation Clean Sweep" OR "pellet loss" OR nurdle OR bioplastic OR "PET resin" OR "extended producer responsibility" OR polypropylene OR polyethylene) AND (manufacturing OR regulation OR sustainability OR legislation OR EPA OR recycling OR industry)';
+  // Shorter query — long queries break URL encoding through CORS proxies
+  const query = 'plastics manufacturing recycling EPA packaging legislation pellet nurdle "Operation Clean Sweep" "extended producer responsibility"';
   const TERMS = ['plastic', 'recycl', 'resin', 'pellet', 'nurdle', 'polymer', 'packaging',
     'bioplastic', 'polypropylene', 'polyethylene', 'epr', 'operation clean sweep',
     'single-use', 'microplastic', 'chemical recycling', 'pyrolysis'];
@@ -1877,7 +2024,7 @@ async function loadPlasticsNews() {
 }
 
 async function loadEnergyNews() {
-  const query = '(electricity OR "natural gas" OR diesel OR "energy grid" OR "power grid" OR "grid capacity" OR FERC OR "energy supply" OR "fuel prices" OR "energy infrastructure" OR "power market" OR "grid reliability") AND (US OR "United States" OR manufacturing OR industrial OR "supply chain" OR capacity OR utility)';
+  const query = 'electricity grid "natural gas" diesel energy "power grid" FERC "energy supply" "fuel prices" "grid capacity" utility manufacturing';
   const TERMS = ['electricity', 'natural gas', 'diesel', 'grid', 'energy', 'power', 'ferc',
     'fuel', 'solar', 'wind', 'nuclear', 'coal', 'lng', 'pipeline', 'refinery',
     'capacity', 'utility', 'kwh', 'megawatt', 'gigawatt', 'renewable', 'iso', 'rto'];
@@ -2736,16 +2883,7 @@ function renderCharts() {
     borderWidth: 1,
   }]);
 
-  // Gas bar (fuel tab)
-  buildChart('gas-bar-chart', 'bar', labels, [{
-    label: '$/MCF',
-    data: gasVals,
-    backgroundColor: 'rgba(96,200,245,0.5)',
-    borderColor: '#60c8f5',
-    borderWidth: 1,
-  }]);
-
-  // Diesel charts — use friendly region names
+  // Diesel charts — use friendly region names (now on Energy Pricing tab)
   const dieselRegions = DATA.diesel.regions || {};
   const dKeys = Object.keys(dieselRegions).slice(0, 8);
   const dLabels = dKeys.map(dieselLabel);
@@ -2757,7 +2895,6 @@ function renderCharts() {
     borderColor: '#60c8f5',
     borderWidth: 1,
   }]);
-
   buildChart('diesel-trend-chart', 'bar', dLabels, [{
     label: '$/gallon',
     data: dVals,
@@ -2798,11 +2935,262 @@ function switchTab(name) {
   if (name === 'weather' && CONFIG.OPENWEATHER_KEY && Object.keys(DATA.weather).length === 0) {
     loadWeather(CONFIG.OPENWEATHER_KEY);
   }
+  if (name === 'precip') precipInit();
 }
 
 // ============================================================
-// MAIN INIT
+// PRECIPITATION TAB
 // ============================================================
+
+const PRECIP_CITIES = {
+  AL: [
+    { name: 'Birmingham',   lat: 33.5186,  lon: -86.8104  },
+    { name: 'Huntsville',   lat: 34.7304,  lon: -86.5861  },
+    { name: 'Mobile',       lat: 30.6954,  lon: -88.0399  },
+    { name: 'Montgomery',   lat: 32.3668,  lon: -86.2999  },
+    { name: 'Tuscaloosa',   lat: 33.2098,  lon: -87.5692  },
+  ],
+  CA: [
+    { name: 'Fresno',       lat: 36.7378,  lon: -119.7871 },
+    { name: 'Los Angeles',  lat: 34.0522,  lon: -118.2437 },
+    { name: 'Sacramento',   lat: 38.5816,  lon: -121.4944 },
+    { name: 'San Diego',    lat: 32.7157,  lon: -117.1611 },
+    { name: 'San Francisco',lat: 37.7749,  lon: -122.4194 },
+    { name: 'San Jose',     lat: 37.3382,  lon: -121.8863 },
+  ],
+  FL: [
+    { name: 'Jacksonville', lat: 30.3322,  lon: -81.6557  },
+    { name: 'Miami',        lat: 25.7617,  lon: -80.1918  },
+    { name: 'Orlando',      lat: 28.5383,  lon: -81.3792  },
+    { name: 'Tampa',        lat: 27.9506,  lon: -82.4572  },
+    { name: 'Tallahassee',  lat: 30.4383,  lon: -84.2807  },
+    { name: 'Pensacola',    lat: 30.4213,  lon: -87.2169  },
+  ],
+  GA: [
+    { name: 'Athens',       lat: 33.9519,  lon: -83.3576  },
+    { name: 'Atlanta',      lat: 33.7490,  lon: -84.3880  },
+    { name: 'Augusta',      lat: 33.4735,  lon: -82.0105  },
+    { name: 'Columbus',     lat: 32.4610,  lon: -84.9877  },
+    { name: 'Macon',        lat: 32.8407,  lon: -83.6324  },
+    { name: 'Savannah',     lat: 32.0835,  lon: -81.0998  },
+  ],
+  IA: [
+    { name: 'Cedar Rapids', lat: 41.9779,  lon: -91.6656  },
+    { name: 'Davenport',    lat: 41.5236,  lon: -90.5776  },
+    { name: 'Des Moines',   lat: 41.5868,  lon: -93.6250  },
+    { name: 'Dubuque',      lat: 42.5006,  lon: -90.6646  },
+    { name: 'Sioux City',   lat: 42.4999,  lon: -96.4003  },
+    { name: 'Waterloo',     lat: 42.4928,  lon: -92.3426  },
+  ],
+  IL: [
+    { name: 'Aurora',       lat: 41.7606,  lon: -88.3201  },
+    { name: 'Chicago',      lat: 41.8781,  lon: -87.6298  },
+    { name: 'Peoria',       lat: 40.6936,  lon: -89.5890  },
+    { name: 'Rockford',     lat: 42.2711,  lon: -89.0940  },
+    { name: 'Springfield',  lat: 39.7817,  lon: -89.6501  },
+  ],
+  LA: [
+    { name: 'Baton Rouge',  lat: 30.4515,  lon: -91.1871  },
+    { name: 'Lafayette',    lat: 30.2241,  lon: -92.0198  },
+    { name: 'Lake Charles', lat: 30.2266,  lon: -93.2174  },
+    { name: 'New Orleans',  lat: 29.9511,  lon: -90.0715  },
+    { name: 'Shreveport',   lat: 32.5252,  lon: -93.7502  },
+  ],
+  MA: [
+    { name: 'Boston',       lat: 42.3601,  lon: -71.0589  },
+    { name: 'Lowell',       lat: 42.6334,  lon: -71.3162  },
+    { name: 'Springfield',  lat: 42.1015,  lon: -72.5898  },
+    { name: 'Worcester',    lat: 42.2626,  lon: -71.8023  },
+  ],
+  MD: [
+    { name: 'Annapolis',    lat: 38.9784,  lon: -76.4922  },
+    { name: 'Baltimore',    lat: 39.2904,  lon: -76.6122  },
+    { name: 'Frederick',    lat: 39.4143,  lon: -77.4105  },
+    { name: 'Rockville',    lat: 39.0840,  lon: -77.1528  },
+  ],
+  MI: [
+    { name: 'Ann Arbor',    lat: 42.2808,  lon: -83.7430  },
+    { name: 'Detroit',      lat: 42.3314,  lon: -83.0458  },
+    { name: 'Flint',        lat: 43.0125,  lon: -83.6875  },
+    { name: 'Grand Rapids', lat: 42.9634,  lon: -85.6681  },
+    { name: 'Lansing',      lat: 42.7325,  lon: -84.5555  },
+  ],
+  NJ: [
+    { name: 'Atlantic City',lat: 39.3643,  lon: -74.4229  },
+    { name: 'Jersey City',  lat: 40.7178,  lon: -74.0431  },
+    { name: 'Newark',       lat: 40.7357,  lon: -74.1724  },
+    { name: 'Trenton',      lat: 40.2171,  lon: -74.7429  },
+  ],
+  OH: [
+    { name: 'Akron',        lat: 41.0814,  lon: -81.5190  },
+    { name: 'Cincinnati',   lat: 39.1031,  lon: -84.5120  },
+    { name: 'Cleveland',    lat: 41.4993,  lon: -81.6944  },
+    { name: 'Columbus',     lat: 39.9612,  lon: -82.9988  },
+    { name: 'Dayton',       lat: 39.7589,  lon: -84.1916  },
+    { name: 'Toledo',       lat: 41.6528,  lon: -83.5379  },
+  ],
+  TX: [
+    { name: 'Austin',       lat: 30.2672,  lon: -97.7431  },
+    { name: 'Dallas',       lat: 32.7767,  lon: -96.7970  },
+    { name: 'El Paso',      lat: 31.7619,  lon: -106.4850 },
+    { name: 'Fort Worth',   lat: 32.7555,  lon: -97.3308  },
+    { name: 'Houston',      lat: 29.7604,  lon: -95.3698  },
+    { name: 'San Antonio',  lat: 29.4241,  lon: -98.4936  },
+  ],
+};
+
+// Populate state dropdown on tab first open
+function precipInit() {
+  const stateEl = $('precip-state');
+  if (stateEl.options.length > 1) return; // already populated
+  STATES.forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = s.code;
+    opt.textContent = s.name;
+    stateEl.appendChild(opt);
+  });
+
+  // Default dates: last 30 days
+  const today = new Date();
+  const prior = new Date(today);
+  prior.setDate(prior.getDate() - 30);
+  $('precip-end').value   = today.toISOString().slice(0,10);
+  $('precip-start').value = prior.toISOString().slice(0,10);
+}
+
+function precipPopulateCities() {
+  const code = $('precip-state').value;
+  const cityEl = $('precip-city');
+  cityEl.innerHTML = '<option value="">— Select City —</option>';
+  cityEl.disabled = !code;
+  if (!code) return;
+  (PRECIP_CITIES[code] || []).forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = JSON.stringify({ lat: c.lat, lon: c.lon, name: c.name });
+    opt.textContent = c.name;
+    cityEl.appendChild(opt);
+  });
+  cityEl.disabled = false;
+}
+
+function precipShowError(msg) {
+  const el = $('precip-error');
+  el.textContent = msg;
+  el.style.display = msg ? 'block' : 'none';
+}
+
+async function runPrecipQuery() {
+  precipShowError('');
+  const stateEl  = $('precip-state');
+  const cityEl   = $('precip-city');
+  const startVal = $('precip-start').value;
+  const endVal   = $('precip-end').value;
+  const results  = $('precip-results');
+
+  // Validate inputs
+  if (!stateEl.value)   return precipShowError('⚠ Please select a state.');
+  if (!cityEl.value)    return precipShowError('⚠ Please select a city.');
+  if (!startVal)        return precipShowError('⚠ Please enter a start date.');
+  if (!endVal)          return precipShowError('⚠ Please enter an end date.');
+
+  const start = new Date(startVal);
+  const end   = new Date(endVal);
+  if (end < start)      return precipShowError('⚠ End date must be on or after start date.');
+
+  const dayDiff = Math.round((end - start) / 86400000) + 1;
+  if (dayDiff > 366)    return precipShowError(`⚠ Date range is ${dayDiff} days — maximum is 366 days.`);
+
+  const city = JSON.parse(cityEl.value);
+  const stateName = STATES.find(s => s.code === stateEl.value)?.name || stateEl.value;
+
+  results.innerHTML = '<div class="loading"><div class="spinner"></div>FETCHING PRECIPITATION DATA...</div>';
+
+  try {
+    const url = `https://archive-api.open-meteo.com/v1/archive?latitude=${city.lat}&longitude=${city.lon}&start_date=${startVal}&end_date=${endVal}&daily=rain_sum,snowfall_sum&timezone=America%2FChicago`;
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 15000);
+    const res = await fetch(url, { signal: controller.signal });
+    clearTimeout(timer);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const json = await res.json();
+
+    if (!json.daily || !json.daily.time) throw new Error('Unexpected response shape');
+
+    const dates     = json.daily.time;
+    // Open-Meteo: rain_sum in mm, snowfall_sum in cm → convert both to inches
+    const rainMM    = json.daily.rain_sum    || [];
+    const snowCM    = json.daily.snowfall_sum || [];
+
+    let totalRain = 0, totalSnow = 0, totalPrecip = 0;
+
+    let rows = '';
+    dates.forEach((d, i) => {
+      const rainIn  = (rainMM[i]  != null ? rainMM[i]  / 25.4 : 0);
+      const snowIn  = (snowCM[i]  != null ? snowCM[i]  / 2.54 : 0);
+      const totalIn = rainIn + snowIn;
+      totalRain   += rainIn;
+      totalSnow   += snowIn;
+      totalPrecip += totalIn;
+
+      const fmt = v => v === 0 ? '<span class="precip-zero">0.000</span>' : v.toFixed(3);
+      const rainCls  = rainIn  > 0 ? 'precip-rain'  : '';
+      const snowCls  = snowIn  > 0 ? 'precip-snow'  : '';
+      const totalCls = totalIn > 0 ? 'precip-total' : 'precip-zero';
+
+      // Format date nicely
+      const [yr, mo, dy] = d.split('-');
+      const dateStr = `${mo}/${dy}/${yr}`;
+
+      rows += `<tr>
+        <td>${stateName}</td>
+        <td>${city.name}</td>
+        <td>${dateStr}</td>
+        <td class="${rainCls}">${fmt(rainIn)}</td>
+        <td class="${snowCls}">${fmt(snowIn)}</td>
+        <td class="${totalCls}">${fmt(totalIn)}</td>
+      </tr>`;
+    });
+
+    results.innerHTML = `
+      <div class="precip-table-wrap">
+        <table class="precip-table">
+          <thead>
+            <tr>
+              <th>State</th>
+              <th>City</th>
+              <th>Date</th>
+              <th>Rainfall (in)</th>
+              <th>Snowfall (in)</th>
+              <th>Total Precip (in)</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows}
+          </tbody>
+          <tfoot>
+            <tr class="totals-row">
+              <td colspan="3" style="text-align:right;letter-spacing:2px;">TOTALS</td>
+              <td>${totalRain.toFixed(3)}"</td>
+              <td>${totalSnow.toFixed(3)}"</td>
+              <td>${totalPrecip.toFixed(3)}"</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div style="font-family:'Share Tech Mono','Courier New',monospace;font-size:11px;color:#6b8aaa;letter-spacing:1px;margin-top:6px;">
+        ${dates.length} days · ${stateName} / ${city.name} · ${startVal} to ${endVal} · Source: Open-Meteo Historical Archive
+      </div>
+    `;
+  } catch(e) {
+    results.innerHTML = '';
+    if (e.name === 'AbortError') {
+      precipShowError('⚠ Request timed out. Please try again.');
+    } else {
+      precipShowError(`⚠ Failed to fetch data: ${e.message}`);
+    }
+  }
+}
+
 async function init() {
   await Promise.allSettled([
     loadElectricityData(),
@@ -2818,10 +3206,10 @@ async function init() {
   updateStatusPill('pill-grid', gridOk, `GRID DATA: ${gridOk ? 'LIVE' : 'ESTIMATED'}`);
 
   setLastUpdated();
-  renderCharts();
-  buildEnergyTable();
-  buildDieselTable();
-  buildGridCards('overview-grid-cards');
+  try { renderCharts(); } catch(e) { console.error('renderCharts error:', e); }
+  try { buildEnergyTable(); } catch(e) { console.error('buildEnergyTable error:', e); }
+  try { buildDieselTable(); } catch(e) { console.error('buildDieselTable error:', e); }
+  try { buildGridCards('overview-grid-cards'); } catch(e) { console.error('buildGridCards error:', e); }
 
   // Weather — key is baked in
   if (CONFIG.OPENWEATHER_KEY) {
