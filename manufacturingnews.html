@@ -3383,24 +3383,22 @@ function precipShowError(msg) {
 const NOAA_TOKEN = 'zcnnxTHZJwjcVsoSaejcpYmOCYArDPqK';
 const NOAA_BASE  = 'https://www.ncdc.noaa.gov/cdo-web/api/v2';
 
-// Fetch from NOAA CDO API through a CORS proxy (token forwarded as header)
+// Fetch from NOAA CDO API — token appended as query param (avoids CORS preflight)
 async function noaaFetch(path) {
-  const targetUrl = NOAA_BASE + path;
-  // Try multiple proxies — corsproxy.io forwards request headers including token
+  const sep = path.includes('?') ? '&' : '?';
+  const targetUrl = NOAA_BASE + path + sep + 'token=' + NOAA_TOKEN;
   const proxies = [
     `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`,
     `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`,
     `https://thingproxy.freeboard.io/fetch/${targetUrl}`,
+    `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`,
   ];
   let lastErr = '';
   for (const proxyUrl of proxies) {
     try {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), 12000);
-      const res = await fetch(proxyUrl, {
-        headers: { 'token': NOAA_TOKEN },
-        signal: controller.signal,
-      });
+      const res = await fetch(proxyUrl, { signal: controller.signal });
       clearTimeout(timer);
       if (!res.ok) { lastErr = `HTTP ${res.status}`; continue; }
       return await res.json();
@@ -3409,7 +3407,7 @@ async function noaaFetch(path) {
       continue;
     }
   }
-  throw new Error(`NOAA API unreachable: ${lastErr}`);
+  throw new Error(`NOAA API unreachable via all proxies (${lastErr}). Check your network or try again.`);
 }
 
 // Find the nearest GHCND station that has PRCP data for the requested date range
