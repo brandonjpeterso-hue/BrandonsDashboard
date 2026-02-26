@@ -3379,6 +3379,23 @@ function precipShowError(msg) {
   el.style.display = msg ? 'block' : 'none';
 }
 
+// Fetch from a single Open-Meteo endpoint and return { dates, rainMM, snowCM }
+async function precipFetchSegment(apiBase, lat, lon, startDate, endDate) {
+  const url = `${apiBase}?latitude=${lat}&longitude=${lon}&start_date=${startDate}&end_date=${endDate}&daily=rain_sum,snowfall_sum&timezone=America%2FChicago`;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 15000);
+  const res = await fetch(url, { signal: controller.signal });
+  clearTimeout(timer);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const json = await res.json();
+  if (!json.daily || !json.daily.time) throw new Error('Unexpected response shape');
+  return {
+    dates:  json.daily.time,
+    rainMM: json.daily.rain_sum    || [],
+    snowCM: json.daily.snowfall_sum || [],
+  };
+}
+
 async function runPrecipQuery() {
   precipShowError('');
   const stateEl  = $('precip-state');
@@ -3400,51 +3417,109 @@ async function runPrecipQuery() {
   const dayDiff = Math.round((end - start) / 86400000) + 1;
   if (dayDiff > 366)    return precipShowError(`⚠ Date range is ${dayDiff} days — maximum is 366 days.`);
 
-  const city = JSON.parse(cityEl.value);
+  const city      = JSON.parse(cityEl.value);
   const stateName = STATES.find(s => s.code === stateEl.value)?.name || stateEl.value;
+
+  // API endpoints
+  const FORECAST_API = 'https://historical-forecast-api.open-meteo.com/v1/forecast';
+  const ERA5_API     = 'https://archive-api.open-meteo.com/v1/archive';
+  const CUTOFF       = '2021-01-01'; // Forecast archive availability start
 
   results.innerHTML = '<div class="loading"><div class="spinner"></div>FETCHING PRECIPITATION DATA...</div>';
 
   try {
-    const url = `https://archive-api.open-meteo.com/v1/archive?latitude=${city.lat}&longitude=${city.lon}&start_date=${startVal}&end_date=${endVal}&daily=rain_sum,snowfall_sum&timezone=America%2FChicago`;
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 15000);
-    const res = await fetch(url, { signal: controller.signal });
-    clearTimeout(timer);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const json = await res.json();
+    let dates  = [];
+    let rainMM = [];
+    let snowCM = [];
+    let usedERA5   = false; // any portion came from ERA5
+    let usedFcst   = false; // any portion came from forecast archive
 
-    if (!json.daily || !json.daily.time) throw new Error('Unexpected response shape');
+    if (endVal < CUTOFF) {
+      // Entire range is pre-2021 — use ERA5 only
+      usedERA5 = true;
+      const seg = await precipFetchSegment(ERA5_API, city.lat, city.lon, startVal, endVal);
+      dates  = seg.dates;
+      rainMM = seg.rainMM;
+      snowCM = seg.snowCM;
 
-    const dates     = json.daily.time;
-    // Open-Meteo: rain_sum in mm, snowfall_sum in cm → convert both to inches
-    const rainMM    = json.daily.rain_sum    || [];
-    const snowCM    = json.daily.snowfall_sum || [];
+    } else if (startVal >= CUTOFF) {
+      // Entire range is 2021+ — use forecast archive only
+      usedFcst = true;
+      const seg = await precipFetchSegment(FORECAST_API, city.lat, city.lon, startVal, endVal);
+      dates  = seg.dates;
+      rainMM = seg.rainMM;
+      snowCM = seg.snowCM;
 
+    } else {
+      // Split: pre-2021 from ERA5, 2021+ from forecast archive
+      usedERA5 = true;
+      usedFcst = true;
+
+      // ERA5 segment: startVal → 2020-12-31
+      const era5End = '2020-12-31';
+      const era5Seg = await precipFetchSegment(ERA5_API, city.lat, city.lon, startVal, era5End);
+
+      // Forecast archive segment: 2021-01-01 → endVal
+      const fcstSeg = await precipFetchSegment(FORECAST_API, city.lat, city.lon, CUTOFF, endVal);
+
+      dates  = [...era5Seg.dates,  ...fcstSeg.dates];
+      rainMM = [...era5Seg.rainMM, ...fcstSeg.rainMM];
+      snowCM = [...era5Seg.snowCM, ...fcstSeg.snowCM];
+    }
+
+    // Build source label and ERA5 warning banner if needed
+    let sourceLabel, warningBanner = '';
+    if (usedERA5 && usedFcst) {
+      sourceLabel  = 'Open-Meteo: ERA5 reanalysis (pre-2021) + Forecast Archive (2021–present)';
+      warningBanner = `
+        <div style="font-family:'Share Tech Mono','Courier New',monospace;font-size:11px;
+          color:#f59e0b;letter-spacing:0.5px;line-height:1.6;padding:10px 14px;
+          border:1px solid #b45309;background:rgba(245,158,11,0.07);margin-bottom:12px;">
+          ⚠ SPLIT DATA SOURCE — Dates before 2021-01-01 use ERA5 reanalysis (global climate model,
+          ~9 km grid). ERA5 can overestimate localized convective rainfall, particularly in the
+          Southeast and Gulf Coast. Dates from 2021-01-01 onward use the Forecast Archive
+          (HRRR/GFS, calibrated against US station observations — higher accuracy).
+        </div>`;
+    } else if (usedERA5) {
+      sourceLabel  = 'Open-Meteo ERA5 Reanalysis (pre-2021)';
+      warningBanner = `
+        <div style="font-family:'Share Tech Mono','Courier New',monospace;font-size:11px;
+          color:#f59e0b;letter-spacing:0.5px;line-height:1.6;padding:10px 14px;
+          border:1px solid #b45309;background:rgba(245,158,11,0.07);margin-bottom:12px;">
+          ⚠ ERA5 REANALYSIS DATA — This date range uses ERA5 (global climate model, ~9 km grid).
+          ERA5 can overestimate localized convective rainfall, particularly in the Southeast and
+          Gulf Coast. For higher accuracy, use dates from 2021-01-01 onward.
+        </div>`;
+    } else {
+      sourceLabel = 'Open-Meteo Forecast Archive — HRRR/GFS (calibrated, higher accuracy)';
+    }
+
+    // Build table rows
     let totalRain = 0, totalSnow = 0, totalPrecip = 0;
-
     let rows = '';
     dates.forEach((d, i) => {
-      const rainIn  = (rainMM[i]  != null ? rainMM[i]  / 25.4 : 0);
-      const snowIn  = (snowCM[i]  != null ? snowCM[i]  / 2.54 : 0);
+      const rainIn  = rainMM[i] != null ? rainMM[i] / 25.4 : 0;
+      const snowIn  = snowCM[i] != null ? snowCM[i] / 2.54 : 0;
       const totalIn = rainIn + snowIn;
       totalRain   += rainIn;
       totalSnow   += snowIn;
       totalPrecip += totalIn;
 
-      const fmt = v => v === 0 ? '<span class="precip-zero">0.000</span>' : v.toFixed(3);
+      const fmt      = v => v === 0 ? '<span class="precip-zero">0.000</span>' : v.toFixed(3);
       const rainCls  = rainIn  > 0 ? 'precip-rain'  : '';
       const snowCls  = snowIn  > 0 ? 'precip-snow'  : '';
       const totalCls = totalIn > 0 ? 'precip-total' : 'precip-zero';
-
-      // Format date nicely
       const [yr, mo, dy] = d.split('-');
-      const dateStr = `${mo}/${dy}/${yr}`;
 
-      rows += `<tr>
+      // Flag ERA5 rows in a split query so user knows which rows are the less accurate source
+      const era5Row = usedERA5 && usedFcst && d < CUTOFF;
+      const rowStyle = era5Row ? ' style="opacity:0.8;"' : '';
+      const era5Tag  = era5Row ? ' <span style="color:#f59e0b;font-size:9px;" title="ERA5 reanalysis estimate">ERA5</span>' : '';
+
+      rows += `<tr${rowStyle}>
         <td>${stateName}</td>
         <td>${city.name}</td>
-        <td>${dateStr}</td>
+        <td>${mo}/${dy}/${yr}${era5Tag}</td>
         <td class="${rainCls}">${fmt(rainIn)}</td>
         <td class="${snowCls}">${fmt(snowIn)}</td>
         <td class="${totalCls}">${fmt(totalIn)}</td>
@@ -3452,6 +3527,7 @@ async function runPrecipQuery() {
     });
 
     results.innerHTML = `
+      ${warningBanner}
       <div class="precip-table-wrap">
         <table class="precip-table">
           <thead>
@@ -3464,9 +3540,7 @@ async function runPrecipQuery() {
               <th>Total Precip (in)</th>
             </tr>
           </thead>
-          <tbody>
-            ${rows}
-          </tbody>
+          <tbody>${rows}</tbody>
           <tfoot>
             <tr class="totals-row">
               <td colspan="3" style="text-align:right;letter-spacing:2px;">TOTALS</td>
@@ -3478,9 +3552,10 @@ async function runPrecipQuery() {
         </table>
       </div>
       <div style="font-family:'Share Tech Mono','Courier New',monospace;font-size:11px;color:#6b8aaa;letter-spacing:1px;margin-top:6px;">
-        ${dates.length} days · ${stateName} / ${city.name} · ${startVal} to ${endVal} · Source: Open-Meteo Historical Archive
+        ${dates.length} days · ${stateName} / ${city.name} · ${startVal} to ${endVal} · ${sourceLabel}
       </div>
     `;
+
   } catch(e) {
     results.innerHTML = '';
     if (e.name === 'AbortError') {
