@@ -3379,9 +3379,11 @@ function precipShowError(msg) {
   el.style.display = msg ? 'block' : 'none';
 }
 
-// Fetch from a single Open-Meteo endpoint and return { dates, rainMM, snowCM }
+// Fetch from a single Open-Meteo endpoint and return { dates, precipMM, snowCM }
 async function precipFetchSegment(apiBase, lat, lon, startDate, endDate) {
-  const url = `${apiBase}?latitude=${lat}&longitude=${lon}&start_date=${startDate}&end_date=${endDate}&daily=rain_sum,snowfall_sum&timezone=America%2FChicago`;
+  // precipitation_sum = ALL precipitation (rain + convective + snow water equiv) in mm
+  // snowfall_sum      = snowfall depth in cm (separate so we can break out snow vs rain)
+  const url = `${apiBase}?latitude=${lat}&longitude=${lon}&start_date=${startDate}&end_date=${endDate}&daily=precipitation_sum,snowfall_sum&timezone=America%2FChicago`;
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 15000);
   const res = await fetch(url, { signal: controller.signal });
@@ -3390,9 +3392,9 @@ async function precipFetchSegment(apiBase, lat, lon, startDate, endDate) {
   const json = await res.json();
   if (!json.daily || !json.daily.time) throw new Error('Unexpected response shape');
   return {
-    dates:  json.daily.time,
-    rainMM: json.daily.rain_sum    || [],
-    snowCM: json.daily.snowfall_sum || [],
+    dates:    json.daily.time,
+    precipMM: json.daily.precipitation_sum || [],  // total precip in mm
+    snowCM:   json.daily.snowfall_sum       || [],  // snowfall depth in cm
   };
 }
 
@@ -3428,9 +3430,9 @@ async function runPrecipQuery() {
   results.innerHTML = '<div class="loading"><div class="spinner"></div>FETCHING PRECIPITATION DATA...</div>';
 
   try {
-    let dates  = [];
-    let rainMM = [];
-    let snowCM = [];
+    let dates   = [];
+    let precipMM = [];
+    let snowCM  = [];
     let usedERA5   = false; // any portion came from ERA5
     let usedFcst   = false; // any portion came from forecast archive
 
@@ -3438,17 +3440,17 @@ async function runPrecipQuery() {
       // Entire range is pre-2021 — use ERA5 only
       usedERA5 = true;
       const seg = await precipFetchSegment(ERA5_API, city.lat, city.lon, startVal, endVal);
-      dates  = seg.dates;
-      rainMM = seg.rainMM;
-      snowCM = seg.snowCM;
+      dates    = seg.dates;
+      precipMM = seg.precipMM;
+      snowCM   = seg.snowCM;
 
     } else if (startVal >= CUTOFF) {
       // Entire range is 2021+ — use forecast archive only
       usedFcst = true;
       const seg = await precipFetchSegment(FORECAST_API, city.lat, city.lon, startVal, endVal);
-      dates  = seg.dates;
-      rainMM = seg.rainMM;
-      snowCM = seg.snowCM;
+      dates    = seg.dates;
+      precipMM = seg.precipMM;
+      snowCM   = seg.snowCM;
 
     } else {
       // Split: pre-2021 from ERA5, 2021+ from forecast archive
@@ -3462,9 +3464,9 @@ async function runPrecipQuery() {
       // Forecast archive segment: 2021-01-01 → endVal
       const fcstSeg = await precipFetchSegment(FORECAST_API, city.lat, city.lon, CUTOFF, endVal);
 
-      dates  = [...era5Seg.dates,  ...fcstSeg.dates];
-      rainMM = [...era5Seg.rainMM, ...fcstSeg.rainMM];
-      snowCM = [...era5Seg.snowCM, ...fcstSeg.snowCM];
+      dates    = [...era5Seg.dates,    ...fcstSeg.dates];
+      precipMM = [...era5Seg.precipMM, ...fcstSeg.precipMM];
+      snowCM   = [...era5Seg.snowCM,   ...fcstSeg.snowCM];
     }
 
     // Build source label and ERA5 warning banner if needed
@@ -3498,9 +3500,13 @@ async function runPrecipQuery() {
     let totalRain = 0, totalSnow = 0, totalPrecip = 0;
     let rows = '';
     dates.forEach((d, i) => {
-      const rainIn  = rainMM[i] != null ? rainMM[i] / 25.4 : 0;
-      const snowIn  = snowCM[i] != null ? snowCM[i] / 2.54 : 0;
-      const totalIn = rainIn + snowIn;
+      // precipitation_sum is total (rain + snow water equiv) in mm → inches
+      const totalIn = precipMM[i] != null ? precipMM[i] / 25.4 : 0;
+      // snowfall_sum is depth in cm → water equivalent inches (approx 10:1 ratio)
+      const snowIn  = snowCM[i]   != null ? snowCM[i]  / 2.54 / 10 : 0;
+      // rainfall = total precip minus snow water equivalent (never negative)
+      const rainIn  = Math.max(0, totalIn - snowIn);
+
       totalRain   += rainIn;
       totalSnow   += snowIn;
       totalPrecip += totalIn;
