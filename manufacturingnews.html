@@ -3496,6 +3496,18 @@ async function runPrecipQuery() {
       sourceLabel = 'Open-Meteo Forecast Archive — HRRR/GFS (calibrated, higher accuracy)';
     }
 
+    // DEBUG — show raw API values before conversion
+    const debugRows = dates.slice(0,10).map((d,i) =>
+      `${d}: precipMM=${precipMM[i]} snowCM=${snowCM[i]}`
+    ).join('<br>');
+    results.innerHTML = `
+      <div style="font-family:'Share Tech Mono','Courier New',monospace;font-size:11px;
+        color:#f59e0b;padding:10px 14px;border:1px solid #b45309;background:rgba(245,158,11,0.07);
+        margin-bottom:12px;line-height:1.8;">
+        <strong>DEBUG — RAW API VALUES (first 10 days, before conversion):</strong><br>${debugRows}
+      </div>`;
+    await new Promise(r => setTimeout(r, 50)); // let it paint
+
     // Build table rows
     let totalRain = 0, totalSnow = 0, totalPrecip = 0;
     let rows = '';
