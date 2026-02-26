@@ -1567,9 +1567,7 @@ margin-bottom: 24px;
       <div class="section-meta">OPEN-METEO HISTORICAL DATA // DAILY RAINFALL &amp; SNOWFALL</div>
     </div>
     <div class="api-note">
-      <strong>DATA SOURCE:</strong> Open-Meteo Historical Weather API — free, no key required.
-      Rainfall and snowfall converted to inches. Maximum query range is 366 days.
-      Data availability begins January 1, 1940.
+      <strong>DATA SOURCE:</strong> NOAA Global Historical Climatology Network Daily (GHCND) — actual weather station gauge observations. The nearest reporting station to the selected city is located automatically. Data typically available through 1–2 days prior to today. Rainfall and snowfall shown in inches.
     </div>
 
 ```
@@ -3379,23 +3377,56 @@ function precipShowError(msg) {
   el.style.display = msg ? 'block' : 'none';
 }
 
-// Fetch from a single Open-Meteo endpoint and return { dates, precipMM, snowCM }
-async function precipFetchSegment(apiBase, lat, lon, startDate, endDate) {
-  // precipitation_sum = ALL precipitation (rain + convective + snow water equiv) in mm
-  // snowfall_sum      = snowfall depth in cm (separate so we can break out snow vs rain)
-  const url = `${apiBase}?latitude=${lat}&longitude=${lon}&start_date=${startDate}&end_date=${endDate}&daily=precipitation_sum,snowfall_sum&timezone=America%2FChicago`;
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 15000);
-  const res = await fetch(url, { signal: controller.signal });
-  clearTimeout(timer);
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const json = await res.json();
-  if (!json.daily || !json.daily.time) throw new Error('Unexpected response shape');
-  return {
-    dates:    json.daily.time,
-    precipMM: json.daily.precipitation_sum || [],  // total precip in mm
-    snowCM:   json.daily.snowfall_sum       || [],  // snowfall depth in cm
-  };
+// ============================================================
+// PRECIPITATION TAB — NOAA GHCND STATION DATA
+// ============================================================
+const NOAA_TOKEN = 'zcnnxTHZJwjcVsoSaejcpYmOCYArDPqK';
+const NOAA_BASE  = 'https://www.ncdc.noaa.gov/cdo-web/api/v2';
+
+// Fetch from NOAA CDO API through a CORS proxy (token forwarded as header)
+async function noaaFetch(path) {
+  const targetUrl = NOAA_BASE + path;
+  // Try multiple proxies — corsproxy.io forwards request headers including token
+  const proxies = [
+    `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`,
+    `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`,
+    `https://thingproxy.freeboard.io/fetch/${targetUrl}`,
+  ];
+  let lastErr = '';
+  for (const proxyUrl of proxies) {
+    try {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 12000);
+      const res = await fetch(proxyUrl, {
+        headers: { 'token': NOAA_TOKEN },
+        signal: controller.signal,
+      });
+      clearTimeout(timer);
+      if (!res.ok) { lastErr = `HTTP ${res.status}`; continue; }
+      return await res.json();
+    } catch(e) {
+      lastErr = e.message;
+      continue;
+    }
+  }
+  throw new Error(`NOAA API unreachable: ${lastErr}`);
+}
+
+// Find the nearest GHCND station that has PRCP data for the requested date range
+async function findNOAAStation(lat, lon, startDate, endDate) {
+  const radii = [0.3, 0.6, 1.0, 1.5];
+  for (const r of radii) {
+    const extent = `${(lat-r).toFixed(4)},${(lon-r).toFixed(4)},${(lat+r).toFixed(4)},${(lon+r).toFixed(4)}`;
+    const path = `/stations?datasetid=GHCND&datatypeid=PRCP&extent=${extent}&startdate=${startDate}&enddate=${endDate}&limit=10&sortfield=datacoverage&sortorder=desc`;
+    try {
+      const json = await noaaFetch(path);
+      if (json.results && json.results.length > 0) {
+        // Pick the station with highest datacoverage
+        return json.results[0];
+      }
+    } catch(e) { throw e; }
+  }
+  throw new Error('No NOAA weather station found near this location for the selected date range. Try a nearby larger city.');
 }
 
 async function runPrecipQuery() {
@@ -3422,91 +3453,52 @@ async function runPrecipQuery() {
   const city      = JSON.parse(cityEl.value);
   const stateName = STATES.find(s => s.code === stateEl.value)?.name || stateEl.value;
 
-  // API endpoints
-  const FORECAST_API = 'https://historical-forecast-api.open-meteo.com/v1/forecast';
-  const ERA5_API     = 'https://archive-api.open-meteo.com/v1/archive';
-  const CUTOFF       = '2021-01-01'; // Forecast archive availability start
-
-  results.innerHTML = '<div class="loading"><div class="spinner"></div>FETCHING PRECIPITATION DATA...</div>';
-
   try {
-    let dates   = [];
-    let precipMM = [];
-    let snowCM  = [];
-    let usedERA5   = false; // any portion came from ERA5
-    let usedFcst   = false; // any portion came from forecast archive
+    // Step 1 — find nearest station
+    results.innerHTML = '<div class="loading"><div class="spinner"></div>LOCATING NEAREST NOAA STATION...</div>';
+    const station = await findNOAAStation(city.lat, city.lon, startVal, endVal);
+    const stationName = station.name || station.id;
 
-    if (endVal < CUTOFF) {
-      // Entire range is pre-2021 — use ERA5 only
-      usedERA5 = true;
-      const seg = await precipFetchSegment(ERA5_API, city.lat, city.lon, startVal, endVal);
-      dates    = seg.dates;
-      precipMM = seg.precipMM;
-      snowCM   = seg.snowCM;
+    // Step 2 — fetch daily PRCP + SNOW data
+    // GHCND units (no units param): PRCP = tenths of mm, SNOW = mm
+    results.innerHTML = `<div class="loading"><div class="spinner"></div>FETCHING DATA FROM ${stationName}...</div>`;
+    const dataPath = `/data?datasetid=GHCND&stationid=${encodeURIComponent(station.id)}&datatypeid=PRCP,SNOW&startdate=${startVal}&enddate=${endVal}&limit=1000&includemetadata=false`;
+    const dataJson = await noaaFetch(dataPath);
 
-    } else if (startVal >= CUTOFF) {
-      // Entire range is 2021+ — use forecast archive only
-      usedFcst = true;
-      const seg = await precipFetchSegment(FORECAST_API, city.lat, city.lon, startVal, endVal);
-      dates    = seg.dates;
-      precipMM = seg.precipMM;
-      snowCM   = seg.snowCM;
+    // Step 3 — pivot records into per-date map
+    // NOAA returns sparse records (missing days = no entry = 0 precip)
+    const byDate = {};
+    (dataJson.results || []).forEach(r => {
+      const date = r.date.slice(0, 10);
+      if (!byDate[date]) byDate[date] = { PRCP: 0, SNOW: 0 };
+      byDate[date][r.datatype] = r.value || 0;
+    });
 
-    } else {
-      // Split: pre-2021 from ERA5, 2021+ from forecast archive
-      usedERA5 = true;
-      usedFcst = true;
-
-      // ERA5 segment: startVal → 2020-12-31
-      const era5End = '2020-12-31';
-      const era5Seg = await precipFetchSegment(ERA5_API, city.lat, city.lon, startVal, era5End);
-
-      // Forecast archive segment: 2021-01-01 → endVal
-      const fcstSeg = await precipFetchSegment(FORECAST_API, city.lat, city.lon, CUTOFF, endVal);
-
-      dates    = [...era5Seg.dates,    ...fcstSeg.dates];
-      precipMM = [...era5Seg.precipMM, ...fcstSeg.precipMM];
-      snowCM   = [...era5Seg.snowCM,   ...fcstSeg.snowCM];
+    // Step 4 — build complete date array (fill gaps with 0)
+    const dates = [];
+    const cur = new Date(startVal + 'T12:00:00'); // noon to avoid DST edge cases
+    const endD = new Date(endVal   + 'T12:00:00');
+    while (cur <= endD) {
+      dates.push(cur.toISOString().slice(0, 10));
+      cur.setDate(cur.getDate() + 1);
     }
 
-    // Build source label and ERA5 warning banner if needed
-    let sourceLabel, warningBanner = '';
-    if (usedERA5 && usedFcst) {
-      sourceLabel  = 'Open-Meteo: ERA5 reanalysis (pre-2021) + Forecast Archive (2021–present)';
-      warningBanner = `
-        <div style="font-family:'Share Tech Mono','Courier New',monospace;font-size:11px;
-          color:#f59e0b;letter-spacing:0.5px;line-height:1.6;padding:10px 14px;
-          border:1px solid #b45309;background:rgba(245,158,11,0.07);margin-bottom:12px;">
-          ⚠ SPLIT DATA SOURCE — Dates before 2021-01-01 use ERA5 reanalysis (global climate model,
-          ~9 km grid). ERA5 can overestimate localized convective rainfall, particularly in the
-          Southeast and Gulf Coast. Dates from 2021-01-01 onward use the Forecast Archive
-          (HRRR/GFS, calibrated against US station observations — higher accuracy).
-        </div>`;
-    } else if (usedERA5) {
-      sourceLabel  = 'Open-Meteo ERA5 Reanalysis (pre-2021)';
-      warningBanner = `
-        <div style="font-family:'Share Tech Mono','Courier New',monospace;font-size:11px;
-          color:#f59e0b;letter-spacing:0.5px;line-height:1.6;padding:10px 14px;
-          border:1px solid #b45309;background:rgba(245,158,11,0.07);margin-bottom:12px;">
-          ⚠ ERA5 REANALYSIS DATA — This date range uses ERA5 (global climate model, ~9 km grid).
-          ERA5 can overestimate localized convective rainfall, particularly in the Southeast and
-          Gulf Coast. For higher accuracy, use dates from 2021-01-01 onward.
-        </div>`;
-    } else {
-      sourceLabel = 'Open-Meteo Forecast Archive — HRRR/GFS (calibrated, higher accuracy)';
-    }
-
-    // Build table rows
+    // Step 5 — convert and build rows
+    // PRCP (tenths of mm) ÷ 254 = inches of liquid precipitation (rain + snow water equiv)
+    // SNOW (mm) ÷ 25.4 = inches of snowfall depth
+    // Rainfall = total liquid precip minus estimated snow water equiv (10:1 ratio)
     let totalRain = 0, totalSnow = 0, totalPrecip = 0;
     let rows = '';
-    dates.forEach((d, i) => {
-      // precipitation_sum is total (rain + snow water equiv) in mm → inches
-      const totalIn = precipMM[i] != null ? precipMM[i] / 25.4 : 0;
-      // snowfall_sum is depth in cm → water equivalent inches (approx 10:1 ratio)
-      const snowIn  = snowCM[i]   != null ? snowCM[i]  / 2.54 / 10 : 0;
-      // rainfall = total precip minus snow water equivalent (never negative)
-      const rainIn  = Math.max(0, totalIn - snowIn);
+    let daysWithData = 0;
 
+    dates.forEach(d => {
+      const rec      = byDate[d] || { PRCP: 0, SNOW: 0 };
+      const totalIn  = rec.PRCP / 254;                    // total liquid equiv in inches
+      const snowIn   = rec.SNOW / 25.4;                   // snowfall depth in inches
+      const snowWaterIn = snowIn / 10;                    // snow water equiv (10:1 ratio)
+      const rainIn   = Math.max(0, totalIn - snowWaterIn);// liquid rain only
+
+      if (rec.PRCP > 0 || rec.SNOW > 0) daysWithData++;
       totalRain   += rainIn;
       totalSnow   += snowIn;
       totalPrecip += totalIn;
@@ -3517,23 +3509,34 @@ async function runPrecipQuery() {
       const totalCls = totalIn > 0 ? 'precip-total' : 'precip-zero';
       const [yr, mo, dy] = d.split('-');
 
-      // Flag ERA5 rows in a split query so user knows which rows are the less accurate source
-      const era5Row = usedERA5 && usedFcst && d < CUTOFF;
-      const rowStyle = era5Row ? ' style="opacity:0.8;"' : '';
-      const era5Tag  = era5Row ? ' <span style="color:#f59e0b;font-size:9px;" title="ERA5 reanalysis estimate">ERA5</span>' : '';
-
-      rows += `<tr${rowStyle}>
+      rows += `<tr>
         <td>${stateName}</td>
         <td>${city.name}</td>
-        <td>${mo}/${dy}/${yr}${era5Tag}</td>
+        <td>${mo}/${dy}/${yr}</td>
         <td class="${rainCls}">${fmt(rainIn)}</td>
         <td class="${snowCls}">${fmt(snowIn)}</td>
         <td class="${totalCls}">${fmt(totalIn)}</td>
       </tr>`;
     });
 
+    // Warn if very few days have data (station may be sparse for this range)
+    let sparseWarning = '';
+    if (daysWithData === 0) {
+      sparseWarning = `<div style="font-family:'Share Tech Mono','Courier New',monospace;font-size:11px;
+        color:#f59e0b;padding:10px 14px;border:1px solid #b45309;background:rgba(245,158,11,0.07);margin-bottom:12px;">
+        ⚠ NO DATA RETURNED for this station and date range. The station may not have reported during this period.
+        Try selecting a different nearby city.
+      </div>`;
+    } else if (daysWithData < dates.length * 0.5) {
+      sparseWarning = `<div style="font-family:'Share Tech Mono','Courier New',monospace;font-size:11px;
+        color:#f59e0b;padding:10px 14px;border:1px solid #b45309;background:rgba(245,158,11,0.07);margin-bottom:12px;">
+        ⚠ SPARSE DATA — Only ${daysWithData} of ${dates.length} days have station records.
+        Missing days are shown as 0.000. Consider trying a nearby city if results appear incomplete.
+      </div>`;
+    }
+
     results.innerHTML = `
-      ${warningBanner}
+      ${sparseWarning}
       <div class="precip-table-wrap">
         <table class="precip-table">
           <thead>
@@ -3558,13 +3561,9 @@ async function runPrecipQuery() {
         </table>
       </div>
       <div style="font-family:'Share Tech Mono','Courier New',monospace;font-size:11px;color:#6b8aaa;letter-spacing:1px;margin-top:6px;">
-        ${dates.length} days · ${stateName} / ${city.name} · ${startVal} to ${endVal} · ${sourceLabel}
-      </div>
-      <div style="font-family:'Share Tech Mono','Courier New',monospace;font-size:11px;
-        color:#f59e0b;padding:10px 14px;border:1px solid #b45309;background:rgba(245,158,11,0.07);
-        margin-top:12px;line-height:2;">
-        <strong>DEBUG — RAW API VALUES (mm, before conversion):</strong><br>
-        ${dates.slice(0,15).map((d,i) => `${d}: precipMM=${precipMM[i]}  snowCM=${snowCM[i]}`).join('<br>')}
+        ${dates.length} days · ${stateName} / ${city.name} · ${startVal} to ${endVal}
+        · Station: ${stationName} (${station.id})
+        · Source: NOAA GHCND — actual gauge observations
       </div>
     `;
 
@@ -3573,7 +3572,7 @@ async function runPrecipQuery() {
     if (e.name === 'AbortError') {
       precipShowError('⚠ Request timed out. Please try again.');
     } else {
-      precipShowError(`⚠ Failed to fetch data: ${e.message}`);
+      precipShowError(`⚠ ${e.message}`);
     }
   }
 }
