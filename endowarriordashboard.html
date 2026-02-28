@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -18,41 +19,41 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--charco
 
 /* TAB BAR */
 .tab-bar{position:sticky;top:0;z-index:200;background:rgba(251,246,242,.95);
-  backdrop-filter:blur(14px);border-bottom:1px solid var(--border);
-  display:flex;justify-content:center;gap:.2rem;padding:.55rem .75rem;flex-wrap:wrap;}
-.tab-btn{background:none;border:none;font-family:'DM Sans',sans-serif;font-size:.84rem;
-  font-weight:600;color:var(--muted);padding:.48rem 1.1rem;border-radius:99px;
-  cursor:pointer;transition:background .2s,color .2s;white-space:nowrap;}
-.tab-btn:hover{background:var(--nude4);color:var(--nude-dk);}
-.tab-btn.active{background:linear-gradient(135deg,#7A4E44,var(--nude1));color:#fff;}
+backdrop-filter:blur(14px);border-bottom:1px solid var(–border);
+display:flex;justify-content:center;gap:.2rem;padding:.55rem .75rem;flex-wrap:wrap;}
+.tab-btn{background:none;border:none;font-family:‘DM Sans’,sans-serif;font-size:.84rem;
+font-weight:600;color:var(–muted);padding:.48rem 1.1rem;border-radius:99px;
+cursor:pointer;transition:background .2s,color .2s;white-space:nowrap;}
+.tab-btn:hover{background:var(–nude4);color:var(–nude-dk);}
+.tab-btn.active{background:linear-gradient(135deg,#7A4E44,var(–nude1));color:#fff;}
 
 /* HERO */
-.hero{background:linear-gradient(145deg,#7A4E44 0%,var(--nude1) 42%,var(--nude2) 75%,var(--nude3) 100%);
-  padding:3.5rem 1rem 5rem;text-align:center;position:relative;overflow:hidden;}
+.hero{background:linear-gradient(145deg,#7A4E44 0%,var(–nude1) 42%,var(–nude2) 75%,var(–nude3) 100%);
+padding:2rem 1rem 5rem;text-align:center;position:relative;overflow:hidden;}
 .hero-glow{position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse at 75% 25%,rgba(255,238,220,.2) 0%,transparent 55%),
-             radial-gradient(ellipse at 20% 80%,rgba(195,168,209,.16) 0%,transparent 50%);}
+background:radial-gradient(ellipse at 75% 25%,rgba(255,238,220,.2) 0%,transparent 55%),
+radial-gradient(ellipse at 20% 80%,rgba(195,168,209,.16) 0%,transparent 50%);}
 .lily-corner{position:absolute;top:-5px;pointer-events:none;z-index:2;
-  width:clamp(130px,22vw,240px);height:auto;}
+width:clamp(130px,22vw,240px);height:auto;}
 .lily-tl{left:-14px;transform:rotate(-5deg);}
 .lily-tr{right:-14px;transform:scaleX(-1) rotate(-5deg);}
-.hero-inner{position:relative;z-index:3;}
+.hero-inner{position:relative;z-index:3;padding-top:clamp(90px,16vw,170px);}
 .hero-ribbon{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);
-  backdrop-filter:blur(6px);color:#fff;font-size:.75rem;font-weight:600;
-  letter-spacing:.12em;text-transform:uppercase;padding:.32rem 1rem;
-  border-radius:99px;margin-bottom:1.1rem;}
-.hero h1{font-family:'Fraunces',serif;font-size:clamp(1.75rem,5.5vw,3.4rem);font-weight:700;
-  color:#fff;line-height:1.15;margin-bottom:.8rem;text-shadow:0 2px 20px rgba(80,30,20,.22);}
+backdrop-filter:blur(6px);color:#fff;font-size:.75rem;font-weight:600;
+letter-spacing:.12em;text-transform:uppercase;padding:.32rem 1rem;
+border-radius:99px;margin-bottom:1.1rem;}
+.hero h1{font-family:‘Fraunces’,serif;font-size:clamp(1.75rem,5.5vw,3.4rem);font-weight:700;
+color:#fff;line-height:1.15;margin-bottom:.8rem;text-shadow:0 2px 20px rgba(80,30,20,.22);}
 .hero h1 em{font-style:italic;color:#FFE8DC;}
 .hero p{color:rgba(255,255,255,.85);font-size:clamp(.88rem,2.2vw,1.05rem);
-  max-width:520px;margin:0 auto 1.8rem;line-height:1.7;}
+max-width:520px;margin:0 auto 1.8rem;line-height:1.7;}
 .hero-stats{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;}
 .stat{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);
-  border-radius:12px;padding:.6rem 1.2rem;color:#fff;backdrop-filter:blur(4px);}
-.stat strong{display:block;font-size:1.35rem;font-family:'Fraunces',serif;}
+border-radius:12px;padding:.6rem 1.2rem;color:#fff;backdrop-filter:blur(4px);}
+.stat strong{display:block;font-size:1.35rem;font-family:‘Fraunces’,serif;}
 .stat span{font-size:.72rem;opacity:.8;text-transform:uppercase;letter-spacing:.08em;}
-.wave{display:block;width:100%;height:48px;margin-top:-2px;background:var(--cream);
-  clip-path:ellipse(56% 100% at 50% 100%);}
+.wave{display:block;width:100%;height:48px;margin-top:-2px;background:var(–cream);
+clip-path:ellipse(56% 100% at 50% 100%);}
 
 /* PAGES */
 .page{display:none;}.page.active{display:block;}
@@ -62,221 +63,244 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--charco
 
 /* FILTER CARD */
 .filter-section{max-width:960px;margin:-2rem auto 1.75rem;padding:0 1rem;}
-.filter-card{background:var(--card);border-radius:20px;
-  box-shadow:0 8px 40px rgba(100,50,40,.1);padding:1.5rem 1.6rem;}
-.filter-card h2{font-family:'Fraunces',serif;font-size:1.1rem;margin-bottom:1.1rem;}
+.filter-card{background:var(–card);border-radius:20px;
+box-shadow:0 8px 40px rgba(100,50,40,.1);padding:1.5rem 1.6rem;}
+.filter-card h2{font-family:‘Fraunces’,serif;font-size:1.1rem;margin-bottom:1.1rem;}
 .filters-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:.75rem;}
 .filter-group label{display:block;font-size:.7rem;font-weight:600;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;}
+text-transform:uppercase;color:var(–muted);margin-bottom:.35rem;}
 .filter-group select,
 .filter-group input[type=text]{
-  width:100%;padding:.58rem .8rem;border:1.5px solid var(--border);border-radius:9px;
-  font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--charcoal);
-  background:var(--nude4);outline:none;transition:border-color .2s;
-  appearance:none;cursor:pointer;}
+width:100%;padding:.58rem .8rem;border:1.5px solid var(–border);border-radius:9px;
+font-family:‘DM Sans’,sans-serif;font-size:.88rem;color:var(–charcoal);
+background:var(–nude4);outline:none;transition:border-color .2s;
+appearance:none;cursor:pointer;}
 .filter-group input[type=text]{cursor:text;}
-.filter-group select:focus,.filter-group input:focus{border-color:var(--nude1);}
+.filter-group select:focus,.filter-group input:focus{border-color:var(–nude1);}
 .select-wrap{position:relative;}
-.select-wrap::after{content:'▾';position:absolute;right:.8rem;top:50%;
-  transform:translateY(-50%);pointer-events:none;color:var(--muted);font-size:.78rem;}
+.select-wrap::after{content:‘▾’;position:absolute;right:.8rem;top:50%;
+transform:translateY(-50%);pointer-events:none;color:var(–muted);font-size:.78rem;}
 .zip-row{display:flex;gap:.6rem;align-items:flex-end;flex-wrap:wrap;margin-top:.75rem;}
 .zip-row .filter-group{flex:1;min-width:110px;}
-.btn-locate{background:none;border:1.5px solid var(--border);border-radius:9px;
-  padding:.58rem .85rem;font-size:.8rem;font-weight:600;color:var(--muted);
-  cursor:pointer;white-space:nowrap;transition:border-color .2s,color .2s;
-  font-family:'DM Sans',sans-serif;}
-.btn-locate:hover{border-color:var(--nude1);color:var(--nude-dk);}
-#zip-status{font-size:.72rem;color:var(--muted);margin-top:.28rem;min-height:1rem;}
+.btn-locate{background:none;border:1.5px solid var(–border);border-radius:9px;
+padding:.58rem .85rem;font-size:.8rem;font-weight:600;color:var(–muted);
+cursor:pointer;white-space:nowrap;transition:border-color .2s,color .2s;
+font-family:‘DM Sans’,sans-serif;}
+.btn-locate:hover{border-color:var(–nude1);color:var(–nude-dk);}
+#zip-status{font-size:.72rem;color:var(–muted);margin-top:.28rem;min-height:1rem;}
 
 /* SORT */
 .sort-toggle-row{display:flex;align-items:center;gap:.55rem;margin-top:.9rem;
-  padding-top:.8rem;border-top:1px solid var(--border);flex-wrap:wrap;}
-.sort-toggle-btn{background:none;border:1.5px solid var(--border);border-radius:8px;
-  padding:.35rem .8rem;font-size:.78rem;font-weight:600;color:var(--muted);cursor:pointer;
-  display:flex;align-items:center;gap:.35rem;transition:border-color .2s,color .2s;
-  font-family:'DM Sans',sans-serif;}
-.sort-toggle-btn:hover,.sort-toggle-btn.open{border-color:var(--nude1);color:var(--nude-dk);}
-.sort-panel{display:none;margin-top:.75rem;padding:.85rem 1rem;background:var(--nude4);
-  border-radius:11px;border:1px solid var(--border);}
+padding-top:.8rem;border-top:1px solid var(–border);flex-wrap:wrap;}
+.sort-toggle-btn{background:none;border:1.5px solid var(–border);border-radius:8px;
+padding:.35rem .8rem;font-size:.78rem;font-weight:600;color:var(–muted);cursor:pointer;
+display:flex;align-items:center;gap:.35rem;transition:border-color .2s,color .2s;
+font-family:‘DM Sans’,sans-serif;}
+.sort-toggle-btn:hover,.sort-toggle-btn.open{border-color:var(–nude1);color:var(–nude-dk);}
+.sort-panel{display:none;margin-top:.75rem;padding:.85rem 1rem;background:var(–nude4);
+border-radius:11px;border:1px solid var(–border);}
 .sort-panel.visible{display:block;}
 .sort-panel-label{font-size:.7rem;font-weight:700;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--muted);margin-bottom:.55rem;}
+text-transform:uppercase;color:var(–muted);margin-bottom:.55rem;}
 .sort-levels{display:flex;flex-direction:column;gap:.45rem;}
 .sort-level{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;}
-.sort-level-num{font-size:.68rem;font-weight:700;color:var(--nude-dk);width:14px;flex-shrink:0;}
-.sort-level select{flex:1;min-width:110px;padding:.42rem .65rem;border:1.5px solid var(--border);
-  border-radius:7px;font-family:'DM Sans',sans-serif;font-size:.8rem;
-  background:#fff;color:var(--charcoal);outline:none;appearance:none;cursor:pointer;}
+.sort-level-num{font-size:.68rem;font-weight:700;color:var(–nude-dk);width:14px;flex-shrink:0;}
+.sort-level select{flex:1;min-width:110px;padding:.42rem .65rem;border:1.5px solid var(–border);
+border-radius:7px;font-family:‘DM Sans’,sans-serif;font-size:.8rem;
+background:#fff;color:var(–charcoal);outline:none;appearance:none;cursor:pointer;}
 .sort-dir-btn,.sort-lv-up,.sort-lv-dn,.sort-lv-del{
-  background:#fff;border:1.5px solid var(--border);border-radius:7px;
-  padding:.38rem .6rem;font-size:.75rem;font-weight:700;cursor:pointer;color:var(--muted);
-  transition:border-color .18s,color .18s;flex-shrink:0;font-family:'DM Sans',sans-serif;line-height:1;}
-.sort-dir-btn:hover,.sort-lv-up:hover,.sort-lv-dn:hover{border-color:var(--nude1);color:var(--nude-dk);}
+background:#fff;border:1.5px solid var(–border);border-radius:7px;
+padding:.38rem .6rem;font-size:.75rem;font-weight:700;cursor:pointer;color:var(–muted);
+transition:border-color .18s,color .18s;flex-shrink:0;font-family:‘DM Sans’,sans-serif;line-height:1;}
+.sort-dir-btn:hover,.sort-lv-up:hover,.sort-lv-dn:hover{border-color:var(–nude1);color:var(–nude-dk);}
 .sort-lv-del{background:none;border-color:transparent;}
 .sort-lv-del:hover{color:#B94A1A;}
-.sort-add-btn{margin-top:.45rem;background:none;border:1.5px dashed var(--border);
-  border-radius:8px;padding:.38rem .8rem;font-size:.76rem;font-weight:600;color:var(--muted);
-  cursor:pointer;transition:border-color .18s,color .18s;font-family:'DM Sans',sans-serif;}
-.sort-add-btn:hover{border-color:var(--nude1);color:var(--nude-dk);}
+.sort-add-btn{margin-top:.45rem;background:none;border:1.5px dashed var(–border);
+border-radius:8px;padding:.38rem .8rem;font-size:.76rem;font-weight:600;color:var(–muted);
+cursor:pointer;transition:border-color .18s,color .18s;font-family:‘DM Sans’,sans-serif;}
+.sort-add-btn:hover{border-color:var(–nude1);color:var(–nude-dk);}
 
 /* ACTIONS */
 .filter-actions{display:flex;gap:.65rem;margin-top:.9rem;align-items:center;flex-wrap:wrap;}
-.btn-primary{background:linear-gradient(135deg,#7A4E44,var(--nude1));color:#fff;border:none;
-  border-radius:9px;padding:.6rem 1.6rem;font-family:'DM Sans',sans-serif;font-size:.92rem;
-  font-weight:600;cursor:pointer;transition:opacity .2s,transform .15s;}
+.btn-primary{background:linear-gradient(135deg,#7A4E44,var(–nude1));color:#fff;border:none;
+border-radius:9px;padding:.6rem 1.6rem;font-family:‘DM Sans’,sans-serif;font-size:.92rem;
+font-weight:600;cursor:pointer;transition:opacity .2s,transform .15s;}
 .btn-primary:hover{opacity:.88;transform:translateY(-1px);}
-.btn-ghost{background:none;border:1.5px solid var(--border);border-radius:9px;
-  padding:.58rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:.85rem;
-  color:var(--muted);cursor:pointer;transition:border-color .2s,color .2s;}
-.btn-ghost:hover{border-color:var(--nude1);color:var(--nude-dk);}
-.result-count{margin-left:auto;font-size:.8rem;color:var(--muted);}
+.btn-ghost{background:none;border:1.5px solid var(–border);border-radius:9px;
+padding:.58rem 1.1rem;font-family:‘DM Sans’,sans-serif;font-size:.85rem;
+color:var(–muted);cursor:pointer;transition:border-color .2s,color .2s;}
+.btn-ghost:hover{border-color:var(–nude1);color:var(–nude-dk);}
+.result-count{margin-left:auto;font-size:.8rem;color:var(–muted);}
 
 /* DOCTOR CARDS */
 .results-section{max-width:960px;margin:0 auto 3.5rem;padding:0 1rem;}
 .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,285px),1fr));gap:1.1rem;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
-.doctor-card{background:var(--card);border-radius:16px;border:1.5px solid var(--border);
-  padding:1.35rem;display:flex;flex-direction:column;gap:.7rem;
-  transition:box-shadow .22s,transform .22s;animation:fadeUp .4s ease both;}
+.doctor-card{background:var(–card);border-radius:16px;border:1.5px solid var(–border);
+padding:1.35rem;display:flex;flex-direction:column;gap:.7rem;
+transition:box-shadow .22s,transform .22s;animation:fadeUp .4s ease both;}
 .doctor-card:hover{box-shadow:0 12px 34px rgba(100,50,40,.11);transform:translateY(-2px);}
 .card-header{display:flex;align-items:flex-start;gap:.85rem;}
 .avatar{width:48px;height:48px;border-radius:50%;
-  background:linear-gradient(135deg,var(--nude3),var(--lav-lt));
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Fraunces',serif;font-size:1.1rem;color:var(--nude-dk);flex-shrink:0;font-weight:700;}
-.doctor-name{font-family:'Fraunces',serif;font-size:1rem;font-weight:600;color:var(--charcoal);line-height:1.3;}
-.doctor-cred{display:inline-block;background:var(--lav-lt);color:var(--lav-dk);
-  font-size:.65rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
-  padding:.16rem .48rem;border-radius:5px;margin-top:.18rem;margin-right:.2rem;}
-.doctor-org{font-size:.78rem;color:var(--muted);margin-top:.12rem;}
-.info-row{display:flex;align-items:flex-start;gap:.45rem;font-size:.8rem;color:var(--muted);line-height:1.5;}
+background:linear-gradient(135deg,var(–nude3),var(–lav-lt));
+display:flex;align-items:center;justify-content:center;
+font-family:‘Fraunces’,serif;font-size:1.1rem;color:var(–nude-dk);flex-shrink:0;font-weight:700;}
+.doctor-name{font-family:‘Fraunces’,serif;font-size:1rem;font-weight:600;color:var(–charcoal);line-height:1.3;}
+.doctor-cred{display:inline-block;background:var(–lav-lt);color:var(–lav-dk);
+font-size:.65rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+padding:.16rem .48rem;border-radius:5px;margin-top:.18rem;margin-right:.2rem;}
+.doctor-org{font-size:.78rem;color:var(–muted);margin-top:.12rem;}
+.info-row{display:flex;align-items:flex-start;gap:.45rem;font-size:.8rem;color:var(–muted);line-height:1.5;}
 .info-icon{flex-shrink:0;}
-.dist-badge{display:inline-block;background:linear-gradient(135deg,#7A4E44,var(--nude1));
-  color:#fff;font-size:.68rem;font-weight:700;padding:.18rem .6rem;border-radius:99px;margin-left:.35rem;}
+.dist-badge{display:inline-block;background:linear-gradient(135deg,#7A4E44,var(–nude1));
+color:#fff;font-size:.68rem;font-weight:700;padding:.18rem .6rem;border-radius:99px;margin-left:.35rem;}
 .tags{display:flex;flex-wrap:wrap;gap:.35rem;}
-.tag{background:var(--nude4);color:var(--nude-dk);font-size:.68rem;font-weight:600;
-  padding:.2rem .6rem;border-radius:99px;border:1px solid var(--border);}
-.tag.mint{background:var(--mint-lt);color:#1E7A5A;border-color:#B0E8D6;}
-.tag.lav{background:var(--lav-lt);color:var(--lav-dk);border-color:#D0B8E8;}
-.review-block{background:var(--nude4);border-radius:9px;padding:.65rem .8rem;border:1px solid var(--border);}
+.tag{background:var(–nude4);color:var(–nude-dk);font-size:.68rem;font-weight:600;
+padding:.2rem .6rem;border-radius:99px;border:1px solid var(–border);}
+.tag.mint{background:var(–mint-lt);color:#1E7A5A;border-color:#B0E8D6;}
+.tag.lav{background:var(–lav-lt);color:var(–lav-dk);border-color:#D0B8E8;}
+.review-block{background:var(–nude4);border-radius:9px;padding:.65rem .8rem;border:1px solid var(–border);}
 .review-label{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--nude-dk);margin-bottom:.3rem;}
-.review-text{font-size:.77rem;color:var(--charcoal);line-height:1.55;font-style:italic;}
+color:var(–nude-dk);margin-bottom:.3rem;}
+.review-text{font-size:.77rem;color:var(–charcoal);line-height:1.55;font-style:italic;}
 .review-sources{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.45rem;}
-.review-link{font-size:.68rem;font-weight:600;color:var(--nude-dk);text-decoration:none;
-  background:#fff;border:1px solid var(--border);padding:.15rem .5rem;border-radius:5px;
-  transition:border-color .18s;}
-.review-link:hover{border-color:var(--nude1);}
+.review-link{font-size:.68rem;font-weight:600;color:var(–nude-dk);text-decoration:none;
+background:#fff;border:1px solid var(–border);padding:.15rem .5rem;border-radius:5px;
+transition:border-color .18s;}
+.review-link:hover{border-color:var(–nude1);}
 .stars{color:#D4956A;letter-spacing:1px;font-size:.76rem;}
-.card-footer{margin-top:auto;padding-top:.5rem;border-top:1px solid var(--border);
-  display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;}
-.btn-site{background:linear-gradient(135deg,#7A4E44,var(--nude1));color:#fff;
-  text-decoration:none;font-size:.77rem;font-weight:600;padding:.4rem .9rem;
-  border-radius:7px;transition:opacity .18s;}
+.card-footer{margin-top:auto;padding-top:.5rem;border-top:1px solid var(–border);
+display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;}
+.btn-site{background:linear-gradient(135deg,#7A4E44,var(–nude1));color:#fff;
+text-decoration:none;font-size:.77rem;font-weight:600;padding:.4rem .9rem;
+border-radius:7px;transition:opacity .18s;}
 .btn-site:hover{opacity:.85;}
 .badge{display:inline-flex;align-items:center;gap:.28rem;font-size:.72rem;font-weight:600;
-  padding:.35rem .75rem;border-radius:7px;background:var(--mint-lt);color:#1E7A5A;}
+padding:.35rem .75rem;border-radius:7px;background:var(–mint-lt);color:#1E7A5A;}
 .badge.no{background:#FDE8D4;color:#A04020;}
-.empty{text-align:center;padding:3.5rem 1rem;color:var(--muted);}
+.empty{text-align:center;padding:3.5rem 1rem;color:var(–muted);}
 .empty-icon{font-size:2.8rem;margin-bottom:.8rem;}
-.empty h3{font-family:'Fraunces',serif;font-size:1.2rem;color:var(--charcoal);margin-bottom:.4rem;}
+.empty h3{font-family:‘Fraunces’,serif;font-size:1.2rem;color:var(–charcoal);margin-bottom:.4rem;}
 
 /* SUPPORT GROUPS */
 .support-wrap{max-width:960px;margin:0 auto;padding:2.5rem 1rem 3.5rem;}
 .page-intro{text-align:center;margin-bottom:2rem;}
-.page-intro h2{font-family:'Fraunces',serif;font-size:1.9rem;font-weight:700;margin-bottom:.45rem;}
-.page-intro p{color:var(--muted);font-size:.92rem;}
+.page-intro h2{font-family:‘Fraunces’,serif;font-size:1.9rem;font-weight:700;margin-bottom:.45rem;}
+.page-intro p{color:var(–muted);font-size:.92rem;}
 .sg-filters{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:1.5rem;}
 .sg-filters .filter-group{flex:1;min-width:130px;}
 .groups-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:1rem;margin-bottom:2.5rem;}
-.group-card{background:var(--card);border:1.5px solid var(--border);border-radius:15px;
-  padding:1.2rem;display:flex;flex-direction:column;gap:.6rem;
-  transition:box-shadow .2s,transform .2s;animation:fadeUp .35s ease both;}
+.group-card{background:var(–card);border:1.5px solid var(–border);border-radius:15px;
+padding:1.2rem;display:flex;flex-direction:column;gap:.6rem;
+transition:box-shadow .2s,transform .2s;animation:fadeUp .35s ease both;}
 .group-card:hover{box-shadow:0 10px 28px rgba(100,50,40,.1);transform:translateY(-2px);}
 .group-card-header{display:flex;align-items:flex-start;gap:.75rem;}
 .group-icon{width:40px;height:40px;border-radius:11px;
-  background:linear-gradient(135deg,var(--nude3),var(--lav-lt));
-  display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex-shrink:0;}
-.group-name{font-family:'Fraunces',serif;font-size:.95rem;font-weight:600;
-  color:var(--charcoal);line-height:1.3;}
+background:linear-gradient(135deg,var(–nude3),var(–lav-lt));
+display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex-shrink:0;}
+.group-name{font-family:‘Fraunces’,serif;font-size:.95rem;font-weight:600;
+color:var(–charcoal);line-height:1.3;}
 .group-type-badge{display:inline-block;font-size:.65rem;font-weight:600;letter-spacing:.07em;
-  text-transform:uppercase;padding:.15rem .48rem;border-radius:5px;margin-top:.15rem;}
+text-transform:uppercase;padding:.15rem .48rem;border-radius:5px;margin-top:.15rem;}
 .gt-online{background:#E8F4FF;color:#1A5F9A;}
-.gt-inperson{background:var(--mint-lt);color:#1E7A5A;}
-.gt-hybrid{background:var(--lav-lt);color:var(--lav-dk);}
-.group-desc{font-size:.78rem;color:var(--muted);line-height:1.52;}
-.group-loc{font-size:.75rem;color:var(--muted);}
-.group-members{font-size:.72rem;color:var(--muted);}
-.btn-group{background:linear-gradient(135deg,#7A4E44,var(--nude1));color:#fff;
-  text-decoration:none;font-size:.75rem;font-weight:600;padding:.38rem .85rem;
-  border-radius:7px;transition:opacity .18s;display:inline-block;margin-top:auto;}
+.gt-inperson{background:var(–mint-lt);color:#1E7A5A;}
+.gt-hybrid{background:var(–lav-lt);color:var(–lav-dk);}
+.group-desc{font-size:.78rem;color:var(–muted);line-height:1.52;}
+.group-loc{font-size:.75rem;color:var(–muted);}
+.group-members{font-size:.72rem;color:var(–muted);}
+.btn-group{background:linear-gradient(135deg,#7A4E44,var(–nude1));color:#fff;
+text-decoration:none;font-size:.75rem;font-weight:600;padding:.38rem .85rem;
+border-radius:7px;transition:opacity .18s;display:inline-block;margin-top:auto;}
 .btn-group:hover{opacity:.85;}
 
 /* NEWS */
 .news-wrap{max-width:960px;margin:0 auto;padding:2rem 1rem 3.5rem;}
 .news-cats{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-bottom:2rem;}
-.cat-pill{padding:.45rem 1rem;border-radius:99px;border:1.5px solid var(--border);
-  font-size:.8rem;font-weight:600;cursor:pointer;
-  transition:background .2s,color .2s,border-color .2s;background:var(--card);color:var(--muted);}
-.cat-pill:hover{border-color:var(--nude1);color:var(--nude-dk);}
-.cat-pill.active{background:linear-gradient(135deg,#7A4E44,var(--nude1));color:#fff;border-color:transparent;}
+.cat-pill{padding:.45rem 1rem;border-radius:99px;border:1.5px solid var(–border);
+font-size:.8rem;font-weight:600;cursor:pointer;
+transition:background .2s,color .2s,border-color .2s;background:var(–card);color:var(–muted);}
+.cat-pill:hover{border-color:var(–nude1);color:var(–nude-dk);}
+.cat-pill.active{background:linear-gradient(135deg,#7A4E44,var(–nude1));color:#fff;border-color:transparent;}
 .news-section{margin-bottom:2.5rem;}
 .news-sec-hdr{display:flex;align-items:center;gap:.65rem;margin-bottom:1rem;
-  padding-bottom:.65rem;border-bottom:2px solid var(--border);}
+padding-bottom:.65rem;border-bottom:2px solid var(–border);}
 .news-sec-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;
-  justify-content:center;font-size:1.05rem;flex-shrink:0;}
-.news-sec-hdr h3{font-family:'Fraunces',serif;font-size:1.15rem;color:var(--charcoal);}
-.news-refresh{margin-left:auto;background:none;border:1.5px solid var(--border);
-  border-radius:7px;padding:.28rem .65rem;font-size:.74rem;font-weight:600;color:var(--muted);
-  cursor:pointer;display:flex;align-items:center;gap:.3rem;
-  transition:border-color .2s,color .2s;font-family:'DM Sans',sans-serif;}
-.news-refresh:hover{border-color:var(--nude1);color:var(--nude-dk);}
+justify-content:center;font-size:1.05rem;flex-shrink:0;}
+.news-sec-hdr h3{font-family:‘Fraunces’,serif;font-size:1.15rem;color:var(–charcoal);}
+.news-refresh{margin-left:auto;background:none;border:1.5px solid var(–border);
+border-radius:7px;padding:.28rem .65rem;font-size:.74rem;font-weight:600;color:var(–muted);
+cursor:pointer;display:flex;align-items:center;gap:.3rem;
+transition:border-color .2s,color .2s;font-family:‘DM Sans’,sans-serif;}
+.news-refresh:hover{border-color:var(–nude1);color:var(–nude-dk);}
 .news-refresh.spinning .spin-icon{display:inline-block;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .news-cards{display:flex;flex-direction:column;gap:.75rem;}
-.news-card{background:var(--card);border:1.5px solid var(--border);border-radius:13px;
-  padding:1rem 1.15rem;display:flex;gap:.9rem;align-items:flex-start;
-  transition:box-shadow .2s,transform .2s;animation:fadeUp .35s ease both;}
+.news-card{background:var(–card);border:1.5px solid var(–border);border-radius:13px;
+padding:1rem 1.15rem;display:flex;gap:.9rem;align-items:flex-start;
+transition:box-shadow .2s,transform .2s;animation:fadeUp .35s ease both;}
 .news-card:hover{box-shadow:0 7px 22px rgba(100,50,40,.08);transform:translateY(-2px);}
 .nc-emoji{font-size:1.3rem;flex-shrink:0;margin-top:.06rem;}
 .nc-body{flex:1;min-width:0;}
-.nc-title{font-family:'Fraunces',serif;font-size:.92rem;font-weight:600;
-  color:var(--charcoal);margin-bottom:.24rem;line-height:1.4;}
+.nc-title{font-family:‘Fraunces’,serif;font-size:.92rem;font-weight:600;
+color:var(–charcoal);margin-bottom:.24rem;line-height:1.4;}
 .nc-title a{color:inherit;text-decoration:none;}
-.nc-title a:hover{color:var(--nude-dk);}
-.nc-summary{font-size:.79rem;color:var(--muted);line-height:1.58;}
+.nc-title a:hover{color:var(–nude-dk);}
+.nc-summary{font-size:.79rem;color:var(–muted);line-height:1.58;}
 .nc-meta{display:flex;gap:.55rem;align-items:center;margin-top:.42rem;flex-wrap:wrap;}
-.nc-source{font-size:.67rem;font-weight:700;color:var(--nude-dk);
-  background:var(--nude4);padding:.13rem .46rem;border-radius:5px;}
-.nc-date{font-size:.67rem;color:var(--muted);}
-.skeleton{background:linear-gradient(90deg,var(--nude4) 25%,var(--nude3) 50%,var(--nude4) 75%);
-  background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:7px;height:12px;margin-bottom:.45rem;}
+.nc-source{font-size:.67rem;font-weight:700;color:var(–nude-dk);
+background:var(–nude4);padding:.13rem .46rem;border-radius:5px;}
+.nc-date{font-size:.67rem;color:var(–muted);}
+.skeleton{background:linear-gradient(90deg,var(–nude4) 25%,var(–nude3) 50%,var(–nude4) 75%);
+background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:7px;height:12px;margin-bottom:.45rem;}
 @keyframes shimmer{to{background-position:-200% 0;}}
-.skel-card{background:var(--card);border:1.5px solid var(--border);border-radius:13px;padding:1rem 1.15rem;margin-bottom:.75rem;}
+.skel-card{background:var(–card);border:1.5px solid var(–border);border-radius:13px;padding:1rem 1.15rem;margin-bottom:.75rem;}
 
 /* DISCLAIMER / FOOTER */
 .disclaimer{max-width:960px;margin:0 auto 2.5rem;padding:0 1rem;}
-.disc-box{background:var(--lav-lt);border-left:4px solid var(--lavender);border-radius:9px;
-  padding:.9rem 1.15rem;font-size:.79rem;color:#5A3E80;line-height:1.65;}
+.disc-box{background:var(–lav-lt);border-left:4px solid var(–lavender);border-radius:9px;
+padding:.9rem 1.15rem;font-size:.79rem;color:#5A3E80;line-height:1.65;}
 .disc-box strong{display:block;margin-bottom:.28rem;}
 footer{text-align:center;padding:1.8rem 1rem 2.5rem;font-size:.79rem;
-  color:var(--muted);border-top:1px solid var(--border);}
-footer a{color:var(--nude-dk);text-decoration:none;}
+color:var(–muted);border-top:1px solid var(–border);}
+footer a{color:var(–nude-dk);text-decoration:none;}
 footer a:hover{text-decoration:underline;}
 
 /* RESPONSIVE */
 @media(max-width:600px){
-  .hero{padding:3rem .75rem 4.5rem;}
-  .lily-corner{width:clamp(95px,30vw,138px);}
-  .filters-grid{grid-template-columns:1fr 1fr;}
-  .cards-grid,.groups-grid{grid-template-columns:1fr;}
-  .tab-btn{font-size:.76rem;padding:.42rem .78rem;}
+.hero{padding:3rem .75rem 4.5rem;}
+.lily-corner{width:clamp(95px,30vw,138px);}
+.filters-grid{grid-template-columns:1fr 1fr;}
+.cards-grid,.groups-grid{grid-template-columns:1fr;}
+.tab-btn{font-size:.76rem;padding:.42rem .78rem;}
 }
 @media(min-width:1100px){
-  .cards-grid{grid-template-columns:repeat(3,1fr);}
-  .groups-grid{grid-template-columns:repeat(3,1fr);}
+.cards-grid{grid-template-columns:repeat(3,1fr);}
+.groups-grid{grid-template-columns:repeat(3,1fr);}
 }
+
+/* SUB-TABS */
+.sub-tab-bar{display:flex;justify-content:center;gap:.5rem;padding:.9rem 1rem .2rem;flex-wrap:wrap;}
+.sub-tab-btn{background:var(–card);border:1.5px solid var(–border);font-family:‘DM Sans’,sans-serif;
+font-size:.84rem;font-weight:600;color:var(–muted);padding:.48rem 1.3rem;border-radius:99px;
+cursor:pointer;transition:background .2s,color .2s,border-color .2s;}
+.sub-tab-btn:hover{border-color:var(–nude1);color:var(–nude-dk);}
+.sub-tab-btn.active{background:linear-gradient(135deg,#7A4E44,var(–nude1));color:#fff;border-color:transparent;}
+.sub-page{display:none;}.sub-page.active{display:block;}
+/* OB/GYN CARDS */
+.obgyn-card{background:var(–card);border-radius:16px;border:1.5px solid #F4B8D4;
+padding:1.35rem;display:flex;flex-direction:column;gap:.7rem;
+transition:box-shadow .22s,transform .22s;animation:fadeUp .4s ease both;}
+.obgyn-card:hover{box-shadow:0 12px 34px rgba(176,64,122,.1);transform:translateY(-2px);}
+.obgyn-avatar{width:48px;height:48px;border-radius:50%;
+background:linear-gradient(135deg,#FFF0F5,var(–lav-lt));
+display:flex;align-items:center;justify-content:center;
+font-family:‘Fraunces’,serif;font-size:1.1rem;color:#B0407A;flex-shrink:0;font-weight:700;}
+.spec-tag{background:#FFF0F5;color:#B0407A;border:1px solid #F4B8D4;
+font-size:.68rem;font-weight:600;padding:.2rem .6rem;border-radius:99px;}
+.spec-tag.adeno{background:#FFF5E8;color:#A0600A;border-color:#F4D4A4;}
+.spec-tag.pcos{background:#E8F8FF;color:#0A6080;border-color:#A4D8F0;}
 </style>
+
 </head>
 <body>
 
@@ -304,7 +328,19 @@ footer a:hover{text-decoration:underline;}
 <div class="wave"></div>
 
 <!-- FIND PAGE -->
+
 <div id="page-find" class="page active">
+
+  <!-- Sub-tabs -->
+
+  <div class="sub-tab-bar">
+    <button class="sub-tab-btn active" onclick="switchSubTab('surgeons',this)">✂️ Excision Surgeons</button>
+    <button class="sub-tab-btn" onclick="switchSubTab('obgyn',this)">🩺 OB/GYN Specialists</button>
+  </div>
+
+  <!-- SURGEONS SUB-PAGE -->
+
+  <div id="sub-surgeons" class="sub-page active">
   <section class="filter-section">
     <div class="filter-card">
       <h2>🔍 Filter &amp; Sort Surgeons</h2>
@@ -402,9 +438,76 @@ footer a:hover{text-decoration:underline;}
       This directory is based on community recommendations, patient experiences, and publicly available information. It is not a medical endorsement or guarantee of outcomes. Always verify insurance and credentials directly with the provider and consult a healthcare professional before making medical decisions.
     </div>
   </div>
-</div>
+
+  </div><!-- end sub-surgeons -->
+
+  <!-- OB/GYN SPECIALISTS SUB-PAGE -->
+
+  <div id="sub-obgyn" class="sub-page">
+    <section class="filter-section" style="margin-top:1.75rem;">
+      <div class="filter-card">
+        <h2>🩺 Filter OB/GYN Specialists</h2>
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:1rem;line-height:1.6;">
+          These OB/GYNs specialize in <strong>endometriosis</strong>, <strong>adenomyosis</strong>, and/or <strong>PCOS</strong> — distinct from excision surgeons, they focus on diagnosis, hormonal management, long-term care, and non-surgical treatment.
+        </p>
+        <div class="filters-grid">
+          <div class="filter-group">
+            <label>State</label>
+            <div class="select-wrap"><select id="og-state"><option value="">All States</option></select></div>
+          </div>
+          <div class="filter-group">
+            <label>City</label>
+            <div class="select-wrap"><select id="og-city"><option value="">All Cities</option></select></div>
+          </div>
+          <div class="filter-group">
+            <label>Specialty Focus</label>
+            <div class="select-wrap">
+              <select id="og-focus">
+                <option value="">Any Focus</option>
+                <option value="Endometriosis">Endometriosis</option>
+                <option value="Adenomyosis">Adenomyosis</option>
+                <option value="PCOS">PCOS</option>
+              </select>
+            </div>
+          </div>
+          <div class="filter-group">
+            <label>Accepting Patients</label>
+            <div class="select-wrap">
+              <select id="og-accepting">
+                <option value="">Any Status</option>
+                <option value="true">Yes — Accepting</option>
+                <option value="false">Waitlist / Closed</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="filter-actions">
+          <button class="btn-primary" onclick="filterOBGYN()">Search</button>
+          <button class="btn-ghost" onclick="resetOBGYN()">Reset</button>
+          <span class="result-count" id="og-count"></span>
+        </div>
+      </div>
+    </section>
+    <main class="results-section">
+      <div class="cards-grid" id="og-grid"></div>
+      <div class="empty" id="og-empty" style="display:none;">
+        <div class="empty-icon">🌸</div>
+        <h3>No specialists match your filters</h3>
+        <p>Try removing some filters to see more results.</p>
+      </div>
+    </main>
+    <div class="disclaimer">
+      <div class="disc-box">
+        <strong>⚠️ Disclaimer</strong>
+        OB/GYN specialists listed here focus on the medical management of endometriosis, adenomyosis, and/or PCOS. They may not perform excision surgery. Always verify credentials and insurance directly with the provider.
+      </div>
+    </div>
+  </div><!-- end sub-obgyn -->
+
+</div><!-- end page-find -->
 
 <!-- SUPPORT GROUPS PAGE -->
+
 <div id="page-support" class="page">
   <div class="support-wrap">
     <div class="page-intro">
@@ -451,12 +554,13 @@ footer a:hover{text-decoration:underline;}
     </div>
     <div class="disc-box" style="margin-top:1rem;">
       <strong>💜 Note on Support Groups</strong>
-      Group activity and meeting schedules change frequently. Always verify directly through the group's website or social page before attending. Know of a group we've missed? <a href="mailto:hello@endofind.org" style="color:#7A5EA0;">Let us know</a>.
+      Group activity and meeting schedules change frequently. Always verify directly through the group's website or social page before attending. Know of a group we've missed? <a href="/cdn-cgi/l/email-protection#b1d9d4dddddef1d4dfd5ded7d8dfd59fdec3d6" style="color:#7A5EA0;">Let us know</a>.
     </div>
   </div>
 </div>
 
 <!-- NEWS PAGE -->
+
 <div id="page-news" class="page">
   <div class="news-wrap">
     <div class="page-intro">
@@ -499,461 +603,517 @@ footer a:hover{text-decoration:underline;}
   <p style="margin-top:.4rem;">Built with 💜 to help endo warriors find the care they deserve.</p>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+
 /* ===== DOCTOR DATA ===== */
 const DOCTORS = [
-  // TEXAS
-  {name:"Dr. Rachael Haverland",fn:"Rachael",ln:"Haverland",creds:["MD"],org:"Endometriosis Center of Excellence",city:"Dallas",state:"TX",lat:32.7767,lon:-96.797,phone:null,web:"https://endoexcellencecenter.com/",specs:["Excision Surgery","Fertility Preservation"],ins:"Most major insurances (verify directly)",accepting:true,notes:"Mayo Clinic-trained. Holistic, multidisciplinary approach. Treats complex cases including ureteral and bladder involvement.",rev:{txt:"\"She is the doctor everyone deserves... I am celebrating 1 year post-surgery and am pain-free.\"",stars:5,links:[{n:"iCareBetter",u:"https://icarebetter.com/endometriosis/specialist/texas/excision-surgery/dr-rachael-haverland/"},{n:"Healthgrades",u:"https://www.healthgrades.com/search?what=Rachael+Haverland+Dallas"}]}},
-  {name:"Dr. Kimberly Kho",fn:"Kimberly",ln:"Kho",creds:["MD","FACOG"],org:"UT Southwestern Medical Center",city:"Dallas",state:"TX",lat:32.812,lon:-96.8385,phone:"214-645-3888",web:"https://utswmed.org/doctors/kimberly-kho/",specs:["Excision Surgery","Robotic Surgery"],ins:"UT Southwestern — most major plans",accepting:true,notes:"Academic medical center with full multidisciplinary team: urology, colorectal, and pain medicine.",rev:{txt:"Nationally recognized at UT Southwestern. Full team approach for all aspects of endo management.",stars:5,links:[{n:"UT Southwestern",u:"https://utswmed.org/doctors/kimberly-kho/"}]}},
-  {name:"Dr. Anthony O'Connell",fn:"Anthony",ln:"O'Connell",creds:["MD"],org:"Private Practice",city:"Dallas",state:"TX",lat:32.7767,lon:-96.797,phone:null,web:"https://www.doctoraj.com/",specs:["Excision Surgery"],ins:"Contact office for details",accepting:true,notes:"Nationally recognized endometriosis specialist. Patients consistently report pain-free outcomes.",rev:{txt:"\"He is the most compassionate, empathetic doctor I have ever met. I AM PAIN FREE after just one month.\" — Yelp",stars:5,links:[{n:"Yelp",u:"https://www.yelp.com/search?find_desc=Dr+Anthony+O%27Connell&find_loc=Dallas%2C+TX"}]}},
-  {name:"Dr. Tricia Shimer",fn:"Tricia",ln:"Shimer",creds:["MD"],org:"Private Practice",city:"Dallas",state:"TX",lat:32.7767,lon:-96.797,phone:"(469) 364-3760",web:"https://tshimerobgyn.com/",specs:["Excision Surgery"],ins:"Contact office for details",accepting:true,notes:"Practices radical resection for all stages including bowel and bladder involvement.",rev:{txt:"Known in DFW for her commitment to radical resection as the treatment standard.",stars:4,links:[{n:"Healthgrades",u:"https://www.healthgrades.com/search?what=Tricia+Shimer+Dallas"}]}},
-  {name:"Dr. Quanita Crable",fn:"Quanita",ln:"Crable",creds:["MD"],org:"Dr. Crable OB/GYN, P.A.",city:"Dallas",state:"TX",lat:32.7767,lon:-96.797,phone:"(469) 364-3764",web:"https://drcrableobgyn.com/",specs:["Excision Surgery","Robotic Surgery"],ins:"Contact office for details",accepting:true,notes:"Board-certified gynecologic surgeon using da Vinci robotic system for minimally invasive resection.",rev:{txt:"Highly rated for advanced robotic technology and caring bedside manner.",stars:4,links:[{n:"Healthgrades",u:"https://www.healthgrades.com/search?what=Quanita+Crable+Dallas"}]}},
-  {name:"Dr. John A. Whitfield",fn:"John",ln:"Whitfield",creds:["MD"],org:"Private Practice",city:"Fort Worth",state:"TX",lat:32.7555,lon:-97.3308,phone:null,web:"https://www.johnwhitfieldmd.com/",specs:["Excision Surgery"],ins:"Contact office for details",accepting:true,notes:"Minimally invasive laparoscopic procedures. Most patients same-day discharge. Clinical trial access.",rev:{txt:"Respected for thorough approach and clinical trial access.",stars:4,links:[{n:"Healthgrades",u:"https://www.healthgrades.com/search?what=John+Whitfield+Fort+Worth"}]}},
-  {name:"Dr. Carolyn Quist",fn:"Carolyn",ln:"Quist",creds:["MD"],org:"Private Practice",city:"Fort Worth",state:"TX",lat:32.7555,lon:-97.3308,phone:null,web:"https://drcarolynquist.com/",specs:["Excision Surgery"],ins:"Contact office for details",accepting:true,notes:"Years of experience treating hundreds of women. Personalized approach to all stages.",rev:{txt:"Patients highlight her patience and willingness to listen to complex symptom histories often dismissed elsewhere.",stars:4,links:[{n:"Healthgrades",u:"https://www.healthgrades.com/search?what=Carolyn+Quist+Fort+Worth"}]}},
-  {name:"Dr. Xiaoming Guan",fn:"Xiaoming",ln:"Guan",creds:["MD","PhD"],org:"Texas Children's / Baylor OB/GYN",city:"Houston",state:"TX",lat:29.7604,lon:-95.3698,phone:null,web:"https://www.texaschildrens.org/find-a-provider/xiaoming-guan-md-phd",specs:["Excision Surgery","Robotic Surgery","Adolescent Endo"],ins:"Most major plans at Baylor",accepting:true,notes:"Nationally recognized excision specialist. Researcher and educator. Specializes in adolescent endometriosis.",rev:{txt:"Considered one of the leading endo excision surgeons in the country. Patients travel from across the US.",stars:5,links:[{n:"Texas Children's",u:"https://www.texaschildrens.org/find-a-provider/xiaoming-guan-md-phd"}]}},
-  {name:"Dr. Tamisa Koythong",fn:"Tamisa",ln:"Koythong",creds:["MD"],org:"Texas Children's / Baylor OB/GYN",city:"Houston",state:"TX",lat:29.7604,lon:-95.3698,phone:null,web:"https://www.texaschildrens.org/find-a-provider/tamisa-koythong-md",specs:["Excision Surgery","Adolescent Endo"],ins:"Most major plans at Baylor",accepting:true,notes:"Part of Texas Children's multidisciplinary endo program. Special focus on adolescent endo.",rev:{txt:"Part of one of the most respected endo teams in Texas. Compassionate, thorough approach.",stars:5,links:[{n:"Texas Children's",u:"https://www.texaschildrens.org/find-a-provider/tamisa-koythong-md"}]}},
-  {name:"Dr. Joseph Nassif",fn:"Joseph",ln:"Nassif",creds:["MD","MBA"],org:"Texas Children's / Baylor OB/GYN",city:"Houston",state:"TX",lat:29.7604,lon:-95.3698,phone:null,web:"https://www.texaschildrens.org/find-a-provider/joseph-nassif-md-mba",specs:["Excision Surgery","Robotic Surgery"],ins:"Most major plans at Baylor",accepting:true,notes:"Minimally invasive gynecologic surgeon at Texas Children's Pavilion for Women.",rev:{txt:"Known for meticulous technique and strong pre/post-surgical consultations.",stars:5,links:[{n:"Texas Children's",u:"https://www.texaschildrens.org/find-a-provider/joseph-nassif-md-mba"}]}},
-  {name:"Dr. Brooke Thigpen",fn:"Brooke",ln:"Thigpen",creds:["MD","FACOG"],org:"Texas Children's / Baylor OB/GYN",city:"Houston",state:"TX",lat:29.7604,lon:-95.3698,phone:null,web:"https://www.texaschildrens.org/find-a-provider/brooke-thigpen-md-facog",specs:["Excision Surgery"],ins:"Most major plans at Baylor",accepting:true,notes:"Board-certified FACOG. Part of the renowned Texas Children's endo surgery team.",rev:{txt:"Highly regarded at Texas Children's. Dedicated to root-cause diagnoses.",stars:5,links:[{n:"Texas Children's",u:"https://www.texaschildrens.org/find-a-provider/brooke-thigpen-md-facog"}]}},
-  {name:"Dr. Mateo Leon Leon",fn:"Mateo",ln:"Leon",creds:["MD"],org:"UT Physicians Women's Center",city:"Houston",state:"TX",lat:29.788,lon:-95.42,phone:null,web:"https://www.utphysicians.com/provider/mateo-g-leon-leon/",specs:["Excision Surgery"],ins:"UT Physicians — verify directly",accepting:false,notes:"Currently NOT accepting new patients. Worth contacting for waitlist.",rev:{txt:"Highly respected excision surgeon. Exceptional skill and thorough post-op care.",stars:5,links:[{n:"UT Physicians",u:"https://www.utphysicians.com/provider/mateo-g-leon-leon/"}]}},
-  {name:"Dr. Devin Garza",fn:"Devin",ln:"Garza",creds:["MD","FACOG"],org:"Texas Robotic Surgery for Women",city:"Austin",state:"TX",lat:30.2672,lon:-97.7431,phone:null,web:"https://texasroboticsurgeryforwomen.com/",specs:["Excision Surgery","Robotic Surgery","Fertility Preservation"],ins:"Contact office for details",accepting:true,notes:"Specialist in robotic-assisted excision. Fellowship-trained in minimally invasive gynecologic surgery.",rev:{txt:"One of Austin's leading excision surgeons. Praised for robotic precision and fertility preservation focus.",stars:5,links:[{n:"Healthgrades",u:"https://www.healthgrades.com/search?what=Devin+Garza+Austin+TX"}]}},
-  // NEW YORK
-  {name:"Dr. Tamer Seckin",fn:"Tamer",ln:"Seckin",creds:["MD"],org:"Lenox Hill Hospital / Seckin Endometriosis Center",city:"New York",state:"NY",lat:40.7128,lon:-74.006,phone:null,web:"https://www.seclindocenter.com/",specs:["Excision Surgery","Robotic Surgery","Adolescent Endo"],ins:"Most major NY insurance plans",accepting:true,notes:"Co-founder of the Endometriosis Foundation of America. Pioneer of laparoscopic excision. Treats patients internationally.",rev:{txt:"One of the most prominent excision surgeons in the world. Patients travel globally to see him.",stars:5,links:[{n:"EndoFound",u:"https://www.endofound.org"},{n:"Healthgrades",u:"https://www.healthgrades.com/search?what=Tamer+Seckin+New+York"}]}},
-  {name:"Dr. Farr Nezhat",fn:"Farr",ln:"Nezhat",creds:["MD","FACOG"],org:"Nezhat Medical Center",city:"New York",state:"NY",lat:40.758,lon:-73.9855,phone:null,web:"https://www.nezhatmedicalcenter.com/",specs:["Excision Surgery","Robotic Surgery","Fertility Preservation"],ins:"Most major plans — verify directly",accepting:true,notes:"Pioneer in minimally invasive surgery. International authority on endometriosis excision. Over 30 years experience.",rev:{txt:"Internationally recognized as a pioneer of minimally invasive endometriosis surgery.",stars:5,links:[{n:"Healthgrades",u:"https://www.healthgrades.com/search?what=Farr+Nezhat+New+York"}]}},
-  // GEORGIA
-  {name:"Dr. Ken Sinervo",fn:"Ken",ln:"Sinervo",creds:["MD","FRCSC"],org:"Center for Endometriosis Care",city:"Atlanta",state:"GA",lat:33.749,lon:-84.388,phone:null,web:"https://www.centerforendo.com/",specs:["Excision Surgery","Adolescent Endo","Fertility Preservation"],ins:"Contact CEC — out-of-network option available",accepting:true,notes:"Medical director of the Center for Endometriosis Care. One of the most experienced excision surgeons in North America.",rev:{txt:"The Center for Endometriosis Care is considered a gold-standard excision center. Patients travel from across North America.",stars:5,links:[{n:"CEC",u:"https://www.centerforendo.com/"},{n:"iCareBetter",u:"https://icarebetter.com/endometriosis/specialist/georgia/"}]}},
-  {name:"Dr. Ceana Nezhat",fn:"Ceana",ln:"Nezhat",creds:["MD","FACOG"],org:"Atlanta Center for Minimally Invasive Surgery",city:"Atlanta",state:"GA",lat:33.749,lon:-84.388,phone:null,web:"https://www.nezhatendometriosis.com/",specs:["Excision Surgery","Robotic Surgery","Fertility Preservation"],ins:"Verify directly",accepting:true,notes:"Pioneer in minimally invasive endometriosis surgery. International lecturer and educator.",rev:{txt:"Pioneer in minimally invasive endometriosis surgery. International speaker and widely published researcher.",stars:5,links:[{n:"Healthgrades",u:"https://www.healthgrades.com/search?what=Ceana+Nezhat+Atlanta"}]}},
-  // CALIFORNIA
-  {name:"Dr. Iris Orbuch",fn:"Iris",ln:"Orbuch",creds:["MD"],org:"LA Endometriosis",city:"Los Angeles",state:"CA",lat:34.0522,lon:-118.2437,phone:null,web:"https://www.laendometriosis.com/",specs:["Excision Surgery","Fertility Preservation","Adolescent Endo"],ins:"Verify directly",accepting:true,notes:"Internationally recognized excision specialist. Author of 'Beating Endo'. Treats complex pelvic pain and adolescent endo.",rev:{txt:"Author of 'Beating Endo' and widely recognized as a top excision specialist. Holistic, thorough approach.",stars:5,links:[{n:"iCareBetter",u:"https://icarebetter.com/endometriosis/specialist/california/"},{n:"Healthgrades",u:"https://www.healthgrades.com/search?what=Iris+Orbuch+Los+Angeles"}]}},
-  {name:"Dr. Camran Nezhat",fn:"Camran",ln:"Nezhat",creds:["MD","FACOG","FACS"],org:"Camran Nezhat Institute",city:"Palo Alto",state:"CA",lat:37.4419,lon:-122.143,phone:null,web:"https://www.camrannezhat.com/",specs:["Excision Surgery","Robotic Surgery","Fertility Preservation"],ins:"Verify directly",accepting:true,notes:"Widely regarded as one of the founders of modern minimally invasive surgery. Over 40 years of excision expertise.",rev:{txt:"A legend in endometriosis excision surgery. Considered one of the founding fathers of modern minimally invasive gynecologic surgery.",stars:5,links:[{n:"Healthgrades",u:"https://www.healthgrades.com/search?what=Camran+Nezhat+Palo+Alto"}]}},
-  {name:"Dr. Andrew Cook",fn:"Andrew",ln:"Cook",creds:["MD"],org:"Vital Health Institute",city:"Los Gatos",state:"CA",lat:37.2358,lon:-121.9624,phone:null,web:"https://vitalhealthinstitute.com/",specs:["Excision Surgery","Fertility Preservation"],ins:"Verify directly",accepting:true,notes:"Expert in complex endometriosis excision. Known for treating patients who have had failed prior surgeries.",rev:{txt:"Well regarded for taking on complex, previously-failed cases. Patients describe life-changing outcomes.",stars:5,links:[{n:"iCareBetter",u:"https://icarebetter.com/endometriosis/specialist/california/"}]}},
-  // MISSOURI
-  {name:"Dr. Patrick Yeung Jr.",fn:"Patrick",ln:"Yeung",creds:["MD"],org:"SLUCare Physician Group",city:"St. Louis",state:"MO",lat:38.627,lon:-90.1994,phone:null,web:"https://www.slucare.edu/ob-gyn/",specs:["Excision Surgery","Fertility Preservation","Adolescent Endo"],ins:"SLUCare — most major plans",accepting:true,notes:"One of the most respected excision surgeons in the Midwest. Prolific researcher and educator at Saint Louis University.",rev:{txt:"One of the most sought-after excision surgeons in the US Midwest. Nationally published researcher.",stars:5,links:[{n:"Healthgrades",u:"https://www.healthgrades.com/search?what=Patrick+Yeung+St+Louis"},{n:"iCareBetter",u:"https://icarebetter.com/endometriosis/specialist/missouri/"}]}},
-  // ILLINOIS
-  {name:"Dr. Charles Miller",fn:"Charles",ln:"Miller",creds:["MD"],org:"Advocate Lutheran General Hospital",city:"Chicago",state:"IL",lat:41.8781,lon:-87.6298,phone:null,web:"https://www.advocatehealth.com/",specs:["Excision Surgery","Robotic Surgery"],ins:"Most major IL plans",accepting:true,notes:"Pioneer in minimally invasive gynecologic surgery. Decades of excision expertise in the Chicago area.",rev:{txt:"Pioneer in minimally invasive GYN surgery. Highly respected in Chicago endo community.",stars:5,links:[{n:"Healthgrades",u:"https://www.healthgrades.com/search?what=Charles+Miller+Chicago+gynecologist"}]}},
-  // MINNESOTA
-  {name:"Dr. Mark Dassel",fn:"Mark",ln:"Dassel",creds:["MD"],org:"Mayo Clinic",city:"Rochester",state:"MN",lat:44.0234,lon:-92.4699,phone:null,web:"https://www.mayoclinic.org/",specs:["Excision Surgery","Robotic Surgery","Fertility Preservation"],ins:"Mayo Clinic — most major plans",accepting:true,notes:"Part of Mayo Clinic's world-renowned gynecology program. Expert in complex excision and fertility preservation.",rev:{txt:"Part of Mayo Clinic's exceptional endo program. Patients travel internationally for care.",stars:5,links:[{n:"Mayo Clinic",u:"https://www.mayoclinic.org/departments-centers/obstetrics-gynecology/"}]}},
-  // VIRGINIA
-  {name:"Dr. Natalie Fredericks",fn:"Natalie",ln:"Fredericks",creds:["MD"],org:"INOVA Health System",city:"Falls Church",state:"VA",lat:38.8823,lon:-77.1711,phone:null,web:"https://www.inova.org/",specs:["Excision Surgery","Adolescent Endo"],ins:"INOVA — most major plans",accepting:true,notes:"Excision specialist with INOVA's minimally invasive GYN surgery program. Focus on adolescent and complex adult endo.",rev:{txt:"Well-regarded in the DC/VA area for patient-centered approach to complex endometriosis excision.",stars:4,links:[{n:"Healthgrades",u:"https://www.healthgrades.com/search?what=Natalie+Fredericks+Falls+Church"}]}},
-  // NORTH CAROLINA
-  {name:"Dr. Amy Garcia",fn:"Amy",ln:"Garcia",creds:["MD"],org:"Center for Women's Health",city:"Raleigh",state:"NC",lat:35.7796,lon:-78.6382,phone:null,web:"https://www.centerforwomenshealth.com/",specs:["Excision Surgery","Robotic Surgery"],ins:"Verify directly",accepting:true,notes:"Minimally invasive gynecologic surgeon with expertise in endometriosis excision and robotic surgery.",rev:{txt:"Respected in the Raleigh area for thorough evaluation and excellent excision outcomes.",stars:4,links:[{n:"Healthgrades",u:"https://www.healthgrades.com/search?what=Amy+Garcia+Raleigh+gynecologist"}]}},
-  // COLORADO
-  {name:"Dr. Tommaso Falcone",fn:"Tommaso",ln:"Falcone",creds:["MD"],org:"Cleveland Clinic Colorado",city:"Denver",state:"CO",lat:39.7392,lon:-104.9903,phone:null,web:"https://my.clevelandclinic.org/",specs:["Excision Surgery","Fertility Preservation"],ins:"Cleveland Clinic — major plans",accepting:true,notes:"Past president of AAGL. Internationally respected with decades of excision expertise.",rev:{txt:"Internationally recognized. Past president of AAGL. Exceptional fertility-preserving excision outcomes.",stars:5,links:[{n:"Healthgrades",u:"https://www.healthgrades.com/search?what=Tommaso+Falcone"}]}},
-  // OHIO
-  {name:"Dr. Marjan Attaran",fn:"Marjan",ln:"Attaran",creds:["MD"],org:"Cleveland Clinic",city:"Cleveland",state:"OH",lat:41.4993,lon:-81.6944,phone:null,web:"https://my.clevelandclinic.org/",specs:["Excision Surgery","Adolescent Endo","Fertility Preservation"],ins:"Cleveland Clinic — major plans",accepting:true,notes:"Cleveland Clinic endo specialist with focus on adolescent endo and fertility preservation.",rev:{txt:"Part of Cleveland Clinic's world-class women's health program. Adolescent endo specialist.",stars:5,links:[{n:"Cleveland Clinic",u:"https://my.clevelandclinic.org/departments/ob-gyn-womens-health"}]}},
-  // PENNSYLVANIA
-  {name:"Dr. Hye-Chun Hur",fn:"Hye-Chun",ln:"Hur",creds:["MD","MPH"],org:"Penn Medicine",city:"Philadelphia",state:"PA",lat:39.9526,lon:-75.1652,phone:null,web:"https://www.pennmedicine.org/",specs:["Excision Surgery","Robotic Surgery"],ins:"Penn Medicine — major plans",accepting:true,notes:"Penn Medicine minimally invasive GYN surgeon. Research focus on improving surgical outcomes.",rev:{txt:"Well-regarded at Penn Medicine for minimally invasive excision. Research-driven approach.",stars:5,links:[{n:"Penn Medicine",u:"https://www.pennmedicine.org/providers"}]}},
-  // WASHINGTON STATE
-  {name:"Dr. Amy Brenner",fn:"Amy",ln:"Brenner",creds:["MD"],org:"Virginia Mason",city:"Seattle",state:"WA",lat:47.6062,lon:-122.3321,phone:null,web:"https://www.virginiamason.org/",specs:["Excision Surgery","Fertility Preservation"],ins:"Virginia Mason — most major WA plans",accepting:true,notes:"Excision specialist in the Seattle area. Known for compassionate care and patient advocacy.",rev:{txt:"Well-regarded in the Seattle endo community for excision expertise and patient advocacy.",stars:4,links:[{n:"Healthgrades",u:"https://www.healthgrades.com/search?what=endometriosis+excision+Seattle"}]}},
-  // FLORIDA
-  {name:"Dr. Alejandro Ramirez",fn:"Alejandro",ln:"Ramirez",creds:["MD"],org:"Florida Endo Institute",city:"Miami",state:"FL",lat:25.7617,lon:-80.1918,phone:null,web:"https://www.floridaendo.com/",specs:["Excision Surgery","Robotic Surgery"],ins:"Verify directly",accepting:true,notes:"Miami-based excision specialist with focus on complex endometriosis and robotic approaches.",rev:{txt:"Respected in South Florida for thorough excision approach and robotic-assisted techniques.",stars:4,links:[{n:"Healthgrades",u:"https://www.healthgrades.com/search?what=endometriosis+excision+Miami"}]}},
-  // MASSACHUSETTS
-  {name:"Dr. Keith Isaacson",fn:"Keith",ln:"Isaacson",creds:["MD"],org:"Newton-Wellesley Hospital / Harvard",city:"Newton",state:"MA",lat:42.337,lon:-71.2092,phone:null,web:"https://www.nwh.org/",specs:["Excision Surgery","Robotic Surgery","Fertility Preservation"],ins:"Most major MA plans",accepting:true,notes:"Harvard-affiliated minimally invasive GYN surgeon. Decades of excision experience and major endometriosis researcher.",rev:{txt:"Harvard-affiliated and nationally published. Decades of excision experience.",stars:5,links:[{n:"Healthgrades",u:"https://www.healthgrades.com/search?what=Keith+Isaacson+Newton+MA"}]}},
-  // MICHIGAN
-  {name:"Dr. Arnold Advincula",fn:"Arnold",ln:"Advincula",creds:["MD"],org:"Columbia University / Detroit Medical Center",city:"Detroit",state:"MI",lat:42.3314,lon:-83.0458,phone:null,web:"https://www.columbiadoctors.org/",specs:["Excision Surgery","Robotic Surgery"],ins:"Verify directly",accepting:true,notes:"Pioneer in robotic-assisted gynecologic surgery. Internationally known educator in excision techniques.",rev:{txt:"Pioneer of robotic GYN surgery. Internationally renowned educator who trains surgeons in excision worldwide.",stars:5,links:[{n:"Healthgrades",u:"https://www.healthgrades.com/search?what=Arnold+Advincula"}]}},
-  // ARIZONA
-  {name:"Dr. Veronica Alaniz",fn:"Veronica",ln:"Alaniz",creds:["MD"],org:"Mayo Clinic Arizona",city:"Scottsdale",state:"AZ",lat:33.4942,lon:-111.9261,phone:null,web:"https://www.mayoclinic.org/",specs:["Excision Surgery","Adolescent Endo"],ins:"Mayo Clinic — most major plans",accepting:true,notes:"Part of Mayo Clinic Arizona's women's health program. Excision specialist with adolescent endo focus.",rev:{txt:"Mayo Clinic Arizona program. Well-regarded for excision and adolescent endometriosis expertise.",stars:5,links:[{n:"Mayo Clinic AZ",u:"https://www.mayoclinic.org/patient-visitor-guide/arizona"}]}},
-  // TENNESSEE
-  {name:"Dr. Dan Martin",fn:"Dan",ln:"Martin",creds:["MD"],org:"Reproductive Fertility Center",city:"Memphis",state:"TN",lat:35.1495,lon:-90.049,phone:null,web:"https://www.endometriosis.org/",specs:["Excision Surgery"],ins:"Verify directly",accepting:true,notes:"Pioneering endometriosis researcher and excision surgeon. Decades of work advancing excision globally.",rev:{txt:"Pioneering researcher who helped establish excision surgery as the gold standard worldwide.",stars:5,links:[{n:"iCareBetter",u:"https://icarebetter.com/endometriosis/specialist/tennessee/"}]}},
-  // OREGON
-  {name:"Dr. Sarah Prager",fn:"Sarah",ln:"Prager",creds:["MD"],org:"OHSU",city:"Portland",state:"OR",lat:45.5231,lon:-122.6765,phone:null,web:"https://www.ohsu.edu/",specs:["Excision Surgery","Fertility Preservation"],ins:"OHSU — most major plans",accepting:true,notes:"OHSU gynecologist specializing in minimally invasive excision and complex pelvic pain.",rev:{txt:"Well-regarded at OHSU for patient-centered minimally invasive excision surgery.",stars:4,links:[{n:"OHSU",u:"https://www.ohsu.edu/providers"}]}},
-  // UTAH
-  {name:"Dr. Keith Hansen",fn:"Keith",ln:"Hansen",creds:["MD"],org:"University of Utah Health",city:"Salt Lake City",state:"UT",lat:40.7608,lon:-111.891,phone:null,web:"https://healthcare.utah.edu/",specs:["Excision Surgery","Fertility Preservation"],ins:"U of Utah Health — major plans",accepting:true,notes:"University of Utah minimally invasive GYN surgeon with expertise in endometriosis excision.",rev:{txt:"Respected at University of Utah Health for excision surgery and fertility-preserving approaches.",stars:4,links:[{n:"U of Utah Health",u:"https://healthcare.utah.edu/"}]}},
-  // LOUISIANA
-  {name:"Dr. Andrea Vidali",fn:"Andrea",ln:"Vidali",creds:["MD"],org:"Braverman Reproductive Immunology",city:"New Orleans",state:"LA",lat:29.9511,lon:-90.0715,phone:null,web:"https://www.bravermanivf.com/",specs:["Excision Surgery","Fertility Preservation"],ins:"Verify directly",accepting:true,notes:"Internationally recognized excision surgeon combining excision with reproductive immunology expertise.",rev:{txt:"International expert combining excision surgery with reproductive immunology. Patients travel from worldwide.",stars:5,links:[{n:"iCareBetter",u:"https://icarebetter.com/endometriosis/specialist/"}]}}
+// TEXAS
+{name:“Dr. Rachael Haverland”,fn:“Rachael”,ln:“Haverland”,creds:[“MD”],org:“Endometriosis Center of Excellence”,city:“Dallas”,state:“TX”,lat:32.7767,lon:-96.797,phone:null,web:“https://endoexcellencecenter.com/”,specs:[“Excision Surgery”,“Fertility Preservation”],ins:“Most major insurances (verify directly)”,accepting:true,notes:“Mayo Clinic-trained. Holistic, multidisciplinary approach. Treats complex cases including ureteral and bladder involvement.”,rev:{txt:”"She is the doctor everyone deserves… I am celebrating 1 year post-surgery and am pain-free."”,stars:5,links:[{n:“iCareBetter”,u:“https://icarebetter.com/endometriosis/specialist/texas/excision-surgery/dr-rachael-haverland/”},{n:“Healthgrades”,u:“https://www.healthgrades.com/search?what=Rachael+Haverland+Dallas”}]}},
+{name:“Dr. Kimberly Kho”,fn:“Kimberly”,ln:“Kho”,creds:[“MD”,“FACOG”],org:“UT Southwestern Medical Center”,city:“Dallas”,state:“TX”,lat:32.812,lon:-96.8385,phone:“214-645-3888”,web:“https://utswmed.org/doctors/kimberly-kho/”,specs:[“Excision Surgery”,“Robotic Surgery”],ins:“UT Southwestern — most major plans”,accepting:true,notes:“Academic medical center with full multidisciplinary team: urology, colorectal, and pain medicine.”,rev:{txt:“Nationally recognized at UT Southwestern. Full team approach for all aspects of endo management.”,stars:5,links:[{n:“UT Southwestern”,u:“https://utswmed.org/doctors/kimberly-kho/”}]}},
+{name:“Dr. Anthony O’Connell”,fn:“Anthony”,ln:“O’Connell”,creds:[“MD”],org:“Private Practice”,city:“Dallas”,state:“TX”,lat:32.7767,lon:-96.797,phone:null,web:“https://www.doctoraj.com/”,specs:[“Excision Surgery”],ins:“Contact office for details”,accepting:true,notes:“Nationally recognized endometriosis specialist. Patients consistently report pain-free outcomes.”,rev:{txt:”"He is the most compassionate, empathetic doctor I have ever met. I AM PAIN FREE after just one month." — Yelp”,stars:5,links:[{n:“Yelp”,u:“https://www.yelp.com/search?find_desc=Dr+Anthony+O%27Connell&find_loc=Dallas%2C+TX”}]}},
+{name:“Dr. Tricia Shimer”,fn:“Tricia”,ln:“Shimer”,creds:[“MD”],org:“Private Practice”,city:“Dallas”,state:“TX”,lat:32.7767,lon:-96.797,phone:”(469) 364-3760”,web:“https://tshimerobgyn.com/”,specs:[“Excision Surgery”],ins:“Contact office for details”,accepting:true,notes:“Practices radical resection for all stages including bowel and bladder involvement.”,rev:{txt:“Known in DFW for her commitment to radical resection as the treatment standard.”,stars:4,links:[{n:“Healthgrades”,u:“https://www.healthgrades.com/search?what=Tricia+Shimer+Dallas”}]}},
+{name:“Dr. Quanita Crable”,fn:“Quanita”,ln:“Crable”,creds:[“MD”],org:“Dr. Crable OB/GYN, P.A.”,city:“Dallas”,state:“TX”,lat:32.7767,lon:-96.797,phone:”(469) 364-3764”,web:“https://drcrableobgyn.com/”,specs:[“Excision Surgery”,“Robotic Surgery”],ins:“Contact office for details”,accepting:true,notes:“Board-certified gynecologic surgeon using da Vinci robotic system for minimally invasive resection.”,rev:{txt:“Highly rated for advanced robotic technology and caring bedside manner.”,stars:4,links:[{n:“Healthgrades”,u:“https://www.healthgrades.com/search?what=Quanita+Crable+Dallas”}]}},
+{name:“Dr. John A. Whitfield”,fn:“John”,ln:“Whitfield”,creds:[“MD”],org:“Private Practice”,city:“Fort Worth”,state:“TX”,lat:32.7555,lon:-97.3308,phone:null,web:“https://www.johnwhitfieldmd.com/”,specs:[“Excision Surgery”],ins:“Contact office for details”,accepting:true,notes:“Minimally invasive laparoscopic procedures. Most patients same-day discharge. Clinical trial access.”,rev:{txt:“Respected for thorough approach and clinical trial access.”,stars:4,links:[{n:“Healthgrades”,u:“https://www.healthgrades.com/search?what=John+Whitfield+Fort+Worth”}]}},
+{name:“Dr. Carolyn Quist”,fn:“Carolyn”,ln:“Quist”,creds:[“MD”],org:“Private Practice”,city:“Fort Worth”,state:“TX”,lat:32.7555,lon:-97.3308,phone:null,web:“https://drcarolynquist.com/”,specs:[“Excision Surgery”],ins:“Contact office for details”,accepting:true,notes:“Years of experience treating hundreds of women. Personalized approach to all stages.”,rev:{txt:“Patients highlight her patience and willingness to listen to complex symptom histories often dismissed elsewhere.”,stars:4,links:[{n:“Healthgrades”,u:“https://www.healthgrades.com/search?what=Carolyn+Quist+Fort+Worth”}]}},
+{name:“Dr. Xiaoming Guan”,fn:“Xiaoming”,ln:“Guan”,creds:[“MD”,“PhD”],org:“Texas Children’s / Baylor OB/GYN”,city:“Houston”,state:“TX”,lat:29.7604,lon:-95.3698,phone:null,web:“https://www.texaschildrens.org/find-a-provider/xiaoming-guan-md-phd”,specs:[“Excision Surgery”,“Robotic Surgery”,“Adolescent Endo”],ins:“Most major plans at Baylor”,accepting:true,notes:“Nationally recognized excision specialist. Researcher and educator. Specializes in adolescent endometriosis.”,rev:{txt:“Considered one of the leading endo excision surgeons in the country. Patients travel from across the US.”,stars:5,links:[{n:“Texas Children’s”,u:“https://www.texaschildrens.org/find-a-provider/xiaoming-guan-md-phd”}]}},
+{name:“Dr. Tamisa Koythong”,fn:“Tamisa”,ln:“Koythong”,creds:[“MD”],org:“Texas Children’s / Baylor OB/GYN”,city:“Houston”,state:“TX”,lat:29.7604,lon:-95.3698,phone:null,web:“https://www.texaschildrens.org/find-a-provider/tamisa-koythong-md”,specs:[“Excision Surgery”,“Adolescent Endo”],ins:“Most major plans at Baylor”,accepting:true,notes:“Part of Texas Children’s multidisciplinary endo program. Special focus on adolescent endo.”,rev:{txt:“Part of one of the most respected endo teams in Texas. Compassionate, thorough approach.”,stars:5,links:[{n:“Texas Children’s”,u:“https://www.texaschildrens.org/find-a-provider/tamisa-koythong-md”}]}},
+{name:“Dr. Joseph Nassif”,fn:“Joseph”,ln:“Nassif”,creds:[“MD”,“MBA”],org:“Texas Children’s / Baylor OB/GYN”,city:“Houston”,state:“TX”,lat:29.7604,lon:-95.3698,phone:null,web:“https://www.texaschildrens.org/find-a-provider/joseph-nassif-md-mba”,specs:[“Excision Surgery”,“Robotic Surgery”],ins:“Most major plans at Baylor”,accepting:true,notes:“Minimally invasive gynecologic surgeon at Texas Children’s Pavilion for Women.”,rev:{txt:“Known for meticulous technique and strong pre/post-surgical consultations.”,stars:5,links:[{n:“Texas Children’s”,u:“https://www.texaschildrens.org/find-a-provider/joseph-nassif-md-mba”}]}},
+{name:“Dr. Brooke Thigpen”,fn:“Brooke”,ln:“Thigpen”,creds:[“MD”,“FACOG”],org:“Texas Children’s / Baylor OB/GYN”,city:“Houston”,state:“TX”,lat:29.7604,lon:-95.3698,phone:null,web:“https://www.texaschildrens.org/find-a-provider/brooke-thigpen-md-facog”,specs:[“Excision Surgery”],ins:“Most major plans at Baylor”,accepting:true,notes:“Board-certified FACOG. Part of the renowned Texas Children’s endo surgery team.”,rev:{txt:“Highly regarded at Texas Children’s. Dedicated to root-cause diagnoses.”,stars:5,links:[{n:“Texas Children’s”,u:“https://www.texaschildrens.org/find-a-provider/brooke-thigpen-md-facog”}]}},
+{name:“Dr. Mateo Leon Leon”,fn:“Mateo”,ln:“Leon”,creds:[“MD”],org:“UT Physicians Women’s Center”,city:“Houston”,state:“TX”,lat:29.788,lon:-95.42,phone:null,web:“https://www.utphysicians.com/provider/mateo-g-leon-leon/”,specs:[“Excision Surgery”],ins:“UT Physicians — verify directly”,accepting:false,notes:“Currently NOT accepting new patients. Worth contacting for waitlist.”,rev:{txt:“Highly respected excision surgeon. Exceptional skill and thorough post-op care.”,stars:5,links:[{n:“UT Physicians”,u:“https://www.utphysicians.com/provider/mateo-g-leon-leon/”}]}},
+{name:“Dr. Devin Garza”,fn:“Devin”,ln:“Garza”,creds:[“MD”,“FACOG”],org:“Texas Robotic Surgery for Women”,city:“Austin”,state:“TX”,lat:30.2672,lon:-97.7431,phone:null,web:“https://texasroboticsurgeryforwomen.com/”,specs:[“Excision Surgery”,“Robotic Surgery”,“Fertility Preservation”],ins:“Contact office for details”,accepting:true,notes:“Specialist in robotic-assisted excision. Fellowship-trained in minimally invasive gynecologic surgery.”,rev:{txt:“One of Austin’s leading excision surgeons. Praised for robotic precision and fertility preservation focus.”,stars:5,links:[{n:“Healthgrades”,u:“https://www.healthgrades.com/search?what=Devin+Garza+Austin+TX”}]}},
+// NEW YORK
+{name:“Dr. Tamer Seckin”,fn:“Tamer”,ln:“Seckin”,creds:[“MD”],org:“Lenox Hill Hospital / Seckin Endometriosis Center”,city:“New York”,state:“NY”,lat:40.7128,lon:-74.006,phone:null,web:“https://www.seclindocenter.com/”,specs:[“Excision Surgery”,“Robotic Surgery”,“Adolescent Endo”],ins:“Most major NY insurance plans”,accepting:true,notes:“Co-founder of the Endometriosis Foundation of America. Pioneer of laparoscopic excision. Treats patients internationally.”,rev:{txt:“One of the most prominent excision surgeons in the world. Patients travel globally to see him.”,stars:5,links:[{n:“EndoFound”,u:“https://www.endofound.org”},{n:“Healthgrades”,u:“https://www.healthgrades.com/search?what=Tamer+Seckin+New+York”}]}},
+{name:“Dr. Farr Nezhat”,fn:“Farr”,ln:“Nezhat”,creds:[“MD”,“FACOG”],org:“Nezhat Medical Center”,city:“New York”,state:“NY”,lat:40.758,lon:-73.9855,phone:null,web:“https://www.nezhatmedicalcenter.com/”,specs:[“Excision Surgery”,“Robotic Surgery”,“Fertility Preservation”],ins:“Most major plans — verify directly”,accepting:true,notes:“Pioneer in minimally invasive surgery. International authority on endometriosis excision. Over 30 years experience.”,rev:{txt:“Internationally recognized as a pioneer of minimally invasive endometriosis surgery.”,stars:5,links:[{n:“Healthgrades”,u:“https://www.healthgrades.com/search?what=Farr+Nezhat+New+York”}]}},
+// GEORGIA
+{name:“Dr. Ken Sinervo”,fn:“Ken”,ln:“Sinervo”,creds:[“MD”,“FRCSC”],org:“Center for Endometriosis Care”,city:“Atlanta”,state:“GA”,lat:33.749,lon:-84.388,phone:null,web:“https://www.centerforendo.com/”,specs:[“Excision Surgery”,“Adolescent Endo”,“Fertility Preservation”],ins:“Contact CEC — out-of-network option available”,accepting:true,notes:“Medical director of the Center for Endometriosis Care. One of the most experienced excision surgeons in North America.”,rev:{txt:“The Center for Endometriosis Care is considered a gold-standard excision center. Patients travel from across North America.”,stars:5,links:[{n:“CEC”,u:“https://www.centerforendo.com/”},{n:“iCareBetter”,u:“https://icarebetter.com/endometriosis/specialist/georgia/”}]}},
+{name:“Dr. Ceana Nezhat”,fn:“Ceana”,ln:“Nezhat”,creds:[“MD”,“FACOG”],org:“Atlanta Center for Minimally Invasive Surgery”,city:“Atlanta”,state:“GA”,lat:33.749,lon:-84.388,phone:null,web:“https://www.nezhatendometriosis.com/”,specs:[“Excision Surgery”,“Robotic Surgery”,“Fertility Preservation”],ins:“Verify directly”,accepting:true,notes:“Pioneer in minimally invasive endometriosis surgery. International lecturer and educator.”,rev:{txt:“Pioneer in minimally invasive endometriosis surgery. International speaker and widely published researcher.”,stars:5,links:[{n:“Healthgrades”,u:“https://www.healthgrades.com/search?what=Ceana+Nezhat+Atlanta”}]}},
+// CALIFORNIA
+{name:“Dr. Iris Orbuch”,fn:“Iris”,ln:“Orbuch”,creds:[“MD”],org:“LA Endometriosis”,city:“Los Angeles”,state:“CA”,lat:34.0522,lon:-118.2437,phone:null,web:“https://www.laendometriosis.com/”,specs:[“Excision Surgery”,“Fertility Preservation”,“Adolescent Endo”],ins:“Verify directly”,accepting:true,notes:“Internationally recognized excision specialist. Author of ‘Beating Endo’. Treats complex pelvic pain and adolescent endo.”,rev:{txt:“Author of ‘Beating Endo’ and widely recognized as a top excision specialist. Holistic, thorough approach.”,stars:5,links:[{n:“iCareBetter”,u:“https://icarebetter.com/endometriosis/specialist/california/”},{n:“Healthgrades”,u:“https://www.healthgrades.com/search?what=Iris+Orbuch+Los+Angeles”}]}},
+{name:“Dr. Camran Nezhat”,fn:“Camran”,ln:“Nezhat”,creds:[“MD”,“FACOG”,“FACS”],org:“Camran Nezhat Institute”,city:“Palo Alto”,state:“CA”,lat:37.4419,lon:-122.143,phone:null,web:“https://www.camrannezhat.com/”,specs:[“Excision Surgery”,“Robotic Surgery”,“Fertility Preservation”],ins:“Verify directly”,accepting:true,notes:“Widely regarded as one of the founders of modern minimally invasive surgery. Over 40 years of excision expertise.”,rev:{txt:“A legend in endometriosis excision surgery. Considered one of the founding fathers of modern minimally invasive gynecologic surgery.”,stars:5,links:[{n:“Healthgrades”,u:“https://www.healthgrades.com/search?what=Camran+Nezhat+Palo+Alto”}]}},
+{name:“Dr. Andrew Cook”,fn:“Andrew”,ln:“Cook”,creds:[“MD”],org:“Vital Health Institute”,city:“Los Gatos”,state:“CA”,lat:37.2358,lon:-121.9624,phone:null,web:“https://vitalhealthinstitute.com/”,specs:[“Excision Surgery”,“Fertility Preservation”],ins:“Verify directly”,accepting:true,notes:“Expert in complex endometriosis excision. Known for treating patients who have had failed prior surgeries.”,rev:{txt:“Well regarded for taking on complex, previously-failed cases. Patients describe life-changing outcomes.”,stars:5,links:[{n:“iCareBetter”,u:“https://icarebetter.com/endometriosis/specialist/california/”}]}},
+// MISSOURI
+{name:“Dr. Patrick Yeung Jr.”,fn:“Patrick”,ln:“Yeung”,creds:[“MD”],org:“SLUCare Physician Group”,city:“St. Louis”,state:“MO”,lat:38.627,lon:-90.1994,phone:null,web:“https://www.slucare.edu/ob-gyn/”,specs:[“Excision Surgery”,“Fertility Preservation”,“Adolescent Endo”],ins:“SLUCare — most major plans”,accepting:true,notes:“One of the most respected excision surgeons in the Midwest. Prolific researcher and educator at Saint Louis University.”,rev:{txt:“One of the most sought-after excision surgeons in the US Midwest. Nationally published researcher.”,stars:5,links:[{n:“Healthgrades”,u:“https://www.healthgrades.com/search?what=Patrick+Yeung+St+Louis”},{n:“iCareBetter”,u:“https://icarebetter.com/endometriosis/specialist/missouri/”}]}},
+// ILLINOIS
+{name:“Dr. Charles Miller”,fn:“Charles”,ln:“Miller”,creds:[“MD”],org:“Advocate Lutheran General Hospital”,city:“Chicago”,state:“IL”,lat:41.8781,lon:-87.6298,phone:null,web:“https://www.advocatehealth.com/”,specs:[“Excision Surgery”,“Robotic Surgery”],ins:“Most major IL plans”,accepting:true,notes:“Pioneer in minimally invasive gynecologic surgery. Decades of excision expertise in the Chicago area.”,rev:{txt:“Pioneer in minimally invasive GYN surgery. Highly respected in Chicago endo community.”,stars:5,links:[{n:“Healthgrades”,u:“https://www.healthgrades.com/search?what=Charles+Miller+Chicago+gynecologist”}]}},
+// MINNESOTA
+{name:“Dr. Mark Dassel”,fn:“Mark”,ln:“Dassel”,creds:[“MD”],org:“Mayo Clinic”,city:“Rochester”,state:“MN”,lat:44.0234,lon:-92.4699,phone:null,web:“https://www.mayoclinic.org/”,specs:[“Excision Surgery”,“Robotic Surgery”,“Fertility Preservation”],ins:“Mayo Clinic — most major plans”,accepting:true,notes:“Part of Mayo Clinic’s world-renowned gynecology program. Expert in complex excision and fertility preservation.”,rev:{txt:“Part of Mayo Clinic’s exceptional endo program. Patients travel internationally for care.”,stars:5,links:[{n:“Mayo Clinic”,u:“https://www.mayoclinic.org/departments-centers/obstetrics-gynecology/”}]}},
+// VIRGINIA
+{name:“Dr. Natalie Fredericks”,fn:“Natalie”,ln:“Fredericks”,creds:[“MD”],org:“INOVA Health System”,city:“Falls Church”,state:“VA”,lat:38.8823,lon:-77.1711,phone:null,web:“https://www.inova.org/”,specs:[“Excision Surgery”,“Adolescent Endo”],ins:“INOVA — most major plans”,accepting:true,notes:“Excision specialist with INOVA’s minimally invasive GYN surgery program. Focus on adolescent and complex adult endo.”,rev:{txt:“Well-regarded in the DC/VA area for patient-centered approach to complex endometriosis excision.”,stars:4,links:[{n:“Healthgrades”,u:“https://www.healthgrades.com/search?what=Natalie+Fredericks+Falls+Church”}]}},
+// NORTH CAROLINA
+{name:“Dr. Amy Garcia”,fn:“Amy”,ln:“Garcia”,creds:[“MD”],org:“Center for Women’s Health”,city:“Raleigh”,state:“NC”,lat:35.7796,lon:-78.6382,phone:null,web:“https://www.centerforwomenshealth.com/”,specs:[“Excision Surgery”,“Robotic Surgery”],ins:“Verify directly”,accepting:true,notes:“Minimally invasive gynecologic surgeon with expertise in endometriosis excision and robotic surgery.”,rev:{txt:“Respected in the Raleigh area for thorough evaluation and excellent excision outcomes.”,stars:4,links:[{n:“Healthgrades”,u:“https://www.healthgrades.com/search?what=Amy+Garcia+Raleigh+gynecologist”}]}},
+// COLORADO
+{name:“Dr. Tommaso Falcone”,fn:“Tommaso”,ln:“Falcone”,creds:[“MD”],org:“Cleveland Clinic Colorado”,city:“Denver”,state:“CO”,lat:39.7392,lon:-104.9903,phone:null,web:“https://my.clevelandclinic.org/”,specs:[“Excision Surgery”,“Fertility Preservation”],ins:“Cleveland Clinic — major plans”,accepting:true,notes:“Past president of AAGL. Internationally respected with decades of excision expertise.”,rev:{txt:“Internationally recognized. Past president of AAGL. Exceptional fertility-preserving excision outcomes.”,stars:5,links:[{n:“Healthgrades”,u:“https://www.healthgrades.com/search?what=Tommaso+Falcone”}]}},
+// OHIO
+{name:“Dr. Marjan Attaran”,fn:“Marjan”,ln:“Attaran”,creds:[“MD”],org:“Cleveland Clinic”,city:“Cleveland”,state:“OH”,lat:41.4993,lon:-81.6944,phone:null,web:“https://my.clevelandclinic.org/”,specs:[“Excision Surgery”,“Adolescent Endo”,“Fertility Preservation”],ins:“Cleveland Clinic — major plans”,accepting:true,notes:“Cleveland Clinic endo specialist with focus on adolescent endo and fertility preservation.”,rev:{txt:“Part of Cleveland Clinic’s world-class women’s health program. Adolescent endo specialist.”,stars:5,links:[{n:“Cleveland Clinic”,u:“https://my.clevelandclinic.org/departments/ob-gyn-womens-health”}]}},
+// PENNSYLVANIA
+{name:“Dr. Hye-Chun Hur”,fn:“Hye-Chun”,ln:“Hur”,creds:[“MD”,“MPH”],org:“Penn Medicine”,city:“Philadelphia”,state:“PA”,lat:39.9526,lon:-75.1652,phone:null,web:“https://www.pennmedicine.org/”,specs:[“Excision Surgery”,“Robotic Surgery”],ins:“Penn Medicine — major plans”,accepting:true,notes:“Penn Medicine minimally invasive GYN surgeon. Research focus on improving surgical outcomes.”,rev:{txt:“Well-regarded at Penn Medicine for minimally invasive excision. Research-driven approach.”,stars:5,links:[{n:“Penn Medicine”,u:“https://www.pennmedicine.org/providers”}]}},
+// WASHINGTON STATE
+{name:“Dr. Amy Brenner”,fn:“Amy”,ln:“Brenner”,creds:[“MD”],org:“Virginia Mason”,city:“Seattle”,state:“WA”,lat:47.6062,lon:-122.3321,phone:null,web:“https://www.virginiamason.org/”,specs:[“Excision Surgery”,“Fertility Preservation”],ins:“Virginia Mason — most major WA plans”,accepting:true,notes:“Excision specialist in the Seattle area. Known for compassionate care and patient advocacy.”,rev:{txt:“Well-regarded in the Seattle endo community for excision expertise and patient advocacy.”,stars:4,links:[{n:“Healthgrades”,u:“https://www.healthgrades.com/search?what=endometriosis+excision+Seattle”}]}},
+// FLORIDA
+{name:“Dr. Alejandro Ramirez”,fn:“Alejandro”,ln:“Ramirez”,creds:[“MD”],org:“Florida Endo Institute”,city:“Miami”,state:“FL”,lat:25.7617,lon:-80.1918,phone:null,web:“https://www.floridaendo.com/”,specs:[“Excision Surgery”,“Robotic Surgery”],ins:“Verify directly”,accepting:true,notes:“Miami-based excision specialist with focus on complex endometriosis and robotic approaches.”,rev:{txt:“Respected in South Florida for thorough excision approach and robotic-assisted techniques.”,stars:4,links:[{n:“Healthgrades”,u:“https://www.healthgrades.com/search?what=endometriosis+excision+Miami”}]}},
+// MASSACHUSETTS
+{name:“Dr. Keith Isaacson”,fn:“Keith”,ln:“Isaacson”,creds:[“MD”],org:“Newton-Wellesley Hospital / Harvard”,city:“Newton”,state:“MA”,lat:42.337,lon:-71.2092,phone:null,web:“https://www.nwh.org/”,specs:[“Excision Surgery”,“Robotic Surgery”,“Fertility Preservation”],ins:“Most major MA plans”,accepting:true,notes:“Harvard-affiliated minimally invasive GYN surgeon. Decades of excision experience and major endometriosis researcher.”,rev:{txt:“Harvard-affiliated and nationally published. Decades of excision experience.”,stars:5,links:[{n:“Healthgrades”,u:“https://www.healthgrades.com/search?what=Keith+Isaacson+Newton+MA”}]}},
+// MICHIGAN
+{name:“Dr. Arnold Advincula”,fn:“Arnold”,ln:“Advincula”,creds:[“MD”],org:“Columbia University / Detroit Medical Center”,city:“Detroit”,state:“MI”,lat:42.3314,lon:-83.0458,phone:null,web:“https://www.columbiadoctors.org/”,specs:[“Excision Surgery”,“Robotic Surgery”],ins:“Verify directly”,accepting:true,notes:“Pioneer in robotic-assisted gynecologic surgery. Internationally known educator in excision techniques.”,rev:{txt:“Pioneer of robotic GYN surgery. Internationally renowned educator who trains surgeons in excision worldwide.”,stars:5,links:[{n:“Healthgrades”,u:“https://www.healthgrades.com/search?what=Arnold+Advincula”}]}},
+// ARIZONA
+{name:“Dr. Veronica Alaniz”,fn:“Veronica”,ln:“Alaniz”,creds:[“MD”],org:“Mayo Clinic Arizona”,city:“Scottsdale”,state:“AZ”,lat:33.4942,lon:-111.9261,phone:null,web:“https://www.mayoclinic.org/”,specs:[“Excision Surgery”,“Adolescent Endo”],ins:“Mayo Clinic — most major plans”,accepting:true,notes:“Part of Mayo Clinic Arizona’s women’s health program. Excision specialist with adolescent endo focus.”,rev:{txt:“Mayo Clinic Arizona program. Well-regarded for excision and adolescent endometriosis expertise.”,stars:5,links:[{n:“Mayo Clinic AZ”,u:“https://www.mayoclinic.org/patient-visitor-guide/arizona”}]}},
+// TENNESSEE
+{name:“Dr. Dan Martin”,fn:“Dan”,ln:“Martin”,creds:[“MD”],org:“Reproductive Fertility Center”,city:“Memphis”,state:“TN”,lat:35.1495,lon:-90.049,phone:null,web:“https://www.endometriosis.org/”,specs:[“Excision Surgery”],ins:“Verify directly”,accepting:true,notes:“Pioneering endometriosis researcher and excision surgeon. Decades of work advancing excision globally.”,rev:{txt:“Pioneering researcher who helped establish excision surgery as the gold standard worldwide.”,stars:5,links:[{n:“iCareBetter”,u:“https://icarebetter.com/endometriosis/specialist/tennessee/”}]}},
+// OREGON
+{name:“Dr. Sarah Prager”,fn:“Sarah”,ln:“Prager”,creds:[“MD”],org:“OHSU”,city:“Portland”,state:“OR”,lat:45.5231,lon:-122.6765,phone:null,web:“https://www.ohsu.edu/”,specs:[“Excision Surgery”,“Fertility Preservation”],ins:“OHSU — most major plans”,accepting:true,notes:“OHSU gynecologist specializing in minimally invasive excision and complex pelvic pain.”,rev:{txt:“Well-regarded at OHSU for patient-centered minimally invasive excision surgery.”,stars:4,links:[{n:“OHSU”,u:“https://www.ohsu.edu/providers”}]}},
+// UTAH
+{name:“Dr. Keith Hansen”,fn:“Keith”,ln:“Hansen”,creds:[“MD”],org:“University of Utah Health”,city:“Salt Lake City”,state:“UT”,lat:40.7608,lon:-111.891,phone:null,web:“https://healthcare.utah.edu/”,specs:[“Excision Surgery”,“Fertility Preservation”],ins:“U of Utah Health — major plans”,accepting:true,notes:“University of Utah minimally invasive GYN surgeon with expertise in endometriosis excision.”,rev:{txt:“Respected at University of Utah Health for excision surgery and fertility-preserving approaches.”,stars:4,links:[{n:“U of Utah Health”,u:“https://healthcare.utah.edu/”}]}},
+// LOUISIANA
+{name:“Dr. Andrea Vidali”,fn:“Andrea”,ln:“Vidali”,creds:[“MD”],org:“Braverman Reproductive Immunology”,city:“New Orleans”,state:“LA”,lat:29.9511,lon:-90.0715,phone:null,web:“https://www.bravermanivf.com/”,specs:[“Excision Surgery”,“Fertility Preservation”],ins:“Verify directly”,accepting:true,notes:“Internationally recognized excision surgeon combining excision with reproductive immunology expertise.”,rev:{txt:“International expert combining excision surgery with reproductive immunology. Patients travel from worldwide.”,stars:5,links:[{n:“iCareBetter”,u:“https://icarebetter.com/endometriosis/specialist/”}]}}
 ];
 
 /* ===== SUPPORT GROUPS DATA ===== */
 const GROUPS = [
-  {name:"Nancy's Nook Endometriosis Education",city:"Online",state:"National",type:"online",icon:"💻",desc:"Facebook group with 40,000+ members. Focuses on evidence-based excision education. One of the most comprehensive endo resources available.",url:"https://www.facebook.com/groups/NancysNookEndometriosisEducation/",members:"40,000+"},
-  {name:"Endometriosis Foundation of America Community",city:"Online",state:"National",type:"online",icon:"🌸",desc:"Official community from EndoFound. Resources, webinars, and peer connections for patients and caregivers nationwide.",url:"https://www.endofound.org/",members:"Open"},
-  {name:"iCareBetter Endo Community",city:"Online",state:"National",type:"online",icon:"💻",desc:"Platform connecting endo patients with vetted specialists and a peer community for sharing experiences.",url:"https://icarebetter.com/",members:"Open"},
-  {name:"Endo Warriors Support Group",city:"Online",state:"National",type:"online",icon:"💜",desc:"Large, active Facebook community. Daily support, shared experiences, and encouragement.",url:"https://www.facebook.com/groups/endowarriors/",members:"50,000+"},
-  {name:"r/Endo — Reddit Community",city:"Online",state:"National",type:"online",icon:"💻",desc:"Active Reddit community for endometriosis. Anonymous support, advice, surgery discussions.",url:"https://www.reddit.com/r/Endo/",members:"70,000+"},
-  {name:"Endometriosis Association",city:"Online",state:"National",type:"online",icon:"🌸",desc:"Long-standing nonprofit providing support, education, and research. Maintains a national support group network.",url:"https://endometriosisassn.org/",members:"Open"},
-  {name:"Endometriosis Foundation of Houston",city:"Houston",state:"TX",type:"hybrid",icon:"🌸",desc:"Local Houston nonprofit raising awareness about endometriosis. Events, education, and support group connections.",url:"https://www.efhou.org/",members:"Open"},
-  {name:"DFW Endometriosis Support Group",city:"Dallas",state:"TX",type:"inperson",icon:"💜",desc:"In-person and online support group for Dallas-Fort Worth endo patients. Regular meetups and shared experiences.",url:"https://www.facebook.com/groups/dfwendosupport/",members:"Open"},
-  {name:"Austin Endo Warriors",city:"Austin",state:"TX",type:"hybrid",icon:"🌼",desc:"Austin-based group offering monthly meetups and an active online community for endometriosis patients.",url:"https://www.facebook.com/groups/austinendowarriors/",members:"Open"},
-  {name:"San Antonio Endometriosis Support",city:"San Antonio",state:"TX",type:"inperson",icon:"💜",desc:"San Antonio area support group connecting local endo patients for monthly in-person meetings.",url:"https://www.facebook.com/groups/sanantonioendo/",members:"Open"},
-  {name:"EndoFound NYC Support Program",city:"New York",state:"NY",type:"hybrid",icon:"🌸",desc:"Support program run by the Endometriosis Foundation of America. NYC-area events and patient education.",url:"https://www.endofound.org/support-groups",members:"Open"},
-  {name:"NYC Endo Warrior Support Group",city:"New York",state:"NY",type:"hybrid",icon:"💜",desc:"Active NYC group meeting monthly in-person and online. Peer support, resource sharing, and advocacy.",url:"https://www.facebook.com/groups/nycendowarriors/",members:"Open"},
-  {name:"SoCal Endo Support Group",city:"Los Angeles",state:"CA",type:"hybrid",icon:"💜",desc:"Southern California endometriosis support group with regular meetups in the LA area.",url:"https://www.facebook.com/groups/socalendo/",members:"Open"},
-  {name:"Bay Area Endometriosis Support",city:"San Francisco",state:"CA",type:"inperson",icon:"🌼",desc:"SF Bay Area group offering monthly in-person meetups and peer support.",url:"https://www.facebook.com/groups/bayareaendo/",members:"Open"},
-  {name:"San Diego Endo Warriors",city:"San Diego",state:"CA",type:"hybrid",icon:"💜",desc:"San Diego-based support group. Monthly meetings, online community, and local resource sharing.",url:"https://www.facebook.com/groups/sandiegoendo/",members:"Open"},
-  {name:"Center for Endometriosis Care Patient Community",city:"Atlanta",state:"GA",type:"online",icon:"🌸",desc:"Patient community affiliated with the Center for Endometriosis Care in Atlanta.",url:"https://www.centerforendo.com/resources",members:"Open"},
-  {name:"Atlanta Endometriosis Support Group",city:"Atlanta",state:"GA",type:"hybrid",icon:"💜",desc:"Atlanta area support group meeting monthly. Peer support and shared resources.",url:"https://www.facebook.com/groups/atlantaendo/",members:"Open"},
-  {name:"Chicago Endometriosis Support Network",city:"Chicago",state:"IL",type:"hybrid",icon:"💜",desc:"Chicago-based endo support network offering monthly meetups and an active online community.",url:"https://www.facebook.com/groups/chicagoendo/",members:"Open"},
-  {name:"Boston Endometriosis Support Group",city:"Boston",state:"MA",type:"hybrid",icon:"💜",desc:"Boston area group. Peer support, education, and connections to local excision specialists.",url:"https://www.facebook.com/groups/bostonendo/",members:"Open"},
-  {name:"South Florida Endo Warriors",city:"Miami",state:"FL",type:"hybrid",icon:"💜",desc:"South Florida endometriosis support group with meetups in Miami, Fort Lauderdale, and West Palm Beach.",url:"https://www.facebook.com/groups/sfloendowarriors/",members:"Open"},
-  {name:"Orlando Endometriosis Support Group",city:"Orlando",state:"FL",type:"inperson",icon:"🌼",desc:"Monthly meetups in Orlando for endo patients. Peer support and local healthcare resource sharing.",url:"https://www.facebook.com/groups/orlandoendo/",members:"Open"},
-  {name:"Cleveland Clinic Endo Support Program",city:"Cleveland",state:"OH",type:"inperson",icon:"🌸",desc:"Hospital support group affiliated with Cleveland Clinic's women's health program.",url:"https://my.clevelandclinic.org/",members:"Open"},
-  {name:"Columbus Endometriosis Warriors",city:"Columbus",state:"OH",type:"hybrid",icon:"💜",desc:"Columbus OH area support group. Monthly meetings and active online community.",url:"https://www.facebook.com/groups/columbusendo/",members:"Open"},
-  {name:"DC Metro Endo Support Group",city:"Washington DC",state:"VA",type:"hybrid",icon:"💜",desc:"Serves DC, Maryland, and Northern Virginia. Monthly meetups and strong online community.",url:"https://www.facebook.com/groups/dcmetroendo/",members:"Open"},
-  {name:"St. Louis Endometriosis Support",city:"St. Louis",state:"MO",type:"hybrid",icon:"💜",desc:"St. Louis area endo support group associated with SLUCare patient network.",url:"https://www.facebook.com/groups/stlouisendo/",members:"Open"},
-  {name:"Seattle Endometriosis Support Network",city:"Seattle",state:"WA",type:"hybrid",icon:"💜",desc:"Seattle-area support group. Monthly meetups and active online community for Pacific Northwest patients.",url:"https://www.facebook.com/groups/seattleendo/",members:"Open"},
-  {name:"Colorado Endo Warriors",city:"Denver",state:"CO",type:"hybrid",icon:"🌼",desc:"Denver-based support group for Colorado endo patients. Regular meetings and peer connections.",url:"https://www.facebook.com/groups/coloradoendo/",members:"Open"},
-  {name:"Phoenix Endometriosis Support",city:"Phoenix",state:"AZ",type:"hybrid",icon:"💜",desc:"Phoenix metro area endometriosis support group. Monthly meetings and active online community.",url:"https://www.facebook.com/groups/phoenixendo/",members:"Open"},
-  {name:"Charlotte Endo Support Group",city:"Charlotte",state:"NC",type:"inperson",icon:"💜",desc:"Charlotte NC support group for endometriosis patients. Monthly meetups and peer support.",url:"https://www.facebook.com/groups/charlotteendo/",members:"Open"},
-  {name:"Detroit Metro Endometriosis Support",city:"Detroit",state:"MI",type:"hybrid",icon:"💜",desc:"Detroit area endo support group offering monthly meetings and connections to regional specialists.",url:"https://www.facebook.com/groups/detroitendo/",members:"Open"},
-  {name:"Twin Cities Endo Warriors",city:"Minneapolis",state:"MN",type:"hybrid",icon:"🌼",desc:"Minneapolis/St. Paul area support group. Monthly meetings and connections to Mayo Clinic resources.",url:"https://www.facebook.com/groups/twincitiesendo/",members:"Open"},
-  {name:"Philadelphia Endo Support Group",city:"Philadelphia",state:"PA",type:"hybrid",icon:"💜",desc:"Philadelphia area endometriosis support group. Monthly meetings and local clinical resource sharing.",url:"https://www.facebook.com/groups/phillyendo/",members:"Open"},
-  {name:"Portland Endo Warriors",city:"Portland",state:"OR",type:"hybrid",icon:"🌿",desc:"Portland OR area support group for endometriosis patients. Monthly gatherings and OHSU resources.",url:"https://www.facebook.com/groups/portlandendo/",members:"Open"},
-  {name:"Salt Lake Endometriosis Support",city:"Salt Lake City",state:"UT",type:"inperson",icon:"💜",desc:"Salt Lake City support group. Monthly meetings and connections to U of Utah resources.",url:"https://www.facebook.com/groups/slcendo/",members:"Open"},
-  {name:"Nashville Endo Warriors",city:"Nashville",state:"TN",type:"hybrid",icon:"🌸",desc:"Nashville-based endometriosis support group. Monthly meetups and peer support.",url:"https://www.facebook.com/groups/nashvilleendo/",members:"Open"},
-  {name:"New Orleans Endometriosis Support",city:"New Orleans",state:"LA",type:"hybrid",icon:"💜",desc:"New Orleans area support group. Monthly meetings and local resource sharing.",url:"https://www.facebook.com/groups/neworleansendo/",members:"Open"},
-  {name:"Milwaukee Endo Support Network",city:"Milwaukee",state:"WI",type:"hybrid",icon:"💜",desc:"Milwaukee-area endometriosis support group. Regular meetups and active online community.",url:"https://www.facebook.com/groups/milwaukeeendo/",members:"Open"},
-  {name:"Indianapolis Endometriosis Warriors",city:"Indianapolis",state:"IN",type:"hybrid",icon:"💜",desc:"Indy-area endo support group. Monthly meetings and peer support for Indiana patients.",url:"https://www.facebook.com/groups/indyendo/",members:"Open"},
-  {name:"Las Vegas Endo Support Group",city:"Las Vegas",state:"NV",type:"hybrid",icon:"💜",desc:"Las Vegas area endo support group. Monthly meetups and online community.",url:"https://www.facebook.com/groups/lasvegasendo/",members:"Open"},
-  {name:"Oklahoma City Endo Warriors",city:"Oklahoma City",state:"OK",type:"inperson",icon:"💜",desc:"OKC area support group for endometriosis patients. Regular monthly meetings.",url:"https://www.facebook.com/groups/okcendo/",members:"Open"},
-  {name:"Wichita Endometriosis Support",city:"Wichita",state:"KS",type:"inperson",icon:"💜",desc:"Wichita-area endometriosis support group. Monthly meetings for Kansas patients.",url:"https://www.facebook.com/groups/wichitaendo/",members:"Open"}
+{name:“Nancy’s Nook Endometriosis Education”,city:“Online”,state:“National”,type:“online”,icon:“💻”,desc:“Facebook group with 40,000+ members. Focuses on evidence-based excision education. One of the most comprehensive endo resources available.”,url:“https://www.facebook.com/groups/NancysNookEndometriosisEducation/”,members:“40,000+”},
+{name:“Endometriosis Foundation of America Community”,city:“Online”,state:“National”,type:“online”,icon:“🌸”,desc:“Official community from EndoFound. Resources, webinars, and peer connections for patients and caregivers nationwide.”,url:“https://www.endofound.org/”,members:“Open”},
+{name:“iCareBetter Endo Community”,city:“Online”,state:“National”,type:“online”,icon:“💻”,desc:“Platform connecting endo patients with vetted specialists and a peer community for sharing experiences.”,url:“https://icarebetter.com/”,members:“Open”},
+{name:“Endo Warriors Support Group”,city:“Online”,state:“National”,type:“online”,icon:“💜”,desc:“Large, active Facebook community. Daily support, shared experiences, and encouragement.”,url:“https://www.facebook.com/groups/endowarriors/”,members:“50,000+”},
+{name:“r/Endo — Reddit Community”,city:“Online”,state:“National”,type:“online”,icon:“💻”,desc:“Active Reddit community for endometriosis. Anonymous support, advice, surgery discussions.”,url:“https://www.reddit.com/r/Endo/”,members:“70,000+”},
+{name:“Endometriosis Association”,city:“Online”,state:“National”,type:“online”,icon:“🌸”,desc:“Long-standing nonprofit providing support, education, and research. Maintains a national support group network.”,url:“https://endometriosisassn.org/”,members:“Open”},
+{name:“Endometriosis Foundation of Houston”,city:“Houston”,state:“TX”,type:“hybrid”,icon:“🌸”,desc:“Local Houston nonprofit raising awareness about endometriosis. Events, education, and support group connections.”,url:“https://www.efhou.org/”,members:“Open”},
+{name:“DFW Endometriosis Support Group”,city:“Dallas”,state:“TX”,type:“inperson”,icon:“💜”,desc:“In-person and online support group for Dallas-Fort Worth endo patients. Regular meetups and shared experiences.”,url:“https://www.facebook.com/groups/dfwendosupport/”,members:“Open”},
+{name:“Austin Endo Warriors”,city:“Austin”,state:“TX”,type:“hybrid”,icon:“🌼”,desc:“Austin-based group offering monthly meetups and an active online community for endometriosis patients.”,url:“https://www.facebook.com/groups/austinendowarriors/”,members:“Open”},
+{name:“San Antonio Endometriosis Support”,city:“San Antonio”,state:“TX”,type:“inperson”,icon:“💜”,desc:“San Antonio area support group connecting local endo patients for monthly in-person meetings.”,url:“https://www.facebook.com/groups/sanantonioendo/”,members:“Open”},
+{name:“EndoFound NYC Support Program”,city:“New York”,state:“NY”,type:“hybrid”,icon:“🌸”,desc:“Support program run by the Endometriosis Foundation of America. NYC-area events and patient education.”,url:“https://www.endofound.org/support-groups”,members:“Open”},
+{name:“NYC Endo Warrior Support Group”,city:“New York”,state:“NY”,type:“hybrid”,icon:“💜”,desc:“Active NYC group meeting monthly in-person and online. Peer support, resource sharing, and advocacy.”,url:“https://www.facebook.com/groups/nycendowarriors/”,members:“Open”},
+{name:“SoCal Endo Support Group”,city:“Los Angeles”,state:“CA”,type:“hybrid”,icon:“💜”,desc:“Southern California endometriosis support group with regular meetups in the LA area.”,url:“https://www.facebook.com/groups/socalendo/”,members:“Open”},
+{name:“Bay Area Endometriosis Support”,city:“San Francisco”,state:“CA”,type:“inperson”,icon:“🌼”,desc:“SF Bay Area group offering monthly in-person meetups and peer support.”,url:“https://www.facebook.com/groups/bayareaendo/”,members:“Open”},
+{name:“San Diego Endo Warriors”,city:“San Diego”,state:“CA”,type:“hybrid”,icon:“💜”,desc:“San Diego-based support group. Monthly meetings, online community, and local resource sharing.”,url:“https://www.facebook.com/groups/sandiegoendo/”,members:“Open”},
+{name:“Center for Endometriosis Care Patient Community”,city:“Atlanta”,state:“GA”,type:“online”,icon:“🌸”,desc:“Patient community affiliated with the Center for Endometriosis Care in Atlanta.”,url:“https://www.centerforendo.com/resources”,members:“Open”},
+{name:“Atlanta Endometriosis Support Group”,city:“Atlanta”,state:“GA”,type:“hybrid”,icon:“💜”,desc:“Atlanta area support group meeting monthly. Peer support and shared resources.”,url:“https://www.facebook.com/groups/atlantaendo/”,members:“Open”},
+{name:“Chicago Endometriosis Support Network”,city:“Chicago”,state:“IL”,type:“hybrid”,icon:“💜”,desc:“Chicago-based endo support network offering monthly meetups and an active online community.”,url:“https://www.facebook.com/groups/chicagoendo/”,members:“Open”},
+{name:“Boston Endometriosis Support Group”,city:“Boston”,state:“MA”,type:“hybrid”,icon:“💜”,desc:“Boston area group. Peer support, education, and connections to local excision specialists.”,url:“https://www.facebook.com/groups/bostonendo/”,members:“Open”},
+{name:“South Florida Endo Warriors”,city:“Miami”,state:“FL”,type:“hybrid”,icon:“💜”,desc:“South Florida endometriosis support group with meetups in Miami, Fort Lauderdale, and West Palm Beach.”,url:“https://www.facebook.com/groups/sfloendowarriors/”,members:“Open”},
+{name:“Orlando Endometriosis Support Group”,city:“Orlando”,state:“FL”,type:“inperson”,icon:“🌼”,desc:“Monthly meetups in Orlando for endo patients. Peer support and local healthcare resource sharing.”,url:“https://www.facebook.com/groups/orlandoendo/”,members:“Open”},
+{name:“Cleveland Clinic Endo Support Program”,city:“Cleveland”,state:“OH”,type:“inperson”,icon:“🌸”,desc:“Hospital support group affiliated with Cleveland Clinic’s women’s health program.”,url:“https://my.clevelandclinic.org/”,members:“Open”},
+{name:“Columbus Endometriosis Warriors”,city:“Columbus”,state:“OH”,type:“hybrid”,icon:“💜”,desc:“Columbus OH area support group. Monthly meetings and active online community.”,url:“https://www.facebook.com/groups/columbusendo/”,members:“Open”},
+{name:“DC Metro Endo Support Group”,city:“Washington DC”,state:“VA”,type:“hybrid”,icon:“💜”,desc:“Serves DC, Maryland, and Northern Virginia. Monthly meetups and strong online community.”,url:“https://www.facebook.com/groups/dcmetroendo/”,members:“Open”},
+{name:“St. Louis Endometriosis Support”,city:“St. Louis”,state:“MO”,type:“hybrid”,icon:“💜”,desc:“St. Louis area endo support group associated with SLUCare patient network.”,url:“https://www.facebook.com/groups/stlouisendo/”,members:“Open”},
+{name:“Seattle Endometriosis Support Network”,city:“Seattle”,state:“WA”,type:“hybrid”,icon:“💜”,desc:“Seattle-area support group. Monthly meetups and active online community for Pacific Northwest patients.”,url:“https://www.facebook.com/groups/seattleendo/”,members:“Open”},
+{name:“Colorado Endo Warriors”,city:“Denver”,state:“CO”,type:“hybrid”,icon:“🌼”,desc:“Denver-based support group for Colorado endo patients. Regular meetings and peer connections.”,url:“https://www.facebook.com/groups/coloradoendo/”,members:“Open”},
+{name:“Phoenix Endometriosis Support”,city:“Phoenix”,state:“AZ”,type:“hybrid”,icon:“💜”,desc:“Phoenix metro area endometriosis support group. Monthly meetings and active online community.”,url:“https://www.facebook.com/groups/phoenixendo/”,members:“Open”},
+{name:“Charlotte Endo Support Group”,city:“Charlotte”,state:“NC”,type:“inperson”,icon:“💜”,desc:“Charlotte NC support group for endometriosis patients. Monthly meetups and peer support.”,url:“https://www.facebook.com/groups/charlotteendo/”,members:“Open”},
+{name:“Detroit Metro Endometriosis Support”,city:“Detroit”,state:“MI”,type:“hybrid”,icon:“💜”,desc:“Detroit area endo support group offering monthly meetings and connections to regional specialists.”,url:“https://www.facebook.com/groups/detroitendo/”,members:“Open”},
+{name:“Twin Cities Endo Warriors”,city:“Minneapolis”,state:“MN”,type:“hybrid”,icon:“🌼”,desc:“Minneapolis/St. Paul area support group. Monthly meetings and connections to Mayo Clinic resources.”,url:“https://www.facebook.com/groups/twincitiesendo/”,members:“Open”},
+{name:“Philadelphia Endo Support Group”,city:“Philadelphia”,state:“PA”,type:“hybrid”,icon:“💜”,desc:“Philadelphia area endometriosis support group. Monthly meetings and local clinical resource sharing.”,url:“https://www.facebook.com/groups/phillyendo/”,members:“Open”},
+{name:“Portland Endo Warriors”,city:“Portland”,state:“OR”,type:“hybrid”,icon:“🌿”,desc:“Portland OR area support group for endometriosis patients. Monthly gatherings and OHSU resources.”,url:“https://www.facebook.com/groups/portlandendo/”,members:“Open”},
+{name:“Salt Lake Endometriosis Support”,city:“Salt Lake City”,state:“UT”,type:“inperson”,icon:“💜”,desc:“Salt Lake City support group. Monthly meetings and connections to U of Utah resources.”,url:“https://www.facebook.com/groups/slcendo/”,members:“Open”},
+{name:“Nashville Endo Warriors”,city:“Nashville”,state:“TN”,type:“hybrid”,icon:“🌸”,desc:“Nashville-based endometriosis support group. Monthly meetups and peer support.”,url:“https://www.facebook.com/groups/nashvilleendo/”,members:“Open”},
+{name:“New Orleans Endometriosis Support”,city:“New Orleans”,state:“LA”,type:“hybrid”,icon:“💜”,desc:“New Orleans area support group. Monthly meetings and local resource sharing.”,url:“https://www.facebook.com/groups/neworleansendo/”,members:“Open”},
+{name:“Milwaukee Endo Support Network”,city:“Milwaukee”,state:“WI”,type:“hybrid”,icon:“💜”,desc:“Milwaukee-area endometriosis support group. Regular meetups and active online community.”,url:“https://www.facebook.com/groups/milwaukeeendo/”,members:“Open”},
+{name:“Indianapolis Endometriosis Warriors”,city:“Indianapolis”,state:“IN”,type:“hybrid”,icon:“💜”,desc:“Indy-area endo support group. Monthly meetings and peer support for Indiana patients.”,url:“https://www.facebook.com/groups/indyendo/”,members:“Open”},
+{name:“Las Vegas Endo Support Group”,city:“Las Vegas”,state:“NV”,type:“hybrid”,icon:“💜”,desc:“Las Vegas area endo support group. Monthly meetups and online community.”,url:“https://www.facebook.com/groups/lasvegasendo/”,members:“Open”},
+{name:“Oklahoma City Endo Warriors”,city:“Oklahoma City”,state:“OK”,type:“inperson”,icon:“💜”,desc:“OKC area support group for endometriosis patients. Regular monthly meetings.”,url:“https://www.facebook.com/groups/okcendo/”,members:“Open”},
+{name:“Wichita Endometriosis Support”,city:“Wichita”,state:“KS”,type:“inperson”,icon:“💜”,desc:“Wichita-area endometriosis support group. Monthly meetings for Kansas patients.”,url:“https://www.facebook.com/groups/wichitaendo/”,members:“Open”}
 ];
 
 /* ===== SORT ===== */
 const SORT_FIELDS = [
-  {v:"ln",l:"Last Name"},{v:"fn",l:"First Name"},{v:"state",l:"State"},
-  {v:"city",l:"City"},{v:"cred",l:"Credential"},{v:"accept",l:"Accepting (Yes first)"},
-  {v:"stars",l:"Review Rating"},{v:"dist",l:"Distance (nearest)"}
+{v:“ln”,l:“Last Name”},{v:“fn”,l:“First Name”},{v:“state”,l:“State”},
+{v:“city”,l:“City”},{v:“cred”,l:“Credential”},{v:“accept”,l:“Accepting (Yes first)”},
+{v:“stars”,l:“Review Rating”},{v:“dist”,l:“Distance (nearest)”}
 ];
-let sortLevels = [{f:"ln",d:"asc"}];
+let sortLevels = [{f:“ln”,d:“asc”}];
 
 function renderSortLevels() {
-  document.getElementById("sort-levels").innerHTML = sortLevels.map((lv,i) => `
-    <div class="sort-level">
-      <span class="sort-level-num">${i+1}.</span>
-      <select onchange="sortLevels[${i}].f=this.value">
-        ${SORT_FIELDS.map(f=>`<option value="${f.v}"${lv.f===f.v?' selected':''}>${f.l}</option>`).join('')}
-      </select>
-      <button class="sort-dir-btn" onclick="toggleDir(${i})">${lv.d==='asc'?'A→Z':'Z→A'}</button>
-      <button class="sort-lv-up" onclick="moveLv(${i},-1)">↑</button>
-      <button class="sort-lv-dn" onclick="moveLv(${i},1)">↓</button>
-      ${sortLevels.length>1?`<button class="sort-lv-del" onclick="rmLv(${i})">✕</button>`:''}
-    </div>`).join('');
+document.getElementById(“sort-levels”).innerHTML = sortLevels.map((lv,i) => ` <div class="sort-level"> <span class="sort-level-num">${i+1}.</span> <select onchange="sortLevels[${i}].f=this.value"> ${SORT_FIELDS.map(f=>`<option value=”${f.v}”${lv.f===f.v?’ selected’:’’}>${f.l}</option>`).join('')} </select> <button class="sort-dir-btn" onclick="toggleDir(${i})">${lv.d==='asc'?'A→Z':'Z→A'}</button> <button class="sort-lv-up" onclick="moveLv(${i},-1)">↑</button> <button class="sort-lv-dn" onclick="moveLv(${i},1)">↓</button> ${sortLevels.length>1?`<button class="sort-lv-del" onclick="rmLv(${i})">✕</button>`:''} </div>`).join(’’);
 }
-function toggleDir(i){sortLevels[i].d=sortLevels[i].d==='asc'?'desc':'asc';renderSortLevels();}
+function toggleDir(i){sortLevels[i].d=sortLevels[i].d===‘asc’?‘desc’:‘asc’;renderSortLevels();}
 function moveLv(i,d){const j=i+d;if(j<0||j>=sortLevels.length)return;[sortLevels[i],sortLevels[j]]=[sortLevels[j],sortLevels[i]];renderSortLevels();}
 function rmLv(i){sortLevels.splice(i,1);renderSortLevels();}
-function addSortLevel(){if(sortLevels.length>=5)return;sortLevels.push({f:"fn",d:"asc"});renderSortLevels();}
+function addSortLevel(){if(sortLevels.length>=5)return;sortLevels.push({f:“fn”,d:“asc”});renderSortLevels();}
 function toggleSortPanel(){
-  document.getElementById("sort-panel").classList.toggle("visible");
-  document.getElementById("sort-toggle").classList.toggle("open");
+document.getElementById(“sort-panel”).classList.toggle(“visible”);
+document.getElementById(“sort-toggle”).classList.toggle(“open”);
 }
 
 /* ===== LOCATION ===== */
 let userLat=null, userLon=null;
 function haversine(a,b,c,d){
-  const R=3958.8,dL=(c-a)*Math.PI/180,dO=(d-b)*Math.PI/180;
-  const x=Math.sin(dL/2)**2+Math.cos(a*Math.PI/180)*Math.cos(c*Math.PI/180)*Math.sin(dO/2)**2;
-  return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
+const R=3958.8,dL=(c-a)*Math.PI/180,dO=(d-b)*Math.PI/180;
+const x=Math.sin(dL/2)**2+Math.cos(a*Math.PI/180)*Math.cos(c*Math.PI/180)*Math.sin(dO/2)**2;
+return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
 }
 function setStatus(m,ok=true){
-  const e=document.getElementById("zip-status");
-  e.textContent=m; e.style.color=ok?'var(--nude-dk)':'#B94A1A';
+const e=document.getElementById(“zip-status”);
+e.textContent=m; e.style.color=ok?‘var(–nude-dk)’:’#B94A1A’;
 }
 async function lookupZip(z){
-  const r=await fetch(`https://api.zippopotam.us/us/${z}`);
-  if(!r.ok) throw new Error("not found");
-  const d=await r.json();
-  return {lat:+d.places[0].latitude, lon:+d.places[0].longitude,
-          label:d.places[0]['place name']+', '+d.places[0]['state abbreviation']};
+const r=await fetch(`https://api.zippopotam.us/us/${z}`);
+if(!r.ok) throw new Error(“not found”);
+const d=await r.json();
+return {lat:+d.places[0].latitude, lon:+d.places[0].longitude,
+label:d.places[0][‘place name’]+’, ‘+d.places[0][‘state abbreviation’]};
 }
 function useMyLocation(){
-  if(!navigator.geolocation){setStatus('Geolocation not supported.',false);return;}
-  setStatus('📍 Detecting location…');
-  navigator.geolocation.getCurrentPosition(
-    p=>{userLat=p.coords.latitude;userLon=p.coords.longitude;
-        document.getElementById("filter-zip").value='';
-        setStatus('✓ Using your current location');},
-    ()=>setStatus('Location denied. Enter a ZIP instead.',false));
+if(!navigator.geolocation){setStatus(‘Geolocation not supported.’,false);return;}
+setStatus(‘📍 Detecting location…’);
+navigator.geolocation.getCurrentPosition(
+p=>{userLat=p.coords.latitude;userLon=p.coords.longitude;
+document.getElementById(“filter-zip”).value=’’;
+setStatus(‘✓ Using your current location’);},
+()=>setStatus(‘Location denied. Enter a ZIP instead.’,false));
 }
 
 /* ===== DOCTOR FILTER & RENDER ===== */
-function getInitials(n){return n.replace("Dr. ","").split(" ").map(w=>w[0]).slice(0,2).join("");}
-function starRow(n){return '<span class="stars">'+'★'.repeat(n)+'☆'.repeat(5-n)+'</span>';}
+function getInitials(n){return n.replace(“Dr. “,””).split(” “).map(w=>w[0]).slice(0,2).join(””);}
+function starRow(n){return ‘<span class="stars">’+‘★’.repeat(n)+‘☆’.repeat(5-n)+’</span>’;}
 
 function getSortVal(doc,f){
-  if(f==='ln') return (doc.ln||'').toLowerCase();
-  if(f==='fn') return (doc.fn||'').toLowerCase();
-  if(f==='state') return (doc.state||'').toLowerCase();
-  if(f==='city') return (doc.city||'').toLowerCase();
-  if(f==='cred') return (doc.creds[0]||'').toLowerCase();
-  if(f==='accept') return doc.accepting ? 0 : 1;
-  if(f==='stars') return doc.rev ? -doc.rev.stars : 0;
-  if(f==='dist' && userLat!==null) return haversine(userLat,userLon,doc.lat,doc.lon);
-  return 0;
+if(f===‘ln’) return (doc.ln||’’).toLowerCase();
+if(f===‘fn’) return (doc.fn||’’).toLowerCase();
+if(f===‘state’) return (doc.state||’’).toLowerCase();
+if(f===‘city’) return (doc.city||’’).toLowerCase();
+if(f===‘cred’) return (doc.creds[0]||’’).toLowerCase();
+if(f===‘accept’) return doc.accepting ? 0 : 1;
+if(f===‘stars’) return doc.rev ? -doc.rev.stars : 0;
+if(f===‘dist’ && userLat!==null) return haversine(userLat,userLon,doc.lat,doc.lon);
+return 0;
 }
 
 function renderDoc(d, i, dist) {
-  const r = d.rev;
-  const db = dist!==null ? `<span class="dist-badge">${Math.round(dist)} mi</span>` : '';
-  return `<div class="doctor-card" style="animation-delay:${(i%9)*.05}s">
-    <div class="card-header">
-      <div class="avatar">${getInitials(d.name)}</div>
-      <div>
-        <div class="doctor-name">${d.name}</div>
-        ${d.creds.map(c=>`<span class="doctor-cred">${c}</span>`).join('')}
-        <div class="doctor-org">${d.org}</div>
-      </div>
-    </div>
-    <div class="info-row"><span class="info-icon">📍</span><span>${d.city}, ${d.state}${db}</span></div>
-    ${d.phone?`<div class="info-row"><span class="info-icon">📞</span><a href="tel:${d.phone}" style="color:var(--nude-dk);text-decoration:none;">${d.phone}</a></div>`:''}
-    <div class="info-row"><span class="info-icon">💡</span><span>${d.notes}</span></div>
-    <div class="tags">${d.specs.map(s=>`<span class="tag${s==='Robotic Surgery'?' mint':s==='Fertility Preservation'?' lav':''}">${s}</span>`).join('')}</div>
-    <div class="info-row" style="font-size:.76rem;"><span class="info-icon">🏥</span><span>${d.ins}</span></div>
-    ${r?`<div class="review-block">
-      <div class="review-label">Patient Reviews ${starRow(r.stars)}</div>
-      <div class="review-text">${r.txt}</div>
-      <div class="review-sources">${r.links.map(l=>`<a class="review-link" href="${l.u}" target="_blank" rel="noopener">${l.n} ↗</a>`).join('')}</div>
-    </div>`:''}
-    <div class="card-footer">
-      ${d.web?`<a class="btn-site" href="${d.web}" target="_blank" rel="noopener">Website ↗</a>`:''}
-      <span class="badge${d.accepting?'':' no'}">${d.accepting?'✅ Accepting':'⏳ Not Accepting'}</span>
-    </div>
+const r = d.rev;
+const db = dist!==null ? `<span class="dist-badge">${Math.round(dist)} mi</span>` : ‘’;
+return `<div class="doctor-card" style="animation-delay:${(i%9)*.05}s"> <div class="card-header"> <div class="avatar">${getInitials(d.name)}</div> <div> <div class="doctor-name">${d.name}</div> ${d.creds.map(c=>`<span class="doctor-cred">${c}</span>`).join('')} <div class="doctor-org">${d.org}</div> </div> </div> <div class="info-row"><span class="info-icon">📍</span><span>${d.city}, ${d.state}${db}</span></div> ${d.phone?`<div class="info-row"><span class="info-icon">📞</span><a href="tel:${d.phone}" style="color:var(--nude-dk);text-decoration:none;">${d.phone}</a></div>`:''} <div class="info-row"><span class="info-icon">💡</span><span>${d.notes}</span></div> <div class="tags">${d.specs.map(s=>`<span class="tag${s==='Robotic Surgery'?' mint':s==='Fertility Preservation'?' lav':s==='UNUSED_PLACEHOLDER'?' obgyn':''}">${s}</span>`).join('')}</div> <div class="info-row" style="font-size:.76rem;"><span class="info-icon">🏥</span><span>${d.ins}</span></div> ${r?`<div class="review-block">
+<div class="review-label">Patient Reviews ${starRow(r.stars)}</div>
+<div class="review-text">${r.txt}</div>
+<div class="review-sources">${r.links.map(l=>`<a class="review-link" href="${l.u}" target="_blank" rel="noopener">${l.n} ↗</a>`).join(’’)}</div>
+</div>`:''} <div class="card-footer"> ${d.web?`<a class="btn-site" href="${d.web}" target="_blank" rel="noopener">Website ↗</a>`:’’}
+<span class="badge${d.accepting?'':' no'}">${d.accepting?‘✅ Accepting’:‘⏳ Not Accepting’}</span>
+</div>
+
   </div>`;
 }
 
 function updateCityDropdown() {
-  const state = document.getElementById("filter-state").value;
-  const cityEl = document.getElementById("filter-city");
-  cityEl.innerHTML = '<option value="">All Cities</option>';
-  [...new Set(DOCTORS.filter(d => !state || d.state===state).map(d=>d.city))]
-    .sort().forEach(c => { const o=document.createElement("option"); o.value=c; o.textContent=c; cityEl.appendChild(o); });
+const state = document.getElementById(“filter-state”).value;
+const cityEl = document.getElementById(“filter-city”);
+cityEl.innerHTML = ‘<option value="">All Cities</option>’;
+[…new Set(DOCTORS.filter(d => !state || d.state===state).map(d=>d.city))]
+.sort().forEach(c => { const o=document.createElement(“option”); o.value=c; o.textContent=c; cityEl.appendChild(o); });
 }
 
 async function applyFilters() {
-  const zipVal = document.getElementById("filter-zip").value.trim();
-  if(zipVal.length===5 && /^\d+$/.test(zipVal)) {
-    try {
-      setStatus('Looking up ZIP…');
-      const loc = await lookupZip(zipVal);
-      userLat=loc.lat; userLon=loc.lon;
-      setStatus(`✓ Showing results near ${loc.label}`);
-    } catch(e) {
-      setStatus('ZIP not found. Try another.',false);
-      userLat=null; userLon=null;
-    }
-  }
-  const state  = document.getElementById("filter-state").value;
-  const city   = document.getElementById("filter-city").value;
-  const cred   = document.getElementById("filter-cred").value;
-  const spec   = document.getElementById("filter-spec").value;
-  const acc    = document.getElementById("filter-accepting").value;
-  const maxD   = parseFloat(document.getElementById("filter-dist").value) || null;
+const zipVal = document.getElementById(“filter-zip”).value.trim();
+if(zipVal.length===5 && /^\d+$/.test(zipVal)) {
+try {
+setStatus(‘Looking up ZIP…’);
+const loc = await lookupZip(zipVal);
+userLat=loc.lat; userLon=loc.lon;
+setStatus(`✓ Showing results near ${loc.label}`);
+} catch(e) {
+setStatus(‘ZIP not found. Try another.’,false);
+userLat=null; userLon=null;
+}
+}
+const state  = document.getElementById(“filter-state”).value;
+const city   = document.getElementById(“filter-city”).value;
+const cred   = document.getElementById(“filter-cred”).value;
+const spec   = document.getElementById(“filter-spec”).value;
+const acc    = document.getElementById(“filter-accepting”).value;
+const maxD   = parseFloat(document.getElementById(“filter-dist”).value) || null;
 
-  const distMap = {};
-  if(userLat!==null) DOCTORS.forEach(d => { distMap[d.name]=haversine(userLat,userLon,d.lat,d.lon); });
+const distMap = {};
+if(userLat!==null) DOCTORS.forEach(d => { distMap[d.name]=haversine(userLat,userLon,d.lat,d.lon); });
 
-  let f = DOCTORS.filter(d => {
-    if(state && d.state!==state) return false;
-    if(city  && d.city!==city)  return false;
-    if(cred  && !d.creds.includes(cred)) return false;
-    if(spec  && !d.specs.includes(spec)) return false;
-    if(acc==="true"  && !d.accepting) return false;
-    if(acc==="false" &&  d.accepting) return false;
-    if(maxD!==null && userLat!==null && (distMap[d.name]||9999)>maxD) return false;
-    return true;
-  });
+let f = DOCTORS.filter(d => {
+if(state && d.state!==state) return false;
+if(city  && d.city!==city)  return false;
+if(cred  && !d.creds.includes(cred)) return false;
+if(spec  && !d.specs.includes(spec)) return false;
+if(acc===“true”  && !d.accepting) return false;
+if(acc===“false” &&  d.accepting) return false;
+if(maxD!==null && userLat!==null && (distMap[d.name]||9999)>maxD) return false;
+return true;
+});
 
-  f = [...f].sort((a,b) => {
-    for(const lv of sortLevels) {
-      const av=getSortVal(a,lv.f), bv=getSortVal(b,lv.f);
-      if(av<bv) return lv.d==='asc'?-1:1;
-      if(av>bv) return lv.d==='asc'?1:-1;
-    }
-    return 0;
-  });
+f = […f].sort((a,b) => {
+for(const lv of sortLevels) {
+const av=getSortVal(a,lv.f), bv=getSortVal(b,lv.f);
+if(av<bv) return lv.d===‘asc’?-1:1;
+if(av>bv) return lv.d===‘asc’?1:-1;
+}
+return 0;
+});
 
-  const grid  = document.getElementById("cards-grid");
-  const empty = document.getElementById("empty-state");
-  const count = document.getElementById("doc-count");
+const grid  = document.getElementById(“cards-grid”);
+const empty = document.getElementById(“empty-state”);
+const count = document.getElementById(“doc-count”);
 
-  if(!f.length) {
-    grid.innerHTML = '';
-    empty.style.display = 'block';
-    count.textContent = '0 results';
-  } else {
-    empty.style.display = 'none';
-    grid.innerHTML = f.map((d,i) => renderDoc(d, i, distMap[d.name]!==undefined ? distMap[d.name] : null)).join('');
-    count.textContent = `${f.length} surgeon${f.length>1?'s':''} found`;
-  }
+if(!f.length) {
+grid.innerHTML = ‘’;
+empty.style.display = ‘block’;
+count.textContent = ‘0 results’;
+} else {
+empty.style.display = ‘none’;
+grid.innerHTML = f.map((d,i) => renderDoc(d, i, distMap[d.name]!==undefined ? distMap[d.name] : null)).join(’’);
+count.textContent = `${f.length} surgeon${f.length>1?'s':''} found`;
+}
 }
 
 function resetAll() {
-  ['filter-state','filter-city','filter-cred','filter-spec','filter-accepting','filter-dist'].forEach(id => document.getElementById(id).value='');
-  document.getElementById("filter-zip").value='';
-  document.getElementById("zip-status").textContent='';
-  userLat=null; userLon=null;
-  sortLevels=[{f:"ln",d:"asc"}];
-  renderSortLevels();
-  updateCityDropdown();
-  applyFilters();
+[‘filter-state’,‘filter-city’,‘filter-cred’,‘filter-spec’,‘filter-accepting’,‘filter-dist’].forEach(id => document.getElementById(id).value=’’);
+document.getElementById(“filter-zip”).value=’’;
+document.getElementById(“zip-status”).textContent=’’;
+userLat=null; userLon=null;
+sortLevels=[{f:“ln”,d:“asc”}];
+renderSortLevels();
+updateCityDropdown();
+applyFilters();
 }
 
 /* ===== SUPPORT GROUPS ===== */
 function renderGroup(g, i) {
-  const tc = g.type==='online'?'gt-online':g.type==='inperson'?'gt-inperson':'gt-hybrid';
-  const tl = g.type==='online'?'Online':g.type==='inperson'?'In-Person':'Hybrid';
-  return `<div class="group-card" style="animation-delay:${(i%9)*.05}s">
-    <div class="group-card-header">
-      <div class="group-icon">${g.icon}</div>
-      <div>
-        <div class="group-name">${g.name}</div>
-        <span class="group-type-badge ${tc}">${tl}</span>
-      </div>
-    </div>
-    <div class="group-loc">📍 ${g.city}${g.state!=='National'?', '+g.state:' — Nationwide'}</div>
-    <div class="group-desc">${g.desc}</div>
-    ${g.members?`<div class="group-members">👥 ${g.members}</div>`:''}
-    <a class="btn-group" href="${g.url}" target="_blank" rel="noopener">Visit Group ↗</a>
+const tc = g.type===‘online’?‘gt-online’:g.type===‘inperson’?‘gt-inperson’:‘gt-hybrid’;
+const tl = g.type===‘online’?‘Online’:g.type===‘inperson’?‘In-Person’:‘Hybrid’;
+return `<div class="group-card" style="animation-delay:${(i%9)*.05}s"> <div class="group-card-header"> <div class="group-icon">${g.icon}</div> <div> <div class="group-name">${g.name}</div> <span class="group-type-badge ${tc}">${tl}</span> </div> </div> <div class="group-loc">📍 ${g.city}${g.state!=='National'?', '+g.state:' — Nationwide'}</div> <div class="group-desc">${g.desc}</div> ${g.members?`<div class="group-members">👥 ${g.members}</div>`:’’}
+<a class="btn-group" href="${g.url}" target="_blank" rel="noopener">Visit Group ↗</a>
+
   </div>`;
 }
 
 function updateSGCityDropdown() {
-  const state = document.getElementById("sg-state").value;
-  const cityEl = document.getElementById("sg-city");
-  cityEl.innerHTML = '<option value="">All Cities</option>';
-  [...new Set(GROUPS.filter(g => !state || g.state===state || g.state==='National').map(g=>g.city))]
-    .sort().forEach(c => { const o=document.createElement("option"); o.value=c; o.textContent=c; cityEl.appendChild(o); });
+const state = document.getElementById(“sg-state”).value;
+const cityEl = document.getElementById(“sg-city”);
+cityEl.innerHTML = ‘<option value="">All Cities</option>’;
+[…new Set(GROUPS.filter(g => !state || g.state===state || g.state===‘National’).map(g=>g.city))]
+.sort().forEach(c => { const o=document.createElement(“option”); o.value=c; o.textContent=c; cityEl.appendChild(o); });
 }
 
 function filterGroups() {
-  const state = document.getElementById("sg-state").value;
-  const city  = document.getElementById("sg-city").value;
-  const type  = document.getElementById("sg-type").value;
-  const q     = (document.getElementById("sg-search").value || '').toLowerCase().trim();
+const state = document.getElementById(“sg-state”).value;
+const city  = document.getElementById(“sg-city”).value;
+const type  = document.getElementById(“sg-type”).value;
+const q     = (document.getElementById(“sg-search”).value || ‘’).toLowerCase().trim();
 
-  const f = GROUPS.filter(g => {
-    if(state && g.state!==state && g.state!=='National') return false;
-    if(city  && g.city!==city) return false;
-    if(type  && g.type!==type) return false;
-    if(q && !g.name.toLowerCase().includes(q) && !g.desc.toLowerCase().includes(q)) return false;
-    return true;
-  });
+const f = GROUPS.filter(g => {
+if(state && g.state!==state && g.state!==‘National’) return false;
+if(city  && g.city!==city) return false;
+if(type  && g.type!==type) return false;
+if(q && !g.name.toLowerCase().includes(q) && !g.desc.toLowerCase().includes(q)) return false;
+return true;
+});
 
-  const grid  = document.getElementById("groups-grid");
-  const empty = document.getElementById("sg-empty");
-  const count = document.getElementById("sg-count");
+const grid  = document.getElementById(“groups-grid”);
+const empty = document.getElementById(“sg-empty”);
+const count = document.getElementById(“sg-count”);
 
-  if(!f.length) {
-    grid.innerHTML=''; empty.style.display='block'; count.textContent='0 groups';
-  } else {
-    empty.style.display='none';
-    grid.innerHTML = f.map((g,i) => renderGroup(g,i)).join('');
-    count.textContent = `${f.length} group${f.length>1?'s':''} found`;
-  }
+if(!f.length) {
+grid.innerHTML=’’; empty.style.display=‘block’; count.textContent=‘0 groups’;
+} else {
+empty.style.display=‘none’;
+grid.innerHTML = f.map((g,i) => renderGroup(g,i)).join(’’);
+count.textContent = `${f.length} group${f.length>1?'s':''} found`;
+}
 }
 function resetGroups() {
-  ['sg-state','sg-city','sg-type'].forEach(id => document.getElementById(id).value='');
-  document.getElementById("sg-search").value='';
-  filterGroups();
+[‘sg-state’,‘sg-city’,‘sg-type’].forEach(id => document.getElementById(id).value=’’);
+document.getElementById(“sg-search”).value=’’;
+filterGroups();
 }
 
 /* ===== TABS ===== */
 let newsLoaded = false;
 function switchTab(tab, btn) {
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-  document.getElementById("page-"+tab).classList.add("active");
-  btn.classList.add("active");
-  if(tab==="news" && !newsLoaded) { loadAllNews(); newsLoaded=true; }
+document.querySelectorAll(”.page”).forEach(p => p.classList.remove(“active”));
+document.querySelectorAll(”.tab-btn”).forEach(b => b.classList.remove(“active”));
+document.getElementById(“page-”+tab).classList.add(“active”);
+btn.classList.add(“active”);
+if(tab===“news” && !newsLoaded) { loadAllNews(); newsLoaded=true; }
 }
 function filterNews(cat, btn) {
-  document.querySelectorAll(".cat-pill").forEach(p => p.classList.remove("active"));
-  btn.classList.add("active");
-  ['endo','womens','fertility','medical','heartwarming'].forEach(s => {
-    document.getElementById("section-"+s).style.display = (cat==='all'||cat===s) ? 'block' : 'none';
-  });
+document.querySelectorAll(”.cat-pill”).forEach(p => p.classList.remove(“active”));
+btn.classList.add(“active”);
+[‘endo’,‘womens’,‘fertility’,‘medical’,‘heartwarming’].forEach(s => {
+document.getElementById(“section-”+s).style.display = (cat===‘all’||cat===s) ? ‘block’ : ‘none’;
+});
 }
 
 /* ===== NEWS ===== */
 const NEWS_FEEDS = {
-  endo:        {url:"https://news.google.com/rss/search?q=endometriosis+excision+surgery+treatment&hl=en-US&gl=US&ceid=US:en", emoji:"🩺"},
-  womens:      {url:"https://news.google.com/rss/search?q=women+gynecology+health+pelvic+pain&hl=en-US&gl=US&ceid=US:en",    emoji:"💜"},
-  fertility:   {url:"https://news.google.com/rss/search?q=IVF+fertility+treatment+reproductive&hl=en-US&gl=US&ceid=US:en",   emoji:"🌱"},
-  medical:     {url:"https://news.google.com/rss/search?q=medical+breakthrough+surgery+innovation&hl=en-US&gl=US&ceid=US:en",emoji:"🔬"},
-  heartwarming:{url:"https://news.google.com/rss/search?q=heartwarming+patient+recovery+medical+kindness&hl=en-US&gl=US&ceid=US:en",emoji:"🌟"}
+endo:        {url:“https://news.google.com/rss/search?q=endometriosis+excision+surgery+treatment&hl=en-US&gl=US&ceid=US:en”, emoji:“🩺”},
+womens:      {url:“https://news.google.com/rss/search?q=women+gynecology+health+pelvic+pain&hl=en-US&gl=US&ceid=US:en”,    emoji:“💜”},
+fertility:   {url:“https://news.google.com/rss/search?q=IVF+fertility+treatment+reproductive&hl=en-US&gl=US&ceid=US:en”,   emoji:“🌱”},
+medical:     {url:“https://news.google.com/rss/search?q=medical+breakthrough+surgery+innovation&hl=en-US&gl=US&ceid=US:en”,emoji:“🔬”},
+heartwarming:{url:“https://news.google.com/rss/search?q=heartwarming+patient+recovery+medical+kindness&hl=en-US&gl=US&ceid=US:en”,emoji:“🌟”}
 };
-const RSS2J = "https://api.rss2json.com/v1/api.json?count=5&rss_url=";
+const RSS2J = “https://api.rss2json.com/v1/api.json?count=5&rss_url=”;
 
-function strip(s){return(s||'').replace(/<[^>]+>/g,'').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'").trim().slice(0,230)+(s&&s.length>230?'…':'');}
-function fmtDate(s){try{return new Date(s).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});}catch(e){return s||'';}}
-function showSkel(id){document.getElementById(id).innerHTML=[1,2,3,4,5].map(()=>`<div class="skel-card"><div class="skeleton" style="width:80%;height:14px;margin-bottom:.65rem;"></div><div class="skeleton" style="width:96%;height:10px;"></div><div class="skeleton" style="width:70%;height:10px;"></div><div class="skeleton" style="width:38%;height:10px;margin-top:.5rem;"></div></div>`).join('');}
+function strip(s){return(s||’’).replace(/<[^>]+>/g,’’).replace(/&/g,’&’).replace(/</g,’<’).replace(/>/g,’>’).replace(/"/g,’”’).replace(/'/g,”’”).trim().slice(0,230)+(s&&s.length>230?’…’:’’);}
+function fmtDate(s){try{return new Date(s).toLocaleDateString(“en-US”,{month:“short”,day:“numeric”,year:“numeric”});}catch(e){return s||’’;}}
+function showSkel(id){document.getElementById(id).innerHTML=[1,2,3,4,5].map(()=>`<div class="skel-card"><div class="skeleton" style="width:80%;height:14px;margin-bottom:.65rem;"></div><div class="skeleton" style="width:96%;height:10px;"></div><div class="skeleton" style="width:70%;height:10px;"></div><div class="skeleton" style="width:38%;height:10px;margin-top:.5rem;"></div></div>`).join(’’);}
 
 function renderItems(cid, items, emoji) {
-  if(!items||!items.length) {
-    document.getElementById(cid).innerHTML=`<div class="news-card"><div class="nc-emoji">📭</div><div class="nc-body"><div class="nc-title">No articles found</div><div class="nc-summary">Try refreshing.</div></div></div>`;
-    return;
-  }
-  document.getElementById(cid).innerHTML = items.map((it,i) =>
-    `<div class="news-card" style="animation-delay:${i*.06}s">
-      <div class="nc-emoji">${emoji}</div>
-      <div class="nc-body">
-        <div class="nc-title"><a href="${it.link||'#'}" target="_blank" rel="noopener">${it.title||'Untitled'}</a></div>
-        <div class="nc-summary">${strip(it.description||it.summary||'')}</div>
-        <div class="nc-meta">
-          <span class="nc-source">${(it.author||it.source_name||'Google News').split(',')[0].slice(0,40)}</span>
-          <span class="nc-date">${fmtDate(it.pubDate)}</span>
-        </div>
-      </div>
-    </div>`).join('');
+if(!items||!items.length) {
+document.getElementById(cid).innerHTML=`<div class="news-card"><div class="nc-emoji">📭</div><div class="nc-body"><div class="nc-title">No articles found</div><div class="nc-summary">Try refreshing.</div></div></div>`;
+return;
+}
+document.getElementById(cid).innerHTML = items.map((it,i) =>
+`<div class="news-card" style="animation-delay:${i*.06}s"> <div class="nc-emoji">${emoji}</div> <div class="nc-body"> <div class="nc-title"><a href="${it.link||'#'}" target="_blank" rel="noopener">${it.title||'Untitled'}</a></div> <div class="nc-summary">${strip(it.description||it.summary||'')}</div> <div class="nc-meta"> <span class="nc-source">${(it.author||it.source_name||'Google News').split(',')[0].slice(0,40)}</span> <span class="nc-date">${fmtDate(it.pubDate)}</span> </div> </div> </div>`).join(’’);
 }
 
 function parseRSS(xml) {
-  const doc = new DOMParser().parseFromString(xml,'text/xml');
-  return [...doc.querySelectorAll('item')].slice(0,5).map(it => ({
-    title:       it.querySelector('title')?.textContent||'',
-    link:        it.querySelector('link')?.textContent||'#',
-    description: it.querySelector('description')?.textContent||'',
-    pubDate:     it.querySelector('pubDate')?.textContent||'',
-    author:      it.querySelector('source')?.textContent||'Google News'
-  }));
+const doc = new DOMParser().parseFromString(xml,‘text/xml’);
+return […doc.querySelectorAll(‘item’)].slice(0,5).map(it => ({
+title:       it.querySelector(‘title’)?.textContent||’’,
+link:        it.querySelector(‘link’)?.textContent||’#’,
+description: it.querySelector(‘description’)?.textContent||’’,
+pubDate:     it.querySelector(‘pubDate’)?.textContent||’’,
+author:      it.querySelector(‘source’)?.textContent||‘Google News’
+}));
 }
 
 async function loadSection(key, btnEl) {
-  const btn = btnEl || document.querySelector(`#section-${key} .news-refresh`);
-  if(btn) btn.classList.add("spinning");
-  const cid = "cards-"+key;
-  showSkel(cid);
-  try {
-    const r = await fetch(RSS2J + encodeURIComponent(NEWS_FEEDS[key].url));
-    const d = await r.json();
-    if(d.status==='ok' && d.items && d.items.length) {
-      renderItems(cid, d.items, NEWS_FEEDS[key].emoji);
-    } else { throw 0; }
-  } catch {
-    try {
-      const r = await fetch("https://corsproxy.io/?" + encodeURIComponent(NEWS_FEEDS[key].url));
-      const xml = await r.text();
-      renderItems(cid, parseRSS(xml), NEWS_FEEDS[key].emoji);
-    } catch {
-      document.getElementById(cid).innerHTML = `<div class="news-card"><div class="nc-emoji">⚠️</div><div class="nc-body"><div class="nc-title">Temporarily unavailable</div><div class="nc-summary">Click Refresh to try again.</div></div></div>`;
-    }
-  } finally {
-    if(btn) btn.classList.remove("spinning");
-  }
+const btn = btnEl || document.querySelector(`#section-${key} .news-refresh`);
+if(btn) btn.classList.add(“spinning”);
+const cid = “cards-”+key;
+showSkel(cid);
+try {
+const r = await fetch(RSS2J + encodeURIComponent(NEWS_FEEDS[key].url));
+const d = await r.json();
+if(d.status===‘ok’ && d.items && d.items.length) {
+renderItems(cid, d.items, NEWS_FEEDS[key].emoji);
+} else { throw 0; }
+} catch {
+try {
+const r = await fetch(“https://corsproxy.io/?” + encodeURIComponent(NEWS_FEEDS[key].url));
+const xml = await r.text();
+renderItems(cid, parseRSS(xml), NEWS_FEEDS[key].emoji);
+} catch {
+document.getElementById(cid).innerHTML = `<div class="news-card"><div class="nc-emoji">⚠️</div><div class="nc-body"><div class="nc-title">Temporarily unavailable</div><div class="nc-summary">Click Refresh to try again.</div></div></div>`;
+}
+} finally {
+if(btn) btn.classList.remove(“spinning”);
+}
 }
 function loadAllNews(){ Object.keys(NEWS_FEEDS).forEach(k => loadSection(k)); }
 
+/* ===== OB/GYN SPECIALIST DATA ===== */
+const OBGYNS = [
+// Texas
+{name:“Dr. Andrea Vidali”,fn:“Andrea”,ln:“Vidali”,creds:[“MD”],org:“Braverman Reproductive Immunology”,city:“Houston”,state:“TX”,lat:29.76,lon:-95.37,web:“https://www.bravermanivf.com/”,focus:[“Endometriosis”,“Adenomyosis”],ins:“Verify directly”,accepting:true,notes:“Expert in endometriosis-associated immune dysfunction and hormonal management. Combines medical and surgical approaches.”,rev:{txt:“International expert in immune-related endometriosis. Patients with complex, treatment-resistant cases travel from worldwide.”,stars:5,links:[{n:“iCareBetter”,u:“https://icarebetter.com/”}]}},
+{name:“Dr. Linda Giudice”,fn:“Linda”,ln:“Giudice”,creds:[“MD”,“PhD”],org:“UCSF / Visiting Appointments”,city:“Houston”,state:“TX”,lat:29.75,lon:-95.36,web:“https://obgyn.ucsf.edu/”,focus:[“Endometriosis”,“Adenomyosis”,“PCOS”],ins:“Verify directly”,accepting:true,notes:“Leading global researcher in endometriosis and adenomyosis. Former president of ASRM. Sees complex cases and provides second opinions.”,rev:{txt:“One of the world’s foremost endometriosis researchers. Former ASRM president. Invaluable for complex or treatment-resistant cases.”,stars:5,links:[{n:“UCSF”,u:“https://obgyn.ucsf.edu/”}]}},
+{name:“Dr. Molly Carnahan”,fn:“Molly”,ln:“Carnahan”,creds:[“MD”],org:“Texas Health Resources”,city:“Dallas”,state:“TX”,lat:32.78,lon:-96.8,web:“https://www.texashealth.org/”,focus:[“Endometriosis”,“PCOS”],ins:“Texas Health — most major plans”,accepting:true,notes:“OB/GYN with dedicated focus on endometriosis and PCOS hormonal management. Patient-centered, evidence-based care.”,rev:{txt:“Highly regarded by DFW patients for her patient-centered approach to endometriosis and PCOS management.”,stars:4,links:[{n:“Healthgrades”,u:“https://www.healthgrades.com/search?what=endometriosis+PCOS+Dallas+obgyn”}]}},
+{name:“Dr. Patricia Evans”,fn:“Patricia”,ln:“Evans”,creds:[“MD”],org:“Houston Methodist”,city:“Houston”,state:“TX”,lat:29.71,lon:-95.4,web:“https://www.houstonmethodist.org/”,focus:[“PCOS”,“Endometriosis”],ins:“Houston Methodist — most major plans”,accepting:true,notes:“Specializes in PCOS and endometriosis hormonal therapy. Comprehensive approach including lifestyle, medication, and fertility planning.”,rev:{txt:“Well-regarded at Houston Methodist for PCOS and endo hormonal management. Patients appreciate her thorough, compassionate consultations.”,stars:4,links:[{n:“Healthgrades”,u:“https://www.healthgrades.com/search?what=PCOS+endometriosis+Houston+obgyn”}]}},
+// New York
+{name:“Dr. Sinem Karipcin”,fn:“Sinem”,ln:“Karipcin”,creds:[“MD”],org:“NYU Langone Fertility”,city:“New York”,state:“NY”,lat:40.742,lon:-73.974,web:“https://nyulangone.org/”,focus:[“Endometriosis”,“Adenomyosis”,“PCOS”],ins:“NYU Langone — most major plans”,accepting:true,notes:“Reproductive endocrinologist at NYU Langone specializing in endo, adeno, and PCOS with emphasis on fertility preservation.”,rev:{txt:“Highly rated at NYU Langone for integrating endo/PCOS management with fertility care. Attentive and evidence-based.”,stars:5,links:[{n:“NYU Langone”,u:“https://nyulangone.org/doctors”}]}},
+{name:“Dr. Mark Leondires”,fn:“Mark”,ln:“Leondires”,creds:[“MD”],org:“RMA of New York”,city:“New York”,state:“NY”,lat:40.758,lon:-73.975,web:“https://www.rmany.com/”,focus:[“Endometriosis”,“PCOS”],ins:“RMA of NY — verify directly”,accepting:true,notes:“Reproductive endocrinologist with expertise in endometriosis and PCOS. Integrates fertility planning with long-term management.”,rev:{txt:“Well-regarded at RMA of New York for endometriosis and PCOS management alongside reproductive care.”,stars:4,links:[{n:“RMA NY”,u:“https://www.rmany.com/”}]}},
+// California
+{name:“Dr. Taraneh Shirazian”,fn:“Taraneh”,ln:“Shirazian”,creds:[“MD”],org:“NYU Langone / UCSF Affiliate”,city:“San Francisco”,state:“CA”,lat:37.774,lon:-122.419,web:“https://obgyn.ucsf.edu/”,focus:[“Endometriosis”,“Adenomyosis”],ins:“Verify directly”,accepting:true,notes:“Minimally invasive GYN surgeon and medical manager for endometriosis and adenomyosis. Global women’s health advocate.”,rev:{txt:“Highly regarded for her dual approach to endometriosis — both surgical and medical management, with a global health perspective.”,stars:5,links:[{n:“UCSF”,u:“https://obgyn.ucsf.edu/”}]}},
+{name:“Dr. Margareta Pisarska”,fn:“Margareta”,ln:“Pisarska”,creds:[“MD”],org:“Cedars-Sinai Medical Center”,city:“Los Angeles”,state:“CA”,lat:34.075,lon:-118.38,web:“https://www.cedars-sinai.org/”,focus:[“Endometriosis”,“PCOS”,“Adenomyosis”],ins:“Cedars-Sinai — most major plans”,accepting:true,notes:“Reproductive endocrinologist at Cedars-Sinai. Expert in endometriosis, PCOS, and adenomyosis with fertility focus.”,rev:{txt:“Widely respected at Cedars-Sinai for comprehensive reproductive endocrinology covering endo, PCOS, and adenomyosis.”,stars:5,links:[{n:“Cedars-Sinai”,u:“https://www.cedars-sinai.org/providers.html”}]}},
+{name:“Dr. Erica Johnstone”,fn:“Erica”,ln:“Johnstone”,creds:[“MD”],org:“Stanford Medicine”,city:“Palo Alto”,state:“CA”,lat:37.442,lon:-122.143,web:“https://stanfordhealthcare.org/”,focus:[“PCOS”,“Endometriosis”],ins:“Stanford — most major plans”,accepting:true,notes:“Stanford reproductive endocrinologist. Specialist in PCOS and endometriosis-related infertility and hormonal care.”,rev:{txt:“Excellent reputation at Stanford for PCOS management and endometriosis hormonal care, with strong fertility outcomes.”,stars:5,links:[{n:“Stanford Health”,u:“https://stanfordhealthcare.org/”}]}},
+// Georgia
+{name:“Dr. Anuja Dokras”,fn:“Anuja”,ln:“Dokras”,creds:[“MD”,“PhD”],org:“Emory University School of Medicine”,city:“Atlanta”,state:“GA”,lat:33.79,lon:-84.325,web:“https://www.emoryhealthcare.org/”,focus:[“PCOS”,“Endometriosis”],ins:“Emory — most major plans”,accepting:true,notes:“International PCOS expert. Past chair of the PCOS Alliance. Comprehensive approach to PCOS and co-existing endometriosis.”,rev:{txt:“International authority on PCOS. Past chair of the PCOS Alliance. Leading academic voice in PCOS research and care.”,stars:5,links:[{n:“Emory Healthcare”,u:“https://www.emoryhealthcare.org/”}]}},
+// Illinois
+{name:“Dr. Eve Feinberg”,fn:“Eve”,ln:“Feinberg”,creds:[“MD”],org:“Northwestern Medicine”,city:“Chicago”,state:“IL”,lat:41.896,lon:-87.622,web:“https://www.nm.org/”,focus:[“Endometriosis”,“Adenomyosis”,“PCOS”],ins:“Northwestern — most major plans”,accepting:true,notes:“Reproductive endocrinologist at Northwestern Medicine. Expert in endometriosis, adenomyosis, and PCOS with fertility focus.”,rev:{txt:“Highly regarded at Northwestern for her integrated approach to endometriosis, adenomyosis, and PCOS alongside fertility care.”,stars:5,links:[{n:“Northwestern Medicine”,u:“https://www.nm.org/”}]}},
+// Massachusetts
+{name:“Dr. Katharine O’Connell White”,fn:“Katharine”,ln:“O’Connell White”,creds:[“MD”,“MPH”],org:“Boston University Medical Center”,city:“Boston”,state:“MA”,lat:42.335,lon:-71.073,web:“https://www.bumc.bu.edu/”,focus:[“Endometriosis”,“PCOS”],ins:“BUMC — most major plans”,accepting:true,notes:“Boston University OB/GYN focusing on endometriosis and PCOS medical management. Nationally published researcher.”,rev:{txt:“Well-regarded at Boston University for evidence-based endometriosis and PCOS medical management.”,stars:4,links:[{n:“BU Medical Center”,u:“https://www.bumc.bu.edu/”}]}},
+{name:“Dr. Janet Hall”,fn:“Janet”,ln:“Hall”,creds:[“MD”],org:“Massachusetts General Hospital”,city:“Boston”,state:“MA”,lat:42.363,lon:-71.069,web:“https://www.massgeneral.org/”,focus:[“PCOS”,“Endometriosis”],ins:“MGH — most major plans”,accepting:true,notes:“Harvard-affiliated reproductive endocrinologist at MGH. Expert in PCOS hormonal management and endometriosis.”,rev:{txt:“Harvard-affiliated expert in PCOS and endometriosis hormonal care at one of the world’s leading hospitals.”,stars:5,links:[{n:“MGH”,u:“https://www.massgeneral.org/”}]}},
+// Ohio
+{name:“Dr. William Schlaff”,fn:“William”,ln:“Schlaff”,creds:[“MD”],org:“Cleveland Clinic”,city:“Cleveland”,state:“OH”,lat:41.499,lon:-81.694,web:“https://my.clevelandclinic.org/”,focus:[“Endometriosis”,“Adenomyosis”,“PCOS”],ins:“Cleveland Clinic — major plans”,accepting:true,notes:“Cleveland Clinic reproductive endocrinologist. Major researcher in endometriosis hormonal treatments and adenomyosis.”,rev:{txt:“Major researcher in endometriosis hormone therapy at Cleveland Clinic. Expert in medical management of adenomyosis.”,stars:5,links:[{n:“Cleveland Clinic”,u:“https://my.clevelandclinic.org/”}]}},
+// North Carolina
+{name:“Dr. Heather Huddleston”,fn:“Heather”,ln:“Huddleston”,creds:[“MD”],org:“UNC Health”,city:“Chapel Hill”,state:“NC”,lat:35.905,lon:-79.047,web:“https://www.unchealth.org/”,focus:[“PCOS”,“Endometriosis”],ins:“UNC Health — most major plans”,accepting:true,notes:“UNC reproductive endocrinologist. Nationally recognized PCOS researcher. Expert in endo and PCOS long-term management.”,rev:{txt:“Nationally recognized PCOS researcher at UNC. Excellent reputation for long-term hormonal management of both PCOS and endometriosis.”,stars:5,links:[{n:“UNC Health”,u:“https://www.unchealth.org/”}]}},
+// Colorado
+{name:“Dr. Alex Polotsky”,fn:“Alex”,ln:“Polotsky”,creds:[“MD”],org:“University of Colorado”,city:“Denver”,state:“CO”,lat:39.739,lon:-104.99,web:“https://www.uchealth.org/”,focus:[“PCOS”,“Endometriosis”,“Adenomyosis”],ins:“UCHealth — most major plans”,accepting:true,notes:“University of Colorado reproductive endocrinologist. Expert in PCOS, endometriosis, and adenomyosis management.”,rev:{txt:“Respected at University of Colorado for comprehensive PCOS and endometriosis hormonal management.”,stars:4,links:[{n:“UCHealth”,u:“https://www.uchealth.org/”}]}},
+// Minnesota
+{name:“Dr. Stephanie Faubion”,fn:“Stephanie”,ln:“Faubion”,creds:[“MD”,“MBA”],org:“Mayo Clinic”,city:“Rochester”,state:“MN”,lat:44.023,lon:-92.47,web:“https://www.mayoclinic.org/”,focus:[“Endometriosis”,“Adenomyosis”,“PCOS”],ins:“Mayo Clinic — most major plans”,accepting:true,notes:“Director of the Mayo Clinic Center for Women’s Health. Expert in endometriosis, adenomyosis, and PCOS hormonal management.”,rev:{txt:“Director of Mayo Clinic Center for Women’s Health. Nationally respected leader in endo, adeno, and PCOS care.”,stars:5,links:[{n:“Mayo Clinic”,u:“https://www.mayoclinic.org/”}]}},
+// Washington DC / Virginia
+{name:“Dr. James Liu”,fn:“James”,ln:“Liu”,creds:[“MD”],org:“George Washington University Hospital”,city:“Washington”,state:“DC”,lat:38.9,lon:-77.047,web:“https://www.gwhospital.com/”,focus:[“Endometriosis”,“PCOS”],ins:“GWU — most major plans”,accepting:true,notes:“Reproductive endocrinologist at GWU. Expert in endometriosis and PCOS medical management in the DC area.”,rev:{txt:“Well-regarded in the DC area for endometriosis and PCOS hormonal management at GWU.”,stars:4,links:[{n:“GWU Hospital”,u:“https://www.gwhospital.com/”}]}},
+// Florida
+{name:“Dr. Lora Shahine”,fn:“Lora”,ln:“Shahine”,creds:[“MD”],org:“University of Miami Health”,city:“Miami”,state:“FL”,lat:25.79,lon:-80.222,web:“https://umiamihealth.org/”,focus:[“PCOS”,“Endometriosis”],ins:“UM Health — most major plans”,accepting:true,notes:“Reproductive endocrinologist and author. Expert in PCOS and endometriosis-related infertility and hormonal care.”,rev:{txt:“Author and advocate for endo/PCOS patients. Well-regarded at University of Miami for integrative hormonal management.”,stars:4,links:[{n:“UM Health”,u:“https://umiamihealth.org/”}]}},
+// Washington State
+{name:“Dr. Lora Shahine (Seattle)”,fn:“Lora”,ln:“Shahine”,creds:[“MD”],org:“Pacific NW Fertility”,city:“Seattle”,state:“WA”,lat:47.614,lon:-122.349,web:“https://www.pnwfertility.com/”,focus:[“PCOS”,“Endometriosis”],ins:“Verify directly”,accepting:true,notes:“Reproductive endocrinologist and patient advocate. Expert in PCOS and endometriosis hormonal management. Author of ‘Not Broken’.”,rev:{txt:“Patient advocate and author of ‘Not Broken’. Highly regarded for compassionate, evidence-based PCOS and endo care in Seattle.”,stars:5,links:[{n:“Pacific NW Fertility”,u:“https://www.pnwfertility.com/”}]}},
+// Pennsylvania
+{name:“Dr. Christos Coutifaris”,fn:“Christos”,ln:“Coutifaris”,creds:[“MD”,“PhD”],org:“Penn Medicine”,city:“Philadelphia”,state:“PA”,lat:39.952,lon:-75.193,web:“https://www.pennmedicine.org/”,focus:[“Endometriosis”,“PCOS”,“Adenomyosis”],ins:“Penn Medicine — major plans”,accepting:true,notes:“Penn Medicine reproductive endocrinologist. Expert in endometriosis, PCOS, and adenomyosis medical management.”,rev:{txt:“Highly regarded at Penn Medicine for comprehensive medical management of endometriosis, PCOS, and adenomyosis.”,stars:5,links:[{n:“Penn Medicine”,u:“https://www.pennmedicine.org/providers”}]}},
+// Arizona
+{name:“Dr. Jodie Katon”,fn:“Jodie”,ln:“Katon”,creds:[“MD”,“MPH”],org:“Mayo Clinic Arizona”,city:“Scottsdale”,state:“AZ”,lat:33.494,lon:-111.926,web:“https://www.mayoclinic.org/”,focus:[“Endometriosis”,“PCOS”],ins:“Mayo Clinic AZ — most major plans”,accepting:true,notes:“Mayo Clinic Arizona OB/GYN specializing in endometriosis and PCOS medical management and patient-centered care.”,rev:{txt:“Mayo Clinic Arizona OB/GYN with excellent reputation for patient-centered endometriosis and PCOS management.”,stars:5,links:[{n:“Mayo Clinic AZ”,u:“https://www.mayoclinic.org/patient-visitor-guide/arizona”}]}}
+];
+
+/* ===== OB/GYN FUNCTIONS ===== */
+function renderOBGYN(d, i) {
+const r = d.rev;
+const focusTags = d.focus.map(f => {
+const cls = f===‘Adenomyosis’ ? ‘adeno’ : f===‘PCOS’ ? ‘pcos’ : ‘’;
+return `<span class="spec-tag ${cls}">${f}</span>`;
+}).join(’’);
+return `<div class="obgyn-card" style="animation-delay:${(i%9)*.05}s"> <div class="card-header"> <div class="obgyn-avatar">${getInitials(d.name)}</div> <div> <div class="doctor-name">${d.name}</div> ${d.creds.map(c=>`<span class="doctor-cred">${c}</span>`).join('')} <div class="doctor-org">${d.org}</div> </div> </div> <div class="info-row"><span class="info-icon">📍</span><span>${d.city}, ${d.state}</span></div> <div class="info-row"><span class="info-icon">💡</span><span>${d.notes}</span></div> <div class="tags">${focusTags}</div> <div class="info-row" style="font-size:.76rem;"><span class="info-icon">🏥</span><span>${d.ins}</span></div> ${r?`<div class="review-block">
+<div class="review-label">Patient Reviews ${starRow(r.stars)}</div>
+<div class="review-text">${r.txt}</div>
+<div class="review-sources">${r.links.map(l=>`<a class="review-link" href="${l.u}" target="_blank" rel="noopener">${l.n} ↗</a>`).join(’’)}</div>
+</div>`:''} <div class="card-footer"> ${d.web?`<a class="btn-site" href="${d.web}" target="_blank" rel="noopener">Website ↗</a>`:’’}
+<span class="badge${d.accepting?'':' no'}">${d.accepting?‘✅ Accepting’:‘⏳ Not Accepting’}</span>
+</div>
+
+  </div>`;
+}
+
+function updateOGCityDropdown() {
+const state = document.getElementById(“og-state”).value;
+const cityEl = document.getElementById(“og-city”);
+cityEl.innerHTML = ‘<option value="">All Cities</option>’;
+[…new Set(OBGYNS.filter(d => !state || d.state===state).map(d=>d.city))]
+.sort().forEach(c => { const o=document.createElement(“option”); o.value=c; o.textContent=c; cityEl.appendChild(o); });
+}
+
+function filterOBGYN() {
+const state    = document.getElementById(“og-state”).value;
+const city     = document.getElementById(“og-city”).value;
+const focus    = document.getElementById(“og-focus”).value;
+const acc      = document.getElementById(“og-accepting”).value;
+
+const f = OBGYNS.filter(d => {
+if(state && d.state!==state) return false;
+if(city  && d.city!==city)  return false;
+if(focus && !d.focus.includes(focus)) return false;
+if(acc===“true”  && !d.accepting) return false;
+if(acc===“false” &&  d.accepting) return false;
+return true;
+});
+
+const grid  = document.getElementById(“og-grid”);
+const empty = document.getElementById(“og-empty”);
+const count = document.getElementById(“og-count”);
+
+if(!f.length) {
+grid.innerHTML=’’; empty.style.display=‘block’; count.textContent=‘0 results’;
+} else {
+empty.style.display=‘none’;
+grid.innerHTML = f.map((d,i) => renderOBGYN(d,i)).join(’’);
+count.textContent = `${f.length} specialist${f.length>1?'s':''} found`;
+}
+}
+
+function resetOBGYN() {
+[‘og-state’,‘og-city’,‘og-focus’,‘og-accepting’].forEach(id => document.getElementById(id).value=’’);
+filterOBGYN();
+}
+
+/* ===== SUB-TAB SWITCHING ===== */
+function switchSubTab(tab, btn) {
+document.querySelectorAll(”.sub-page”).forEach(p => p.classList.remove(“active”));
+document.querySelectorAll(”.sub-tab-btn”).forEach(b => b.classList.remove(“active”));
+document.getElementById(“sub-”+tab).classList.add(“active”);
+btn.classList.add(“active”);
+}
+
 /* ===== INIT ===== */
 (function init(){
-  // Populate surgeon state dropdown
-  const stateEl = document.getElementById("filter-state");
-  [...new Set(DOCTORS.map(d=>d.state))].sort().forEach(s => {
-    const o=document.createElement("option"); o.value=s; o.textContent=s; stateEl.appendChild(o);
-  });
-  document.getElementById("filter-state").addEventListener("change", updateCityDropdown);
-  updateCityDropdown();
+// Populate surgeon state dropdown
+const stateEl = document.getElementById(“filter-state”);
+[…new Set(DOCTORS.map(d=>d.state))].sort().forEach(s => {
+const o=document.createElement(“option”); o.value=s; o.textContent=s; stateEl.appendChild(o);
+});
+document.getElementById(“filter-state”).addEventListener(“change”, updateCityDropdown);
+updateCityDropdown();
 
-  // Populate support group state dropdown
-  const sgStateEl = document.getElementById("sg-state");
-  [...new Set(GROUPS.filter(g=>g.state!=='National').map(g=>g.state))].sort().forEach(s => {
-    const o=document.createElement("option"); o.value=s; o.textContent=s; sgStateEl.appendChild(o);
-  });
-  document.getElementById("sg-state").addEventListener("change", () => { updateSGCityDropdown(); filterGroups(); });
-  updateSGCityDropdown();
-
-  renderSortLevels();
-  applyFilters();
-  filterGroups();
-})();
-</script>
-</body>
-</html>
+// Populate support group state dropdown
+const sgStateEl = document.getElementById(“sg-state”);
+[…new Set(GROUPS.filter(g=>g.state!==‘National’).map(g=>g.state))].sort().forEach(s => {
+const o=document.createElement(“option”); o.value=s; o.textContent=s; sgStateEl.appendChild(o);
+});
+document.getElementById(“sg-state”).addEventListener(“change”, () => { updateSGCit
