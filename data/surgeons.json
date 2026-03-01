@@ -25,10 +25,85 @@
     "verified": false
   },
   {
+    "id": "robert-furr",
+    "name": "Dr. Robert Furr",
+    "fn": "Robert",
+    "ln": "Furr",
+    "creds": [
+      "MD"
+    ],
+    "org": "Verify directly",
+    "city": "",
+    "state": "",
+    "lat": null,
+    "lon": null,
+    "phone": null,
+    "web": "",
+    "specs": [
+      "Excision Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Added via EndofEndo. Verify details directly.",
+    "stars": 4,
+    "source": "EndofEndo",
+    "verified": false
+  },
+  {
     "id": "eric-heegard",
     "name": "Dr. Eric Heegard",
     "fn": "Eric",
     "ln": "Heegard",
+    "creds": [
+      "MD"
+    ],
+    "org": "Verify directly",
+    "city": "",
+    "state": "",
+    "lat": null,
+    "lon": null,
+    "phone": null,
+    "web": "",
+    "specs": [
+      "Excision Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Added via EndofEndo. Verify details directly.",
+    "stars": 4,
+    "source": "EndofEndo",
+    "verified": false
+  },
+  {
+    "id": "kathy-huang",
+    "name": "Dr. Kathy Huang",
+    "fn": "Kathy",
+    "ln": "Huang",
+    "creds": [
+      "MD"
+    ],
+    "org": "Verify directly",
+    "city": "",
+    "state": "",
+    "lat": null,
+    "lon": null,
+    "phone": null,
+    "web": "",
+    "specs": [
+      "Excision Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Added via EndofEndo. Verify details directly.",
+    "stars": 4,
+    "source": "EndofEndo",
+    "verified": false
+  },
+  {
+    "id": "alan-johns",
+    "name": "Dr. Alan Johns",
+    "fn": "Alan",
+    "ln": "Johns",
     "creds": [
       "MD"
     ],
@@ -75,10 +150,85 @@
     "verified": false
   },
   {
+    "id": "james-kondrup",
+    "name": "Dr. James Kondrup",
+    "fn": "James",
+    "ln": "Kondrup",
+    "creds": [
+      "MD"
+    ],
+    "org": "Verify directly",
+    "city": "",
+    "state": "",
+    "lat": null,
+    "lon": null,
+    "phone": null,
+    "web": "",
+    "specs": [
+      "Excision Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Added via EndofEndo. Verify details directly.",
+    "stars": 4,
+    "source": "EndofEndo",
+    "verified": false
+  },
+  {
     "id": "paul-magtibay",
     "name": "Dr. Paul Magtibay",
     "fn": "Paul",
     "ln": "Magtibay",
+    "creds": [
+      "MD"
+    ],
+    "org": "Verify directly",
+    "city": "",
+    "state": "",
+    "lat": null,
+    "lon": null,
+    "phone": null,
+    "web": "",
+    "specs": [
+      "Excision Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Added via EndofEndo. Verify details directly.",
+    "stars": 4,
+    "source": "EndofEndo",
+    "verified": false
+  },
+  {
+    "id": "magdy-milad",
+    "name": "Dr. Magdy Milad",
+    "fn": "Magdy",
+    "ln": "Milad",
+    "creds": [
+      "MD"
+    ],
+    "org": "Verify directly",
+    "city": "",
+    "state": "",
+    "lat": null,
+    "lon": null,
+    "phone": null,
+    "web": "",
+    "specs": [
+      "Excision Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Added via EndofEndo. Verify details directly.",
+    "stars": 4,
+    "source": "EndofEndo",
+    "verified": false
+  },
+  {
+    "id": "laurence-orbuch",
+    "name": "Dr. Laurence Orbuch",
+    "fn": "Laurence",
+    "ln": "Orbuch",
     "creds": [
       "MD"
     ],
@@ -154,6 +304,31 @@
     "name": "Dr. Sonia Rebeles",
     "fn": "Sonia",
     "ln": "Rebeles",
+    "creds": [
+      "MD"
+    ],
+    "org": "Verify directly",
+    "city": "",
+    "state": "",
+    "lat": null,
+    "lon": null,
+    "phone": null,
+    "web": "",
+    "specs": [
+      "Excision Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Added via EndofEndo. Verify details directly.",
+    "stars": 4,
+    "source": "EndofEndo",
+    "verified": false
+  },
+  {
+    "id": "ranae-yockey",
+    "name": "Dr. Ranae Yockey",
+    "fn": "Ranae",
+    "ln": "Yockey",
     "creds": [
       "MD"
     ],
@@ -542,6 +717,31 @@
     "accepting": true,
     "notes": "Chief of MIGS at GWU. One of DC area's leading excision surgeons. iCareBetter-vetted.",
     "stars": 5
+  },
+  {
+    "id": "denise-jagroo",
+    "name": "Dr. Denise Jagroo",
+    "fn": "Denise",
+    "ln": "Jagroo",
+    "creds": [
+      "MD"
+    ],
+    "org": "Verify directly",
+    "city": "Denise Jagroo",
+    "state": "DP",
+    "lat": null,
+    "lon": null,
+    "phone": null,
+    "web": "",
+    "specs": [
+      "Excision Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Added via EndofEndo. Verify details directly.",
+    "stars": 4,
+    "source": "EndofEndo",
+    "verified": false
   },
   {
     "id": "ramirez-alejandro",
@@ -1478,6 +1678,31 @@
     "accepting": true,
     "notes": "Director of minimally invasive GYN surgery at UPMC Magee.",
     "stars": 5
+  },
+  {
+    "id": "claire-gould",
+    "name": "Dr. Claire Gould",
+    "fn": "Claire",
+    "ln": "Gould",
+    "creds": [
+      "MD"
+    ],
+    "org": "Verify directly",
+    "city": "Lisa Marie Mangan Hayes",
+    "state": "PT",
+    "lat": null,
+    "lon": null,
+    "phone": "(415) 232-6383",
+    "web": "",
+    "specs": [
+      "Excision Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Added via EndofEndo. Verify details directly.",
+    "stars": 4,
+    "source": "EndofEndo",
+    "verified": false
   },
   {
     "id": "martin-dan",

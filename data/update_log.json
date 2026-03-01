@@ -17,5 +17,24 @@
         "added": 0
       }
     }
+  },
+  {
+    "timestamp": "2026-03-01T07:47:28.779227Z",
+    "total_surgeons": 87,
+    "added_this_run": 9,
+    "sources": {
+      "iCareBetter": {
+        "scraped": 0,
+        "added": 0
+      },
+      "EndofEndo": {
+        "scraped": 17,
+        "added": 9
+      },
+      "Pelvic Rehab": {
+        "scraped": 0,
+        "added": 0
+      }
+    }
   }
 ]
