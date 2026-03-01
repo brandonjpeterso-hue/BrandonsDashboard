@@ -1,0 +1,41 @@
+name: Monthly Surgeon Data Update
+
+on:
+  schedule:
+    - cron: '0 6 1 * *'  # 1st of every month at 6am UTC
+  workflow_dispatch:      # Allow manual trigger any time
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4 lxml
+
+      - name: Run surgeon scraper
+        run: python scripts/update_surgeons.py
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git diff --quiet data/surgeons.json || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push if changed
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "EndoFind Bot"
+          git config user.email "actions@github.com"
+          git add data/surgeons.json data/update_log.json
+          git commit -m "Monthly surgeon data update $(date +'%Y-%m-%d')"
+          git push
