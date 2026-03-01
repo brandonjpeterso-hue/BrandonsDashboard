@@ -1,0 +1,21 @@
+[
+  {
+    "timestamp": "2026-03-01T05:45:43.019214Z",
+    "total_surgeons": 78,
+    "added_this_run": 9,
+    "sources": {
+      "iCareBetter": {
+        "scraped": 0,
+        "added": 0
+      },
+      "EndofEndo": {
+        "scraped": 14,
+        "added": 9
+      },
+      "Pelvic Rehab": {
+        "scraped": 0,
+        "added": 0
+      }
+    }
+  }
+]
