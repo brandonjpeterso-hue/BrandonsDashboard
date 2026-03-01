@@ -3570,45 +3570,56 @@ async function loadHistoricalEnergy() {
   $('energy-snapshot-label').textContent = `SHOWING: ${startVal} TO ${endVal} (${monthDiff} MONTHS)`;
 
   try {
-    // --- ELECTRICITY ---
-    const stateCodes = STATES.map(s => `facets[stateid][]=${s.code}`).join('&');
-    const elecUrl = `https://api.eia.gov/v2/electricity/retail-sales/data/?api_key=${CONFIG.EIA_KEY}&frequency=monthly&data[0]=price&${stateCodes}&facets[sectorName][]=commercial&start=${startVal}&end=${endVal}&sort[0][column]=period&sort[0][direction]=asc&length=1000`;
-    const elecJson = await eiaFetch(elecUrl);
+    // Helper: fetch one batch of states and merge into target object
+    async function fetchStateBatch(url) {
+      const json = await eiaFetch(url);
+      return json;
+    }
 
-    // Build {period → {stateCode → price}}
+    // --- ELECTRICITY — fetch in 2 batches of ~6-7 states to keep URLs short ---
     const elecByPeriod = {};
     const elecPeriods  = new Set();
-    if (elecJson.response && elecJson.response.data) {
-      for (const row of elecJson.response.data) {
-        const p = row.period, s = row.stateid, v = parseFloat(row.price);
-        if (!p || !s || isNaN(v)) continue;
-        elecPeriods.add(p);
-        if (!elecByPeriod[p]) elecByPeriod[p] = {};
-        elecByPeriod[p][s] = v;
+    const stateBatches = [STATES.slice(0, 7), STATES.slice(7)];
+    for (const batch of stateBatches) {
+      const stateCodes = batch.map(s => `facets[stateid][]=${s.code}`).join('&');
+      const elecUrl = `https://api.eia.gov/v2/electricity/retail-sales/data/?api_key=${CONFIG.EIA_KEY}&frequency=monthly&data[0]=price&${stateCodes}&facets[sectorName][]=commercial&start=${startVal}&end=${endVal}&sort[0][column]=period&sort[0][direction]=asc&length=500`;
+      const elecJson = await fetchStateBatch(elecUrl);
+      if (elecJson.response && elecJson.response.data) {
+        for (const row of elecJson.response.data) {
+          const p = row.period, s = row.stateid, v = parseFloat(row.price);
+          if (!p || !s || isNaN(v)) continue;
+          elecPeriods.add(p);
+          if (!elecByPeriod[p]) elecByPeriod[p] = {};
+          elecByPeriod[p][s] = v;
+        }
       }
     }
     const elecPeriodsSorted = [...elecPeriods].sort();
 
-    // --- NATURAL GAS ---
-    const gasCodes = STATES.map(s => `facets[duoarea][]=${s.code}`).join('&');
-    const gasUrl = `https://api.eia.gov/v2/natural-gas/pri/sum/data/?api_key=${CONFIG.EIA_KEY}&frequency=monthly&data[0]=value&${gasCodes}&start=${startVal}&end=${endVal}&sort[0][column]=period&sort[0][direction]=asc&length=1000`;
-    const gasJson = await eiaFetch(gasUrl);
-
+    // --- NATURAL GAS — same batching approach ---
     const gasByPeriod = {};
     const gasPeriods  = new Set();
-    if (gasJson.response && gasJson.response.data) {
-      for (const row of gasJson.response.data) {
-        const p = row.period, s = row.duoarea, v = parseFloat(row.value);
-        if (!p || !s || isNaN(v)) continue;
-        gasPeriods.add(p);
-        if (!gasByPeriod[p]) gasByPeriod[p] = {};
-        gasByPeriod[p][s] = v;
+    for (const batch of stateBatches) {
+      const gasCodes = batch.map(s => `facets[duoarea][]=${s.code}`).join('&');
+      const gasUrl = `https://api.eia.gov/v2/natural-gas/pri/sum/data/?api_key=${CONFIG.EIA_KEY}&frequency=monthly&data[0]=value&${gasCodes}&start=${startVal}&end=${endVal}&sort[0][column]=period&sort[0][direction]=asc&length=500`;
+      const gasJson = await fetchStateBatch(gasUrl);
+      if (gasJson.response && gasJson.response.data) {
+        for (const row of gasJson.response.data) {
+          const p = row.period, s = row.duoarea, v = parseFloat(row.value);
+          if (!p || !s || isNaN(v)) continue;
+          gasPeriods.add(p);
+          if (!gasByPeriod[p]) gasByPeriod[p] = {};
+          gasByPeriod[p][s] = v;
+        }
       }
     }
     const gasPeriodsSorted = [...gasPeriods].sort();
 
-    // --- DIESEL (national avg + key regions weekly → resample to monthly avg) ---
-    const dieselUrl = `https://api.eia.gov/v2/petroleum/pri/gnd/data/?api_key=${CONFIG.EIA_KEY}&frequency=weekly&data[0]=value&facets[product][]=EPD2D&sort[0][column]=period&sort[0][direction]=asc&start=${startVal}-01&end=${endVal}-31&length=2000`;
+    // --- DIESEL — compute real last day of end month instead of hardcoding -31 ---
+    const [endYear, endMonth] = endVal.split('-').map(Number);
+    const lastDay = new Date(endYear, endMonth, 0).getDate(); // day 0 of next month = last day of this month
+    const dieselEndDate = `${endVal}-${String(lastDay).padStart(2,'0')}`;
+    const dieselUrl = `https://api.eia.gov/v2/petroleum/pri/gnd/data/?api_key=${CONFIG.EIA_KEY}&frequency=weekly&data[0]=value&facets[product][]=EPD2D&sort[0][column]=period&sort[0][direction]=asc&start=${startVal}-01&end=${dieselEndDate}&length=2000`;
     const dieselJson = await eiaFetch(dieselUrl);
 
     // Group weekly diesel into monthly averages per region
