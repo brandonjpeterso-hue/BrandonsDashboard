@@ -3775,6 +3775,7 @@ function buildLineChart(canvasId, labels, datasets) {
 }
 
 
+async function init() {
   await Promise.allSettled([
     loadElectricityData(),
     loadGasData(),
@@ -3782,7 +3783,6 @@ function buildLineChart(canvasId, labels, datasets) {
     loadGridData(),
   ]);
 
-  // Update status pills based on actual data
   const eiaOk = Object.keys(DATA.electricity).length > 0;
   updateStatusPill('pill-eia', eiaOk, `EIA DATA: ${eiaOk ? 'CONNECTED' : 'ESTIMATES'}`);
   const gridOk = Object.values(GRID_DATA).some(d => !d.simulated);
@@ -3795,7 +3795,6 @@ function buildLineChart(canvasId, labels, datasets) {
   try { buildGridCards('overview-grid-cards'); } catch(e) { console.error('buildGridCards error:', e); }
   energyHistInit();
 
-  // Weather — key is baked in
   if (CONFIG.OPENWEATHER_KEY) {
     updateStatusPill('pill-weather', null, 'WEATHER: LOADING...');
     loadWeather(CONFIG.OPENWEATHER_KEY).then(() => {
@@ -3805,7 +3804,6 @@ function buildLineChart(canvasId, labels, datasets) {
     });
   }
 
-  // News — runs both feeds in parallel
   loadAllNews().then(() => {
     updateStatusPill('pill-news', DATA.news.length > 0, `NEWS: ${DATA.news.length > 0 ? 'LIVE' : 'SAMPLE'}`);
   });
