@@ -1,0 +1,1688 @@
+[
+  {
+    "id": "haverland-rachael",
+    "name": "Dr. Rachael Haverland",
+    "fn": "Rachael",
+    "ln": "Haverland",
+    "creds": [
+      "MD"
+    ],
+    "org": "Endometriosis Center of Excellence",
+    "city": "Dallas",
+    "state": "TX",
+    "lat": 32.7767,
+    "lon": -96.797,
+    "phone": null,
+    "web": "https://endoexcellencecenter.com/",
+    "specs": [
+      "Excision Surgery",
+      "Fertility Preservation"
+    ],
+    "ins": "Most major insurances (verify directly)",
+    "accepting": true,
+    "notes": "Mayo Clinic-trained. Holistic, multidisciplinary approach. Treats complex cases.",
+    "stars": 5
+  },
+  {
+    "id": "kho-kimberly",
+    "name": "Dr. Kimberly Kho",
+    "fn": "Kimberly",
+    "ln": "Kho",
+    "creds": [
+      "MD",
+      "FACOG"
+    ],
+    "org": "UT Southwestern Medical Center",
+    "city": "Dallas",
+    "state": "TX",
+    "lat": 32.812,
+    "lon": -96.8385,
+    "phone": "214-645-3888",
+    "web": "https://utswmed.org/doctors/kimberly-kho/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery"
+    ],
+    "ins": "UT Southwestern \u2014 most major plans",
+    "accepting": true,
+    "notes": "Academic medical center with full multidisciplinary team.",
+    "stars": 5
+  },
+  {
+    "id": "oconnell-anthony",
+    "name": "Dr. Anthony O'Connell",
+    "fn": "Anthony",
+    "ln": "O'Connell",
+    "creds": [
+      "MD"
+    ],
+    "org": "Private Practice",
+    "city": "Dallas",
+    "state": "TX",
+    "lat": 32.7767,
+    "lon": -96.797,
+    "phone": null,
+    "web": "https://www.doctoraj.com/",
+    "specs": [
+      "Excision Surgery"
+    ],
+    "ins": "Contact office for details",
+    "accepting": true,
+    "notes": "Nationally recognized endometriosis specialist.",
+    "stars": 5
+  },
+  {
+    "id": "shimer-tricia",
+    "name": "Dr. Tricia Shimer",
+    "fn": "Tricia",
+    "ln": "Shimer",
+    "creds": [
+      "MD"
+    ],
+    "org": "Private Practice",
+    "city": "Dallas",
+    "state": "TX",
+    "lat": 32.7767,
+    "lon": -96.797,
+    "phone": "(469) 364-3760",
+    "web": "https://tshimerobgyn.com/",
+    "specs": [
+      "Excision Surgery"
+    ],
+    "ins": "Contact office for details",
+    "accepting": true,
+    "notes": "Radical resection for all stages.",
+    "stars": 4
+  },
+  {
+    "id": "crable-quanita",
+    "name": "Dr. Quanita Crable",
+    "fn": "Quanita",
+    "ln": "Crable",
+    "creds": [
+      "MD"
+    ],
+    "org": "Dr. Crable OB/GYN, P.A.",
+    "city": "Dallas",
+    "state": "TX",
+    "lat": 32.7767,
+    "lon": -96.797,
+    "phone": "(469) 364-3764",
+    "web": "https://drcrableobgyn.com/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery"
+    ],
+    "ins": "Contact office for details",
+    "accepting": true,
+    "notes": "Board-certified gynecologic surgeon using da Vinci robotic system.",
+    "stars": 4
+  },
+  {
+    "id": "whitfield-john",
+    "name": "Dr. John A. Whitfield",
+    "fn": "John",
+    "ln": "Whitfield",
+    "creds": [
+      "MD"
+    ],
+    "org": "Private Practice",
+    "city": "Fort Worth",
+    "state": "TX",
+    "lat": 32.7555,
+    "lon": -97.3308,
+    "phone": null,
+    "web": "https://www.johnwhitfieldmd.com/",
+    "specs": [
+      "Excision Surgery"
+    ],
+    "ins": "Contact office for details",
+    "accepting": true,
+    "notes": "Minimally invasive laparoscopic procedures.",
+    "stars": 4
+  },
+  {
+    "id": "garza-devin",
+    "name": "Dr. Devin Garza",
+    "fn": "Devin",
+    "ln": "Garza",
+    "creds": [
+      "MD",
+      "FACOG"
+    ],
+    "org": "Texas Robotic Surgery for Women",
+    "city": "Austin",
+    "state": "TX",
+    "lat": 30.2672,
+    "lon": -97.7431,
+    "phone": "(512)425-3835",
+    "web": "https://texasroboticsurgeryforwomen.com/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery",
+      "Fertility Preservation"
+    ],
+    "ins": "Contact office for details",
+    "accepting": true,
+    "notes": "Specialist in robotic-assisted excision.",
+    "stars": 5
+  },
+  {
+    "id": "guan-xiaoming",
+    "name": "Dr. Xiaoming Guan",
+    "fn": "Xiaoming",
+    "ln": "Guan",
+    "creds": [
+      "MD",
+      "PhD"
+    ],
+    "org": "Texas Children's / Baylor OB/GYN",
+    "city": "Houston",
+    "state": "TX",
+    "lat": 29.7604,
+    "lon": -95.3698,
+    "phone": null,
+    "web": "https://www.texaschildrens.org/find-a-provider/xiaoming-guan-md-phd",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery",
+      "Adolescent Endo"
+    ],
+    "ins": "Most major plans at Baylor",
+    "accepting": true,
+    "notes": "Nationally recognized excision specialist. Specializes in adolescent endometriosis.",
+    "stars": 5
+  },
+  {
+    "id": "koythong-tamisa",
+    "name": "Dr. Tamisa Koythong",
+    "fn": "Tamisa",
+    "ln": "Koythong",
+    "creds": [
+      "MD"
+    ],
+    "org": "Texas Children's / Baylor OB/GYN",
+    "city": "Houston",
+    "state": "TX",
+    "lat": 29.7604,
+    "lon": -95.3698,
+    "phone": null,
+    "web": "https://www.texaschildrens.org/find-a-provider/tamisa-koythong-md",
+    "specs": [
+      "Excision Surgery",
+      "Adolescent Endo"
+    ],
+    "ins": "Most major plans at Baylor",
+    "accepting": true,
+    "notes": "Special focus on adolescent endo.",
+    "stars": 5
+  },
+  {
+    "id": "leon-mateo",
+    "name": "Dr. Mateo Leon Leon",
+    "fn": "Mateo",
+    "ln": "Leon",
+    "creds": [
+      "MD"
+    ],
+    "org": "UT Physicians Women's Center",
+    "city": "Houston",
+    "state": "TX",
+    "lat": 29.788,
+    "lon": -95.42,
+    "phone": null,
+    "web": "https://www.utphysicians.com/provider/mateo-g-leon-leon/",
+    "specs": [
+      "Excision Surgery"
+    ],
+    "ins": "UT Physicians \u2014 verify directly",
+    "accepting": false,
+    "notes": "Currently NOT accepting new patients. Worth contacting for waitlist.",
+    "stars": 5
+  },
+  {
+    "id": "green-minda",
+    "name": "Dr. Minda Green",
+    "fn": "Minda",
+    "ln": "Green",
+    "creds": [
+      "MD"
+    ],
+    "org": "Green MIGS",
+    "city": "Austin",
+    "state": "TX",
+    "lat": 30.2672,
+    "lon": -97.7431,
+    "phone": null,
+    "web": "https://www.greenmigs.com/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Austin-based MIGS specialist dedicated to excision. Strong patient advocate.",
+    "stars": 5
+  },
+  {
+    "id": "elfeky-amro",
+    "name": "Dr. Amro Elfeky",
+    "fn": "Amro",
+    "ln": "Elfeky",
+    "creds": [
+      "MD"
+    ],
+    "org": "Pelvic Rehabilitation Medicine",
+    "city": "Dallas",
+    "state": "TX",
+    "lat": 32.7767,
+    "lon": -96.797,
+    "phone": null,
+    "web": "https://pelvicrehabilitation.com/request-an-appointment/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Fellowship-trained minimally invasive GYN surgeon. Over 200 complex procedures annually.",
+    "stars": 5
+  },
+  {
+    "id": "seckin-tamer",
+    "name": "Dr. Tamer Seckin",
+    "fn": "Tamer",
+    "ln": "Seckin",
+    "creds": [
+      "MD"
+    ],
+    "org": "Lenox Hill Hospital / Seckin Endometriosis Center",
+    "city": "New York",
+    "state": "NY",
+    "lat": 40.7128,
+    "lon": -74.006,
+    "phone": "212-988-1444",
+    "web": "https://www.drseckin.com/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery",
+      "Adolescent Endo"
+    ],
+    "ins": "Most major NY insurance plans",
+    "accepting": true,
+    "notes": "Co-founder of EndoFound. Pioneer of laparoscopic excision.",
+    "stars": 5
+  },
+  {
+    "id": "nezhat-farr",
+    "name": "Dr. Farr Nezhat",
+    "fn": "Farr",
+    "ln": "Nezhat",
+    "creds": [
+      "MD",
+      "FACOG"
+    ],
+    "org": "Nezhat Medical Center",
+    "city": "New York",
+    "state": "NY",
+    "lat": 40.758,
+    "lon": -73.9855,
+    "phone": null,
+    "web": "https://www.nezhatmedicalcenter.com/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery",
+      "Fertility Preservation"
+    ],
+    "ins": "Most major plans \u2014 verify directly",
+    "accepting": true,
+    "notes": "Pioneer in minimally invasive surgery. Over 30 years experience.",
+    "stars": 5
+  },
+  {
+    "id": "grifo-jamie",
+    "name": "Dr. Jamie Grifo",
+    "fn": "Jamie",
+    "ln": "Grifo",
+    "creds": [
+      "MD",
+      "PhD"
+    ],
+    "org": "NYU Langone Fertility",
+    "city": "New York",
+    "state": "NY",
+    "lat": 40.742,
+    "lon": -73.974,
+    "phone": null,
+    "web": "https://nyulangone.org/",
+    "specs": [
+      "Excision Surgery",
+      "Fertility Preservation"
+    ],
+    "ins": "NYU Langone \u2014 most major plans",
+    "accepting": true,
+    "notes": "Program director of NYU Langone Fertility. Pioneer in PGT and IVF.",
+    "stars": 5
+  },
+  {
+    "id": "vidali-andrea",
+    "name": "Dr. Andrea Vidali",
+    "fn": "Andrea",
+    "ln": "Vidali",
+    "creds": [
+      "MD"
+    ],
+    "org": "Braverman Reproductive Immunology",
+    "city": "New York",
+    "state": "NY",
+    "lat": 29.9511,
+    "lon": -90.0715,
+    "phone": null,
+    "web": "https://www.bravermanivf.com/",
+    "specs": [
+      "Excision Surgery",
+      "Fertility Preservation"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Expert combining excision with reproductive immunology.",
+    "stars": 5
+  },
+  {
+    "id": "moawad-gaby",
+    "name": "Dr. Gaby Moawad",
+    "fn": "Gaby",
+    "ln": "Moawad",
+    "creds": [
+      "MD"
+    ],
+    "org": "George Washington University Hospital",
+    "city": "Washington",
+    "state": "DC",
+    "lat": 38.9,
+    "lon": -77.047,
+    "phone": null,
+    "web": "https://www.gwhospital.com/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery"
+    ],
+    "ins": "GWU \u2014 most major plans",
+    "accepting": true,
+    "notes": "Chief of MIGS at GWU. One of DC area's leading excision surgeons. iCareBetter-vetted.",
+    "stars": 5
+  },
+  {
+    "id": "hawa-nadim",
+    "name": "Dr. Nadim Hawa",
+    "fn": "Nadim",
+    "ln": "Hawa",
+    "creds": [
+      "MD"
+    ],
+    "org": "INOVA Health System",
+    "city": "Falls Church",
+    "state": "VA",
+    "lat": 38.8823,
+    "lon": -77.1711,
+    "phone": null,
+    "web": "https://www.inova.org/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery"
+    ],
+    "ins": "INOVA \u2014 most major plans",
+    "accepting": true,
+    "notes": "iCareBetter-vetted excision surgeon in the DC/Virginia area. Complex case expertise.",
+    "stars": 5
+  },
+  {
+    "id": "mackoul-paul",
+    "name": "Dr. Paul MacKoul",
+    "fn": "Paul",
+    "ln": "MacKoul",
+    "creds": [
+      "MD"
+    ],
+    "org": "CIGC \u2014 Center for Innovative GYN Care",
+    "city": "Bethesda",
+    "state": "MD",
+    "lat": 38.984,
+    "lon": -77.094,
+    "phone": "(888) 787-4379",
+    "web": "https://www.cigc.com/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery"
+    ],
+    "ins": "Most major DC/MD/VA plans",
+    "accepting": true,
+    "notes": "Co-founder of CIGC. Developer of the DualPortGYN technique.",
+    "stars": 5
+  },
+  {
+    "id": "danilyants-natalya",
+    "name": "Dr. Natalya Danilyants",
+    "fn": "Natalya",
+    "ln": "Danilyants",
+    "creds": [
+      "MD"
+    ],
+    "org": "CIGC \u2014 Center for Innovative GYN Care",
+    "city": "Bethesda",
+    "state": "MD",
+    "lat": 38.984,
+    "lon": -77.094,
+    "phone": "(888) 787-4379",
+    "web": "https://www.cigc.com/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery",
+      "Fertility Preservation"
+    ],
+    "ins": "Most major DC/MD/VA plans",
+    "accepting": true,
+    "notes": "Co-founder of CIGC. Treats complex bowel and bladder cases.",
+    "stars": 5
+  },
+  {
+    "id": "ensign-laura",
+    "name": "Dr. Laura Ensign",
+    "fn": "Laura",
+    "ln": "Ensign",
+    "creds": [
+      "MD"
+    ],
+    "org": "Johns Hopkins Medicine",
+    "city": "Baltimore",
+    "state": "MD",
+    "lat": 39.296,
+    "lon": -76.593,
+    "phone": null,
+    "web": "https://www.hopkinsmedicine.org/",
+    "specs": [
+      "Excision Surgery",
+      "Fertility Preservation"
+    ],
+    "ins": "Hopkins \u2014 most major plans",
+    "accepting": true,
+    "notes": "Johns Hopkins minimally invasive GYN surgeon. World-class academic support.",
+    "stars": 5
+  },
+  {
+    "id": "hur-hyechun",
+    "name": "Dr. Hye-Chun Hur",
+    "fn": "Hye-Chun",
+    "ln": "Hur",
+    "creds": [
+      "MD",
+      "MPH"
+    ],
+    "org": "Penn Medicine",
+    "city": "Philadelphia",
+    "state": "PA",
+    "lat": 39.9526,
+    "lon": -75.1652,
+    "phone": null,
+    "web": "https://www.pennmedicine.org/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery"
+    ],
+    "ins": "Penn Medicine \u2014 major plans",
+    "accepting": true,
+    "notes": "Penn Medicine minimally invasive GYN surgeon.",
+    "stars": 5
+  },
+  {
+    "id": "lee-ted",
+    "name": "Dr. Ted Lee",
+    "fn": "Ted",
+    "ln": "Lee",
+    "creds": [
+      "MD"
+    ],
+    "org": "UPMC Magee-Womens Hospital",
+    "city": "Pittsburgh",
+    "state": "PA",
+    "lat": 40.438,
+    "lon": -79.961,
+    "phone": null,
+    "web": "https://www.upmc.com/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery",
+      "Adolescent Endo"
+    ],
+    "ins": "UPMC \u2014 most major plans",
+    "accepting": true,
+    "notes": "Director of minimally invasive GYN surgery at UPMC Magee.",
+    "stars": 5
+  },
+  {
+    "id": "donnellan-nicole",
+    "name": "Dr. Nicole Donnellan",
+    "fn": "Nicole",
+    "ln": "Donnellan",
+    "creds": [
+      "MD"
+    ],
+    "org": "UPMC Magee-Womens Hospital",
+    "city": "Pittsburgh",
+    "state": "PA",
+    "lat": 40.438,
+    "lon": -79.961,
+    "phone": null,
+    "web": "https://www.upmc.com/",
+    "specs": [
+      "Excision Surgery",
+      "Adolescent Endo",
+      "Fertility Preservation"
+    ],
+    "ins": "UPMC \u2014 most major plans",
+    "accepting": true,
+    "notes": "Expert in adolescent endometriosis at UPMC Magee.",
+    "stars": 5
+  },
+  {
+    "id": "einarsson-jon",
+    "name": "Dr. Jon Einarsson",
+    "fn": "Jon",
+    "ln": "Einarsson",
+    "creds": [
+      "MD",
+      "PhD",
+      "MPH"
+    ],
+    "org": "Brigham and Women's Hospital / Harvard",
+    "city": "Boston",
+    "state": "MA",
+    "lat": 42.335,
+    "lon": -71.107,
+    "phone": null,
+    "web": "https://www.brighamandwomens.org/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery"
+    ],
+    "ins": "BWH \u2014 most major plans",
+    "accepting": true,
+    "notes": "Chief of MIGS at Brigham and Women's. World-renowned excision surgeon who trains surgeons globally.",
+    "stars": 5
+  },
+  {
+    "id": "gargiulo-antonio",
+    "name": "Dr. Antonio Gargiulo",
+    "fn": "Antonio",
+    "ln": "Gargiulo",
+    "creds": [
+      "MD"
+    ],
+    "org": "Brigham and Women's Hospital / Harvard",
+    "city": "Boston",
+    "state": "MA",
+    "lat": 42.335,
+    "lon": -71.107,
+    "phone": null,
+    "web": "https://www.brighamandwomens.org/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery",
+      "Fertility Preservation"
+    ],
+    "ins": "BWH \u2014 most major plans",
+    "accepting": true,
+    "notes": "Minimally invasive GYN surgeon at Brigham and Women's.",
+    "stars": 5
+  },
+  {
+    "id": "laufer-mario",
+    "name": "Dr. Mario Laufer",
+    "fn": "Mario",
+    "ln": "Laufer",
+    "creds": [
+      "MD"
+    ],
+    "org": "Boston Children's Hospital / Harvard",
+    "city": "Boston",
+    "state": "MA",
+    "lat": 42.338,
+    "lon": -71.107,
+    "phone": null,
+    "web": "https://www.childrenshospital.org/",
+    "specs": [
+      "Excision Surgery",
+      "Adolescent Endo"
+    ],
+    "ins": "Boston Children's \u2014 most major plans",
+    "accepting": true,
+    "notes": "Chief of Gynecology at Boston Children's. The leading adolescent endometriosis excision specialist in the US.",
+    "stars": 5
+  },
+  {
+    "id": "isaacson-keith",
+    "name": "Dr. Keith Isaacson",
+    "fn": "Keith",
+    "ln": "Isaacson",
+    "creds": [
+      "MD"
+    ],
+    "org": "Newton-Wellesley Hospital / Harvard",
+    "city": "Newton",
+    "state": "MA",
+    "lat": 42.337,
+    "lon": -71.2092,
+    "phone": null,
+    "web": "https://www.nwh.org/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery",
+      "Fertility Preservation"
+    ],
+    "ins": "Most major MA plans",
+    "accepting": true,
+    "notes": "Harvard-affiliated minimally invasive GYN surgeon. Decades of excision experience.",
+    "stars": 5
+  },
+  {
+    "id": "touchan-faraj",
+    "name": "Dr. Faraj Touchan",
+    "fn": "Faraj",
+    "ln": "Touchan",
+    "creds": [
+      "MD"
+    ],
+    "org": "Pelvic Rehabilitation Medicine",
+    "city": "Teaneck",
+    "state": "NJ",
+    "lat": 40.898,
+    "lon": -74.014,
+    "phone": null,
+    "web": "https://pelvicrehabilitation.com/request-an-appointment/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Highly skilled excision surgeon specializing in minimally invasive and robotic surgery. Over 250 complex procedures annually.",
+    "stars": 5
+  },
+  {
+    "id": "lavy-gad",
+    "name": "Dr. Gad Lavy",
+    "fn": "Gad",
+    "ln": "Lavy",
+    "creds": [
+      "MD"
+    ],
+    "org": "New England Fertility Institute",
+    "city": "Stamford",
+    "state": "CT",
+    "lat": 41.053,
+    "lon": -73.538,
+    "phone": null,
+    "web": "https://www.ivfct.com/",
+    "specs": [
+      "Excision Surgery",
+      "Fertility Preservation"
+    ],
+    "ins": "Most major CT/NY plans",
+    "accepting": true,
+    "notes": "Expert in combining fertility treatment with minimally invasive surgery for endometriosis.",
+    "stars": 5
+  },
+  {
+    "id": "sinervo-ken",
+    "name": "Dr. Ken Sinervo",
+    "fn": "Ken",
+    "ln": "Sinervo",
+    "creds": [
+      "MD",
+      "FRCSC"
+    ],
+    "org": "Center for Endometriosis Care",
+    "city": "Atlanta",
+    "state": "GA",
+    "lat": 33.749,
+    "lon": -84.388,
+    "phone": "770-913-0001",
+    "web": "https://www.centerforendo.com/",
+    "specs": [
+      "Excision Surgery",
+      "Adolescent Endo",
+      "Fertility Preservation"
+    ],
+    "ins": "Contact CEC \u2014 out-of-network option available",
+    "accepting": true,
+    "notes": "Medical director of the Center for Endometriosis Care. One of the most experienced excision surgeons in North America.",
+    "stars": 5
+  },
+  {
+    "id": "nezhat-ceana",
+    "name": "Dr. Ceana Nezhat",
+    "fn": "Ceana",
+    "ln": "Nezhat",
+    "creds": [
+      "MD",
+      "FACOG"
+    ],
+    "org": "Atlanta Center for Minimally Invasive Surgery",
+    "city": "Atlanta",
+    "state": "GA",
+    "lat": 33.749,
+    "lon": -84.388,
+    "phone": null,
+    "web": "https://www.nezhatendometriosis.com/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery",
+      "Fertility Preservation"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Pioneer in minimally invasive endometriosis surgery.",
+    "stars": 5
+  },
+  {
+    "id": "hawkins-soyini",
+    "name": "Dr. Soyini Hawkins",
+    "fn": "Soyini",
+    "ln": "Hawkins",
+    "creds": [
+      "MD",
+      "MPH"
+    ],
+    "org": "Endometriosis Treatment Center",
+    "city": "Atlanta",
+    "state": "GA",
+    "lat": 33.749,
+    "lon": -84.388,
+    "phone": null,
+    "web": "https://endotreatmentcenter.com/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Patient advocate known for treating underserved communities and complex endo cases.",
+    "stars": 5
+  },
+  {
+    "id": "davis-ashley",
+    "name": "Dr. Ashley Davis",
+    "fn": "Ashley",
+    "ln": "Davis",
+    "creds": [
+      "MD"
+    ],
+    "org": "Pelvic Rehabilitation Medicine",
+    "city": "Atlanta",
+    "state": "GA",
+    "lat": 33.749,
+    "lon": -84.388,
+    "phone": null,
+    "web": "https://pelvicrehabilitation.com/request-an-appointment/",
+    "specs": [
+      "Excision Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Highly skilled excision surgeon with over a decade of experience. Approximately 250 complex surgeries per year.",
+    "stars": 5
+  },
+  {
+    "id": "carey-erin",
+    "name": "Dr. Erin Carey",
+    "fn": "Erin",
+    "ln": "Carey",
+    "creds": [
+      "MD",
+      "MSCR"
+    ],
+    "org": "University of North Carolina",
+    "city": "Chapel Hill",
+    "state": "NC",
+    "lat": 35.905,
+    "lon": -79.047,
+    "phone": null,
+    "web": "https://www.unchealth.org/",
+    "specs": [
+      "Excision Surgery",
+      "Adolescent Endo",
+      "Fertility Preservation"
+    ],
+    "ins": "UNC \u2014 most major plans",
+    "accepting": true,
+    "notes": "UNC MIGS surgeon and endo researcher. Expert in excision and chronic pelvic pain.",
+    "stars": 5
+  },
+  {
+    "id": "garcia-amy",
+    "name": "Dr. Amy Garcia",
+    "fn": "Amy",
+    "ln": "Garcia",
+    "creds": [
+      "MD"
+    ],
+    "org": "Center for Women's Health",
+    "city": "Raleigh",
+    "state": "NC",
+    "lat": 35.7796,
+    "lon": -78.6382,
+    "phone": null,
+    "web": "https://www.centerforwomenshealth.com/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Minimally invasive gynecologic surgeon with expertise in endometriosis excision.",
+    "stars": 4
+  },
+  {
+    "id": "attaran-marjan",
+    "name": "Dr. Marjan Attaran",
+    "fn": "Marjan",
+    "ln": "Attaran",
+    "creds": [
+      "MD"
+    ],
+    "org": "Cleveland Clinic",
+    "city": "Cleveland",
+    "state": "OH",
+    "lat": 41.4993,
+    "lon": -81.6944,
+    "phone": null,
+    "web": "https://my.clevelandclinic.org/",
+    "specs": [
+      "Excision Surgery",
+      "Adolescent Endo",
+      "Fertility Preservation"
+    ],
+    "ins": "Cleveland Clinic \u2014 major plans",
+    "accepting": true,
+    "notes": "Cleveland Clinic endo specialist with focus on adolescent endo and fertility preservation.",
+    "stars": 5
+  },
+  {
+    "id": "kho-rosanne",
+    "name": "Dr. Rosanne Kho",
+    "fn": "Rosanne",
+    "ln": "Kho",
+    "creds": [
+      "MD"
+    ],
+    "org": "Cleveland Clinic",
+    "city": "Cleveland",
+    "state": "OH",
+    "lat": 41.4993,
+    "lon": -81.6944,
+    "phone": null,
+    "web": "https://my.clevelandclinic.org/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery"
+    ],
+    "ins": "Cleveland Clinic \u2014 major plans",
+    "accepting": true,
+    "notes": "Section head of Benign Gynecology at Cleveland Clinic.",
+    "stars": 5
+  },
+  {
+    "id": "as-sanie-sawsan",
+    "name": "Dr. Sawsan As-Sanie",
+    "fn": "Sawsan",
+    "ln": "As-Sanie",
+    "creds": [
+      "MD",
+      "MPH"
+    ],
+    "org": "Michigan Medicine",
+    "city": "Ann Arbor",
+    "state": "MI",
+    "lat": 42.279,
+    "lon": -83.732,
+    "phone": null,
+    "web": "https://www.uofmhealth.org/",
+    "specs": [
+      "Excision Surgery",
+      "Adolescent Endo",
+      "Fertility Preservation"
+    ],
+    "ins": "U of M \u2014 most major plans",
+    "accepting": true,
+    "notes": "Director of the Michigan Endometriosis Center. Leading researcher in excision outcomes.",
+    "stars": 5
+  },
+  {
+    "id": "kliethermes-christopher",
+    "name": "Dr. Christopher Kliethermes",
+    "fn": "Christopher",
+    "ln": "Kliethermes",
+    "creds": [
+      "MD"
+    ],
+    "org": "Pelvic Rehabilitation Medicine",
+    "city": "Troy",
+    "state": "MI",
+    "lat": 42.606,
+    "lon": -83.145,
+    "phone": null,
+    "web": "https://pelvicrehabilitation.com/request-an-appointment/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Trained under excision experts. Over 700 complex surgeries in the past two years including bowel, bladder, and diaphragm.",
+    "stars": 5
+  },
+  {
+    "id": "denomme-mike",
+    "name": "Dr. Mike Denomme",
+    "fn": "Mike",
+    "ln": "Denomme",
+    "creds": [
+      "MD"
+    ],
+    "org": "Excision Endometriosis Surgery Specialists",
+    "city": "Grand Rapids",
+    "state": "MI",
+    "lat": 42.963,
+    "lon": -85.668,
+    "phone": null,
+    "web": "https://www.excisionendometriosis.com/",
+    "specs": [
+      "Excision Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Michigan-based specialist dedicated exclusively to endometriosis excision surgery.",
+    "stars": 5
+  },
+  {
+    "id": "miller-charles",
+    "name": "Dr. Charles Miller",
+    "fn": "Charles",
+    "ln": "Miller",
+    "creds": [
+      "MD"
+    ],
+    "org": "Advocate Lutheran General Hospital",
+    "city": "Chicago",
+    "state": "IL",
+    "lat": 41.8781,
+    "lon": -87.6298,
+    "phone": null,
+    "web": "https://www.advocatehealth.com/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery"
+    ],
+    "ins": "Most major IL plans",
+    "accepting": true,
+    "notes": "Pioneer in minimally invasive gynecologic surgery. Decades of excision expertise.",
+    "stars": 5
+  },
+  {
+    "id": "yeung-patrick",
+    "name": "Dr. Patrick Yeung Jr.",
+    "fn": "Patrick",
+    "ln": "Yeung",
+    "creds": [
+      "MD"
+    ],
+    "org": "SLUCare Physician Group",
+    "city": "St. Louis",
+    "state": "MO",
+    "lat": 38.627,
+    "lon": -90.1994,
+    "phone": null,
+    "web": "https://www.slucare.edu/ob-gyn/",
+    "specs": [
+      "Excision Surgery",
+      "Fertility Preservation",
+      "Adolescent Endo"
+    ],
+    "ins": "SLUCare \u2014 most major plans",
+    "accepting": true,
+    "notes": "One of the most respected excision surgeons in the Midwest. Prolific researcher at Saint Louis University.",
+    "stars": 5
+  },
+  {
+    "id": "dassel-mark",
+    "name": "Dr. Mark Dassel",
+    "fn": "Mark",
+    "ln": "Dassel",
+    "creds": [
+      "MD"
+    ],
+    "org": "Mayo Clinic",
+    "city": "Rochester",
+    "state": "MN",
+    "lat": 44.0234,
+    "lon": -92.4699,
+    "phone": null,
+    "web": "https://www.mayoclinic.org/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery",
+      "Fertility Preservation"
+    ],
+    "ins": "Mayo Clinic \u2014 most major plans",
+    "accepting": true,
+    "notes": "Part of Mayo Clinic's world-renowned gynecology program.",
+    "stars": 5
+  },
+  {
+    "id": "burnett-tatnai",
+    "name": "Dr. Tatnai Burnett",
+    "fn": "Tatnai",
+    "ln": "Burnett",
+    "creds": [
+      "MD"
+    ],
+    "org": "Mayo Clinic",
+    "city": "Rochester",
+    "state": "MN",
+    "lat": 44.023,
+    "lon": -92.47,
+    "phone": null,
+    "web": "https://www.mayoclinic.org/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery"
+    ],
+    "ins": "Mayo Clinic \u2014 most major plans",
+    "accepting": true,
+    "notes": "Mayo Clinic minimally invasive GYN surgeon. Expert in complex excision.",
+    "stars": 5
+  },
+  {
+    "id": "fredericks-natalie",
+    "name": "Dr. Natalie Fredericks",
+    "fn": "Natalie",
+    "ln": "Fredericks",
+    "creds": [
+      "MD"
+    ],
+    "org": "INOVA Health System",
+    "city": "Falls Church",
+    "state": "VA",
+    "lat": 38.8823,
+    "lon": -77.1711,
+    "phone": null,
+    "web": "https://www.inova.org/",
+    "specs": [
+      "Excision Surgery",
+      "Adolescent Endo"
+    ],
+    "ins": "INOVA \u2014 most major plans",
+    "accepting": true,
+    "notes": "Excision specialist with INOVA's minimally invasive GYN surgery program.",
+    "stars": 4
+  },
+  {
+    "id": "prager-sarah",
+    "name": "Dr. Sarah Prager",
+    "fn": "Sarah",
+    "ln": "Prager",
+    "creds": [
+      "MD"
+    ],
+    "org": "OHSU",
+    "city": "Portland",
+    "state": "OR",
+    "lat": 45.5231,
+    "lon": -122.6765,
+    "phone": null,
+    "web": "https://www.ohsu.edu/",
+    "specs": [
+      "Excision Surgery",
+      "Fertility Preservation"
+    ],
+    "ins": "OHSU \u2014 most major plans",
+    "accepting": true,
+    "notes": "OHSU gynecologist specializing in minimally invasive excision and complex pelvic pain.",
+    "stars": 4
+  },
+  {
+    "id": "brenner-amy",
+    "name": "Dr. Amy Brenner",
+    "fn": "Amy",
+    "ln": "Brenner",
+    "creds": [
+      "MD"
+    ],
+    "org": "Virginia Mason",
+    "city": "Seattle",
+    "state": "WA",
+    "lat": 47.6062,
+    "lon": -122.3321,
+    "phone": null,
+    "web": "https://www.virginiamason.org/",
+    "specs": [
+      "Excision Surgery",
+      "Fertility Preservation"
+    ],
+    "ins": "Virginia Mason \u2014 most major WA plans",
+    "accepting": true,
+    "notes": "Excision specialist in the Seattle area. Known for compassionate care and patient advocacy.",
+    "stars": 4
+  },
+  {
+    "id": "mosbrucker-cindy",
+    "name": "Dr. Cindy Mosbrucker",
+    "fn": "Cindy",
+    "ln": "Mosbrucker",
+    "creds": [
+      "MD"
+    ],
+    "org": "Pacific Endometriosis and Pelvic Surgery",
+    "city": "Gig Harbor",
+    "state": "WA",
+    "lat": 47.3337,
+    "lon": -122.5796,
+    "phone": "253-313-5997",
+    "web": "https://www.pacificendo.com/",
+    "specs": [
+      "Excision Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Dedicated endometriosis excision practice in the Pacific Northwest.",
+    "stars": 5
+  },
+  {
+    "id": "nezhat-camran",
+    "name": "Dr. Camran Nezhat",
+    "fn": "Camran",
+    "ln": "Nezhat",
+    "creds": [
+      "MD",
+      "FACOG",
+      "FACS"
+    ],
+    "org": "Camran Nezhat Institute",
+    "city": "Palo Alto",
+    "state": "CA",
+    "lat": 37.4419,
+    "lon": -122.143,
+    "phone": "650-327-8778",
+    "web": "https://www.camrannezhat.com/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery",
+      "Fertility Preservation"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Widely regarded as one of the founders of modern minimally invasive surgery. Over 40 years of excision expertise.",
+    "stars": 5
+  },
+  {
+    "id": "nezhat-azadeh",
+    "name": "Dr. Azadeh Nezhat",
+    "fn": "Azadeh",
+    "ln": "Nezhat",
+    "creds": [
+      "MD"
+    ],
+    "org": "El Camino Health",
+    "city": "Palo Alto",
+    "state": "CA",
+    "lat": 37.4419,
+    "lon": -122.143,
+    "phone": "(650) 327-8778",
+    "web": "https://www.elcaminohealth.org/doctors/azadeh-nezhat",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery",
+      "Fertility Preservation"
+    ],
+    "ins": "El Camino Health \u2014 most major plans",
+    "accepting": true,
+    "notes": "Expert in minimally invasive excision and endometriosis-related infertility. Part of the renowned Nezhat surgical family.",
+    "stars": 5
+  },
+  {
+    "id": "orbuch-iris",
+    "name": "Dr. Iris Orbuch",
+    "fn": "Iris",
+    "ln": "Orbuch",
+    "creds": [
+      "MD"
+    ],
+    "org": "LA Endometriosis",
+    "city": "Los Angeles",
+    "state": "CA",
+    "lat": 34.0522,
+    "lon": -118.2437,
+    "phone": null,
+    "web": "https://www.laendometriosis.com/",
+    "specs": [
+      "Excision Surgery",
+      "Fertility Preservation",
+      "Adolescent Endo"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Author of 'Beating Endo'. Treats complex pelvic pain and adolescent endo.",
+    "stars": 5
+  },
+  {
+    "id": "cook-andrew",
+    "name": "Dr. Andrew Cook",
+    "fn": "Andrew",
+    "ln": "Cook",
+    "creds": [
+      "MD"
+    ],
+    "org": "Vital Health Institute",
+    "city": "Los Gatos",
+    "state": "CA",
+    "lat": 37.2358,
+    "lon": -121.9624,
+    "phone": "408-358-2511",
+    "web": "https://vitalhealthinstitute.com/",
+    "specs": [
+      "Excision Surgery",
+      "Fertility Preservation"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Expert in complex endometriosis excision. Known for treating patients who have had failed prior surgeries.",
+    "stars": 5
+  },
+  {
+    "id": "vasilev-steven",
+    "name": "Dr. Steven Vasilev",
+    "fn": "Steven",
+    "ln": "Vasilev",
+    "creds": [
+      "MD"
+    ],
+    "org": "Providence St. John's Health Center",
+    "city": "Santa Monica",
+    "state": "CA",
+    "lat": 34.019,
+    "lon": -118.492,
+    "phone": null,
+    "web": "https://icarebetter.com/endometriosis/specialist/california/excision-surgery/dr-steven-vasilev/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery"
+    ],
+    "ins": "Providence \u2014 most major plans",
+    "accepting": true,
+    "notes": "iCareBetter-vetted excision specialist. Gynecologic oncologist with deep excision expertise for complex cases.",
+    "stars": 5
+  },
+  {
+    "id": "askari-reza",
+    "name": "Dr. Reza Askari",
+    "fn": "Reza",
+    "ln": "Askari",
+    "creds": [
+      "MD"
+    ],
+    "org": "Pelvic Rehabilitation Medicine",
+    "city": "Los Angeles",
+    "state": "CA",
+    "lat": 34.0522,
+    "lon": -118.2437,
+    "phone": null,
+    "web": "https://pelvicrehabilitation.com/request-an-appointment/",
+    "specs": [
+      "Excision Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Fellowship-trained MIGS surgeon. 150\u2013200 advanced gynecologic surgeries annually.",
+    "stars": 5
+  },
+  {
+    "id": "siedhoff-matthew",
+    "name": "Dr. Matthew Siedhoff",
+    "fn": "Matthew",
+    "ln": "Siedhoff",
+    "creds": [
+      "MD",
+      "MSCR"
+    ],
+    "org": "Cedars-Sinai Medical Center",
+    "city": "Los Angeles",
+    "state": "CA",
+    "lat": 34.075,
+    "lon": -118.38,
+    "phone": null,
+    "web": "https://www.cedars-sinai.org/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery",
+      "Fertility Preservation"
+    ],
+    "ins": "Cedars-Sinai \u2014 most major plans",
+    "accepting": true,
+    "notes": "Chief of MIGS at Cedars-Sinai. Nationally recognized excision specialist and researcher. Former Duke faculty.",
+    "stars": 5
+  },
+  {
+    "id": "wright-kelly",
+    "name": "Dr. Kelly Wright",
+    "fn": "Kelly",
+    "ln": "Wright",
+    "creds": [
+      "MD"
+    ],
+    "org": "Keck Medicine of USC",
+    "city": "Los Angeles",
+    "state": "CA",
+    "lat": 34.0522,
+    "lon": -118.2437,
+    "phone": null,
+    "web": "https://www.keckmedicine.org/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery",
+      "Fertility Preservation"
+    ],
+    "ins": "USC/Keck \u2014 most major plans",
+    "accepting": true,
+    "notes": "USC minimally invasive GYN surgeon specializing in excision and fertility preservation.",
+    "stars": 5
+  },
+  {
+    "id": "williams-stacey",
+    "name": "Dr. Stacey Williams",
+    "fn": "Stacey",
+    "ln": "Williams",
+    "creds": [
+      "MD"
+    ],
+    "org": "Loma Linda University Health",
+    "city": "Loma Linda",
+    "state": "CA",
+    "lat": 34.048,
+    "lon": -117.261,
+    "phone": null,
+    "web": "https://lluh.org/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery"
+    ],
+    "ins": "Loma Linda \u2014 most major plans",
+    "accepting": true,
+    "notes": "Loma Linda University excision specialist serving the Inland Empire.",
+    "stars": 4
+  },
+  {
+    "id": "falcone-tommaso",
+    "name": "Dr. Tommaso Falcone",
+    "fn": "Tommaso",
+    "ln": "Falcone",
+    "creds": [
+      "MD"
+    ],
+    "org": "Cleveland Clinic Colorado",
+    "city": "Denver",
+    "state": "CO",
+    "lat": 39.7392,
+    "lon": -104.9903,
+    "phone": null,
+    "web": "https://my.clevelandclinic.org/",
+    "specs": [
+      "Excision Surgery",
+      "Fertility Preservation"
+    ],
+    "ins": "Cleveland Clinic \u2014 major plans",
+    "accepting": true,
+    "notes": "Past president of AAGL. Internationally respected with decades of excision expertise.",
+    "stars": 5
+  },
+  {
+    "id": "hibner-michael",
+    "name": "Dr. Michael Hibner",
+    "fn": "Michael",
+    "ln": "Hibner",
+    "creds": [
+      "MD"
+    ],
+    "org": "Dignity Health \u2014 St. Joseph's Hospital",
+    "city": "Phoenix",
+    "state": "AZ",
+    "lat": 33.4942,
+    "lon": -111.9261,
+    "phone": "602-406-7564",
+    "web": "https://www.dignityhealth.org/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery"
+    ],
+    "ins": "Most major AZ plans",
+    "accepting": true,
+    "notes": "One of Arizona's most experienced excision surgeons. Expert in pelvic nerve pain and complex endo.",
+    "stars": 5
+  },
+  {
+    "id": "marchand-greg",
+    "name": "Dr. Greg Marchand",
+    "fn": "Greg",
+    "ln": "Marchand",
+    "creds": [
+      "MD",
+      "FACOG",
+      "FACS"
+    ],
+    "org": "Marchand Women's Health",
+    "city": "Gilbert",
+    "state": "AZ",
+    "lat": 33.352,
+    "lon": -111.789,
+    "phone": "(480) 493-1010",
+    "web": "https://www.marchwomenshealth.com/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery"
+    ],
+    "ins": "Most major AZ plans \u2014 verify directly",
+    "accepting": true,
+    "notes": "Founder of Marchand Women's Health. Prolific excision surgeon, researcher, and author of peer-reviewed endo papers.",
+    "stars": 5
+  },
+  {
+    "id": "alaniz-veronica",
+    "name": "Dr. Veronica Alaniz",
+    "fn": "Veronica",
+    "ln": "Alaniz",
+    "creds": [
+      "MD"
+    ],
+    "org": "Mayo Clinic Arizona",
+    "city": "Scottsdale",
+    "state": "AZ",
+    "lat": 33.4942,
+    "lon": -111.9261,
+    "phone": null,
+    "web": "https://www.mayoclinic.org/",
+    "specs": [
+      "Excision Surgery",
+      "Adolescent Endo"
+    ],
+    "ins": "Mayo Clinic \u2014 most major plans",
+    "accepting": true,
+    "notes": "Part of Mayo Clinic Arizona's women's health program.",
+    "stars": 5
+  },
+  {
+    "id": "martin-dan",
+    "name": "Dr. Dan Martin",
+    "fn": "Dan",
+    "ln": "Martin",
+    "creds": [
+      "MD"
+    ],
+    "org": "Reproductive Fertility Center",
+    "city": "Memphis",
+    "state": "TN",
+    "lat": 35.1495,
+    "lon": -90.049,
+    "phone": null,
+    "web": "https://www.endometriosis.org/",
+    "specs": [
+      "Excision Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Pioneering endometriosis researcher who helped establish excision as the gold standard globally.",
+    "stars": 5
+  },
+  {
+    "id": "robinson-james",
+    "name": "Dr. James Robinson",
+    "fn": "James",
+    "ln": "Robinson",
+    "creds": [
+      "MD"
+    ],
+    "org": "Tulane Medical Center",
+    "city": "New Orleans",
+    "state": "LA",
+    "lat": 29.9511,
+    "lon": -90.0715,
+    "phone": null,
+    "web": "https://medicine.tulane.edu/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery"
+    ],
+    "ins": "Tulane \u2014 most major plans",
+    "accepting": true,
+    "notes": "Tulane University minimally invasive GYN surgeon. Expert in laparoscopic and robotic excision.",
+    "stars": 4
+  },
+  {
+    "id": "winer-wendy",
+    "name": "Dr. Wendy Winer",
+    "fn": "Wendy",
+    "ln": "Winer",
+    "creds": [
+      "MD"
+    ],
+    "org": "Winer Women's Health",
+    "city": "Plantation",
+    "state": "FL",
+    "lat": 26.126,
+    "lon": -80.234,
+    "phone": null,
+    "web": "https://www.winerwomenshealth.com/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "South Florida excision specialist. Known for treating patients who had failed prior ablation surgeries.",
+    "stars": 5
+  },
+  {
+    "id": "ramirez-alejandro",
+    "name": "Dr. Alejandro Ramirez",
+    "fn": "Alejandro",
+    "ln": "Ramirez",
+    "creds": [
+      "MD"
+    ],
+    "org": "Florida Endo Institute",
+    "city": "Miami",
+    "state": "FL",
+    "lat": 25.7617,
+    "lon": -80.1918,
+    "phone": null,
+    "web": "https://www.floridaendo.com/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Miami-based excision specialist with focus on complex endometriosis and robotic approaches.",
+    "stars": 4
+  },
+  {
+    "id": "hansen-keith",
+    "name": "Dr. Keith Hansen",
+    "fn": "Keith",
+    "ln": "Hansen",
+    "creds": [
+      "MD"
+    ],
+    "org": "University of Utah Health",
+    "city": "Salt Lake City",
+    "state": "UT",
+    "lat": 40.7608,
+    "lon": -111.891,
+    "phone": null,
+    "web": "https://healthcare.utah.edu/",
+    "specs": [
+      "Excision Surgery",
+      "Fertility Preservation"
+    ],
+    "ins": "U of Utah Health \u2014 major plans",
+    "accepting": true,
+    "notes": "University of Utah minimally invasive GYN surgeon with expertise in endometriosis excision.",
+    "stars": 4
+  },
+  {
+    "id": "advincula-arnold",
+    "name": "Dr. Arnold Advincula",
+    "fn": "Arnold",
+    "ln": "Advincula",
+    "creds": [
+      "MD"
+    ],
+    "org": "Columbia University Medical Center",
+    "city": "New York",
+    "state": "NY",
+    "lat": 40.8401,
+    "lon": -73.9441,
+    "phone": null,
+    "web": "https://www.columbiadoctors.org/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Pioneer in robotic-assisted gynecologic surgery. Internationally known educator in excision techniques.",
+    "stars": 5
+  },
+  {
+    "id": "keckstein-jorg",
+    "name": "Dr. J\u00f6rg Keckstein",
+    "fn": "J\u00f6rg",
+    "ln": "Keckstein",
+    "creds": [
+      "MD"
+    ],
+    "org": "Endometriosis Center Villach",
+    "city": "Villach",
+    "state": "International",
+    "lat": 46.611,
+    "lon": 13.856,
+    "phone": null,
+    "web": "https://www.endometriose-klinik.at/",
+    "specs": [
+      "Excision Surgery",
+      "Robotic Surgery"
+    ],
+    "ins": "International \u2014 verify directly",
+    "accepting": true,
+    "notes": "One of Europe's most celebrated excision surgeons. US patients travel internationally for complex deep infiltrating endo.",
+    "stars": 5
+  }
+]
