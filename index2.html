@@ -586,10 +586,11 @@ async function loadGoldSilver() {
 // ── 8. Stocks ─────────────────────────────────────────────────
 async function loadStocks() {
     var PX = 'https://api.allorigins.win/raw?url=';
+
     async function yq(sym) {
         try {
             var url  = 'https://query1.finance.yahoo.com/v8/finance/chart/' +
-                       encodeURIComponent(sym) + '?interval=1d&range=2d';
+                       encodeURIComponent(sym) + '?interval=1d&range=5d';
             var r    = await fetch(PX + encodeURIComponent(url));
             if (!r.ok) throw new Error('HTTP ' + r.status);
             var json = JSON.parse(await r.text());
@@ -597,27 +598,64 @@ async function loadStocks() {
             if (!meta || !meta.regularMarketPrice) throw new Error('No price');
             var price = meta.regularMarketPrice;
             var prev  = meta.previousClose || meta.chartPreviousClose || price;
-            return { price: price, chg: ((price-prev)/prev)*100, mc: meta.marketCap || 0 };
+            var mc    = meta.marketCap || 0;
+            if (!mc && meta.sharesOutstanding) mc = price * meta.sharesOutstanding;
+            var state = meta.marketState || 'REGULAR';
+            return { price: price, chg: ((price-prev)/prev)*100, mc: mc, state: state };
         } catch(e) { console.warn('yq ' + sym + ':', e.message); return null; }
     }
 
-    // Indices — confirmed working symbols
-    var idx = [
-        { id:'sp500',     sym:'^GSPC' },
-        { id:'dow',       sym:'^DJI'  },
-        { id:'ftse100',   sym:'^FTSE' },
-        { id:'nikkei225', sym:'^N225' },
-    ];
-    for (var i = 0; i < idx.length; i++) {
-        var q = await yq(idx[i].sym);
-        if (q) setVal(idx[i].id, fmt(q.price,0)+' ('+sign(q.chg)+fmt(q.chg,2)+'%)', colorChg(q.chg));
-        else   setNA(idx[i].id);
+    // Format index value with market state label
+    function fmtIdx(q, tag) {
+        var s = fmt(q.price,0) + ' (' + sign(q.chg) + fmt(q.chg,2) + '%)';
+        if (tag) s += ' [' + tag + ']';
+        else if (q.state === 'POST' || q.state === 'CLOSED') s += ' [after-hrs]';
+        else if (q.state === 'PRE') s += ' [pre-mkt]';
+        return { text: s, cls: colorChg(q.chg) };
     }
+
+    // S&P 500 — during market hours use ^GSPC; after hours prefer ES=F futures
+    var spLive = await yq('^GSPC');
+    var spFut  = null;
+    var spFinal = null;
+    if (spLive && spLive.price > 0) {
+        if (spLive.state !== 'REGULAR') {
+            spFut = await yq('ES=F');
+        }
+        spFinal = spFut || spLive;
+        var tag = spFut ? 'futures' : null;
+        var f = fmtIdx(spFinal, tag); setVal('sp500', f.text, f.cls);
+    } else {
+        spFut = await yq('ES=F');
+        if (spFut) { spFinal = spFut; var f = fmtIdx(spFut, 'futures'); setVal('sp500', f.text, f.cls); }
+        else setNA('sp500');
+    }
+
+    // DOW — same pattern with YM=F futures
+    var dowLive = await yq('^DJI');
+    var dowFinal = null;
+    if (dowLive && dowLive.price > 0) {
+        if (dowLive.state !== 'REGULAR') {
+            var dowFut = await yq('YM=F');
+            if (dowFut) { dowFinal = dowFut; var f = fmtIdx(dowFut, 'futures'); setVal('dow', f.text, f.cls); }
+            else { dowFinal = dowLive; var f = fmtIdx(dowLive, null); setVal('dow', f.text, f.cls); }
+        } else { dowFinal = dowLive; var f = fmtIdx(dowLive, null); setVal('dow', f.text, f.cls); }
+    } else {
+        var dowFut = await yq('YM=F');
+        if (dowFut) { dowFinal = dowFut; var f = fmtIdx(dowFut, 'futures'); setVal('dow', f.text, f.cls); }
+        else setNA('dow');
+    }
+
+    // FTSE + Nikkei
+    var ftseq = await yq('^FTSE');
+    if (ftseq) { var f = fmtIdx(ftseq, null); setVal('ftse100', f.text, f.cls); } else setNA('ftse100');
+    var nkq = await yq('^N225');
+    if (nkq) { var f = fmtIdx(nkq, null); setVal('nikkei225', f.text, f.cls); } else setNA('nikkei225');
 
     // Bond
     var bq = await yq('^TNX');
     if (bq) setVal('bond10yr', fmt(bq.price,3)+'% ('+sign(bq.chg)+fmt(bq.chg,2)+'%)', colorChg(bq.chg));
-    else    setNA('bond10yr');
+    else setNA('bond10yr');
 
     // Forex
     try {
@@ -628,35 +666,30 @@ async function loadStocks() {
         setVal('eurusd', d.rates.EUR ? fmt(1/d.rates.EUR, 4) : 'N/A');
     } catch(e) { setNA('gbpusd'); setNA('eurusd'); }
 
-    // Mag 7 — use the same v8/chart endpoint (confirmed working for indices)
-    // but request longer range so marketCap is populated
+    // Mag 7 — parallel, total MC + weighted 24hr change
     var mag7syms = ['AAPL','AMZN','GOOGL','META','MSFT','NVDA','TSLA'];
-    async function yqMC(sym) {
-        try {
-            // v8 chart with range=5d reliably populates marketCap in meta
-            var url  = 'https://query1.finance.yahoo.com/v8/finance/chart/' +
-                       sym + '?interval=1d&range=5d&includePrePost=false';
-            var r    = await fetch(PX + encodeURIComponent(url));
-            if (!r.ok) throw new Error('HTTP ' + r.status);
-            var json = JSON.parse(await r.text());
-            var meta = json.chart && json.chart.result && json.chart.result[0] && json.chart.result[0].meta;
-            if (!meta) throw new Error('No meta');
-            // marketCap may be in meta directly, or compute from price * sharesOutstanding
-            var mc = meta.marketCap || 0;
-            if (!mc && meta.regularMarketPrice && meta.sharesOutstanding) {
-                mc = meta.regularMarketPrice * meta.sharesOutstanding;
-            }
-            if (!mc) throw new Error('No market cap data');
-            return mc;
-        } catch(e) { console.warn('yqMC ' + sym + ':', e.message); return 0; }
-    }
-    var mcResults = await Promise.all(mag7syms.map(yqMC));
-    var total = 0, hits = 0;
-    mcResults.forEach(function(mc) { if (mc > 0) { total += mc; hits++; } });
-    console.log('Mag7 hits:', hits, 'total:', total);
+    var mag7res = await Promise.all(mag7syms.map(function(s){ return yq(s); }));
+    var totalMC = 0, prevTotalMC = 0, hits = 0;
+    mag7res.forEach(function(q) {
+        if (q && q.mc > 0) {
+            totalMC     += q.mc;
+            prevTotalMC += q.mc / (1 + q.chg / 100);
+            hits++;
+        }
+    });
+    console.log('Mag7 hits:', hits, '$T:', (totalMC/1e12).toFixed(2));
     if (hits >= 5) {
-        setVal('mag7',  '$' + fmt(total/1e12, 2) + 'T');
-        setVal('sp493', '$' + fmt((45e12-total)/1e12, 2) + 'T (est.)');
+        var mag7chg = ((totalMC - prevTotalMC) / prevTotalMC) * 100;
+        setVal('mag7', '$' + fmt(totalMC/1e12, 2) + 'T (' + sign(mag7chg) + fmt(mag7chg,2) + '%)', colorChg(mag7chg));
+        // S&P 493 = S&P 500 total MC - Mag7 MC
+        // S&P 500 total MC calibrated: ~$59T at index 6,850 → multiplier ~$8.6B/point
+        var spPx = spFinal ? spFinal.price : 0;
+        var sp500MC = spPx * 8.6e9;
+        if (sp500MC > 0 && sp500MC > totalMC) {
+            var sp493MC  = sp500MC - totalMC;
+            var sp493chg = spFinal ? spFinal.chg : 0;
+            setVal('sp493', '$' + fmt(sp493MC/1e12, 2) + 'T (' + sign(sp493chg) + fmt(sp493chg,2) + '%) est.', colorChg(sp493chg));
+        } else setNA('sp493');
     } else {
         setNA('mag7'); setNA('sp493');
     }
