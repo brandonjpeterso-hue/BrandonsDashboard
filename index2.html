@@ -666,23 +666,18 @@ async function loadStocks() {
         setVal('eurusd', d.rates.EUR ? fmt(1/d.rates.EUR, 4) : 'N/A');
     } catch(e) { setNA('gbpusd'); setNA('eurusd'); }
 
-    // Mag 7 — use multiple different proxies to avoid per-proxy rate limits
-    var proxies = [
-        'https://corsproxy.io/?',
-        'https://api.allorigins.win/raw?url=',
-        'https://api.codetabs.com/v1/proxy?quest=',
-    ];
+    // Mag 7 — allorigins only (other proxies blocked), staggered 400ms apart to avoid rate limit
     var mag7shares = {
         'AAPL':15.2e9,'AMZN':10.5e9,'GOOGL':12.2e9,
         'META':2.57e9,'MSFT':7.43e9,'NVDA':24.4e9,'TSLA':3.2e9
     };
     var mag7syms = ['AAPL','AMZN','GOOGL','META','MSFT','NVDA','TSLA'];
 
-    async function yqMag7(sym, idx) {
-        var px  = proxies[idx % proxies.length];
+    async function yqMag7(sym, delayMs) {
+        if (delayMs) await sleep(delayMs);
         var url = 'https://query1.finance.yahoo.com/v8/finance/chart/' + sym + '?interval=1d&range=5d';
         try {
-            var r = await fetch(px + encodeURIComponent(url));
+            var r = await fetch(PX + encodeURIComponent(url));
             if (!r.ok) throw new Error('HTTP ' + r.status);
             var j    = JSON.parse(await r.text());
             var meta = j.chart && j.chart.result && j.chart.result[0] && j.chart.result[0].meta;
@@ -692,18 +687,14 @@ async function loadStocks() {
             var mc    = meta.marketCap
                      || (meta.sharesOutstanding ? meta.sharesOutstanding * price : 0)
                      || (mag7shares[sym] * price);
-            return { sym:sym, price:price, chg:((price-prev)/prev)*100, mc:mc, px: px.split('//')[1].split('/')[0] };
+            return { sym:sym, price:price, chg:((price-prev)/prev)*100, mc:mc };
         } catch(e) {
-            // Try next proxy automatically
-            if (idx + 1 < proxies.length * 2) {
-                return yqMag7(sym, idx + proxies.length);
-            }
-            return { sym:sym, err: e.message };
+            return { sym:sym, err:e.message };
         }
     }
 
-    // Spread across proxies: 0,1,2,0,1,2,0
-    var mag7res = await Promise.all(mag7syms.map(function(s, i){ return yqMag7(s, i); }));
+    // Stagger: 0, 400, 800, 1200, 1600, 2000, 2400ms
+    var mag7res = await Promise.all(mag7syms.map(function(s, i){ return yqMag7(s, i * 400); }));
     var totalMC = 0, prevTotalMC = 0, hits = 0;
     var mag7diag = [];
     mag7res.forEach(function(q) {
@@ -712,8 +703,8 @@ async function loadStocks() {
             totalMC     += q.mc;
             prevTotalMC += q.mc / (1 + q.chg/100);
             hits++;
-            mag7diag.push(q.sym+':$'+(q.mc/1e12).toFixed(2)+'T@'+q.px);
-        } else { mag7diag.push(q.sym+':mc0'); }
+            mag7diag.push(q.sym+':$'+(q.mc/1e12).toFixed(2)+'T');
+        } else { mag7diag.push(q.sym+':mc0@'+q.price); }
     });
 
     if (hits >= 5) {
