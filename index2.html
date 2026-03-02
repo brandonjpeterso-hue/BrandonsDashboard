@@ -675,26 +675,31 @@ async function loadStocks() {
 
     async function yqMag7(sym, delayMs) {
         if (delayMs) await sleep(delayMs);
-        var url = 'https://query1.finance.yahoo.com/v8/finance/chart/' + sym + '?interval=1d&range=5d';
-        try {
-            var r = await fetch(PX + encodeURIComponent(url));
-            if (!r.ok) throw new Error('HTTP ' + r.status);
-            var j    = JSON.parse(await r.text());
-            var meta = j.chart && j.chart.result && j.chart.result[0] && j.chart.result[0].meta;
-            if (!meta || !meta.regularMarketPrice) throw new Error('no price');
-            var price = meta.regularMarketPrice;
-            var prev  = meta.previousClose || meta.chartPreviousClose || price;
-            var mc    = meta.marketCap
-                     || (meta.sharesOutstanding ? meta.sharesOutstanding * price : 0)
-                     || (mag7shares[sym] * price);
-            return { sym:sym, price:price, chg:((price-prev)/prev)*100, mc:mc };
-        } catch(e) {
-            return { sym:sym, err:e.message };
+        // Try query1 first, then query2 (Yahoo load-balances across servers)
+        var servers = ['query1', 'query2'];
+        for (var si = 0; si < servers.length; si++) {
+            var url = 'https://' + servers[si] + '.finance.yahoo.com/v8/finance/chart/' + sym + '?interval=1d&range=5d';
+            try {
+                var r = await fetch(PX + encodeURIComponent(url));
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                var j    = JSON.parse(await r.text());
+                var meta = j.chart && j.chart.result && j.chart.result[0] && j.chart.result[0].meta;
+                if (!meta || !meta.regularMarketPrice) throw new Error('no price');
+                var price = meta.regularMarketPrice;
+                var prev  = meta.previousClose || meta.chartPreviousClose || price;
+                var mc    = meta.marketCap
+                         || (meta.sharesOutstanding ? meta.sharesOutstanding * price : 0)
+                         || (mag7shares[sym] * price);
+                return { sym:sym, price:price, chg:((price-prev)/prev)*100, mc:mc, srv:servers[si] };
+            } catch(e) {
+                if (si === servers.length - 1) return { sym:sym, err:e.message };
+                await sleep(500);
+            }
         }
     }
 
-    // Stagger: 0, 400, 800, 1200, 1600, 2000, 2400ms
-    var mag7res = await Promise.all(mag7syms.map(function(s, i){ return yqMag7(s, i * 400); }));
+    // Stagger: 0, 1000, 2000, 3000, 4000, 5000, 6000ms — 1 per second
+    var mag7res = await Promise.all(mag7syms.map(function(s, i){ return yqMag7(s, i * 1000); }));
     var totalMC = 0, prevTotalMC = 0, hits = 0;
     var mag7diag = [];
     mag7res.forEach(function(q) {
@@ -703,7 +708,7 @@ async function loadStocks() {
             totalMC     += q.mc;
             prevTotalMC += q.mc / (1 + q.chg/100);
             hits++;
-            mag7diag.push(q.sym+':$'+(q.mc/1e12).toFixed(2)+'T');
+            mag7diag.push(q.sym+':$'+(q.mc/1e12).toFixed(2)+'T('+q.srv+')');
         } else { mag7diag.push(q.sym+':mc0@'+q.price); }
     });
 
