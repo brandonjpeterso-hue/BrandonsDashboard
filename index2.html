@@ -666,24 +666,42 @@ async function loadStocks() {
         setVal('eurusd', d.rates.EUR ? fmt(1/d.rates.EUR, 4) : 'N/A');
     } catch(e) { setNA('gbpusd'); setNA('eurusd'); }
 
-    // Mag 7 — parallel, total MC + weighted 24hr change
+    // Mag 7 — sequential with per-stock diagnostics shown in UI
     var mag7syms = ['AAPL','AMZN','GOOGL','META','MSFT','NVDA','TSLA'];
-    var mag7res = await Promise.all(mag7syms.map(function(s){ return yq(s); }));
     var totalMC = 0, prevTotalMC = 0, hits = 0;
-    mag7res.forEach(function(q) {
-        if (q && q.mc > 0) {
-            totalMC     += q.mc;
-            prevTotalMC += q.mc / (1 + q.chg / 100);
+    var mag7diag = [];
+
+    for (var mi = 0; mi < mag7syms.length; mi++) {
+        var sym = mag7syms[mi];
+        try {
+            // Try v8 chart endpoint first
+            var url1 = 'https://query1.finance.yahoo.com/v8/finance/chart/' + sym + '?interval=1d&range=5d';
+            var r1 = await fetch(PX + encodeURIComponent(url1));
+            if (!r1.ok) throw new Error('v8 HTTP ' + r1.status);
+            var j1   = JSON.parse(await r1.text());
+            var meta = j1.chart && j1.chart.result && j1.chart.result[0] && j1.chart.result[0].meta;
+            if (!meta) throw new Error('v8 no meta');
+            var price = meta.regularMarketPrice;
+            if (!price) throw new Error('v8 no price');
+            var prev  = meta.previousClose || meta.chartPreviousClose || price;
+            var mc    = meta.marketCap || 0;
+            if (!mc && meta.sharesOutstanding) mc = price * meta.sharesOutstanding;
+            if (!mc) throw new Error('v8 price=' + price.toFixed(0) + ' but mc=0, sharesOut=' + (meta.sharesOutstanding||'undef'));
+            totalMC     += mc;
+            prevTotalMC += mc / (1 + ((price-prev)/prev));
             hits++;
+            mag7diag.push(sym + ':$' + (mc/1e12).toFixed(2) + 'T');
+        } catch(e) {
+            mag7diag.push(sym + ':ERR(' + e.message + ')');
         }
-    });
-    console.log('Mag7 hits:', hits, '$T:', (totalMC/1e12).toFixed(2));
+    }
+
+    // Show diagnostic string in UI so you can see exactly what failed
+    var diagStr = hits + '/7 | ' + mag7diag.join(' | ');
     if (hits >= 5) {
         var mag7chg = ((totalMC - prevTotalMC) / prevTotalMC) * 100;
-        setVal('mag7', '$' + fmt(totalMC/1e12, 2) + 'T (' + sign(mag7chg) + fmt(mag7chg,2) + '%)', colorChg(mag7chg));
-        // S&P 493 = S&P 500 total MC - Mag7 MC
-        // S&P 500 total MC calibrated: ~$59T at index 6,850 → multiplier ~$8.6B/point
-        var spPx = spFinal ? spFinal.price : 0;
+        setVal('mag7', '$' + fmt(totalMC/1e12, 2) + 'T (' + sign(mag7chg) + fmt(mag7chg,2) + '%)');
+        var spPx    = spFinal ? spFinal.price : 0;
         var sp500MC = spPx * 8.6e9;
         if (sp500MC > 0 && sp500MC > totalMC) {
             var sp493MC  = sp500MC - totalMC;
@@ -691,7 +709,13 @@ async function loadStocks() {
             setVal('sp493', '$' + fmt(sp493MC/1e12, 2) + 'T (' + sign(sp493chg) + fmt(sp493chg,2) + '%) est.', colorChg(sp493chg));
         } else setNA('sp493');
     } else {
-        setNA('mag7'); setNA('sp493');
+        // Show the full diagnostic breakdown so we can see what's failing
+        var el = document.getElementById('mag7');
+        el.textContent = diagStr;
+        el.className = 'value na';
+        el.style.fontSize = '0.65em';
+        el.style.wordBreak = 'break-all';
+        setNA('sp493');
     }
 }
 
