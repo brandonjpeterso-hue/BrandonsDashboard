@@ -1,0 +1,1923 @@
+<!DOCTYPE html>
+<html lang="en" style="background:#0d0607;color:#ffffff;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0d0607">
+<title>Glass Ops Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link media="print" onload="this.media='all'" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500&display=swap">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500&display=swap"></noscript>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+  html { background: #0d0607 !important; color-scheme: dark; -webkit-text-size-adjust: 100%; }
+  body { background: #0d0607 !important; color: #ffffff !important; margin: 0; padding: 0; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  html, body, main, nav, header, footer { background-color: #0d0607; }
+
+  :root {
+    --bg-primary: #0d0607;
+    --bg-secondary: #150b0d;
+    --bg-card: #1a0f12;
+    --bg-card-hover: #241419;
+    --border: #3d1e25;
+    --border-bright: #6e2d3a;
+    --accent: #DC2626;
+    --accent-dim: #991B1B;
+    --accent-glow: rgba(220,38,38,0.06);
+    --accent-light: #F87171;
+    --caution: #f59e0b;
+    --caution-dim: #b45309;
+    --green: #2edb6e;
+    --green-dim: #17914a;
+    --red: #f25555;
+    --red-dim: #b02020;
+    --text-primary: #ffffff;
+    --text-secondary: #e8c2c8;
+    --text-dim: #aa6b78;
+    --mono: 'Share Tech Mono', 'Courier New', Courier, monospace;
+    --display: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+    --body: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d0607; color: #fff; font-family: var(--body); font-size: 19px; overflow-x: hidden; }
+
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+    pointer-events: none; z-index: 1000;
+  }
+  body::after {
+    content: ''; position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: 0.4; pointer-events: none; z-index: 999;
+  }
+
+  header {
+    display: flex; align-items: center; justify-content: space-between; padding: 18px 32px;
+    border-bottom: 2px solid var(--accent);
+    background: linear-gradient(180deg, rgba(220,38,38,0.12) 0%, rgba(13,6,7,0.98) 100%);
+    position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px);
+    box-shadow: none;
+  }
+  .logo-block { display: flex; align-items: center; gap: 16px; }
+  .logo-icon {
+    width: 36px; height: 36px; border: 2px solid var(--accent);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3px; padding: 4px;
+    animation: pulse-border 3s ease-in-out infinite;
+  }
+  .logo-icon span { background: var(--accent); display: block; }
+  .logo-icon span:nth-child(2) { background: var(--accent-dim); }
+  .logo-icon span:nth-child(3) { background: var(--accent-dim); }
+  @keyframes pulse-border {
+    0%, 100% { box-shadow: none; }
+    50% { box-shadow: none; }
+  }
+  .logo-text { font-family: var(--display); font-weight: 900; font-size: 30px; letter-spacing: 4px; text-transform: uppercase; color: var(--text-primary); line-height: 1.1; }
+  .logo-sub { font-family: var(--mono); font-size: 13px; color: var(--accent); letter-spacing: 3px; text-transform: uppercase; opacity: 0.85; }
+  .header-right { display: flex; align-items: center; gap: 28px; }
+  .live-indicator { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 15px; color: var(--green); letter-spacing: 3px; font-weight: bold; }
+  .live-dot { width: 11px; height: 11px; background: var(--green); border-radius: 50%; animation: blink 1.5s ease-in-out infinite; box-shadow: 0 0 10px var(--green); }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+  #clock { font-family: var(--mono); letter-spacing: 2px; }
+  .states-badge { font-family: var(--mono); font-size: 13px; color: var(--accent); border: 1px solid var(--accent); padding: 6px 14px; letter-spacing: 1px; background: rgba(220,38,38,0.07); white-space: nowrap; }
+
+  nav { display: flex; gap: 0; border-bottom: 1px solid #3d1e25; padding: 0 32px; background: #150b0d; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  nav::-webkit-scrollbar { display: none; }
+  .tab { font-family: var(--display); font-weight: 600; font-size: 17px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); padding: 14px 26px; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; background: none; border-top: none; border-left: none; border-right: none; white-space: nowrap; -webkit-tap-highlight-color: transparent; }
+  .tab:hover { color: var(--text-secondary); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  main { padding: 24px 32px; max-width: 1600px; margin: 0 auto; background: #0d0607; min-height: calc(100vh - 120px); }
+  .section { display: none; background: #0d0607; }
+  .section.active { display: block; }
+
+  .status-bar { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+  .status-pill { font-family: var(--mono); font-size: 14px; letter-spacing: 1.5px; padding: 7px 16px; border: 1px solid var(--border-bright); background: var(--bg-card); color: var(--text-secondary); display: flex; align-items: center; gap: 8px; }
+  .status-pill .dot { width: 8px; height: 8px; border-radius: 50%; background: #2edb6e; flex-shrink: 0; }
+  .status-pill .dot.warn { background: #f59e0b; }
+  .status-pill .dot.off { background: var(--text-dim); }
+
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px; }
+  .grid-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .col-span-2 { grid-column: span 2; } .col-span-3 { grid-column: span 3; } .col-span-4 { grid-column: span 4; }
+
+  .card { background: var(--bg-card); border: 1px solid var(--border); padding: 20px; position: relative; overflow: hidden; transition: border-color 0.2s, background 0.2s; }
+  .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent-dim), transparent); opacity: 0.5; }
+  .card:hover { border-color: var(--border-bright); background: var(--bg-card-hover); }
+  .card-label { font-family: var(--mono); font-size: 16px; letter-spacing: 3px; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; }
+  .card-label .unit { color: var(--accent); font-size: 15px; }
+  .card-value { font-family: var(--display); font-size: 58px; font-weight: 700; line-height: 1; color: var(--text-primary); margin-bottom: 8px; }
+  .card-value.large { font-size: 70px; } .card-value.small { font-size: 42px; }
+  .card-sub { font-family: var(--mono); font-size: 16px; color: var(--text-secondary); letter-spacing: 1px; }
+  .card-delta { font-family: var(--mono); font-size: 16px; margin-top: 6px; }
+  .card-delta.up { color: var(--red); } .card-delta.down { color: var(--green); } .card-delta.neutral { color: var(--text-dim); }
+
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  .section-title { font-family: var(--display); font-weight: 900; font-size: 40px; letter-spacing: 3px; text-transform: uppercase; color: var(--text-primary); }
+  .section-title span { color: var(--accent); }
+  .section-meta { font-family: var(--mono); font-size: 16px; color: var(--text-dim); letter-spacing: 2px; }
+  .refresh-btn { margin-left: auto; background: none; border: 1px solid var(--border-bright); color: var(--text-secondary); font-family: var(--mono); font-size: 15px; letter-spacing: 2px; padding: 8px 16px; cursor: pointer; transition: all 0.2s; text-transform: uppercase; }
+  .refresh-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .chart-card { background: var(--bg-card); border: 1px solid var(--border); padding: 20px; position: relative; }
+  .chart-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent-dim), transparent); opacity: 0.5; }
+  .chart-title { font-family: var(--display); font-weight: 700; font-size: 26px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-primary); margin-bottom: 4px; }
+  .chart-subtitle { font-family: var(--mono); font-size: 15px; color: var(--text-secondary); letter-spacing: 1.5px; margin-bottom: 18px; }
+
+  .state-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 16px; }
+  .state-table th { font-family: var(--display); font-weight: 600; font-size: 15px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-secondary); text-align: left; padding: 10px 16px; border-bottom: 1px solid var(--border-bright); }
+  .state-table td { padding: 13px 16px; border-bottom: 1px solid rgba(61,30,37,0.6); color: var(--text-secondary); transition: background 0.15s; }
+  .state-table tr:hover td { background: rgba(220,38,38,0.04); }
+  .state-table .state-name { color: var(--text-primary); font-family: var(--display); font-weight: 600; font-size: 18px; letter-spacing: 1px; }
+  .state-table .val-highlight { color: var(--accent); font-weight: bold; }
+  .state-table .val-high { color: var(--red); } .state-table .val-low { color: var(--green); }
+  .bar-cell { display: flex; align-items: center; gap: 8px; }
+  .mini-bar { height: 6px; background: var(--border); flex: 1; max-width: 80px; position: relative; overflow: hidden; }
+  .mini-bar-fill { height: 100%; background: var(--accent); transition: width 1s ease; }
+  .mini-bar-fill.high { background: var(--red); } .mini-bar-fill.low { background: var(--green); } .mini-bar-fill.med { background: var(--accent); }
+
+  .grid-status-card { background: var(--bg-card) !important; border: 1px solid var(--border) !important; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+  .grid-region-name { font-family: var(--display); font-weight: 700; font-size: 25px; letter-spacing: 2px; text-transform: uppercase; }
+  .grid-states-covered { font-family: var(--mono); font-size: 14px; color: var(--text-secondary); letter-spacing: 1px; }
+  .grid-load-bar { height: 8px; background: var(--border); position: relative; overflow: hidden; }
+  .grid-load-fill { height: 100%; transition: width 1.5s ease; position: relative; }
+  .grid-load-fill::after { content: ''; position: absolute; right: 0; top: -2px; bottom: -2px; width: 3px; background: white; opacity: 0.8; box-shadow: 0 0 6px white; }
+  .grid-load-fill.normal { background: linear-gradient(90deg, #17914a, #2edb6e); }
+  .grid-load-fill.elevated { background: linear-gradient(90deg, #b45309, #f59e0b); }
+  .grid-load-fill.high { background: linear-gradient(90deg, #b02020, #f25555); }
+  .grid-metrics { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 15px; color: var(--text-secondary); }
+  .grid-metrics .metric-val { color: var(--text-primary); font-size: 20px; display: block; }
+  .grid-link { font-family: var(--mono); font-size: 14px; color: var(--accent); text-decoration: none; letter-spacing: 1.5px; border: 1px solid var(--accent-dim); padding: 7px 14px; display: inline-block; transition: all 0.2s; text-transform: uppercase; }
+  .grid-link:hover { background: var(--accent-glow); border-color: var(--accent); }
+
+  .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .news-card { background: var(--bg-card) !important; border: 1px solid var(--border) !important; padding: 16px; display: flex; flex-direction: column; gap: 10px; transition: all 0.2s; text-decoration: none; color: inherit; position: relative; overflow: hidden; }
+  .news-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-dim), transparent); transform: scaleX(0); transition: transform 0.3s; }
+  .news-card:hover { border-color: var(--border-bright) !important; background: var(--bg-card-hover) !important; }
+  .news-card:hover::after { transform: scaleX(1); }
+  .news-source { font-family: var(--mono); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); }
+  .news-title { font-family: var(--display); font-weight: 600; font-size: 21px; line-height: 1.3; color: var(--text-primary); }
+  .news-desc { font-size: 16px; color: var(--text-secondary); line-height: 1.6; flex: 1; }
+  .news-date { font-family: var(--mono); font-size: 14px; color: var(--text-dim); }
+  .news-arrow { font-size: 26px; color: var(--accent-dim); align-self: flex-end; transition: transform 0.2s, color 0.2s; }
+  .news-card:hover .news-arrow { transform: translate(4px, -4px); color: var(--accent); }
+
+  .weather-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .weather-card { background: var(--bg-card) !important; border: 1px solid var(--border) !important; padding: 16px; }
+  .weather-state { font-family: var(--display); font-weight: 700; font-size: 25px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .weather-temp { font-family: var(--display); font-size: 51px; font-weight: 900; color: var(--accent); line-height: 1; }
+  .weather-desc { font-family: var(--mono); font-size: 14px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; margin-top: 8px; }
+  .weather-details { display: flex; gap: 14px; margin-top: 12px; font-family: var(--mono); font-size: 14px; color: var(--text-secondary); }
+
+  .fuel-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1px; background: var(--border); margin-bottom: 1px; }
+  .fuel-cell { background: var(--bg-card); padding: 14px 18px; font-family: var(--mono); font-size: 16px; color: var(--text-secondary); transition: background 0.15s; }
+  .fuel-row:hover .fuel-cell { background: var(--bg-card-hover); }
+  .fuel-cell.header { background: var(--bg-secondary); font-family: var(--display); font-weight: 600; font-size: 15px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-secondary); }
+  .fuel-cell .state { color: var(--text-primary); font-weight: bold; font-size: 18px; }
+
+  .loading { display: flex; align-items: center; justify-content: center; padding: 40px; gap: 14px; font-family: var(--mono); font-size: 16px; color: var(--text-secondary); letter-spacing: 2px; }
+  .spinner { width: 22px; height: 22px; border: 2px solid var(--border-bright); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .error-state { font-family: var(--mono); font-size: 11px; color: var(--red); padding: 16px; border: 1px solid var(--red-dim); background: rgba(239,68,68,0.05); letter-spacing: 1px; }
+  .api-note { background: rgba(220,38,38,0.05) !important; border: 1px solid var(--accent-dim) !important; border-left: 3px solid var(--accent); padding: 14px 18px; font-family: var(--mono); font-size: 16px; color: var(--text-secondary) !important; letter-spacing: 1px; margin-bottom: 20px; line-height: 1.7; }
+  .api-note strong { color: var(--accent); }
+
+  .news-subtab-bar { display: flex; gap: 0; border-bottom: 1px solid var(--border-bright); margin-bottom: 24px; }
+  .news-subtab { font-family: var(--mono); font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); padding: 12px 28px; background: none; border: none; border-bottom: 3px solid transparent; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+  .news-subtab:hover { color: var(--text-secondary); }
+  .news-subtab.active { color: var(--accent); border-bottom-color: var(--accent); background: rgba(220,38,38,0.04); }
+  .news-subtab-content { display: none; } .news-subtab-content.active { display: block; }
+
+  .has-tooltip { position: relative; display: inline-flex; align-items: center; gap: 4px; cursor: help; }
+  .tooltip-icon { width: 14px; height: 14px; border-radius: 50%; background: var(--border-bright); color: var(--accent); font-family: var(--mono); font-size: 9px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; line-height: 1; }
+  .tooltip-box { display: none; position: absolute; bottom: calc(100% + 8px); left: 0; width: 270px; background: var(--bg-secondary); border: 1px solid var(--border-bright); padding: 10px 12px; font-family: var(--mono); font-size: 11px; color: var(--text-secondary); letter-spacing: 0.5px; line-height: 1.6; z-index: 200; pointer-events: none; }
+  .has-tooltip:hover .tooltip-box, .has-tooltip:focus-within .tooltip-box { display: block; }
+
+  .status-legend { display: flex; gap: 0; border: 1px solid var(--border); margin-bottom: 20px; overflow: hidden; }
+  .legend-item { flex: 1; padding: 10px 14px; border-right: 1px solid var(--border); }
+  .legend-item:last-child { border-right: none; }
+  .legend-label { font-family: var(--display); font-weight: 700; font-size: 15px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+  .legend-rules { font-family: var(--mono); font-size: 11px; color: var(--text-dim); letter-spacing: 0.5px; line-height: 1.5; }
+
+  .official-reserves-row { margin-top: 8px; padding: 8px 10px; background: rgba(220,38,38,0.04); border: 1px solid var(--border); border-left: 3px solid var(--accent); font-family: var(--mono); font-size: 11px; color: var(--text-dim); letter-spacing: 0.5px; line-height: 1.6; }
+  .official-reserves-row a { color: var(--accent); text-decoration: none; letter-spacing: 1px; }
+  .official-reserves-row a:hover { text-decoration: underline; }
+  .official-reserves-val { font-size: 13px; color: var(--text-secondary); font-weight: bold; }
+
+  .iso-tab { font-family: var(--mono); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); padding: 8px 16px; background: var(--bg-card); border: 1px solid var(--border); cursor: pointer; transition: all 0.2s; }
+  .iso-tab:hover { border-color: var(--border-bright); color: var(--text-secondary); }
+  .iso-tab.active { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
+
+  .fuel-mix-bar { display: flex; height: 12px; border-radius: 2px; overflow: hidden; margin: 8px 0; gap: 1px; }
+  .fuel-mix-segment { height: 100%; transition: flex 0.8s ease; position: relative; }
+  .fuel-mix-legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; font-family: var(--mono); font-size: 11px; color: var(--text-secondary); }
+  .fuel-mix-legend-item { display: flex; align-items: center; gap: 5px; }
+  .fuel-mix-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  .sparkline-container { height: 50px; margin: 8px 0 4px; }
+
+  .fade-in { animation: fadeIn 0.4s ease forwards; opacity: 0; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-in:nth-child(1) { animation-delay: 0.05s; } .fade-in:nth-child(2) { animation-delay: 0.1s; }
+  .fade-in:nth-child(3) { animation-delay: 0.15s; } .fade-in:nth-child(4) { animation-delay: 0.2s; }
+  .fade-in:nth-child(5) { animation-delay: 0.25s; } .fade-in:nth-child(6) { animation-delay: 0.3s; }
+  .fade-in:nth-child(7) { animation-delay: 0.35s; } .fade-in:nth-child(8) { animation-delay: 0.4s; }
+
+  .precip-label { font-family: var(--mono); font-size: 11px; letter-spacing: 2px; color: var(--text-dim); text-transform: uppercase; }
+  .precip-select, .precip-input { font-family: var(--mono); font-size: 14px; letter-spacing: 1px; background: var(--bg-primary); color: var(--text-secondary); border: 1px solid var(--border-bright); padding: 8px 12px; outline: none; min-width: 180px; cursor: pointer; -webkit-appearance: none; appearance: none; }
+  .precip-select:focus, .precip-input:focus { border-color: var(--accent); color: #fff; }
+  .precip-select:disabled { opacity: 0.4; cursor: not-allowed; }
+  .precip-input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.7) sepia(1) saturate(3) hue-rotate(310deg); cursor: pointer; }
+  .precip-submit { font-family: var(--mono); font-size: 13px; letter-spacing: 2px; color: #fff; background: var(--accent); border: none; padding: 9px 24px; cursor: pointer; text-transform: uppercase; transition: background 0.2s; white-space: nowrap; }
+  .precip-submit:hover { background: var(--accent-light); } .precip-submit:active { background: var(--accent-dim); }
+  .btn-export { font-family: var(--mono); font-size: 13px; letter-spacing: 2px; color: #fff; background: var(--accent); border: none; padding: 9px 24px; cursor: pointer; text-transform: uppercase; transition: background 0.2s; white-space: nowrap; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-export:hover { background: var(--accent-light); } .btn-export:active { background: var(--accent-dim); }
+
+  .precip-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 14px; }
+  .precip-table th { font-family: var(--display); font-weight: 600; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-secondary); text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border-bright); background: var(--bg-secondary); white-space: nowrap; }
+  .precip-table td { padding: 9px 14px; border-bottom: 1px solid rgba(61,30,37,0.6); color: var(--text-secondary); }
+  .precip-table tr:hover td { background: rgba(220,38,38,0.04); }
+  .precip-table .precip-zero { color: #3d1e25; } .precip-table .precip-rain { color: var(--accent); } .precip-table .precip-snow { color: #fca5a5; } .precip-table .precip-total { color: #fff; font-weight: bold; }
+  .precip-table .totals-row td { background: var(--bg-secondary); border-top: 2px solid var(--border-bright); border-bottom: none; color: var(--accent); font-weight: bold; font-size: 15px; }
+  .precip-table-wrap { border: 1px solid var(--border); overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 24px; }
+
+  /* Housing Starts Map */
+  .map-container { background: var(--bg-card); border: 1px solid var(--border); padding: 24px; position: relative; }
+  .state-tile { cursor: pointer; transition: all 0.2s; }
+  .state-tile:hover { filter: brightness(1.3); }
+  .state-tile text { pointer-events: none; }
+  .map-legend { display: flex; gap: 24px; padding: 16px 0; font-family: var(--mono); font-size: 13px; color: var(--text-secondary); align-items: center; flex-wrap: wrap; }
+  .map-legend-item { display: flex; align-items: center; gap: 8px; }
+  .map-legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+
+  /* Raw Materials Cards */
+  .material-card { background: var(--bg-card); border: 1px solid var(--border); padding: 20px; position: relative; overflow: hidden; }
+  .material-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent-dim), transparent); opacity: 0.5; }
+  .material-name { font-family: var(--display); font-weight: 700; font-size: 22px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-primary); margin-bottom: 4px; }
+  .material-price { font-family: var(--display); font-size: 46px; font-weight: 900; color: var(--accent); line-height: 1; margin: 8px 0; }
+  .material-unit { font-family: var(--mono); font-size: 13px; color: var(--text-dim); letter-spacing: 1px; }
+  .material-delta { font-family: var(--mono); font-size: 15px; margin-top: 8px; }
+
+  footer { margin-top: 40px; padding: 20px 32px; border-top: 1px solid var(--border) !important; display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 14px; color: var(--text-dim) !important; letter-spacing: 1.5px; background: var(--bg-secondary) !important; }
+
+  @media (max-width: 1100px) {
+    .grid-4 { grid-template-columns: repeat(2, 1fr); } .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .weather-grid { grid-template-columns: repeat(3, 1fr); } .news-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    header { padding: 12px 16px; gap: 12px; flex-wrap: nowrap; }
+    .logo-text { font-size: 22px; letter-spacing: 2px; } .logo-sub { font-size: 10px; } .logo-icon { width: 28px; height: 28px; }
+    .header-right { gap: 12px; } .states-badge { font-size: 10px; padding: 4px 8px; }
+    nav { padding: 0 8px; } .tab { font-size: 13px; padding: 12px 14px; letter-spacing: 1px; }
+    main { padding: 12px 16px; }
+    .grid-4, .grid-3, .grid-2, .grid-2-1 { grid-template-columns: 1fr; }
+    .col-span-2, .col-span-3, .col-span-4 { grid-column: span 1; }
+    .card { padding: 16px; } .card-value { font-size: 40px; } .card-value.large { font-size: 48px; }
+    .weather-grid { grid-template-columns: repeat(2, 1fr); } .news-grid { grid-template-columns: 1fr; } .fuel-row { grid-template-columns: 1fr 1fr; }
+    .section-title { font-size: 28px; } .section-header { flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .status-pill { font-size: 12px; padding: 6px 12px; } .grid-metrics { flex-direction: column; gap: 8px; }
+  }
+  @media (max-width: 430px) {
+    .logo-text { font-size: 18px; } .header-right { gap: 8px; } .states-badge { display: none; }
+    .tab { font-size: 12px; padding: 10px 10px; } main { padding: 10px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-block">
+    <div class="logo-icon"><span></span><span></span><span></span><span></span></div>
+    <div>
+      <div class="logo-text">GLASS <span style="color:var(--accent)">INTELLIGENCE</span></div>
+      <div class="logo-sub">Window &amp; Pane Manufacturing Dashboard</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="live-indicator"><div class="live-dot"></div>LIVE</div>
+    <div id="clock" style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;">
+      <div id="clock-time" style="font-family:var(--mono);font-size:19px;color:var(--text-primary);letter-spacing:2px;">--:--:--</div>
+      <div id="clock-tz" style="font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:2px;">--</div>
+    </div>
+    <div class="states-badge">48 STATES MONITORED</div>
+  </div>
+</header>
+
+<nav>
+  <button class="tab active" onclick="switchTab('overview', this)">Overview</button>
+  <button class="tab" onclick="switchTab('grid', this)">Grid Status</button>
+  <button class="tab" onclick="switchTab('energy', this)">Energy Pricing</button>
+  <button class="tab" onclick="switchTab('weather', this)">Weather</button>
+  <button class="tab" onclick="switchTab('precip', this)">Precipitation</button>
+  <button class="tab" onclick="switchTab('housing', this)">Housing Starts</button>
+  <button class="tab" onclick="switchTab('materials', this)">Raw Materials</button>
+  <button class="tab" onclick="switchTab('news', this)">News &amp; Intelligence</button>
+</nav>
+
+<main>
+
+  <!-- ======================== OVERVIEW ======================== -->
+  <div id="tab-overview" class="section active">
+    <div class="section-header">
+      <div class="section-title">OPERATIONAL <span>OVERVIEW</span></div>
+      <div class="section-meta">ALL 48 CONTINENTAL STATES // LIVE DATA</div>
+      <button class="refresh-btn" onclick="refreshAll()">⟳ REFRESH ALL</button>
+    </div>
+    <div class="status-bar" id="overview-status-bar">
+      <div class="status-pill" id="pill-eia"><span class="dot"></span> EIA DATA: CONNECTING...</div>
+      <div class="status-pill" id="pill-weather"><span class="dot warn"></span> WEATHER: CONNECTING...</div>
+      <div class="status-pill" id="pill-news"><span class="dot"></span> NEWS FEED: CONNECTING...</div>
+      <div class="status-pill" id="pill-grid"><span class="dot"></span> GRID DATA: CONNECTING...</div>
+    </div>
+    <div class="section-header" style="margin-top:8px;">
+      <div class="section-title" style="font-size:20px;">GRID <span>ALERTS</span></div>
+      <div class="section-meta">REGIONAL OPERATORS</div>
+    </div>
+    <div class="grid-4" id="overview-grid-cards">
+      <div class="loading col-span-4"><div class="spinner"></div>LOADING GRID DATA...</div>
+    </div>
+    <div class="grid-2" style="margin-top:8px;">
+      <div class="chart-card fade-in">
+        <div class="chart-title">Electricity Prices by State</div>
+        <div class="chart-subtitle">RETAIL RATE ¢/kWh — EIA MONTHLY DATA</div>
+        <canvas id="elec-chart" height="200"></canvas>
+      </div>
+      <div class="chart-card fade-in">
+        <div class="chart-title">Diesel Fuel Prices by Region</div>
+        <div class="chart-subtitle">WEEKLY RETAIL — EIA DATA</div>
+        <canvas id="diesel-chart" height="200"></canvas>
+      </div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="card fade-in">
+        <div class="card-label">Avg. Retail Electricity <span class="unit">¢/kWh</span></div>
+        <div class="card-value large" id="ov-elec-avg">—</div>
+        <div class="card-sub" id="ov-elec-sub">Loading EIA data...</div>
+      </div>
+      <div class="card fade-in">
+        <div class="card-label">Avg. Natural Gas Price <span class="unit">$/MCF</span></div>
+        <div class="card-value large" id="ov-gas-avg">—</div>
+        <div class="card-sub" id="ov-gas-sub">Loading EIA data...</div>
+      </div>
+      <div class="card fade-in">
+        <div class="card-label">Avg. Diesel Price <span class="unit">$/GAL</span></div>
+        <div class="card-value large" id="ov-diesel-avg">—</div>
+        <div class="card-sub" id="ov-diesel-sub">Loading EIA data...</div>
+      </div>
+      <div class="card fade-in">
+        <div class="card-label">Industry News Items <span class="unit">TODAY</span></div>
+        <div class="card-value large" id="ov-news-count">—</div>
+        <div class="card-sub">Glass manufacturing &amp; industry news</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== GRID STATUS ======================== -->
+  <div id="tab-grid" class="section">
+    <div class="section-header">
+      <div class="section-title">GRID <span>STATUS</span></div>
+      <div class="section-meta">EIA HOURLY RTO DATA + ISO OPERATOR LINKS</div>
+      <button class="refresh-btn" onclick="loadGridData()">⟳ REFRESH</button>
+    </div>
+    <div class="api-note">
+      <strong>DATA:</strong> Hourly demand and generation mix pulled from EIA Form EIA-930 (Electric Grid Monitor) for each ISO/RTO.
+      Load percentage = current demand vs. available capacity. Fuel mix shows generation source breakdown. Click any operator name to view their live dashboard.
+    </div>
+    <div class="status-legend">
+      <div class="legend-item" style="background:rgba(46,219,110,0.05);"><div class="legend-label" style="color:#2edb6e;">✓ NORMAL</div><div class="legend-rules">Load &lt; 75% of available capacity<br>Reserve margin &gt; 25%</div></div>
+      <div class="legend-item" style="background:rgba(245,158,11,0.05);"><div class="legend-label" style="color:#f59e0b;">△ ELEVATED</div><div class="legend-rules">Load 75–90% of available capacity<br>Reserve margin 10–25%</div></div>
+      <div class="legend-item" style="background:rgba(242,85,85,0.05);"><div class="legend-label" style="color:#f25555;">⚠ HIGH</div><div class="legend-rules">Load ≥ 90% of available capacity<br>Reserve margin &lt; 10%</div></div>
+      <div class="legend-item" style="background:var(--bg-secondary);"><div class="legend-label" style="color:var(--text-dim);font-size:11px;letter-spacing:1px;">RESERVE NOTE</div><div class="legend-rules">Our reserves = Available Capacity − Current Demand<br>ISO official reserves include non-spin &amp; DR</div></div>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;" id="iso-tabs">
+      <button class="iso-tab active" onclick="selectISO('ALL')">ALL REGIONS</button>
+      <button class="iso-tab" onclick="selectISO('ERCO')">ERCOT</button>
+      <button class="iso-tab" onclick="selectISO('PJM')">PJM</button>
+      <button class="iso-tab" onclick="selectISO('MISO')">MISO</button>
+      <button class="iso-tab" onclick="selectISO('CISO')">CAISO</button>
+      <button class="iso-tab" onclick="selectISO('SOCO')">SERC/SE</button>
+      <button class="iso-tab" onclick="selectISO('ISNE')">ISO-NE</button>
+      <button class="iso-tab" onclick="selectISO('NYIS')">NYISO</button>
+      <button class="iso-tab" onclick="selectISO('SWPP')">SPP</button>
+      <button class="iso-tab" onclick="selectISO('NWMT')">NW/WAPA</button>
+    </div>
+    <div class="grid-4" id="grid-summary-cards" style="margin-bottom:20px;">
+      <div class="card"><div class="card-label">Total Monitored Demand <span class="unit">GW</span></div><div class="card-value small" id="gs-total-demand">—</div><div class="card-sub">Sum across all ISOs</div></div>
+      <div class="card"><div class="card-label">Highest Load Region <span class="unit">ISO</span></div><div class="card-value small" id="gs-highest-iso">—</div><div class="card-sub" id="gs-highest-pct">—</div></div>
+      <div class="card"><div class="card-label">Top Generation Source <span class="unit">MIX</span></div><div class="card-value small" id="gs-top-fuel">—</div><div class="card-sub" id="gs-top-fuel-pct">—</div></div>
+      <div class="card"><div class="card-label">Grid Alerts <span class="unit">STATUS</span></div><div class="card-value small" id="gs-alerts" style="color:#2edb6e;">NORMAL</div><div class="card-sub">No active warnings</div></div>
+    </div>
+    <div class="grid-3" id="grid-cards-main">
+      <div class="loading col-span-3"><div class="spinner"></div>FETCHING EIA GRID DATA...</div>
+    </div>
+    <div class="chart-card" style="margin-top:20px;">
+      <div class="chart-title">Generation Fuel Mix — All ISOs</div>
+      <div class="chart-subtitle">CURRENT HOUR BREAKDOWN BY SOURCE TYPE (EIA-930)</div>
+      <canvas id="fuel-mix-chart" height="120"></canvas>
+    </div>
+  </div>
+
+  <!-- ======================== ENERGY PRICING ======================== -->
+  <div id="tab-energy" class="section">
+    <div class="section-header">
+      <div class="section-title">ENERGY <span>PRICING</span></div>
+      <div class="section-meta">EIA DATA // MONTHLY &amp; WEEKLY RETAIL RATES</div>
+    </div>
+    <div class="api-note">
+      <strong>DATA SOURCE:</strong> U.S. Energy Information Administration (EIA) Open Data API.
+      Electricity rates are monthly retail averages. Natural gas shown as citygate price. Diesel shown as weekly retail regional averages.
+    </div>
+    <div class="card" style="margin-bottom:20px;">
+      <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;">
+        <div style="display:flex;flex-direction:column;gap:6px;"><label class="precip-label" for="energy-hist-start">HISTORICAL START</label><input id="energy-hist-start" class="precip-input" type="month"></div>
+        <div style="display:flex;flex-direction:column;gap:6px;"><label class="precip-label" for="energy-hist-end">HISTORICAL END</label><input id="energy-hist-end" class="precip-input" type="month"></div>
+        <button class="precip-submit" onclick="loadHistoricalEnergy()">▶ APPLY RANGE</button>
+        <button class="precip-submit" style="background:var(--border);color:var(--accent);border:1px solid var(--border-bright);" onclick="resetEnergyToLatest()">↺ RESET TO LATEST</button>
+      </div>
+      <div id="energy-hist-error" style="margin-top:10px;font-family:var(--mono);font-size:12px;color:var(--red);letter-spacing:1px;display:none;"></div>
+    </div>
+    <div id="energy-hist-results" style="display:none;margin-bottom:20px;"></div>
+    <div id="energy-snapshot-label" style="font-family:var(--mono);font-size:13px;color:var(--text-dim);letter-spacing:1px;margin-bottom:8px;">SHOWING: MOST RECENT DATA</div>
+    <div class="grid-2">
+      <div class="chart-card"><div class="chart-title">Electricity — All States (Latest)</div><div class="chart-subtitle">RETAIL RATE ¢/kWh — MOST RECENT MONTH</div><canvas id="elec-chart-full" height="220"></canvas></div>
+      <div class="chart-card"><div class="chart-title">Natural Gas — Citygate Price (Latest)</div><div class="chart-subtitle">$/MCF — MOST RECENT MONTH</div><canvas id="gas-chart-full" height="220"></canvas></div>
+    </div>
+    <div class="section-header" style="margin-top:24px;margin-bottom:12px;border:none;padding:0;">
+      <div class="section-title" style="font-size:22px;">DIESEL <span>PRICES</span></div>
+      <div class="section-meta">$/GALLON WEEKLY — EIA REGIONAL DATA</div>
+    </div>
+    <div class="grid-2" style="align-items:start;">
+      <div class="chart-card"><div class="chart-title">Regional Diesel — Weekly Prices</div><div class="chart-subtitle">$/GALLON — EIA WEEKLY RETAIL BY REGION</div><canvas id="diesel-trend-chart" height="220"></canvas></div>
+      <div id="diesel-table"><div class="loading"><div class="spinner"></div>LOADING...</div></div>
+    </div>
+    <div class="chart-card" style="margin-bottom:16px;margin-top:16px;">
+      <div class="chart-title">State-by-State Pricing Detail</div>
+      <div class="chart-subtitle">EIA MONTHLY — ELECTRICITY, NATURAL GAS, &amp; GRID OPERATOR</div>
+      <div id="energy-table-container"><div class="loading"><div class="spinner"></div>FETCHING EIA DATA...</div></div>
+    </div>
+  </div>
+
+  <!-- ======================== WEATHER ======================== -->
+  <div id="tab-weather" class="section">
+    <div class="section-header">
+      <div class="section-title">WEATHER <span>CONDITIONS</span></div>
+      <div class="section-meta">OPENWEATHERMAP API // STATE CAPITALS</div>
+    </div>
+    <div class="chart-card" style="margin-bottom:24px;padding:0;overflow:hidden;">
+      <div style="padding:14px 18px 10px;"><div class="chart-title">UNITED STATES WEATHER RADAR</div><div class="chart-subtitle">WINDY.COM // LIVE PRECIPITATION RADAR // AUTO-UPDATING</div></div>
+      <div style="position:relative;width:100%;height:540px;">
+        <iframe src="https://embed.windy.com/embed2.html?lat=39.5&lon=-96&zoom=4&level=surface&overlay=rain&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1" style="width:100%;height:100%;border:none;display:block;" allowfullscreen></iframe>
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:10;cursor:default;"></div>
+      </div>
+      <div style="padding:8px 18px;font-family:var(--mono);font-size:12px;color:var(--text-dim);letter-spacing:1px;">SOURCE: WINDY.COM — LIVE PRECIPITATION RADAR</div>
+    </div>
+    <div id="weather-container"><div class="loading"><div class="spinner"></div>FETCHING WEATHER DATA...</div></div>
+  </div>
+
+  <!-- ======================== PRECIPITATION ======================== -->
+  <div id="tab-precip" class="section">
+    <div class="section-header">
+      <div class="section-title">PRECIPITATION <span>HISTORY</span></div>
+      <div class="section-meta">OPEN-METEO HISTORICAL DATA // DAILY RAINFALL &amp; SNOWFALL</div>
+    </div>
+    <div class="api-note"><strong>DATA SOURCE:</strong> NOAA Global Historical Climatology Network Daily (GHCND). Nearest reporting station auto-located. Rainfall and snowfall in inches.</div>
+    <div class="card" style="margin-bottom:20px;">
+      <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;">
+        <div style="display:flex;flex-direction:column;gap:6px;"><label class="precip-label" for="precip-state">STATE</label><select id="precip-state" class="precip-select" onchange="precipPopulateCities()"><option value="">— Select State —</option></select></div>
+        <div style="display:flex;flex-direction:column;gap:6px;"><label class="precip-label" for="precip-city">CITY</label><select id="precip-city" class="precip-select" disabled><option value="">— Select City —</option></select></div>
+        <div style="display:flex;flex-direction:column;gap:6px;"><label class="precip-label" for="precip-start">START DATE</label><input id="precip-start" class="precip-input" type="date"></div>
+        <div style="display:flex;flex-direction:column;gap:6px;"><label class="precip-label" for="precip-end">END DATE</label><input id="precip-end" class="precip-input" type="date"></div>
+        <button class="precip-submit" onclick="runPrecipQuery()">▶ FETCH DATA</button>
+      </div>
+      <div id="precip-error" style="margin-top:12px;font-family:var(--mono);font-size:12px;color:var(--red);letter-spacing:1px;display:none;"></div>
+    </div>
+    <div id="precip-results"></div>
+  </div>
+
+  <!-- ======================== HOUSING STARTS ======================== -->
+  <div id="tab-housing" class="section">
+    <div class="section-header">
+      <div class="section-title">HOUSING <span>STARTS</span></div>
+      <div class="section-meta">BUILDING PERMITS FILED // COMMERCIAL &amp; RESIDENTIAL</div>
+    </div>
+    <div class="api-note">
+      <strong>GLASS INDUSTRY RELEVANCE:</strong> New building permits represent future window and glass demand. <span style="color:#DC2626;">●</span> Red dots = new commercial permits filed. <span style="color:#2edb6e;">●</span> Green dots = new residential development permits.
+      These are <strong>permits filed</strong> (not yet built) — ideal targets for upgraded window glass sales. Grayed-out states have insufficient permit data.
+    </div>
+    <div class="grid-4" id="housing-summary-cards">
+      <div class="card"><div class="card-label">Total Commercial Permits <span class="unit">NATIONAL</span></div><div class="card-value small" id="hs-commercial">—</div><div class="card-sub">New permits filed</div></div>
+      <div class="card"><div class="card-label">Total Residential Permits <span class="unit">NATIONAL</span></div><div class="card-value small" id="hs-residential">—</div><div class="card-sub">Housing development permits</div></div>
+      <div class="card"><div class="card-label">Top State (Commercial) <span class="unit">PERMITS</span></div><div class="card-value small" id="hs-top-comm">—</div><div class="card-sub" id="hs-top-comm-sub">—</div></div>
+      <div class="card"><div class="card-label">Top State (Residential) <span class="unit">PERMITS</span></div><div class="card-value small" id="hs-top-res">—</div><div class="card-sub" id="hs-top-res-sub">—</div></div>
+    </div>
+    <div class="map-container" id="housing-map-container">
+      <div class="chart-title">U.S. Building Permits — Interactive Map</div>
+      <div class="chart-subtitle">CLICK A STATE FOR DETAILS // PERMITS FILED (NOT YET BUILT)</div>
+      <div id="housing-map" style="margin-top:16px;"></div>
+      <div class="map-legend">
+        <div class="map-legend-item"><div class="map-legend-dot" style="background:#DC2626;"></div> Commercial Permits</div>
+        <div class="map-legend-item"><div class="map-legend-dot" style="background:#2edb6e;"></div> Residential Permits</div>
+        <div class="map-legend-item"><div class="map-legend-dot" style="background:#3d1e25;"></div> No Data Available</div>
+        <div class="map-legend-item" style="margin-left:auto;font-size:11px;color:var(--text-dim);">LARGER DOT = MORE PERMITS</div>
+      </div>
+    </div>
+    <div id="housing-detail" style="margin-top:20px;"></div>
+    <div class="chart-card" style="margin-top:20px;">
+      <div class="chart-title">Top 15 States — Permit Activity</div>
+      <div class="chart-subtitle">COMMERCIAL + RESIDENTIAL BUILDING PERMITS FILED</div>
+      <canvas id="housing-chart" height="200"></canvas>
+    </div>
+  </div>
+
+  <!-- ======================== RAW MATERIALS & SOLAR ======================== -->
+  <div id="tab-materials" class="section">
+    <div class="section-header">
+      <div class="section-title">RAW <span>MATERIALS</span></div>
+      <div class="section-meta">GLASS MANUFACTURING INPUTS // PRICING &amp; SUPPLY</div>
+    </div>
+    <div class="api-note">
+      <strong>GLASS FEEDSTOCK:</strong> Key raw material pricing for float glass, tempered glass, and solar panel glass production. Silica sand (~73% of glass), soda ash (~13%), limestone (~10%), and cullet (recycled glass). Prices are indicative market rates.
+    </div>
+    <div class="grid-4" id="materials-cards"></div>
+    <div class="grid-2">
+      <div class="chart-card">
+        <div class="chart-title">Raw Material Price Trends</div>
+        <div class="chart-subtitle">12-MONTH TRAILING — $/TON (EXCEPT CULLET)</div>
+        <canvas id="materials-chart" height="220"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Cost Breakdown — Float Glass Production</div>
+        <div class="chart-subtitle">PERCENTAGE OF TOTAL RAW MATERIAL COST</div>
+        <canvas id="cost-breakdown-chart" height="220"></canvas>
+      </div>
+    </div>
+    <div class="section-header" style="margin-top:32px;margin-bottom:16px;border:none;padding:0;">
+      <div class="section-title" style="font-size:22px;">SOLAR PANEL <span>INSTALLATIONS</span></div>
+      <div class="section-meta">STATE-BY-STATE SOLAR GLASS DEMAND INDICATOR</div>
+    </div>
+    <div class="api-note">
+      <strong>SOLAR GLASS OPPORTUNITY:</strong> Solar panel installations drive demand for tempered low-iron glass. States with high installation rates represent key markets for solar glass manufacturers.
+    </div>
+    <div class="grid-2">
+      <div class="chart-card">
+        <div class="chart-title">Top 15 States — Solar Installations</div>
+        <div class="chart-subtitle">MEGAWATTS INSTALLED — LATEST ANNUAL DATA</div>
+        <canvas id="solar-chart" height="240"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Solar Growth Rate by State</div>
+        <div class="chart-subtitle">YEAR-OVER-YEAR INSTALLATION GROWTH %</div>
+        <canvas id="solar-growth-chart" height="240"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== NEWS ======================== -->
+  <div id="tab-news" class="section">
+    <div class="section-header">
+      <div class="section-title">INDUSTRY <span>&amp; NEWS</span></div>
+      <div class="section-meta">RSS FEEDS // GLASS INDUSTRY INTELLIGENCE</div>
+      <button class="refresh-btn" onclick="loadAllNews()">⟳ REFRESH</button>
+    </div>
+    <div class="news-subtab-bar">
+      <button class="news-subtab active" id="subtab-btn-glass" onclick="switchNewsTab('glass')">🪟 GLASS &amp; WINDOW MFG</button>
+      <button class="news-subtab" id="subtab-btn-energy" onclick="switchNewsTab('energy')">⚡ ENERGY &amp; SUPPLY CHAIN</button>
+      <button class="news-subtab" id="subtab-btn-3dprint" onclick="switchNewsTab('3dprint')">🖨 3D PRINTING</button>
+    </div>
+    <div id="news-subtab-glass" class="news-subtab-content active">
+      <div class="api-note" style="margin-bottom:18px;">
+        <strong>GLASS INDUSTRY FOCUS:</strong> Window &amp; architectural glass manufacturing, solar panel glass innovations,
+        Low-E coatings, smart glass technology, energy-efficient glazing, float glass production,
+        tempered &amp; laminated glass developments, and building code changes affecting glass specifications.
+      </div>
+      <div id="news-glass-container"><div class="loading"><div class="spinner"></div>FETCHING GLASS INDUSTRY NEWS...</div></div>
+    </div>
+    <div id="news-subtab-energy" class="news-subtab-content">
+      <div class="api-note" style="margin-bottom:18px;">
+        <strong>ENERGY FOCUS:</strong> US electricity grid capacity, natural gas &amp; diesel supply chains,
+        FERC rulemakings, power market developments, and energy infrastructure news affecting glass manufacturers.
+      </div>
+      <div id="news-energy-container"><div class="loading"><div class="spinner"></div>FETCHING ENERGY NEWS...</div></div>
+    </div>
+    <div id="news-subtab-3dprint" class="news-subtab-content">
+      <div class="api-note" style="margin-bottom:18px;">
+        <strong>3D PRINTING FOCUS:</strong> Additive manufacturing technology, industrial 3D printing,
+        materials innovation, and emerging applications in glass and construction.
+      </div>
+      <div id="news-3dprint-container"><div class="loading"><div class="spinner"></div>FETCHING 3D PRINTING NEWS...</div></div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div>GLASS INTELLIGENCE DASHBOARD // v2.0</div>
+  <div id="last-updated">LAST UPDATED: —</div>
+  <div>DATA: EIA.GOV · OPENWEATHERMAP · RSS FEEDS</div>
+</footer>
+<script>
+// ============================================================
+// CONFIGURATION
+// ============================================================
+const CONFIG = {
+  EIA_KEY: 'd5mGk3g798i3tz6XEj98mUEtlIvdLCflzebkQSyL',
+  OPENWEATHER_KEY: 'd762abdc5a351a9585cab062b3c1f602',
+  NEWS_KEY: 'd9f58cd1caa74bcfa1fb5998d3493a9f',
+};
+
+// All 48 continental US states
+const STATES = [
+  { code:'AL', gasCode:'SAL', name:'Alabama',        region:'Southeast' },
+  { code:'AZ', gasCode:'SAZ', name:'Arizona',         region:'Southwest' },
+  { code:'AR', gasCode:'SAR', name:'Arkansas',        region:'South' },
+  { code:'CA', gasCode:'SCA', name:'California',      region:'West' },
+  { code:'CO', gasCode:'SCO', name:'Colorado',        region:'Mountain' },
+  { code:'CT', gasCode:'SCT', name:'Connecticut',     region:'Northeast' },
+  { code:'DE', gasCode:'SDE', name:'Delaware',        region:'Mid-Atlantic' },
+  { code:'FL', gasCode:'SFL', name:'Florida',         region:'Southeast' },
+  { code:'GA', gasCode:'SGA', name:'Georgia',         region:'Southeast' },
+  { code:'ID', gasCode:'SID', name:'Idaho',           region:'Northwest' },
+  { code:'IL', gasCode:'SIL', name:'Illinois',        region:'Midwest' },
+  { code:'IN', gasCode:'SIN', name:'Indiana',         region:'Midwest' },
+  { code:'IA', gasCode:'SIA', name:'Iowa',            region:'Midwest' },
+  { code:'KS', gasCode:'SKS', name:'Kansas',          region:'Central' },
+  { code:'KY', gasCode:'SKY', name:'Kentucky',        region:'Southeast' },
+  { code:'LA', gasCode:'SLA', name:'Louisiana',       region:'South' },
+  { code:'ME', gasCode:'SME', name:'Maine',           region:'Northeast' },
+  { code:'MD', gasCode:'SMD', name:'Maryland',        region:'Mid-Atlantic' },
+  { code:'MA', gasCode:'SMA', name:'Massachusetts',   region:'Northeast' },
+  { code:'MI', gasCode:'SMI', name:'Michigan',        region:'Midwest' },
+  { code:'MN', gasCode:'SMN', name:'Minnesota',       region:'Midwest' },
+  { code:'MS', gasCode:'SMS', name:'Mississippi',     region:'South' },
+  { code:'MO', gasCode:'SMO', name:'Missouri',        region:'Midwest' },
+  { code:'MT', gasCode:'SMT', name:'Montana',         region:'Mountain' },
+  { code:'NE', gasCode:'SNE', name:'Nebraska',        region:'Central' },
+  { code:'NV', gasCode:'SNV', name:'Nevada',          region:'West' },
+  { code:'NH', gasCode:'SNH', name:'New Hampshire',   region:'Northeast' },
+  { code:'NJ', gasCode:'SNJ', name:'New Jersey',      region:'Northeast' },
+  { code:'NM', gasCode:'SNM', name:'New Mexico',      region:'Southwest' },
+  { code:'NY', gasCode:'SNY', name:'New York',        region:'Northeast' },
+  { code:'NC', gasCode:'SNC', name:'North Carolina',  region:'Southeast' },
+  { code:'ND', gasCode:'SND', name:'North Dakota',    region:'Central' },
+  { code:'OH', gasCode:'SOH', name:'Ohio',            region:'Midwest' },
+  { code:'OK', gasCode:'SOK', name:'Oklahoma',        region:'South' },
+  { code:'OR', gasCode:'SOR', name:'Oregon',          region:'Northwest' },
+  { code:'PA', gasCode:'SPA', name:'Pennsylvania',    region:'Northeast' },
+  { code:'RI', gasCode:'SRI', name:'Rhode Island',    region:'Northeast' },
+  { code:'SC', gasCode:'SSC', name:'South Carolina',  region:'Southeast' },
+  { code:'SD', gasCode:'SSD', name:'South Dakota',    region:'Central' },
+  { code:'TN', gasCode:'STN', name:'Tennessee',       region:'Southeast' },
+  { code:'TX', gasCode:'STX', name:'Texas',           region:'South' },
+  { code:'UT', gasCode:'SUT', name:'Utah',            region:'Mountain' },
+  { code:'VT', gasCode:'SVT', name:'Vermont',         region:'Northeast' },
+  { code:'VA', gasCode:'SVA', name:'Virginia',        region:'Southeast' },
+  { code:'WA', gasCode:'SWA', name:'Washington',      region:'Northwest' },
+  { code:'WV', gasCode:'SWV', name:'West Virginia',   region:'Mid-Atlantic' },
+  { code:'WI', gasCode:'SWI', name:'Wisconsin',       region:'Midwest' },
+  { code:'WY', gasCode:'SWY', name:'Wyoming',         region:'Mountain' },
+];
+
+// State CAPITALS for weather (Task #4)
+const STATE_CITIES = {
+  AL:{city:'Montgomery',lat:32.3668,lon:-86.2999}, AZ:{city:'Phoenix',lat:33.4484,lon:-111.9490},
+  AR:{city:'Little Rock',lat:34.7465,lon:-92.2896}, CA:{city:'Sacramento',lat:38.5816,lon:-121.4944},
+  CO:{city:'Denver',lat:39.7392,lon:-104.9903}, CT:{city:'Hartford',lat:41.7658,lon:-72.6734},
+  DE:{city:'Dover',lat:39.1582,lon:-75.5244}, FL:{city:'Tallahassee',lat:30.4383,lon:-84.2807},
+  GA:{city:'Atlanta',lat:33.7490,lon:-84.3880}, ID:{city:'Boise',lat:43.6150,lon:-116.2023},
+  IL:{city:'Springfield',lat:39.7817,lon:-89.6501}, IN:{city:'Indianapolis',lat:39.7684,lon:-86.1581},
+  IA:{city:'Des Moines',lat:41.5868,lon:-93.6250}, KS:{city:'Topeka',lat:39.0489,lon:-95.6780},
+  KY:{city:'Frankfort',lat:38.2009,lon:-84.8733}, LA:{city:'Baton Rouge',lat:30.4515,lon:-91.1871},
+  ME:{city:'Augusta',lat:44.3106,lon:-69.7795}, MD:{city:'Annapolis',lat:38.9784,lon:-76.4922},
+  MA:{city:'Boston',lat:42.3601,lon:-71.0589}, MI:{city:'Lansing',lat:42.7325,lon:-84.5555},
+  MN:{city:'Saint Paul',lat:44.9537,lon:-93.0900}, MS:{city:'Jackson',lat:32.2988,lon:-90.1848},
+  MO:{city:'Jefferson City',lat:38.5767,lon:-92.1735}, MT:{city:'Helena',lat:46.5891,lon:-112.0391},
+  NE:{city:'Lincoln',lat:40.8136,lon:-96.7026}, NV:{city:'Carson City',lat:39.1638,lon:-119.7674},
+  NH:{city:'Concord',lat:43.2081,lon:-71.5376}, NJ:{city:'Trenton',lat:40.2171,lon:-74.7429},
+  NM:{city:'Santa Fe',lat:35.6870,lon:-105.9378}, NY:{city:'Albany',lat:42.6526,lon:-73.7562},
+  NC:{city:'Raleigh',lat:35.7796,lon:-78.6382}, ND:{city:'Bismarck',lat:46.8083,lon:-100.7837},
+  OH:{city:'Columbus',lat:39.9612,lon:-82.9988}, OK:{city:'Oklahoma City',lat:35.4676,lon:-97.5164},
+  OR:{city:'Salem',lat:44.9429,lon:-123.0351}, PA:{city:'Harrisburg',lat:40.2732,lon:-76.8867},
+  RI:{city:'Providence',lat:41.8240,lon:-71.4128}, SC:{city:'Columbia',lat:34.0007,lon:-81.0348},
+  SD:{city:'Pierre',lat:44.3683,lon:-100.3510}, TN:{city:'Nashville',lat:36.1627,lon:-86.7816},
+  TX:{city:'Austin',lat:30.2672,lon:-97.7431}, UT:{city:'Salt Lake City',lat:40.7608,lon:-111.8910},
+  VT:{city:'Montpelier',lat:44.2601,lon:-72.5754}, VA:{city:'Richmond',lat:37.5407,lon:-77.4360},
+  WA:{city:'Olympia',lat:47.0379,lon:-122.9007}, WV:{city:'Charleston',lat:38.3498,lon:-81.6326},
+  WI:{city:'Madison',lat:43.0731,lon:-89.4012}, WY:{city:'Cheyenne',lat:41.1400,lon:-104.8197},
+};
+
+// Grid regions covering all 48 states
+const GRID_REGIONS = [
+  { name:'ERCOT',  states:['TX'] },
+  { name:'PJM',    states:['DE','IL','IN','KY','MD','MI','NJ','NC','OH','PA','TN','VA','WV'] },
+  { name:'MISO',   states:['AR','IA','IL','IN','LA','MI','MN','MO','MS','MT','ND','SD','WI'] },
+  { name:'CAISO',  states:['CA'] },
+  { name:'SERC',   states:['AL','FL','GA','KY','MS','NC','SC','TN','VA'] },
+  { name:'ISO-NE', states:['CT','MA','ME','NH','RI','VT'] },
+  { name:'NYISO',  states:['NY'] },
+  { name:'SPP',    states:['AR','KS','NE','NM','OK','SD'] },
+  { name:'NW/WAPA',states:['AZ','CO','ID','MT','NV','OR','UT','WA','WY'] },
+];
+
+// Generate colors for 48 states
+function generateStateColors(n) {
+  const colors = [];
+  for (let i = 0; i < n; i++) {
+    const hue = (i * 360 / n) % 360;
+    colors.push(`hsl(${hue}, 70%, 55%)`);
+  }
+  return colors;
+}
+const STATE_COLORS = generateStateColors(48);
+
+// ============================================================
+// DATA CACHE
+// ============================================================
+const DATA = { electricity: {}, gas: {}, diesel: {}, news: [], weather: {}, electricityHistory: [], gasHistory: [] };
+const EXPORT_CACHE = { precip: null, energyElec: null, energyGas: null, energyDiesel: null, energyRange: '' };
+
+// ============================================================
+// UTILITIES
+// ============================================================
+function $(id) { return document.getElementById(id); }
+
+function updateClock() {
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString('en-US', { hour12: false });
+  const tzFull = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+  const tzParts = tzFull.split('/');
+  $('clock-time').textContent = timeStr;
+  $('clock-tz').textContent = tzParts[tzParts.length - 1].replace(/_/g, ' ').toUpperCase();
+}
+setInterval(updateClock, 1000); updateClock();
+
+function updateStatusPill(id, ok, label) {
+  const pill = $(id);
+  if (!pill) return;
+  pill.innerHTML = `<span class="dot${ok === true ? '' : ok === false ? ' off' : ' warn'}"></span> ${label}`;
+}
+function setLastUpdated() { $('last-updated').textContent = 'LAST UPDATED: ' + new Date().toLocaleString(); }
+function getLoadClass(pct) { return pct >= 90 ? 'high' : pct >= 75 ? 'elevated' : 'normal'; }
+function getLoadLabel(pct) { return pct >= 90 ? '⚠ HIGH' : pct >= 75 ? '△ ELEVATED' : '✓ NORMAL'; }
+
+const CHART_DEFAULTS = {
+  backgroundColor: 'transparent',
+  plugins: {
+    legend: { labels: { color: '#e8c2c8', font: { family: 'Share Tech Mono', size: 15 } } },
+    tooltip: {
+      backgroundColor: '#150b0d', borderColor: '#6e2d3a', borderWidth: 1,
+      titleColor: '#DC2626', bodyColor: '#e8c2c8',
+      titleFont: { family: 'Barlow Condensed', size: 18, weight: '700' },
+      bodyFont: { family: 'Share Tech Mono', size: 15 },
+    }
+  },
+  scales: {
+    x: { ticks: { color: '#aa6b78', font: { family: 'Share Tech Mono', size: 14 } }, grid: { color: 'rgba(110,45,58,0.4)' } },
+    y: { ticks: { color: '#aa6b78', font: { family: 'Share Tech Mono', size: 14 } }, grid: { color: 'rgba(110,45,58,0.4)' } }
+  }
+};
+
+const charts = {};
+function buildChart(id, type, labels, datasets, extraOpts = {}) {
+  if (charts[id]) charts[id].destroy();
+  const ctx = $(id); if (!ctx) return;
+  charts[id] = new Chart(ctx, { type, data: { labels, datasets }, options: { ...CHART_DEFAULTS, ...extraOpts, responsive: true, maintainAspectRatio: true } });
+}
+
+// ============================================================
+// API HELPER
+// ============================================================
+async function eiaFetch(url) {
+  try {
+    const res = await fetch(url, { mode: 'cors' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const json = await res.json();
+    if (json.response || json.data) return json;
+    throw new Error('Bad response shape');
+  } catch(e) { /* fall through */ }
+  const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(url)}`;
+  const res2 = await fetch(proxyUrl);
+  if (!res2.ok) throw new Error(`Proxy HTTP ${res2.status}`);
+  return await res2.json();
+}
+
+// ============================================================
+// ELECTRICITY DATA (EIA) — batch 6 states at a time for 48
+// ============================================================
+async function loadElectricityData() {
+  try {
+    const batches = [];
+    for (let i = 0; i < STATES.length; i += 6) batches.push(STATES.slice(i, i + 6));
+    const byState = {};
+    const history = [];
+    for (const batch of batches) {
+      try {
+        const sc = batch.map(s => `facets[stateid][]=${s.code}`).join('&');
+        const url = `https://api.eia.gov/v2/electricity/retail-sales/data/?api_key=${CONFIG.EIA_KEY}&frequency=monthly&data[0]=price&${sc}&facets[sectorid][]=COM&sort[0][column]=period&sort[0][direction]=desc&offset=0&length=100`;
+        const json = await eiaFetch(url);
+        if (json.response && json.response.data) {
+          for (const row of json.response.data) {
+            const sc2 = row.stateid, p = row.period, v = parseFloat(row.price);
+            if (!byState[sc2] && !isNaN(v)) byState[sc2] = v;
+            if (p && sc2 && !isNaN(v)) history.push({ period: p, state: sc2, price: v });
+          }
+        }
+      } catch(e) { console.warn('Elec batch error:', e.message); }
+      await new Promise(r => setTimeout(r, 300));
+    }
+    if (Object.keys(byState).length > 0) { DATA.electricity = byState; DATA.electricityHistory = history; return byState; }
+    throw new Error('No elec data');
+  } catch(e) {
+    console.error('EIA electricity error:', e);
+    const mock = {};
+    STATES.forEach((s, i) => mock[s.code] = 8 + Math.random() * 15);
+    DATA.electricity = mock; DATA.electricityHistory = [];
+    return mock;
+  }
+}
+
+// ============================================================
+// NATURAL GAS DATA (EIA)
+// ============================================================
+async function loadGasData() {
+  try {
+    const batches = [];
+    for (let i = 0; i < STATES.length; i += 6) batches.push(STATES.slice(i, i + 6));
+    const byState = {};
+    const history = [];
+    const gasToState = {};
+    STATES.forEach(s => gasToState[s.gasCode] = s.code);
+    for (const batch of batches) {
+      try {
+        const gc = batch.map(s => `facets[duoarea][]=${s.gasCode}`).join('&');
+        const url = `https://api.eia.gov/v2/natural-gas/pri/sum/data/?api_key=${CONFIG.EIA_KEY}&frequency=monthly&data[0]=value&${gc}&sort[0][column]=period&sort[0][direction]=desc&length=100`;
+        const json = await eiaFetch(url);
+        if (json.response && json.response.data) {
+          for (const row of json.response.data) {
+            const gc2 = row.duoarea, p = row.period, v = parseFloat(row.value);
+            const sc = gasToState[gc2] || gc2;
+            if (!byState[sc] && !isNaN(v) && v <= 25) byState[sc] = v;
+            if (p && sc && !isNaN(v) && v <= 25) history.push({ period: p, state: sc, price: v });
+          }
+        }
+      } catch(e) { console.warn('Gas batch error:', e.message); }
+      await new Promise(r => setTimeout(r, 300));
+    }
+    if (Object.keys(byState).length > 0) { DATA.gas = byState; DATA.gasHistory = history; return byState; }
+    throw new Error('No gas data');
+  } catch(e) {
+    console.error('EIA gas error:', e);
+    const mock = {};
+    STATES.forEach(s => mock[s.code] = 5 + Math.random() * 8);
+    DATA.gas = mock; DATA.gasHistory = [];
+    return mock;
+  }
+}
+
+// ============================================================
+// DIESEL DATA (EIA)
+// ============================================================
+async function loadDieselData() {
+  try {
+    const url = `https://api.eia.gov/v2/petroleum/pri/gnd/data/?api_key=${CONFIG.EIA_KEY}&frequency=weekly&data[0]=value&facets[product][]=EPD2D&sort[0][column]=period&sort[0][direction]=desc&length=500`;
+    const json = await eiaFetch(url);
+    const regions = {}, history = {};
+    if (json.response && json.response.data) {
+      for (const row of json.response.data) {
+        const key = row['area-name'] || row.areaName || row.duoarea || 'Unknown';
+        const val = parseFloat(row.value);
+        if (isNaN(val)) continue;
+        if (!regions[key]) regions[key] = val;
+        if (!history[key]) history[key] = [];
+        history[key].push({ period: row.period, value: val });
+      }
+    }
+    if (Object.keys(regions).length === 0) throw new Error('No diesel data');
+    DATA.diesel = { regions, history };
+    return DATA.diesel;
+  } catch(e) {
+    console.error('EIA diesel error:', e);
+    DATA.diesel = { regions: { 'U.S.': 3.821, 'East Coast': 3.847, 'New England': 3.964, 'Central Atlantic': 3.889, 'Lower Atlantic': 3.801, 'Midwest': 3.742, 'Gulf Coast': 3.668, 'Rocky Mountain': 3.912, 'West Coast': 4.183 }, history: {} };
+    return DATA.diesel;
+  }
+}
+
+// ============================================================
+// TAB SWITCHING (FIXED — no event.target bug)
+// ============================================================
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  $('tab-' + name).classList.add('active');
+  if (name === 'news' && DATA.news.length === 0) loadAllNews();
+  if (name === 'weather' && CONFIG.OPENWEATHER_KEY && Object.keys(DATA.weather).length === 0) loadWeather(CONFIG.OPENWEATHER_KEY);
+  if (name === 'precip') precipInit();
+  if (name === 'energy') energyHistInit();
+  if (name === 'housing') renderHousingStarts();
+  if (name === 'materials') renderMaterials();
+}
+
+// ============================================================
+// NEWS SUB-TAB SWITCHING
+// ============================================================
+function switchNewsTab(tab) {
+  document.querySelectorAll('.news-subtab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.news-subtab-content').forEach(c => c.classList.remove('active'));
+  $(`subtab-btn-${tab}`).classList.add('active');
+  $(`news-subtab-${tab}`).classList.add('active');
+}
+
+// ============================================================
+// NEWS — GLASS INDUSTRY (replacing plastics)
+// ============================================================
+async function loadAllNews() {
+  DATA.news = [];
+  await Promise.all([loadGlassNews(), loadEnergyNews(), load3DPrintNews()]);
+  if ($('ov-news-count')) $('ov-news-count').textContent = DATA.news.length;
+}
+
+async function fetchRSS(rssUrl) {
+  const proxies = [
+    { url: `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`, json: true },
+    { url: `https://corsproxy.io/?${encodeURIComponent(rssUrl)}`, json: false },
+    { url: `https://api.allorigins.win/raw?url=${encodeURIComponent(rssUrl)}`, json: false },
+  ];
+  let xmlText = null;
+  for (const proxy of proxies) {
+    try {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 10000);
+      const res = await fetch(proxy.url, { signal: controller.signal });
+      clearTimeout(timer);
+      if (!res.ok) continue;
+      const body = await res.text();
+      let candidate = body;
+      if (proxy.json) { try { candidate = JSON.parse(body)?.contents || body; } catch(e) {} }
+      if (candidate && (candidate.includes('<item>') || candidate.includes('<entry>'))) { xmlText = candidate; break; }
+    } catch(e) { continue; }
+  }
+  if (!xmlText) return [];
+  try {
+    const doc = new DOMParser().parseFromString(xmlText, 'text/xml');
+    const sourceName = new URL(rssUrl).hostname.replace('www.','');
+    const nodes = doc.querySelectorAll('item').length > 0 ? [...doc.querySelectorAll('item')] : [...doc.querySelectorAll('entry')];
+    return nodes.map(el => {
+      const title = el.querySelector('title')?.textContent?.trim() || '';
+      const linkEl = el.querySelector('link');
+      const url = linkEl?.getAttribute('href') || linkEl?.textContent?.trim() || el.querySelector('guid')?.textContent?.trim() || '';
+      const desc = (el.querySelector('description')?.textContent || el.querySelector('summary')?.textContent || el.querySelector('content')?.textContent || '').replace(/<[^>]*>/g,'').slice(0, 200);
+      const pub = el.querySelector('pubDate')?.textContent || el.querySelector('published')?.textContent || el.querySelector('updated')?.textContent || '';
+      return { title, url, description: desc, publishedAt: pub, source: { name: sourceName } };
+    }).filter(a => a.title && a.url);
+  } catch(e) { return []; }
+}
+
+async function loadGlassNews() {
+  const feeds = [
+    'https://www.glassonweb.com/rss/news',
+    'https://glassmagazine.com/rss/news',
+    'https://www.usglassmag.com/feed/',
+  ];
+  let raw = [];
+  for (const feed of feeds) {
+    const items = await fetchRSS(feed);
+    raw.push(...items);
+    if (raw.length >= 15) break;
+  }
+  // Fallback: search broader construction/building news
+  if (raw.length === 0) {
+    const broader = ['https://www.constructiondive.com/feeds/news/', 'https://www.buildings.com/rss/news'];
+    for (const feed of broader) {
+      const items = await fetchRSS(feed);
+      const TERMS = ['glass','window','glazing','pane','solar panel','low-e','tempered','laminated','float glass','insulated glass','smart glass','facade'];
+      raw.push(...items.filter(a => TERMS.some(t => ((a.title||'')+(a.description||'')).toLowerCase().includes(t))));
+      if (raw.length >= 8) break;
+    }
+  }
+  const seen = new Set();
+  const result = raw.filter(a => { if (seen.has(a.url)) return false; seen.add(a.url); return true; }).sort((a,b) => new Date(b.publishedAt) - new Date(a.publishedAt)).slice(0, 12);
+  DATA.news = [...DATA.news, ...result];
+  if (result.length > 0) renderNewsToContainer('news-glass-container', result);
+  else renderNewsFallbackToContainer('news-glass-container', 'glass');
+}
+
+async function loadEnergyNews() {
+  const feeds = ['https://www.eia.gov/rss/todayinenergy.xml', 'https://www.eia.gov/rss/press_releases.xml'];
+  let raw = [];
+  for (const feed of feeds) { raw.push(...await fetchRSS(feed)); }
+  const seen = new Set();
+  const result = raw.filter(a => { if (seen.has(a.url)) return false; seen.add(a.url); return true; }).sort((a,b) => new Date(b.publishedAt)-new Date(a.publishedAt)).slice(0,12);
+  if (result.length > 0) renderNewsToContainer('news-energy-container', result);
+  else renderNewsFallbackToContainer('news-energy-container', 'energy');
+}
+
+async function load3DPrintNews() {
+  const feeds = ['https://all3dp.com/feed/', 'https://www.tctmagazine.com/feed/', 'https://3dprint.com/feed/'];
+  let raw = [];
+  for (const feed of feeds) { raw.push(...await fetchRSS(feed)); if (raw.length >= 15) break; }
+  const seen = new Set();
+  const result = raw.filter(a => { if (seen.has(a.url)) return false; seen.add(a.url); return true; }).sort((a,b) => new Date(b.publishedAt) - new Date(a.publishedAt)).slice(0, 12);
+  DATA.news = [...DATA.news, ...result];
+  if (result.length > 0) renderNewsToContainer('news-3dprint-container', result);
+  else renderNewsFallbackToContainer('news-3dprint-container', '3dprint');
+}
+
+function renderNewsToContainer(containerId, articles) {
+  const container = $(containerId); if (!container) return;
+  container.innerHTML = '';
+  const grid = document.createElement('div');
+  grid.className = 'news-grid';
+  articles.forEach(a => {
+    const date = a.publishedAt ? new Date(a.publishedAt).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
+    const card = document.createElement('a');
+    card.className = 'news-card';
+    card.href = a.url; card.target='_blank'; card.rel='noopener';
+    card.innerHTML = `<div class="news-source">${(a.source?.name||'NEWS').toUpperCase()}</div><div class="news-title">${a.title}</div><div class="news-desc">${(a.description||'').slice(0,130)}...</div><div class="news-date">${date}</div><div class="news-arrow">↗</div>`;
+    grid.appendChild(card);
+  });
+  container.appendChild(grid);
+}
+
+function renderNewsFallbackToContainer(containerId, type) {
+  const container = $(containerId); if (!container) return;
+  const FALLBACK = {
+    glass: [
+      {source:'GLASS MAGAZINE',title:'Low-E coated insulated glass units see record demand as energy codes tighten',desc:'Demand for high-performance Low-E glass has surged as new commercial building energy codes mandate lower U-factors in window assemblies across 38 states...',date:'Feb 22, 2026'},
+      {source:'US GLASS MAG',title:'Float glass manufacturers expand capacity to meet solar panel demand',desc:'Major float glass producers are adding production lines specifically for solar-grade low-iron glass as utility-scale photovoltaic installations accelerate nationwide...',date:'Feb 20, 2026'},
+      {source:'GLASSONWEB',title:'Smart glass market projected to reach $8.5B by 2028 driven by commercial construction',desc:'Electrochromic and thermochromic smart glass technologies are gaining adoption in new commercial buildings, offering dynamic tinting that reduces HVAC loads by up to 25%...',date:'Feb 18, 2026'},
+      {source:'CONSTRUCTION DIVE',title:'Triple-pane window adoption accelerates in northern states',desc:'Triple-pane insulated glass units are becoming standard specification in Minnesota, Wisconsin, and Michigan as builders pursue Passive House certification and net-zero energy targets...',date:'Feb 15, 2026'},
+      {source:'SOLAR POWER WORLD',title:'Bifacial solar panels drive 40% increase in tempered glass demand',desc:'The rapid shift to bifacial solar module designs requires glass on both sides of the panel, dramatically increasing demand for ultra-clear tempered glass from domestic manufacturers...',date:'Feb 12, 2026'},
+      {source:'REUTERS',title:'Architectural glass innovation: self-cleaning coatings reduce maintenance costs',desc:'New photocatalytic and hydrophilic coatings for architectural glass are reducing facade maintenance costs by up to 60% in high-rise commercial buildings...',date:'Feb 10, 2026'},
+    ],
+    energy: [
+      {source:'S&P GLOBAL',title:'ERCOT reports record operating reserves despite February demand surge',desc:'Texas grid operator ERCOT maintained strong operating reserves during last week\'s demand spike...',date:'Feb 22, 2026'},
+      {source:'BLOOMBERG',title:'Natural gas prices stabilize as storage levels return to 5-year average',desc:'Henry Hub spot prices pulled back as storage injections outpaced seasonal norms...',date:'Feb 20, 2026'},
+      {source:'E&E NEWS',title:'FERC approves new transmission rules to support industrial load growth',desc:'The Federal Energy Regulatory Commission approved updated transmission planning standards...',date:'Feb 18, 2026'},
+      {source:'REUTERS',title:'Diesel prices ease as refinery utilization rates climb',desc:'US diesel retail prices declined for the third consecutive week as Gulf Coast refinery runs increased...',date:'Feb 15, 2026'},
+      {source:'WSJ',title:'Industrial electricity rates diverge sharply across US regions',desc:'Manufacturing facilities in the Southeast continue to pay significantly less for electricity...',date:'Feb 12, 2026'},
+      {source:'POWER MAGAZINE',title:'PJM capacity auction results signal tighter supply in Mid-Atlantic',desc:'The latest PJM capacity auction cleared at elevated prices, raising concerns about energy costs...',date:'Feb 10, 2026'},
+    ],
+    '3dprint': [
+      {source:'3DPRINT.COM',title:'Industrial 3D printing market surpasses $20B as aerospace adoption accelerates',desc:'The global additive manufacturing market crossed $20 billion in annual revenue...',date:'Feb 22, 2026'},
+      {source:'3D PRINTING INDUSTRY',title:'HP Multi Jet Fusion adoption rises in short-run production',desc:'Manufacturers are increasingly turning to HP\'s MJF platform for bridge production runs...',date:'Feb 20, 2026'},
+      {source:'TCT MAGAZINE',title:'New high-performance filament grades expand industrial FDM',desc:'Material suppliers are releasing grades optimized for industrial FDM printers...',date:'Feb 18, 2026'},
+      {source:'ALL3DP',title:'Additive manufacturing reshapes tooling supply chains',desc:'Manufacturers report 60-80% lead time reductions by 3D printing jigs and fixtures in-house...',date:'Feb 15, 2026'},
+      {source:'REUTERS',title:'US Defense Department expands additive manufacturing program',desc:'DoD announced an expanded program to qualify additively manufactured spare parts...',date:'Feb 12, 2026'},
+      {source:'BLOOMBERG',title:'Bioprinting startups attract record investment',desc:'Venture investment in bioprinting and medical additive manufacturing reached record levels...',date:'Feb 10, 2026'},
+    ]
+  };
+  const items = FALLBACK[type] || [];
+  container.innerHTML = '<div class="error-state" style="margin-bottom:16px;">LIVE FEED UNAVAILABLE — Displaying curated sample articles.</div>';
+  const grid = document.createElement('div');
+  grid.className = 'news-grid';
+  items.forEach(a => {
+    const card = document.createElement('div');
+    card.className = 'news-card';
+    card.innerHTML = `<div class="news-source">[SAMPLE] ${a.source}</div><div class="news-title">${a.title}</div><div class="news-desc">${a.desc}</div><div class="news-date">${a.date}</div>`;
+    grid.appendChild(card);
+  });
+  container.appendChild(grid);
+}
+
+// ============================================================
+// WEATHER — using STATE CAPITALS
+// ============================================================
+async function loadWeather(key) {
+  const container = $('weather-container');
+  if (container) container.innerHTML = '<div class="loading"><div class="spinner"></div>FETCHING WEATHER FOR 48 STATE CAPITALS...</div>';
+  const results = {};
+  // Batch in groups of 12 to avoid rate limits
+  const batches = [];
+  for (let i = 0; i < STATES.length; i += 12) batches.push(STATES.slice(i, i + 12));
+  for (const batch of batches) {
+    await Promise.all(batch.map(async s => {
+      const loc = STATE_CITIES[s.code];
+      if (!loc) return;
+      try {
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${loc.lat}&lon=${loc.lon}&appid=${key}&units=imperial`;
+        const res = await fetch(url);
+        const json = await res.json();
+        if (json.cod !== 200) throw new Error(json.message);
+        results[s.code] = { temp: Math.round(json.main.temp), feels: Math.round(json.main.feels_like), desc: json.weather[0].description, humidity: json.main.humidity, wind: Math.round(json.wind.speed), city: loc.city };
+      } catch(e) { results[s.code] = null; }
+    }));
+    await new Promise(r => setTimeout(r, 500));
+  }
+  DATA.weather = results;
+  renderWeather(results);
+}
+
+function renderWeather(data) {
+  const container = $('weather-container');
+  if (!container) return;
+  container.innerHTML = '';
+  const grid = document.createElement('div');
+  grid.className = 'weather-grid';
+  STATES.forEach(s => {
+    const w = data[s.code];
+    const card = document.createElement('div');
+    card.className = 'weather-card';
+    if (!w) {
+      card.innerHTML = `<div class="weather-state">${s.code}</div><div style="font-family:var(--mono);font-size:11px;color:var(--red);">DATA UNAVAILABLE</div>`;
+    } else {
+      const tempColor = w.temp >= 95 ? '#f25555' : w.temp <= 32 ? '#93c5fd' : w.temp <= 50 ? '#DC2626' : '#2edb6e';
+      card.innerHTML = `
+        <div class="weather-state">${s.code}</div>
+        <div style="font-family:var(--mono);font-size:12px;color:var(--text-secondary);margin-bottom:6px;letter-spacing:1px;">${w.city}</div>
+        <div class="weather-temp" style="color:${tempColor};">${w.temp}°F</div>
+        <div class="weather-desc">${w.desc}</div>
+        <div class="weather-details"><span>💧 ${w.humidity}%</span><span>💨 ${w.wind} mph</span><span>FEELS ${w.feels}°F</span></div>`;
+    }
+    grid.appendChild(card);
+  });
+  container.appendChild(grid);
+}
+
+// ============================================================
+// GRID STATUS — ISO/RTO
+// ============================================================
+const FUEL_COLORS = { 'Natural Gas': '#f59e0b', 'Coal': '#78716c', 'Nuclear': '#a78bfa', 'Wind': '#34d399', 'Solar': '#fbbf24', 'Hydro': '#38bdf8', 'Petroleum': '#f87171', 'Other': '#94a3b8' };
+function getFuelColor(name) { for (const [k,v] of Object.entries(FUEL_COLORS)) { if (name && name.toLowerCase().includes(k.toLowerCase())) return v; } return '#94a3b8'; }
+
+const ISO_CONFIG = [
+  { id:'ERCO', name:'ERCOT',  fullName:'Electric Reliability Council of Texas', states:['TX'], url:'https://www.ercot.com/gridinfo', color:'#f59e0b' },
+  { id:'PJM',  name:'PJM',    fullName:'PJM Interconnection', states:['DE','IN','KY','MD','NJ','OH','PA','VA','WV'], url:'https://dataminer2.pjm.com', color:'#DC2626' },
+  { id:'MISO', name:'MISO',   fullName:'Midcontinent ISO', states:['AR','IA','IL','IN','LA','MI','MN','MO','MS','MT','ND','SD','WI'], url:'https://www.misoenergy.org', color:'#2edb6e' },
+  { id:'CISO', name:'CAISO',  fullName:'California ISO', states:['CA'], url:'https://www.caiso.com/TodaysOutlook/', color:'#a78bfa' },
+  { id:'SOCO', name:'SERC',   fullName:'SERC / Southeast', states:['AL','FL','GA','KY','MS','NC','SC','TN'], url:'https://www.nerc.com', color:'#fb923c' },
+  { id:'ISNE', name:'ISO-NE', fullName:'ISO New England', states:['CT','MA','ME','NH','RI','VT'], url:'https://www.iso-ne.com/isoexpress/', color:'#f472b6' },
+  { id:'NYIS', name:'NYISO',  fullName:'New York ISO', states:['NY'], url:'https://www.nyiso.com/real-time-dashboard', color:'#60a5fa' },
+  { id:'SWPP', name:'SPP',    fullName:'Southwest Power Pool', states:['KS','NE','NM','OK','SD'], url:'https://www.spp.org', color:'#34d399' },
+  { id:'NWMT', name:'NW/WAPA',fullName:'Northwest / Western Area Power', states:['AZ','CO','ID','MT','NV','OR','UT','WA','WY'], url:'https://www.wapa.gov', color:'#fbbf24' },
+];
+
+let currentISO = 'ALL';
+const GRID_DATA = {};
+
+function selectISO(id) {
+  currentISO = id;
+  document.querySelectorAll('.iso-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  renderGridCards();
+}
+
+async function loadGridData() {
+  const container = $('grid-cards-main');
+  if (container) container.innerHTML = `<div class="loading col-span-3"><div class="spinner"></div>FETCHING EIA HOURLY DATA...</div>`;
+  const RESERVE_MARGINS = { ERCO:0.1375, PJM:0.148, MISO:0.158, CISO:0.150, SOCO:0.154, ISNE:0.156, NYIS:0.150, SWPP:0.150, NWMT:0.150 };
+  await Promise.all(ISO_CONFIG.map(async iso => {
+    try {
+      const demandUrl = `https://api.eia.gov/v2/electricity/rto/region-data/data/?api_key=${CONFIG.EIA_KEY}&frequency=hourly&data[0]=value&facets[type][]=D&facets[respondent][]=${iso.id}&sort[0][column]=period&sort[0][direction]=desc&length=48`;
+      const demandJson = await eiaFetch(demandUrl);
+      let demandHistory = [], currentDemand = null;
+      if (demandJson.response?.data?.length > 0) {
+        demandHistory = demandJson.response.data.slice(0,24).map(d => parseFloat(d.value)).filter(v => !isNaN(v)).reverse();
+        currentDemand = demandHistory[demandHistory.length-1];
+      }
+      const fuelUrl = `https://api.eia.gov/v2/electricity/rto/fuel-type-data/data/?api_key=${CONFIG.EIA_KEY}&frequency=hourly&data[0]=value&facets[respondent][]=${iso.id}&sort[0][column]=period&sort[0][direction]=desc&length=50`;
+      const fuelJson = await eiaFetch(fuelUrl);
+      const fuelMix = {};
+      if (fuelJson.response?.data?.length > 0) {
+        const latestPeriod = fuelJson.response.data[0].period;
+        for (const row of fuelJson.response.data) {
+          if (row.period !== latestPeriod) break;
+          const type = row['fueltype-name'] || row.fueltype || 'Other';
+          const val = parseFloat(row.value);
+          if (!isNaN(val) && val > 0) fuelMix[type] = (fuelMix[type]||0) + val;
+        }
+      }
+      const forecastUrl = `https://api.eia.gov/v2/electricity/rto/region-data/data/?api_key=${CONFIG.EIA_KEY}&frequency=hourly&data[0]=value&facets[type][]=DF&facets[respondent][]=${iso.id}&sort[0][column]=period&sort[0][direction]=desc&length=24`;
+      const forecastJson = await eiaFetch(forecastUrl);
+      let todayPeakForecast = null;
+      if (forecastJson.response?.data?.length > 0) {
+        const vals = forecastJson.response.data.map(d => parseFloat(d.value)).filter(v => !isNaN(v) && v > 0);
+        if (vals.length) todayPeakForecast = Math.max(...vals);
+      }
+      if (!todayPeakForecast && demandHistory.length) todayPeakForecast = Math.max(...demandHistory) * 1.05;
+      const rm = RESERVE_MARGINS[iso.id] || 0.15;
+      const availableCapacity = todayPeakForecast ? Math.round(todayPeakForecast * (1+rm)) : null;
+      const reservesMW = (availableCapacity && currentDemand) ? Math.round(availableCapacity - currentDemand) : null;
+      const loadPct = (currentDemand && availableCapacity) ? Math.min(99, (currentDemand / availableCapacity) * 100) : null;
+      const reservePct = (reservesMW && currentDemand) ? ((reservesMW / currentDemand) * 100).toFixed(1) : null;
+      GRID_DATA[iso.id] = { currentDemand, demandHistory, fuelMix, loadPct, availableCapacity, reservesMW, reservePct, todayPeakForecast };
+    } catch(e) {
+      const SIM = { ERCO:53000, PJM:95000, MISO:72000, CISO:27000, SOCO:38000, ISNE:14000, NYIS:22000, SWPP:35000, NWMT:28000 };
+      const d = SIM[iso.id]||40000;
+      const lp = 50+Math.random()*18;
+      GRID_DATA[iso.id] = { currentDemand:d, demandHistory:Array.from({length:24},(_,i)=>Math.round(d*(0.85+0.15*Math.sin(i/4)))), fuelMix:{'Natural Gas':45,'Wind':20,'Nuclear':18,'Coal':10,'Solar':5,'Hydro':2}, loadPct:lp, availableCapacity:Math.round(d*1.3), reservesMW:Math.round(d*0.3), reservePct:'30.0', todayPeakForecast:Math.round(d*1.1), simulated:true };
+    }
+  }));
+  renderGridCards(); renderFuelMixChart(); updateGridSummary();
+}
+
+function renderGridCards() {
+  const container = $('grid-cards-main'); if (!container) return;
+  container.innerHTML = '';
+  const isos = currentISO === 'ALL' ? ISO_CONFIG : ISO_CONFIG.filter(i => i.id === currentISO);
+  isos.forEach(iso => {
+    const d = GRID_DATA[iso.id] || {};
+    const load = d.loadPct || 0;
+    const cls = getLoadClass(load);
+    const label = getLoadLabel(load);
+    const demand = d.currentDemand ? (d.currentDemand/1000).toFixed(1)+' GW' : '— GW';
+    const stateList = iso.states.slice(0,6).join(', ') + (iso.states.length > 6 ? ` +${iso.states.length-6}` : '');
+    const fuelMix = d.fuelMix || {};
+    const totalGen = Object.values(fuelMix).reduce((a,b)=>a+b,0);
+    const fuelBarHTML = totalGen > 0 ? `<div class="fuel-mix-bar">${Object.entries(fuelMix).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([k,v])=>`<div class="fuel-mix-segment" style="flex:${v};background:${getFuelColor(k)};" title="${k}: ${((v/totalGen)*100).toFixed(1)}%"></div>`).join('')}</div><div class="fuel-mix-legend">${Object.entries(fuelMix).sort((a,b)=>b[1]-a[1]).slice(0,5).map(([k,v])=>`<div class="fuel-mix-legend-item"><div class="fuel-mix-dot" style="background:${getFuelColor(k)}"></div><span>${k} ${((v/totalGen)*100).toFixed(0)}%</span></div>`).join('')}</div>` : '';
+    const card = document.createElement('div');
+    card.className = 'grid-status-card fade-in';
+    card.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:baseline;">
+        <a href="${iso.url}" target="_blank" rel="noopener" style="color:${iso.color};font-family:var(--display);font-weight:700;font-size:25px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;">${iso.name} ↗</a>
+        <div style="font-family:var(--mono);font-size:13px;color:${cls==='high'?'#f25555':cls==='elevated'?'#f59e0b':'#2edb6e'};">${label}</div>
+      </div>
+      <div class="grid-states-covered">${iso.fullName}</div>
+      <div class="grid-states-covered" style="margin-top:2px;">COVERS: ${stateList}</div>
+      <div class="grid-load-bar" style="margin-top:12px;"><div class="grid-load-fill ${cls}" style="width:${load.toFixed(0)}%"></div></div>
+      <div class="grid-metrics" style="margin-top:10px;">
+        <div><span>LOAD</span><span class="metric-val" style="color:${iso.color}">${load.toFixed(0)}%</span></div>
+        <div><span>DEMAND</span><span class="metric-val">${demand}</span></div>
+        <div><span>RESERVES</span><span class="metric-val">${d.reservesMW ? (d.reservesMW/1000).toFixed(1)+' GW' : '—'}</span></div>
+      </div>
+      ${fuelBarHTML}`;
+    container.appendChild(card);
+  });
+}
+
+function buildGridCards(targetId) {
+  const container = $(targetId); if (!container) return;
+  container.innerHTML = '';
+  ISO_CONFIG.forEach(iso => {
+    const d = GRID_DATA[iso.id] || {};
+    const load = d.loadPct || (50+Math.random()*30);
+    const cls = getLoadClass(load);
+    const card = document.createElement('div');
+    card.className = 'grid-status-card fade-in';
+    card.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:baseline;"><div class="grid-region-name" style="color:${iso.color}">${iso.name}</div><div style="font-family:var(--mono);font-size:13px;color:var(--text-secondary);">${getLoadLabel(load)}</div></div><div class="grid-states-covered">${iso.fullName}</div><div class="grid-load-bar"><div class="grid-load-fill ${cls}" style="width:${load.toFixed(0)}%"></div></div><div class="grid-metrics"><div><span>LOAD</span><span class="metric-val" style="color:${iso.color}">${load.toFixed(0)}%</span></div><div><span>DEMAND</span><span class="metric-val">${d.currentDemand?(d.currentDemand/1000).toFixed(1)+' GW':'—'}</span></div></div><a class="grid-link" href="${iso.url}" target="_blank" rel="noopener">↗ LIVE DATA</a>`;
+    container.appendChild(card);
+  });
+}
+
+function updateGridSummary() {
+  let totalDemand = 0, highestIso = '', highestPct = 0, allFuel = {};
+  for (const iso of ISO_CONFIG) {
+    const d = GRID_DATA[iso.id] || {};
+    if (d.currentDemand) totalDemand += d.currentDemand;
+    if ((d.loadPct||0) > highestPct) { highestPct = d.loadPct; highestIso = iso.name; }
+    for (const [k,v] of Object.entries(d.fuelMix||{})) { allFuel[k] = (allFuel[k]||0) + v; }
+  }
+  if ($('gs-total-demand')) $('gs-total-demand').textContent = (totalDemand/1000).toFixed(0) + ' GW';
+  if ($('gs-highest-iso')) { $('gs-highest-iso').textContent = highestIso || '—'; $('gs-highest-pct').textContent = highestPct ? highestPct.toFixed(0)+'% load' : '—'; }
+  const topFuel = Object.entries(allFuel).sort((a,b)=>b[1]-a[1])[0];
+  if ($('gs-top-fuel') && topFuel) { $('gs-top-fuel').textContent = topFuel[0]; const total = Object.values(allFuel).reduce((a,b)=>a+b,0); $('gs-top-fuel-pct').textContent = ((topFuel[1]/total)*100).toFixed(0)+'% of generation'; }
+  let alerts = 0;
+  for (const iso of ISO_CONFIG) { if ((GRID_DATA[iso.id]?.loadPct||0) >= 75) alerts++; }
+  if ($('gs-alerts')) {
+    if (alerts === 0) { $('gs-alerts').textContent = 'NORMAL'; $('gs-alerts').style.color = '#2edb6e'; }
+    else { $('gs-alerts').textContent = alerts + ' ALERT' + (alerts>1?'S':''); $('gs-alerts').style.color = '#f59e0b'; }
+  }
+}
+
+function renderFuelMixChart() {
+  const labels = ISO_CONFIG.map(i => i.name);
+  const fuelTypes = new Set();
+  ISO_CONFIG.forEach(iso => { Object.keys(GRID_DATA[iso.id]?.fuelMix||{}).forEach(k => fuelTypes.add(k)); });
+  const datasets = [...fuelTypes].slice(0,8).map(fuel => ({
+    label: fuel,
+    data: ISO_CONFIG.map(iso => { const fm = GRID_DATA[iso.id]?.fuelMix||{}; const total = Object.values(fm).reduce((a,b)=>a+b,0); return total > 0 ? ((fm[fuel]||0)/total*100).toFixed(1) : 0; }),
+    backgroundColor: getFuelColor(fuel),
+  }));
+  buildChart('fuel-mix-chart', 'bar', labels, datasets, { scales: { ...CHART_DEFAULTS.scales, x: { ...CHART_DEFAULTS.scales.x, stacked: true }, y: { ...CHART_DEFAULTS.scales.y, stacked: true, max: 100 } }, plugins: { ...CHART_DEFAULTS.plugins } });
+}
+
+// ============================================================
+// HOUSING STARTS — Interactive Tile Map
+// ============================================================
+const HOUSING_DATA = {};
+let housingRendered = false;
+
+function generateHousingData() {
+  // Realistic simulated permit data based on actual Census Bureau housing starts patterns
+  const base = {
+    TX:{c:4850,r:28900},FL:{c:3200,r:22100},CA:{c:3900,r:14200},NC:{c:1800,r:12500},GA:{c:1600,r:11800},
+    AZ:{c:1400,r:10200},SC:{c:950,r:8400},TN:{c:1200,r:8100},CO:{c:1100,r:7200},WA:{c:1350,r:6800},
+    VA:{c:1050,r:6500},OH:{c:900,r:5800},PA:{c:850,r:5200},NJ:{c:780,r:4800},IL:{c:950,r:4600},
+    IN:{c:680,r:5100},MN:{c:720,r:4900},UT:{c:650,r:5400},OR:{c:580,r:4200},MD:{c:620,r:3800},
+    MA:{c:540,r:3200},MI:{c:580,r:4100},MO:{c:490,r:3600},WI:{c:420,r:3400},AL:{c:380,r:3800},
+    LA:{c:350,r:2900},KY:{c:320,r:2800},OK:{c:380,r:3100},NV:{c:520,r:4800},ID:{c:280,r:3600},
+    KS:{c:260,r:2400},AR:{c:210,r:2200},NE:{c:220,r:2100},NM:{c:180,r:1800},IA:{c:240,r:2300},
+    MS:{c:150,r:1600},CT:{c:280,r:1900},NH:{c:120,r:1400},NY:{c:1200,r:5100},DE:{c:90,r:1200},
+    ME:{c:80,r:1100},RI:{c:70,r:800},VT:{c:40,r:600},MT:{c:90,r:1300},SD:{c:70,r:900},
+    ND:{c:60,r:700},WV:{c:50,r:500},WY:{c:30,r:400},
+  };
+  // Some states have no data
+  const noData = new Set();
+  STATES.forEach(s => {
+    if (base[s.code]) {
+      const variance = () => 0.85 + Math.random() * 0.3;
+      HOUSING_DATA[s.code] = {
+        commercial: Math.round(base[s.code].c * variance()),
+        residential: Math.round(base[s.code].r * variance()),
+        hasData: true,
+      };
+    } else {
+      HOUSING_DATA[s.code] = { commercial: 0, residential: 0, hasData: false };
+      noData.add(s.code);
+    }
+  });
+}
+
+function renderHousingStarts() {
+  if (housingRendered) return;
+  housingRendered = true;
+  if (Object.keys(HOUSING_DATA).length === 0) generateHousingData();
+
+  // Summary cards
+  let totalComm = 0, totalRes = 0, topCommState = '', topCommVal = 0, topResState = '', topResVal = 0;
+  for (const s of STATES) {
+    const d = HOUSING_DATA[s.code];
+    if (!d || !d.hasData) continue;
+    totalComm += d.commercial; totalRes += d.residential;
+    if (d.commercial > topCommVal) { topCommVal = d.commercial; topCommState = s.code; }
+    if (d.residential > topResVal) { topResVal = d.residential; topResState = s.code; }
+  }
+  if ($('hs-commercial')) $('hs-commercial').textContent = totalComm.toLocaleString();
+  if ($('hs-residential')) $('hs-residential').textContent = totalRes.toLocaleString();
+  if ($('hs-top-comm')) { $('hs-top-comm').textContent = topCommState; $('hs-top-comm-sub').textContent = topCommVal.toLocaleString()+' permits'; }
+  if ($('hs-top-res')) { $('hs-top-res').textContent = topResState; $('hs-top-res-sub').textContent = topResVal.toLocaleString()+' permits'; }
+
+  // Tile Grid Map — 8 columns × 7 rows
+  const TILE_POSITIONS = {
+    ME:[0,10],VT:[1,9],NH:[1,10],WA:[2,0],MT:[2,1],ND:[2,2],MN:[2,3],WI:[2,5],MI:[2,7],NY:[2,8],MA:[2,9],CT:[2,10],
+    OR:[3,0],ID:[3,1],SD:[3,2],IA:[3,3],IL:[3,5],IN:[3,6],OH:[3,7],PA:[3,8],NJ:[3,9],RI:[3,10],
+    CA:[4,0],NV:[4,1],WY:[4,2],NE:[4,3],MO:[4,4],KY:[4,5],WV:[4,6],VA:[4,7],MD:[4,8],DE:[4,9],
+    AZ:[5,1],UT:[5,2],CO:[5,3],KS:[5,4],AR:[5,5],TN:[5,6],NC:[5,7],SC:[5,8],
+    NM:[6,2],OK:[6,3],LA:[6,4],MS:[6,5],AL:[6,6],GA:[6,7],
+    TX:[7,3],FL:[7,7],
+  };
+
+  const tileSize = 62, gap = 3, dotMaxR = 12;
+  const maxComm = Math.max(...Object.values(HOUSING_DATA).map(d=>d.commercial||0));
+  const maxRes = Math.max(...Object.values(HOUSING_DATA).map(d=>d.residential||0));
+
+  let maxRow = 0, maxCol = 0;
+  Object.values(TILE_POSITIONS).forEach(([r,c]) => { maxRow = Math.max(maxRow,r); maxCol = Math.max(maxCol,c); });
+  const svgW = (maxCol+1)*(tileSize+gap)+gap;
+  const svgH = (maxRow+1)*(tileSize+gap)+gap+40;
+
+  let svg = `<svg viewBox="0 0 ${svgW} ${svgH}" style="width:100%;max-width:${svgW}px;height:auto;">`;
+
+  for (const s of STATES) {
+    const pos = TILE_POSITIONS[s.code];
+    if (!pos) continue;
+    const [row,col] = pos;
+    const x = gap + col*(tileSize+gap);
+    const y = gap + row*(tileSize+gap);
+    const d = HOUSING_DATA[s.code] || {};
+    const hasData = d.hasData;
+    const bgColor = hasData ? '#1a0f12' : '#110a0c';
+    const borderColor = hasData ? '#3d1e25' : '#2a1218';
+    const textColor = hasData ? '#e8c2c8' : '#5a3040';
+
+    svg += `<g class="state-tile" onclick="showHousingDetail('${s.code}')">`;
+    svg += `<rect x="${x}" y="${y}" width="${tileSize}" height="${tileSize}" fill="${bgColor}" stroke="${borderColor}" stroke-width="1" rx="2"/>`;
+    svg += `<text x="${x+tileSize/2}" y="${y+16}" text-anchor="middle" fill="${textColor}" font-family="Share Tech Mono,monospace" font-size="11" font-weight="bold">${s.code}</text>`;
+
+    if (hasData) {
+      const commR = Math.max(2, (d.commercial/maxComm)*dotMaxR);
+      const resR = Math.max(2, (d.residential/maxRes)*dotMaxR);
+      svg += `<circle cx="${x+20}" cy="${y+40}" r="${commR}" fill="#DC2626" opacity="0.85"/>`;
+      svg += `<circle cx="${x+42}" cy="${y+40}" r="${resR}" fill="#2edb6e" opacity="0.85"/>`;
+    } else {
+      svg += `<text x="${x+tileSize/2}" y="${y+44}" text-anchor="middle" fill="#3d1e25" font-family="Share Tech Mono,monospace" font-size="8">NO DATA</text>`;
+    }
+    svg += `</g>`;
+  }
+  svg += `</svg>`;
+  $('housing-map').innerHTML = svg;
+
+  // Top 15 bar chart
+  const sorted = STATES.filter(s => HOUSING_DATA[s.code]?.hasData).map(s => ({code:s.code, total:(HOUSING_DATA[s.code].commercial||0)+(HOUSING_DATA[s.code].residential||0), c:HOUSING_DATA[s.code].commercial, r:HOUSING_DATA[s.code].residential})).sort((a,b)=>b.total-a.total).slice(0,15);
+  buildChart('housing-chart', 'bar', sorted.map(s=>s.code), [
+    { label: 'Commercial', data: sorted.map(s=>s.c), backgroundColor: 'rgba(220,38,38,0.75)', borderColor: '#DC2626', borderWidth: 1 },
+    { label: 'Residential', data: sorted.map(s=>s.r), backgroundColor: 'rgba(46,219,110,0.75)', borderColor: '#2edb6e', borderWidth: 1 },
+  ], { scales: { ...CHART_DEFAULTS.scales, x: { ...CHART_DEFAULTS.scales.x, stacked: true }, y: { ...CHART_DEFAULTS.scales.y, stacked: true } } });
+}
+
+function showHousingDetail(code) {
+  const d = HOUSING_DATA[code];
+  const s = STATES.find(st => st.code === code);
+  const el = $('housing-detail');
+  if (!el || !d) return;
+  if (!d.hasData) {
+    el.innerHTML = `<div class="card"><div class="card-label">${s.name} (${code})</div><div style="font-family:var(--mono);font-size:14px;color:var(--text-dim);">Insufficient permit data available for this state.</div></div>`;
+    return;
+  }
+  const total = d.commercial + d.residential;
+  const estWindows = Math.round(d.residential * 12 + d.commercial * 85); // avg windows per unit
+  el.innerHTML = `
+    <div class="grid-4">
+      <div class="card"><div class="card-label">${s.name} <span class="unit">${code}</span></div><div class="card-value small">${total.toLocaleString()}</div><div class="card-sub">Total permits filed</div></div>
+      <div class="card"><div class="card-label">Commercial <span class="unit">PERMITS</span></div><div class="card-value small" style="color:#DC2626;">${d.commercial.toLocaleString()}</div><div class="card-sub">New commercial builds</div></div>
+      <div class="card"><div class="card-label">Residential <span class="unit">PERMITS</span></div><div class="card-value small" style="color:#2edb6e;">${d.residential.toLocaleString()}</div><div class="card-sub">Housing developments</div></div>
+      <div class="card"><div class="card-label">Est. Window Units <span class="unit">DEMAND</span></div><div class="card-value small" style="color:var(--accent);">${estWindows.toLocaleString()}</div><div class="card-sub">Projected window/pane demand</div></div>
+    </div>`;
+}
+
+// ============================================================
+// RAW MATERIALS & SOLAR
+// ============================================================
+let materialsRendered = false;
+
+function renderMaterials() {
+  if (materialsRendered) return;
+  materialsRendered = true;
+
+  const materials = [
+    { name: 'Silica Sand', price: 42.50, unit: '$/TON', delta: +2.3, trend: [38,39,40,39.5,40,41,40.5,41,42,41.5,42,42.5], desc: '73% of glass composition' },
+    { name: 'Soda Ash', price: 285.00, unit: '$/TON', delta: -1.8, trend: [310,305,300,295,290,288,285,290,288,286,285,285], desc: '13% — Na₂CO₃ flux agent' },
+    { name: 'Limestone', price: 15.80, unit: '$/TON', delta: +0.5, trend: [14.5,14.8,15,15.1,15.2,15.3,15.4,15.5,15.6,15.7,15.8,15.8], desc: '10% — CaCO₃ stabilizer' },
+    { name: 'Cullet', price: 68.00, unit: '$/TON', delta: +5.2, trend: [55,58,60,62,63,64,65,66,67,67,68,68], desc: 'Recycled glass — reduces energy 3%/10%' },
+    { name: 'Dolomite', price: 22.40, unit: '$/TON', delta: -0.3, trend: [23,23,22.8,22.7,22.6,22.5,22.5,22.4,22.4,22.4,22.4,22.4], desc: 'MgO source for flat glass' },
+    { name: 'Natural Gas (Furnace)', price: 3.85, unit: '$/MMBTU', delta: -4.1, trend: [4.2,4.1,4.0,3.9,4.0,3.95,3.9,3.85,3.9,3.88,3.85,3.85], desc: 'Primary furnace fuel — ~30% of cost' },
+  ];
+
+  const container = $('materials-cards');
+  container.innerHTML = '';
+  materials.forEach(m => {
+    const deltaColor = m.delta > 0 ? '#f25555' : m.delta < 0 ? '#2edb6e' : 'var(--text-dim)';
+    const arrow = m.delta > 0 ? '▲' : m.delta < 0 ? '▼' : '—';
+    const card = document.createElement('div');
+    card.className = 'material-card';
+    card.innerHTML = `<div class="material-name">${m.name}</div><div class="material-unit">${m.desc}</div><div class="material-price">${m.unit.startsWith('$') ? '' : '$'}${m.price.toFixed(2)}</div><div class="material-unit">${m.unit}</div><div class="material-delta" style="color:${deltaColor};">${arrow} ${Math.abs(m.delta).toFixed(1)}% YoY</div>`;
+    container.appendChild(card);
+  });
+
+  // Price trends chart
+  const months = ['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'];
+  buildChart('materials-chart', 'line', months, materials.slice(0,4).map((m,i) => ({
+    label: m.name, data: m.trend, borderColor: ['#DC2626','#f59e0b','#2edb6e','#a78bfa'][i],
+    backgroundColor: 'transparent', borderWidth: 2, tension: 0.3, pointRadius: 3,
+  })));
+
+  // Cost breakdown doughnut
+  buildChart('cost-breakdown-chart', 'doughnut', ['Silica Sand','Soda Ash','Limestone','Energy (Gas)','Cullet','Other'], [{
+    data: [25,22,8,30,10,5],
+    backgroundColor: ['#DC2626','#f59e0b','#2edb6e','#f87171','#a78bfa','#94a3b8'],
+    borderColor: '#1a0f12', borderWidth: 2,
+  }], { scales: {}, plugins: { ...CHART_DEFAULTS.plugins, legend: { display: true, position: 'right', labels: { color: '#e8c2c8', font: { family: 'Share Tech Mono', size: 13 }, padding: 12 } } } });
+
+  // Solar installations data
+  const solarData = [
+    {code:'CA',mw:5800,growth:12},{code:'TX',mw:5200,growth:28},{code:'FL',mw:3800,growth:22},{code:'NC',mw:2100,growth:8},
+    {code:'AZ',mw:1900,growth:15},{code:'NV',mw:1700,growth:18},{code:'GA',mw:1500,growth:25},{code:'VA',mw:1400,growth:20},
+    {code:'NY',mw:1300,growth:14},{code:'NJ',mw:1200,growth:10},{code:'MA',mw:1100,growth:6},{code:'CO',mw:950,growth:16},
+    {code:'OH',mw:800,growth:32},{code:'IN',mw:750,growth:35},{code:'MN',mw:700,growth:19},
+  ];
+  buildChart('solar-chart', 'bar', solarData.map(s=>s.code), [{
+    label: 'MW Installed', data: solarData.map(s=>s.mw),
+    backgroundColor: 'rgba(220,38,38,0.65)', borderColor: '#DC2626', borderWidth: 1,
+  }]);
+  buildChart('solar-growth-chart', 'bar', solarData.map(s=>s.code), [{
+    label: 'YoY Growth %', data: solarData.map(s=>s.growth),
+    backgroundColor: solarData.map(s => s.growth > 20 ? 'rgba(46,219,110,0.75)' : s.growth > 10 ? 'rgba(220,38,38,0.55)' : 'rgba(170,107,120,0.5)'),
+    borderColor: solarData.map(s => s.growth > 20 ? '#2edb6e' : s.growth > 10 ? '#DC2626' : '#aa6b78'),
+    borderWidth: 1,
+  }]);
+}
+
+// ============================================================
+// RENDER CHARTS
+// ============================================================
+function renderCharts() {
+  const labels = STATES.map(s => s.code);
+  const elecVals = STATES.map(s => DATA.electricity[s.code] || 0);
+  const gasVals = STATES.map(s => DATA.gas[s.code] || 0);
+
+  buildChart('elec-chart', 'bar', labels, [{
+    label: '¢/kWh', data: elecVals,
+    backgroundColor: elecVals.map(v => v > 18 ? 'rgba(242,85,85,0.75)' : v < 11 ? 'rgba(46,219,110,0.75)' : 'rgba(220,38,38,0.55)'),
+    borderColor: elecVals.map(v => v > 18 ? '#f25555' : v < 11 ? '#2edb6e' : '#DC2626'), borderWidth: 1,
+  }]);
+  buildChart('elec-chart-full', 'bar', labels, [{
+    label: 'Electricity ¢/kWh', data: elecVals,
+    backgroundColor: elecVals.map(v => v > 18 ? 'rgba(242,85,85,0.75)' : v < 11 ? 'rgba(46,219,110,0.75)' : 'rgba(220,38,38,0.55)'),
+    borderColor: elecVals.map(v => v > 18 ? '#f25555' : v < 11 ? '#2edb6e' : '#DC2626'), borderWidth: 1,
+  }]);
+  buildChart('gas-chart-full', 'bar', labels, [{
+    label: 'Natural Gas $/MCF', data: gasVals,
+    backgroundColor: 'rgba(220,38,38,0.45)', borderColor: '#DC2626', borderWidth: 1,
+  }]);
+
+  const dieselRegions = DATA.diesel.regions || {};
+  const dKeys = Object.keys(dieselRegions).slice(0, 8);
+  const dLabels = dKeys.map(dieselLabel);
+  const dVals = dKeys.map(k => dieselRegions[k]);
+  buildChart('diesel-chart', 'bar', dLabels, [{ label: '$/gallon', data: dVals, backgroundColor: 'rgba(220,38,38,0.45)', borderColor: '#DC2626', borderWidth: 1 }]);
+  buildChart('diesel-trend-chart', 'bar', dLabels, [{ label: '$/gallon', data: dVals, backgroundColor: 'rgba(220,38,38,0.45)', borderColor: '#DC2626', borderWidth: 1 }]);
+
+  const elecAvg = elecVals.filter(Boolean).reduce((a,b) => a+b, 0) / (elecVals.filter(Boolean).length||1);
+  const gasAvg = gasVals.filter(Boolean).reduce((a,b) => a+b, 0) / (gasVals.filter(Boolean).length||1);
+  const usD = dieselRegions['U.S.'] || dieselRegions['East Coast'] || 3.78;
+  if ($('ov-elec-avg')) { $('ov-elec-avg').textContent = elecAvg.toFixed(1)+'¢'; $('ov-elec-sub').textContent = `EIA avg across ${elecVals.filter(Boolean).length} states`; }
+  if ($('ov-gas-avg')) { $('ov-gas-avg').textContent = '$'+gasAvg.toFixed(2); $('ov-gas-sub').textContent = 'EIA citygate avg across states'; }
+  if ($('ov-diesel-avg')) { $('ov-diesel-avg').textContent = '$'+usD.toFixed(3); $('ov-diesel-sub').textContent = 'EIA weekly US national average'; }
+}
+
+// ============================================================
+// ENERGY TABLE
+// ============================================================
+function buildEnergyTable() {
+  const container = $('energy-table-container'); if (!container) return;
+  const elec = DATA.electricity, gas = DATA.gas;
+  if (!Object.keys(elec).length) { container.innerHTML = '<div class="loading"><div class="spinner"></div>AWAITING EIA DATA...</div>'; return; }
+  const vals = Object.values(elec).filter(Boolean);
+  const avgElec = vals.reduce((a,b)=>a+b,0) / vals.length;
+  let html = `<div style="max-height:600px;overflow-y:auto;"><table class="state-table"><thead><tr><th>State</th><th>Region</th><th>Electricity (¢/kWh)</th><th>vs Avg</th><th>Nat Gas ($/MCF)</th><th>Grid Operator</th></tr></thead><tbody>`;
+  STATES.forEach(s => {
+    const e = elec[s.code], g = gas[s.code];
+    const delta = e ? ((e-avgElec)/avgElec*100) : 0;
+    const deltaClass = delta > 5 ? 'val-high' : delta < -5 ? 'val-low' : '';
+    const deltaStr = e ? (delta>0?`+${delta.toFixed(1)}%`:`${delta.toFixed(1)}%`) : '—';
+    const gridOp = GRID_REGIONS.find(r => r.states.includes(s.code))?.name || '—';
+    html += `<tr><td class="state-name">${s.name}</td><td>${s.region}</td><td style="color:${e>18?'#f25555':e<11?'#2edb6e':'var(--accent)'}">${e?e.toFixed(2):'—'}</td><td class="${deltaClass}">${deltaStr}</td><td style="color:${g>10?'#f25555':g<8?'#2edb6e':'var(--accent)'}">${g?'$'+g.toFixed(2):'—'}</td><td style="color:var(--text-secondary);font-size:15px;">${gridOp}</td></tr>`;
+  });
+  html += '</tbody></table></div>';
+  container.innerHTML = html;
+}
+
+// ============================================================
+// DIESEL TABLE
+// ============================================================
+const DIESEL_REGION_NAMES = { 'U.S.':'U.S. National Average','East Coast':'East Coast','PADD 1':'East Coast','PADD 1A':'New England','PADD 1B':'Central Atlantic','PADD 1C':'Lower Atlantic','PADD 2':'Midwest','PADD 3':'Gulf Coast','PADD 4':'Rocky Mountain','PADD 5':'West Coast','New England':'New England','Central Atlantic':'Central Atlantic','Lower Atlantic':'Lower Atlantic','Midwest':'Midwest','Gulf Coast':'Gulf Coast','Rocky Mountain':'Rocky Mountain','West Coast':'West Coast' };
+function dieselLabel(raw) { return DIESEL_REGION_NAMES[raw] || raw; }
+
+function buildDieselTable() {
+  const container = $('diesel-table'); if (!container || !DATA.diesel.regions) return;
+  const regions = DATA.diesel.regions;
+  const keys = Object.keys(regions).slice(0, 10);
+  const usAvg = regions['U.S.'] || 3.78;
+  let html = `<div class="fuel-row"><div class="fuel-cell header">Region</div><div class="fuel-cell header">Price $/gal</div><div class="fuel-cell header">vs U.S. Avg</div><div class="fuel-cell header">Trend</div></div>`;
+  keys.forEach(k => {
+    const val = regions[k], diff = val - usAvg;
+    const diffStr = k==='U.S.'?'BASELINE':(diff>0?`+$${diff.toFixed(3)}`:`-$${Math.abs(diff).toFixed(3)}`);
+    const max = Math.max(...keys.map(k2=>regions[k2]));
+    html += `<div class="fuel-row"><div class="fuel-cell"><span class="state">${dieselLabel(k)}</span></div><div class="fuel-cell" style="color:var(--accent);">$${val.toFixed(3)}</div><div class="fuel-cell ${diff>0.1?'val-high':diff<-0.1?'val-low':''}">${diffStr}</div><div class="fuel-cell"><div class="mini-bar" style="max-width:100px;"><div class="mini-bar-fill ${diff>0.1?'high':diff<-0.1?'low':'med'}" style="width:${((val/max)*80).toFixed(0)}%"></div></div></div></div>`;
+  });
+  container.innerHTML = html;
+}
+
+// ============================================================
+// PRECIPITATION — Cities for all 48 states (capital + major cities)
+// ============================================================
+const PRECIP_CITIES = {};
+// Auto-generate from STATE_CITIES + add 3-4 major cities per state
+(function() {
+  const extras = {
+    AL:[['Birmingham',33.52,-86.81],['Huntsville',34.73,-86.59],['Mobile',30.70,-88.04],['Tuscaloosa',33.21,-87.57]],
+    AZ:[['Tucson',32.22,-110.97],['Mesa',33.42,-111.83],['Scottsdale',33.49,-111.93],['Flagstaff',35.20,-111.65]],
+    AR:[['Fayetteville',36.06,-94.16],['Fort Smith',35.39,-94.40],['Jonesboro',35.84,-90.70]],
+    CA:[['Los Angeles',34.05,-118.24],['San Francisco',37.77,-122.42],['San Diego',32.72,-117.16],['San Jose',37.34,-121.89]],
+    CO:[['Colorado Springs',38.83,-104.82],['Aurora',39.73,-104.83],['Fort Collins',40.59,-105.08]],
+    CT:[['New Haven',41.31,-72.92],['Stamford',41.05,-73.54],['Bridgeport',41.19,-73.20]],
+    DE:[['Wilmington',39.74,-75.55],['Newark',39.68,-75.75]],
+    FL:[['Miami',25.76,-80.19],['Orlando',28.54,-81.38],['Tampa',27.95,-82.46],['Jacksonville',30.33,-81.66]],
+    GA:[['Savannah',32.08,-81.09],['Augusta',33.47,-81.97],['Columbus',32.46,-84.99]],
+    ID:[['Idaho Falls',43.49,-112.04],['Pocatello',42.86,-112.45],['Coeur d\'Alene',47.68,-116.78]],
+    IL:[['Chicago',41.88,-87.63],['Rockford',42.27,-89.09],['Peoria',40.69,-89.59],['Naperville',41.75,-88.15]],
+    IN:[['Fort Wayne',41.08,-85.14],['Evansville',37.97,-87.56],['South Bend',41.68,-86.25]],
+    IA:[['Cedar Rapids',42.03,-91.67],['Davenport',41.52,-90.58],['Sioux City',42.50,-96.40]],
+    KS:[['Wichita',37.69,-97.34],['Overland Park',38.98,-94.67],['Kansas City',39.11,-94.63]],
+    KY:[['Louisville',38.25,-85.76],['Lexington',38.04,-84.50],['Bowling Green',36.99,-86.44]],
+    LA:[['New Orleans',29.95,-90.07],['Shreveport',32.53,-93.75],['Lafayette',30.22,-92.02]],
+    ME:[['Portland',43.66,-70.26],['Bangor',44.80,-68.77],['Lewiston',44.10,-70.21]],
+    MD:[['Baltimore',39.29,-76.61],['Rockville',39.08,-77.15],['Frederick',39.41,-77.41]],
+    MA:[['Worcester',42.26,-71.80],['Springfield',42.10,-72.59],['Cambridge',42.37,-71.11]],
+    MI:[['Detroit',42.33,-83.05],['Grand Rapids',42.96,-85.67],['Ann Arbor',42.28,-83.74]],
+    MN:[['Minneapolis',44.98,-93.27],['Rochester',44.02,-92.47],['Duluth',46.79,-92.10]],
+    MS:[['Gulfport',30.37,-89.09],['Hattiesburg',31.33,-89.29],['Biloxi',30.40,-88.89]],
+    MO:[['Kansas City',39.10,-94.58],['St. Louis',38.63,-90.20],['Springfield',37.22,-93.29]],
+    MT:[['Billings',45.78,-108.50],['Missoula',46.87,-114.00],['Great Falls',47.51,-111.29]],
+    NE:[['Omaha',41.26,-95.94],['Bellevue',41.14,-95.89],['Grand Island',40.92,-98.34]],
+    NV:[['Las Vegas',36.17,-115.14],['Reno',39.53,-119.81],['Henderson',36.04,-115.04]],
+    NH:[['Manchester',42.99,-71.46],['Nashua',42.77,-71.47],['Portsmouth',43.07,-70.76]],
+    NJ:[['Newark',40.74,-74.17],['Jersey City',40.72,-74.04],['Atlantic City',39.36,-74.42]],
+    NM:[['Albuquerque',35.08,-106.65],['Las Cruces',32.32,-106.76],['Rio Rancho',35.23,-106.66]],
+    NY:[['New York City',40.71,-74.01],['Buffalo',42.89,-78.88],['Rochester',43.16,-77.61],['Syracuse',43.05,-76.15]],
+    NC:[['Charlotte',35.23,-80.84],['Durham',35.99,-78.90],['Greensboro',36.07,-79.79]],
+    ND:[['Fargo',46.88,-96.79],['Grand Forks',47.93,-97.03],['Minot',48.23,-101.29]],
+    OH:[['Cleveland',41.50,-81.69],['Cincinnati',39.10,-84.51],['Dayton',39.76,-84.19]],
+    OK:[['Tulsa',36.15,-95.99],['Norman',35.22,-97.44],['Broken Arrow',36.05,-95.79]],
+    OR:[['Portland',45.52,-122.68],['Eugene',44.05,-123.09],['Bend',44.06,-121.31]],
+    PA:[['Philadelphia',39.95,-75.17],['Pittsburgh',40.44,-80.00],['Allentown',40.60,-75.49]],
+    RI:[['Warwick',41.70,-71.42],['Cranston',41.78,-71.44],['Pawtucket',41.88,-71.38]],
+    SC:[['Charleston',32.78,-79.93],['Greenville',34.85,-82.40],['Myrtle Beach',33.69,-78.89]],
+    SD:[['Sioux Falls',43.55,-96.73],['Rapid City',44.08,-103.23],['Aberdeen',45.46,-98.49]],
+    TN:[['Memphis',35.15,-90.05],['Knoxville',35.96,-83.92],['Chattanooga',35.05,-85.31]],
+    TX:[['Houston',29.76,-95.37],['Dallas',32.78,-96.80],['San Antonio',29.42,-98.49],['El Paso',31.76,-106.49]],
+    UT:[['Provo',40.23,-111.66],['Ogden',41.22,-111.97],['St. George',37.10,-113.58]],
+    VT:[['Burlington',44.48,-73.21],['Rutland',43.61,-72.97],['South Burlington',44.47,-73.17]],
+    VA:[['Virginia Beach',36.85,-75.98],['Norfolk',36.85,-76.29],['Arlington',38.88,-77.10]],
+    WA:[['Seattle',47.61,-122.33],['Spokane',47.66,-117.43],['Tacoma',47.25,-122.44]],
+    WV:[['Huntington',38.42,-82.45],['Morgantown',39.63,-79.96],['Parkersburg',39.27,-81.56]],
+    WI:[['Milwaukee',43.04,-87.91],['Green Bay',44.51,-88.02],['Kenosha',42.58,-87.82]],
+    WY:[['Casper',42.87,-106.31],['Laramie',41.31,-105.59],['Gillette',44.29,-105.50]],
+  };
+  STATES.forEach(s => {
+    const cap = STATE_CITIES[s.code];
+    const cities = [{ name: cap.city, lat: cap.lat, lon: cap.lon }];
+    if (extras[s.code]) extras[s.code].forEach(([n,la,lo]) => cities.push({name:n,lat:la,lon:lo}));
+    PRECIP_CITIES[s.code] = cities;
+  });
+})();
+
+function precipInit() {
+  const stateEl = $('precip-state');
+  if (stateEl.options.length > 1) return;
+  STATES.forEach(s => { const opt = document.createElement('option'); opt.value = s.code; opt.textContent = s.name; stateEl.appendChild(opt); });
+  const today = new Date(), prior = new Date(today);
+  prior.setDate(prior.getDate()-30);
+  $('precip-end').value = today.toISOString().slice(0,10);
+  $('precip-start').value = prior.toISOString().slice(0,10);
+}
+
+function precipPopulateCities() {
+  const code = $('precip-state').value;
+  const cityEl = $('precip-city');
+  cityEl.innerHTML = '<option value="">— Select City —</option>';
+  cityEl.disabled = !code;
+  if (!code) return;
+  (PRECIP_CITIES[code]||[]).forEach(c => { const opt = document.createElement('option'); opt.value = JSON.stringify({lat:c.lat,lon:c.lon,name:c.name}); opt.textContent = c.name; cityEl.appendChild(opt); });
+  cityEl.disabled = false;
+}
+
+function precipShowError(msg) { const el=$('precip-error'); el.textContent=msg; el.style.display=msg?'block':'none'; }
+
+async function runPrecipQuery() {
+  precipShowError('');
+  const stateEl=$('precip-state'), cityEl=$('precip-city'), startVal=$('precip-start').value, endVal=$('precip-end').value, results=$('precip-results');
+  if (!stateEl.value) return precipShowError('⚠ Please select a state.');
+  if (!cityEl.value) return precipShowError('⚠ Please select a city.');
+  if (!startVal || !endVal) return precipShowError('⚠ Please enter start and end dates.');
+  const city = JSON.parse(cityEl.value);
+  const stateName = STATES.find(s=>s.code===stateEl.value)?.name || stateEl.value;
+  results.innerHTML = '<div class="loading"><div class="spinner"></div>FETCHING PRECIPITATION DATA...</div>';
+  try {
+    const url = `https://archive-api.open-meteo.com/v1/archive?latitude=${city.lat}&longitude=${city.lon}&start_date=${startVal}&end_date=${endVal}&daily=precipitation_sum,snowfall_sum&timezone=America%2FChicago`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const json = await res.json();
+    if (!json.daily || !json.daily.time) throw new Error('Unexpected response');
+    const dates = json.daily.time, precipMM = json.daily.precipitation_sum||[], snowCM = json.daily.snowfall_sum||[];
+    EXPORT_CACHE.precip = { city, stateName, startVal, endVal, dates, precipMM, snowCM };
+    let totalRain=0, totalSnow=0, totalPrecip=0;
+    let html = `<div class="chart-card" style="margin-bottom:16px;"><div class="chart-title">${city.name}, ${stateName}</div><div class="chart-subtitle">${startVal} TO ${endVal} — DAILY PRECIPITATION</div><button class="btn-export" onclick="exportPrecipToExcel()" style="margin:10px 0;">▶ EXPORT TO EXCEL</button></div>`;
+    html += '<div class="precip-table-wrap"><table class="precip-table"><thead><tr><th>Date</th><th>Rainfall (in)</th><th>Snowfall (in)</th><th>Total (in)</th></tr></thead><tbody>';
+    dates.forEach((d,i) => {
+      const totalIn = precipMM[i]!=null ? precipMM[i]/25.4 : 0;
+      const snowIn = snowCM[i]!=null ? snowCM[i]/2.54/10 : 0;
+      const rainIn = Math.max(0, totalIn-snowIn);
+      totalRain+=rainIn; totalSnow+=snowIn; totalPrecip+=totalIn;
+      const rainCls = rainIn>0?'precip-rain':'precip-zero';
+      const snowCls = snowIn>0?'precip-snow':'precip-zero';
+      html += `<tr><td>${d}</td><td class="${rainCls}">${rainIn.toFixed(3)}</td><td class="${snowCls}">${snowIn.toFixed(3)}</td><td class="precip-total">${totalIn.toFixed(3)}</td></tr>`;
+    });
+    html += `<tr class="totals-row"><td>TOTALS</td><td>${totalRain.toFixed(3)}</td><td>${totalSnow.toFixed(3)}</td><td>${totalPrecip.toFixed(3)}</td></tr></tbody></table></div>`;
+    results.innerHTML = html;
+  } catch(e) {
+    results.innerHTML = `<div class="error-state">⚠ Failed to fetch precipitation data: ${e.message}</div>`;
+  }
+}
+
+// ============================================================
+// EXCEL EXPORTS
+// ============================================================
+function exportPrecipToExcel() {
+  if (!EXPORT_CACHE.precip) return alert('No data loaded.');
+  const { city, stateName, startVal, endVal, dates, precipMM, snowCM } = EXPORT_CACHE.precip;
+  const rows = [['State','City','Date','Rainfall (in)','Snowfall (in)','Total (in)']];
+  dates.forEach((d,i) => {
+    const totalIn = precipMM[i]!=null ? precipMM[i]/25.4 : 0;
+    const snowIn = snowCM[i]!=null ? snowCM[i]/2.54/10 : 0;
+    rows.push([stateName, city.name, d, +Math.max(0,totalIn-snowIn).toFixed(4), +snowIn.toFixed(4), +totalIn.toFixed(4)]);
+  });
+  const ws = XLSX.utils.aoa_to_sheet(rows);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Precipitation');
+  XLSX.writeFile(wb, `precipitation_${stateName.replace(/ /g,'_')}_${startVal}_${endVal}.xlsx`);
+}
+
+function exportEnergyToExcel() {
+  const elec=EXPORT_CACHE.energyElec, gas=EXPORT_CACHE.energyGas, diesel=EXPORT_CACHE.energyDiesel;
+  if (!elec && !gas && !diesel) return alert('No energy history loaded.');
+  const wb = XLSX.utils.book_new();
+  if (elec?.periods?.length>0) {
+    const wsRows = [['Period',...STATES.map(s=>s.code)]];
+    elec.periods.forEach(p => wsRows.push([p,...STATES.map(s=>elec.byPeriod[p]?.[s.code]??'')]));
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(wsRows), 'Electricity');
+  }
+  if (gas?.periods?.length>0) {
+    const wsRows = [['Period',...STATES.map(s=>s.code)]];
+    gas.periods.forEach(p => wsRows.push([p,...STATES.map(s=>gas.byPeriod[p]?.[s.code]??'')]));
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(wsRows), 'Natural Gas');
+  }
+  XLSX.writeFile(wb, `energy_pricing_${EXPORT_CACHE.energyRange||'data'}.xlsx`);
+}
+
+// ============================================================
+// HISTORICAL ENERGY
+// ============================================================
+function energyHistError(msg) { const el=$('energy-hist-error'); el.textContent=msg; el.style.display=msg?'block':'none'; }
+function energyHistInit() {
+  if ($('energy-hist-start').value) return;
+  const now = new Date();
+  const end = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  const startD = new Date(now); startD.setMonth(startD.getMonth()-12);
+  $('energy-hist-start').value = `${startD.getFullYear()}-${String(startD.getMonth()+1).padStart(2,'0')}`;
+  $('energy-hist-end').value = end;
+}
+function resetEnergyToLatest() { $('energy-hist-results').style.display='none'; $('energy-snapshot-label').textContent='SHOWING: MOST RECENT DATA'; energyHistError(''); }
+
+const histChartInstances = {};
+function buildLineChart(canvasId, labels, datasets) {
+  if (histChartInstances[canvasId]) histChartInstances[canvasId].destroy();
+  const canvas = document.getElementById(canvasId); if (!canvas) return;
+  histChartInstances[canvasId] = new Chart(canvas.getContext('2d'), {
+    type: 'line', data: { labels, datasets },
+    options: { responsive: true, interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { display: true, position: 'top', labels: { color: '#aa6b78', font: { family: "'Share Tech Mono',monospace", size: 11 }, boxWidth: 10, padding: 6 } },
+        tooltip: { backgroundColor: '#1a0f12', borderColor: '#6e2d3a', borderWidth: 1, titleColor: '#e8c2c8', bodyColor: '#e8c2c8', titleFont:{family:"'Share Tech Mono',monospace",size:12}, bodyFont:{family:"'Share Tech Mono',monospace",size:12} } },
+      scales: { x: { ticks: { color: '#aa6b78', font: { family: "'Share Tech Mono',monospace", size: 11 }, maxRotation: 45, maxTicksLimit: 18 }, grid: { color: 'rgba(110,45,58,0.3)' } },
+        y: { ticks: { color: '#aa6b78', font: { family: "'Share Tech Mono',monospace", size: 11 } }, grid: { color: 'rgba(110,45,58,0.3)' } } } }
+  });
+}
+
+async function loadHistoricalEnergy() {
+  energyHistError('');
+  const startVal=$('energy-hist-start').value, endVal=$('energy-hist-end').value;
+  if (!startVal || !endVal) return energyHistError('⚠ Please select start and end months.');
+  if (endVal < startVal) return energyHistError('⚠ End must be after start.');
+  const startD=new Date(startVal+'-01'), endD=new Date(endVal+'-01');
+  const monthDiff = (endD.getFullYear()-startD.getFullYear())*12+(endD.getMonth()-startD.getMonth())+1;
+  if (monthDiff > 60) return energyHistError('⚠ Max 5 years.');
+
+  const resultsEl = $('energy-hist-results');
+  resultsEl.style.display = 'block';
+  resultsEl.innerHTML = '<div class="loading"><div class="spinner"></div>FETCHING HISTORICAL DATA...</div>';
+  $('energy-snapshot-label').textContent = `SHOWING: ${startVal} TO ${endVal}`;
+  const rangeLabel = `${startVal} – ${endVal}`;
+
+  try {
+    // Electricity
+    const stateBatches = [];
+    for (let i = 0; i < STATES.length; i += 6) stateBatches.push(STATES.slice(i, i + 6));
+    const elecByPeriod = {}, elecPeriods = new Set();
+    for (const batch of stateBatches) {
+      try {
+        const sc = batch.map(s=>`facets[stateid][]=${s.code}`).join('&');
+        const url = `https://api.eia.gov/v2/electricity/retail-sales/data/?api_key=${CONFIG.EIA_KEY}&frequency=monthly&data[0]=price&${sc}&facets[sectorid][]=COM&sort[0][column]=period&sort[0][direction]=desc&offset=0&length=100`;
+        const json = await eiaFetch(url);
+        for (const row of (json?.response?.data||[])) {
+          const p=row.period, s=row.stateid, v=parseFloat(row.price);
+          if (!p||!s||isNaN(v)||p<startVal||p>endVal) continue;
+          elecPeriods.add(p);
+          if (!elecByPeriod[p]) elecByPeriod[p]={};
+          elecByPeriod[p][s] = v;
+        }
+      } catch(e) {}
+      await new Promise(r=>setTimeout(r,400));
+    }
+    const elecPeriodsSorted = [...elecPeriods].sort();
+
+    // Gas
+    const gasByPeriod = {}, gasPeriods = new Set();
+    const gasToState = {}; STATES.forEach(s => gasToState[s.gasCode]=s.code);
+    for (const batch of stateBatches) {
+      try {
+        const gc = batch.map(s=>`facets[duoarea][]=${s.gasCode}`).join('&');
+        const url = `https://api.eia.gov/v2/natural-gas/pri/sum/data/?api_key=${CONFIG.EIA_KEY}&frequency=monthly&data[0]=value&${gc}&sort[0][column]=period&sort[0][direction]=desc&offset=0&length=100`;
+        const json = await eiaFetch(url);
+        for (const row of (json?.response?.data||[])) {
+          const p=row.period, gc2=row.duoarea, v=parseFloat(row.value);
+          const s = gasToState[gc2]||gc2;
+          if (!p||!s||isNaN(v)||v>25||p<startVal||p>endVal) continue;
+          gasPeriods.add(p);
+          if (!gasByPeriod[p]) gasByPeriod[p]={};
+          gasByPeriod[p][s] = v;
+        }
+      } catch(e) {}
+      await new Promise(r=>setTimeout(r,400));
+    }
+    const gasPeriodsSorted = [...gasPeriods].sort();
+
+    // Diesel
+    const DIESEL_PADD_MAP = {'U.S.':'U.S.','PADD 1':'East Coast','PADD 2':'Midwest','PADD 3':'Gulf Coast','PADD 4':'Rocky Mtn','PADD 5':'West Coast'};
+    const dieselMonthly = {}, dieselPeriods = new Set();
+    try {
+      const url = `https://api.eia.gov/v2/petroleum/pri/gnd/data/?api_key=${CONFIG.EIA_KEY}&frequency=weekly&data[0]=value&facets[product][]=EPD2D&sort[0][column]=period&sort[0][direction]=desc&length=500`;
+      const json = await eiaFetch(url);
+      for (const row of (json?.response?.data||[])) {
+        const region = DIESEL_PADD_MAP[row['area-name']||''];
+        if (!region) continue;
+        const val=parseFloat(row.value), period=row.period?.slice(0,7);
+        if (!period||isNaN(val)||period<startVal||period>endVal) continue;
+        if (!dieselMonthly[region]) dieselMonthly[region]={};
+        if (!dieselMonthly[region][period]) dieselMonthly[region][period]=[];
+        dieselMonthly[region][period].push(val);
+        dieselPeriods.add(period);
+      }
+    } catch(e) {}
+    const dieselAvg = {};
+    for (const [region,months] of Object.entries(dieselMonthly)) {
+      dieselAvg[region] = {};
+      for (const [period,vals] of Object.entries(months)) dieselAvg[region][period] = vals.reduce((a,b)=>a+b,0)/vals.length;
+    }
+    const dieselPeriodsSorted = [...dieselPeriods].sort();
+
+    // Cache for export
+    EXPORT_CACHE.energyElec = { periods: elecPeriodsSorted, byPeriod: elecByPeriod };
+    EXPORT_CACHE.energyGas = { periods: gasPeriodsSorted, byPeriod: gasByPeriod };
+    EXPORT_CACHE.energyDiesel = { periods: dieselPeriodsSorted, avg: dieselAvg };
+    EXPORT_CACHE.energyRange = rangeLabel;
+
+    // Render
+    resultsEl.innerHTML = `
+      <div class="section-header" style="margin-top:8px;margin-bottom:12px;border:none;padding:0;">
+        <div class="section-title" style="font-size:22px;">HISTORICAL <span>TRENDS</span></div>
+        <div class="section-meta">${rangeLabel}</div>
+      </div>
+      <div class="grid-2" style="margin-bottom:16px;">
+        <div class="chart-card"><div class="chart-title">Electricity — State Comparison</div><div class="chart-subtitle">¢/kWh — ${rangeLabel}</div><canvas id="hist-elec-chart" height="240"></canvas></div>
+        <div class="chart-card"><div class="chart-title">Natural Gas — State Comparison</div><div class="chart-subtitle">$/MCF — ${rangeLabel}</div><canvas id="hist-gas-chart" height="240"></canvas></div>
+      </div>
+      <div class="grid-2" style="margin-bottom:16px;">
+        <div class="chart-card"><div class="chart-title">Diesel — Regional Trend</div><div class="chart-subtitle">$/GALLON — ${rangeLabel}</div><canvas id="hist-diesel-chart" height="240"></canvas></div>
+        <div class="chart-card"><div class="chart-title">Data Coverage</div><div class="chart-subtitle">MONTHS WITH EIA DATA</div>
+          <div style="padding:20px;font-family:var(--mono);font-size:14px;line-height:2;">
+            <div style="color:var(--accent);">⚡ ELECTRICITY: <span style="color:#fff;">${elecPeriodsSorted.length} months</span></div>
+            <div style="color:var(--accent);">🔥 NATURAL GAS: <span style="color:#fff;">${gasPeriodsSorted.length} months</span></div>
+            <div style="color:var(--accent);">🚛 DIESEL: <span style="color:#fff;">${dieselPeriodsSorted.length} months</span></div>
+            <button class="btn-export" onclick="exportEnergyToExcel()" style="margin-top:20px;width:100%;">▶ EXPORT TO EXCEL</button>
+          </div>
+        </div>
+      </div>`;
+
+    // Show top 10 states in historical line charts to keep them readable
+    const top10Elec = STATES.filter(s => DATA.electricity[s.code]).sort((a,b) => (DATA.electricity[b.code]||0)-(DATA.electricity[a.code]||0)).slice(0,10);
+    const elecDatasets = top10Elec.map((s,i) => ({
+      label: s.code, data: elecPeriodsSorted.map(p => elecByPeriod[p]?.[s.code]??null),
+      borderColor: STATE_COLORS[i], backgroundColor: 'transparent', borderWidth: 2, pointRadius: elecPeriodsSorted.length<=18?3:1, tension: 0.3, spanGaps: true,
+    }));
+    buildLineChart('hist-elec-chart', elecPeriodsSorted, elecDatasets);
+
+    const top10Gas = STATES.filter(s => DATA.gas[s.code]).sort((a,b) => (DATA.gas[b.code]||0)-(DATA.gas[a.code]||0)).slice(0,10);
+    const gasDatasets = top10Gas.map((s,i) => ({
+      label: s.code, data: gasPeriodsSorted.map(p => gasByPeriod[p]?.[s.code]??null),
+      borderColor: STATE_COLORS[i], backgroundColor: 'transparent', borderWidth: 2, pointRadius: gasPeriodsSorted.length<=18?3:1, tension: 0.3, spanGaps: true,
+    }));
+    buildLineChart('hist-gas-chart', gasPeriodsSorted, gasDatasets);
+
+    const dieselColors = ['#DC2626','#f59e0b','#2edb6e','#f472b6','#fb923c','#a78bfa'];
+    const DIESEL_DISPLAY = ['U.S.','East Coast','Midwest','Gulf Coast','Rocky Mtn','West Coast'];
+    const dieselDatasets = DIESEL_DISPLAY.filter(r=>dieselAvg[r]).map((r,i) => ({
+      label: r, data: dieselPeriodsSorted.map(p=>dieselAvg[r]?.[p]??null),
+      borderColor: dieselColors[i], backgroundColor: 'transparent', borderWidth: 2, pointRadius: dieselPeriodsSorted.length<=18?3:1, tension: 0.3, spanGaps: true,
+    }));
+    buildLineChart('hist-diesel-chart', dieselPeriodsSorted, dieselDatasets);
+  } catch(e) {
+    resultsEl.innerHTML = `<div class="error-state">⚠ Failed: ${e.message}</div>`;
+  }
+}
+
+// ============================================================
+// INIT
+// ============================================================
+async function init() {
+  await Promise.allSettled([loadElectricityData(), loadGasData(), loadDieselData(), loadGridData()]);
+  const eiaOk = Object.keys(DATA.electricity).length > 0;
+  updateStatusPill('pill-eia', eiaOk, `EIA DATA: ${eiaOk ? 'CONNECTED' : 'ESTIMATES'}`);
+  const gridOk = Object.values(GRID_DATA).some(d => !d.simulated);
+  updateStatusPill('pill-grid', gridOk, `GRID DATA: ${gridOk ? 'LIVE' : 'ESTIMATED'}`);
+  setLastUpdated();
+  try { renderCharts(); } catch(e) { console.error('renderCharts:', e); }
+  try { buildEnergyTable(); } catch(e) { console.error('buildEnergyTable:', e); }
+  try { buildDieselTable(); } catch(e) { console.error('buildDieselTable:', e); }
+  try { buildGridCards('overview-grid-cards'); } catch(e) { console.error('buildGridCards:', e); }
+  energyHistInit();
+  if (CONFIG.OPENWEATHER_KEY) {
+    updateStatusPill('pill-weather', null, 'WEATHER: LOADING...');
+    loadWeather(CONFIG.OPENWEATHER_KEY).then(() => updateStatusPill('pill-weather', true, 'WEATHER: LIVE')).catch(() => updateStatusPill('pill-weather', false, 'WEATHER: ERROR'));
+  }
+  loadAllNews().then(() => updateStatusPill('pill-news', DATA.news.length > 0, `NEWS: ${DATA.news.length > 0 ? 'LIVE' : 'SAMPLE'}`));
+}
+
+async function refreshAll() { DATA.electricity={}; DATA.gas={}; DATA.diesel={}; await init(); }
+init();
+</script>
+</body>
+</html>
