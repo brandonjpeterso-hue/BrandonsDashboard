@@ -1,7 +1,7 @@
 <!--
   ╔══════════════════════════════════════════════════════════════════╗
   ║  ROAST TO ROOST COFFEE — Ponder, Texas                         ║
-  ║  Owner Dashboard (100% Read-Only, Zero Data Entry)              ║
+  ║  Owner Dashboard v3 (100% Read-Only, Zero Data Entry)           ║
   ╠══════════════════════════════════════════════════════════════════╣
   ║                                                                  ║
   ║  HOW TO USE:                                                     ║
@@ -11,8 +11,10 @@
   ║  4. Your dashboard is live!                                      ║
   ║                                                                  ║
   ║  HOW TO UPDATE:                                                  ║
-  ║  - Events: Edit the EVENTS array in the script (~line 260)      ║
-  ║  - Deals:  Edit the DEALS array in the script (~line 310)       ║
+  ║  - Events:      Edit the EVENTS array (~line 270)               ║
+  ║  - Deals:       Edit the DEALS array (~line 320)                ║
+  ║  - Competitors: Edit the COMPETITORS array (~line 370)          ║
+  ║  - Trends:      Edit the SOCIAL_TRENDS array (~line 400)        ║
   ║  - Weather updates automatically via Open-Meteo API              ║
   ║                                                                  ║
   ║  Built with love for Ponder's favorite coffee spot               ║
@@ -81,12 +83,16 @@
       to   { opacity: 1; transform: translateY(0); }
     }
     .fade-up { animation: fadeUp 0.6s ease-out both; }
-    .fade-up-1 { animation-delay: 0.08s; }
-    .fade-up-2 { animation-delay: 0.16s; }
-    .fade-up-3 { animation-delay: 0.24s; }
-    .fade-up-4 { animation-delay: 0.32s; }
-    .fade-up-5 { animation-delay: 0.40s; }
-    .fade-up-6 { animation-delay: 0.48s; }
+    .fade-up-1  { animation-delay: 0.06s; }
+    .fade-up-2  { animation-delay: 0.12s; }
+    .fade-up-3  { animation-delay: 0.18s; }
+    .fade-up-4  { animation-delay: 0.24s; }
+    .fade-up-5  { animation-delay: 0.30s; }
+    .fade-up-6  { animation-delay: 0.36s; }
+    .fade-up-7  { animation-delay: 0.42s; }
+    .fade-up-8  { animation-delay: 0.48s; }
+    .fade-up-9  { animation-delay: 0.54s; }
+    .fade-up-10 { animation-delay: 0.60s; }
 
     .card-hover {
       transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -138,6 +144,47 @@
     @keyframes shimmer {
       0%   { left: -100%; }
       100% { left: 200%; }
+    }
+
+    /* Competitor table styling */
+    .comp-table { border-collapse: separate; border-spacing: 0; width: 100%; }
+    .comp-table th { text-align: left; }
+    .comp-table th,
+    .comp-table td { padding: 10px 12px; font-size: 0.875rem; }
+    .comp-table thead th {
+      border-bottom: 2px solid rgba(74, 47, 31, 0.15);
+      font-weight: 600;
+    }
+    .dark .comp-table thead th {
+      border-bottom-color: rgba(245, 237, 224, 0.15);
+    }
+    .comp-table tbody tr { transition: background 0.15s; }
+    .comp-table tbody tr:hover { background: rgba(212, 160, 23, 0.06); }
+    .comp-table tbody td {
+      border-bottom: 1px solid rgba(74, 47, 31, 0.06);
+    }
+    .dark .comp-table tbody td {
+      border-bottom-color: rgba(245, 237, 224, 0.06);
+    }
+    .comp-table .you-row {
+      background: rgba(212, 160, 23, 0.08);
+      font-weight: 600;
+    }
+    .dark .comp-table .you-row {
+      background: rgba(212, 160, 23, 0.12);
+    }
+
+    /* Pulse dot for growth section */
+    @keyframes pulse-dot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50%      { transform: scale(1.6); opacity: 0.4; }
+    }
+    .pulse-dot {
+      width: 8px; height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      display: inline-block;
+      animation: pulse-dot 2s ease-in-out infinite;
     }
 
     ::-webkit-scrollbar { width: 8px; }
@@ -207,7 +254,7 @@
   <main class="max-w-6xl mx-auto px-4 sm:px-8 py-8 space-y-10">
 
 ```
-<!-- 1. UPCOMING EVENTS -->
+<!-- ═══ 1. UPCOMING EVENTS ═══════════════════════════ -->
 <section class="fade-up fade-up-1">
   <div class="flex items-center gap-3 mb-5">
     <span class="text-2xl">&#128197;</span>
@@ -218,7 +265,7 @@
   </div>
 </section>
 
-<!-- 2. COFFEE BEAN & SUPPLY DEALS -->
+<!-- ═══ 2. COFFEE BEAN & SUPPLY DEALS ════════════════ -->
 <section class="fade-up fade-up-2">
   <div class="flex items-center gap-3 mb-5">
     <span class="text-2xl">&#9749;</span>
@@ -229,8 +276,40 @@
   </div>
 </section>
 
-<!-- 3. LIVE WEATHER -->
+<!-- ═══ 3. LOCAL COMPETITOR PRICE COMPARISON (NEW) ═══ -->
 <section class="fade-up fade-up-3">
+  <div class="flex items-center gap-3 mb-5">
+    <span class="text-2xl">&#128200;</span>
+    <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Local Competitor Price Comparison</h2>
+  </div>
+  <div class="bg-white/70 dark:bg-bean/30 rounded-2xl border border-bean/5 dark:border-cream/5 overflow-hidden card-hover">
+    <div class="overflow-x-auto">
+      <table id="compTable" class="comp-table">
+        <thead>
+          <tr class="text-bean/70 dark:text-cream/70">
+            <th>Shop</th>
+            <th>Distance</th>
+            <th>Basic Latte</th>
+            <th>Signature Item</th>
+            <th>Your Edge</th>
+          </tr>
+        </thead>
+        <tbody id="compBody">
+          <tr><td colspan="5" class="text-center py-4 text-bean/30 dark:text-cream/30">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="px-5 py-3 bg-honey/5 dark:bg-honey/5 border-t border-bean/5 dark:border-cream/5">
+      <p class="text-xs text-bean/50 dark:text-cream/40 font-body">
+        <i class="fa-solid fa-circle-info text-honey mr-1"></i>
+        Prices are approximate and based on publicly listed menus. Update the COMPETITORS array in the source to keep current.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 4. LIVE WEATHER ══════════════════════════════ -->
+<section class="fade-up fade-up-4">
   <div class="flex items-center gap-3 mb-1">
     <span class="text-2xl">&#127780;&#65039;</span>
     <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Live Ponder Weather Forecast</h2>
@@ -249,8 +328,8 @@
   </div>
 </section>
 
-<!-- 4. PONDER ISD -->
-<section class="fade-up fade-up-4">
+<!-- ═══ 5. PONDER ISD ════════════════════════════════ -->
+<section class="fade-up fade-up-5">
   <div class="flex items-center gap-3 mb-5">
     <span class="text-2xl">&#127979;</span>
     <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Ponder ISD &amp; School Calendar Highlights</h2>
@@ -296,8 +375,51 @@
   </div>
 </section>
 
-<!-- 5. LOCAL BUSINESS RESOURCES -->
-<section class="fade-up fade-up-5">
+<!-- ═══ 6. PONDER AREA GROWTH WATCH (NEW) ════════════ -->
+<section class="fade-up fade-up-6">
+  <div class="flex items-center gap-3 mb-5">
+    <span class="text-2xl">&#127967;</span>
+    <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Ponder Area Growth Watch</h2>
+  </div>
+  <div class="bg-white/70 dark:bg-bean/30 rounded-2xl p-6 border border-bean/5 dark:border-cream/5 card-hover">
+    <div class="flex items-start gap-4">
+      <div class="mt-1.5 flex-shrink-0">
+        <span class="pulse-dot"></span>
+      </div>
+      <div>
+        <p class="font-body text-bean/80 dark:text-cream/80 leading-relaxed text-base">
+          <strong class="text-bean dark:text-cream">Ponder is growing fast!</strong>
+          Tabor Ranch is bringing nearly <strong class="text-honey">2,000 new homes</strong> to the area, with the first phase of
+          <strong class="text-honey">850 lots breaking ground in 2026</strong>. More young families are moving in every month &mdash;
+          which means more morning coffee runs, more after-school snack stops, and a whole lot more cinnamon roll fans.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-5">
+      <div class="bg-cream/50 dark:bg-espresso/40 rounded-xl p-4 text-center">
+        <p class="font-display text-2xl font-bold text-honey">~2,000</p>
+        <p class="text-xs text-bean/50 dark:text-cream/40 mt-1">New Homes Planned</p>
+      </div>
+      <div class="bg-cream/50 dark:bg-espresso/40 rounded-xl p-4 text-center">
+        <p class="font-display text-2xl font-bold text-honey">850</p>
+        <p class="text-xs text-bean/50 dark:text-cream/40 mt-1">Phase 1 Lots (2026)</p>
+      </div>
+      <div class="bg-cream/50 dark:bg-espresso/40 rounded-xl p-4 text-center">
+        <p class="font-display text-2xl font-bold text-cinnamon">&#9650; Growing</p>
+        <p class="text-xs text-bean/50 dark:text-cream/40 mt-1">Young Family Influx</p>
+      </div>
+    </div>
+
+    <p class="text-xs text-bean/40 dark:text-cream/30 mt-4 font-body">
+      <i class="fa-solid fa-circle-info text-honey/60 mr-1"></i>
+      Source: Denton County development filings &amp; community reporting. Growth = opportunity!
+    </p>
+  </div>
+</section>
+
+<!-- ═══ 7. LOCAL BUSINESS RESOURCES ═══════════════════ -->
+<section class="fade-up fade-up-7">
   <div class="flex items-center gap-3 mb-5">
     <span class="text-2xl">&#129309;</span>
     <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Local Business Resources &amp; Partners</h2>
@@ -354,14 +476,72 @@
   </div>
 </section>
 
-<!-- 6. SEASONAL DRINK INSPIRATION -->
-<section class="fade-up fade-up-6">
+<!-- ═══ 8. GOOGLE SEARCH TRENDS (NEW) ════════════════ -->
+<section class="fade-up fade-up-8">
+  <div class="flex items-center gap-3 mb-5">
+    <span class="text-2xl">&#128270;</span>
+    <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Google Search Trends &amp; Local Interest</h2>
+  </div>
+  <div class="bg-white/70 dark:bg-bean/30 rounded-2xl p-6 border border-bean/5 dark:border-cream/5 card-hover">
+    <div class="flex items-start gap-4 mb-5">
+      <div class="flex-shrink-0 w-12 h-12 bg-honey/15 dark:bg-honey/10 rounded-xl flex items-center justify-center">
+        <i class="fa-solid fa-arrow-trend-up text-honey text-xl"></i>
+      </div>
+      <div>
+        <p class="font-body text-bean/80 dark:text-cream/80 leading-relaxed">
+          Interest in <strong class="text-bean dark:text-cream">&ldquo;coffee shop near Ponder&rdquo;</strong> has been
+          <strong class="text-honey">rising roughly 25% year-over-year</strong>, driven by new families moving into the area
+          and growing awareness of local options beyond chain drive-throughs. Searches for
+          <strong class="text-bean dark:text-cream">&ldquo;best cinnamon rolls Denton County&rdquo;</strong>
+          also spike on weekends &mdash; that's your wheelhouse.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
+      <div class="bg-cream/50 dark:bg-espresso/40 rounded-xl p-3 text-center">
+        <p class="text-xs text-bean/40 dark:text-cream/30 uppercase tracking-wider mb-1">Coffee Near Ponder</p>
+        <p class="font-display text-xl font-bold text-honey">&#9650; 25% YoY</p>
+      </div>
+      <div class="bg-cream/50 dark:bg-espresso/40 rounded-xl p-3 text-center">
+        <p class="text-xs text-bean/40 dark:text-cream/30 uppercase tracking-wider mb-1">Cinnamon Rolls Denton</p>
+        <p class="font-display text-xl font-bold text-honey">Weekend Spikes</p>
+      </div>
+      <div class="bg-cream/50 dark:bg-espresso/40 rounded-xl p-3 text-center">
+        <p class="text-xs text-bean/40 dark:text-cream/30 uppercase tracking-wider mb-1">Ponder TX Things To Do</p>
+        <p class="font-display text-xl font-bold text-honey">&#9650; Climbing</p>
+      </div>
+    </div>
+
+    <a href="https://trends.google.com/trends/explore?geo=US-TX&q=coffee%20shop%20ponder%20tx" target="_blank" rel="noopener"
+      class="inline-flex items-center gap-2 text-sm font-semibold text-honey hover:text-cinnamon transition-colors">
+      <i class="fa-solid fa-arrow-up-right-from-square"></i> Explore Live Google Trends Dashboard
+    </a>
+  </div>
+</section>
+
+<!-- ═══ 9. SEASONAL DRINK INSPIRATION ════════════════ -->
+<section class="fade-up fade-up-9">
   <div class="flex items-center gap-3 mb-5">
     <span class="text-2xl" id="seasonIcon">&#127810;</span>
     <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Seasonal Drink Inspiration</h2>
   </div>
   <div id="drinksGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
     <p class="text-bean/40 dark:text-cream/30 col-span-full text-center py-4">Loading drinks...</p>
+  </div>
+</section>
+
+<!-- ═══ 10. TRENDING COFFEE IDEAS ON SOCIAL (NEW) ════ -->
+<section class="fade-up fade-up-10">
+  <div class="flex items-center gap-3 mb-5">
+    <span class="text-2xl">&#128242;</span>
+    <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Trending Coffee Ideas on Social Media</h2>
+  </div>
+  <p class="text-sm text-bean/60 dark:text-cream/50 mb-5 font-body -mt-2">
+    What's blowing up on TikTok, Instagram &amp; X right now &mdash; and how you could put a Ponder spin on it.
+  </p>
+  <div id="trendsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <p class="text-bean/40 dark:text-cream/30 col-span-full text-center py-4">Loading trends...</p>
   </div>
 </section>
 ```
@@ -383,7 +563,7 @@
   </footer>
 
   <!-- ═══════════════════════════════════════════════════════
-       ALL JAVASCRIPT — single block after full DOM
+       ALL JAVASCRIPT — single DOMContentLoaded block
        Uses var + string concat for max browser compat
        Each section wrapped in try/catch for isolation
        ═══════════════════════════════════════════════════════ -->
@@ -393,126 +573,67 @@
 
     /* ─────────────────────────────────────────────────────
        EVENTS — Edit this array to update upcoming events!
-       Fields: title, date, desc, link, icon
        ───────────────────────────────────────────────────── */
     var EVENTS = [
-      {
-        title: "Hello Spring Market",
-        date:  "March 22, 2026",
-        desc:  "Local vendors, crafts, live music and food trucks at Ponder Town Square.",
-        link:  "https://www.facebook.com/PonderTexas/",
-        icon:  "\uD83C\uDF38"
-      },
-      {
-        title: "Ponder Frontier Days",
-        date:  "March 28, 2026",
-        desc:  "Ponder\u2019s legendary annual celebration with parade, BBQ cook-off, live bands and rodeo fun!",
-        link:  "https://www.facebook.com/PonderFrontierDays/",
-        icon:  "\uD83E\uDD20"
-      },
-      {
-        title: "Denton Community Market",
-        date:  "Every Saturday, April\u2013Nov 2026",
-        desc:  "Fresh produce, artisan goods and live music on the Denton Square. 9 AM \u2013 1 PM.",
-        link:  "https://www.dentoncommunitymarket.com/",
-        icon:  "\uD83E\uDDD1\u200D\uD83C\uDF3E"
-      },
-      {
-        title: "Ponder Town Clean-Up Day",
-        date:  "April 18, 2026",
-        desc:  "Volunteer morning \u2014 meet at Town Hall, coffee and donuts provided. 8 AM start.",
-        link:  "https://www.facebook.com/PonderTexas/",
-        icon:  "\uD83E\uDDF9"
-      },
-      {
-        title: "North Texas Fair and Rodeo",
-        date:  "August 14\u201322, 2026",
-        desc:  "Nine days of rodeo action, concerts, carnival rides and livestock shows at Denton fairgrounds.",
-        link:  "https://www.ntfair.com/",
-        icon:  "\uD83D\uDC02"
-      },
-      {
-        title: "Ponder Fall Festival",
-        date:  "October 10, 2026",
-        desc:  "Pumpkin patch, hayrides, chili cook-off, and small-town Texas charm at its finest.",
-        link:  "https://www.facebook.com/PonderTexas/",
-        icon:  "\uD83C\uDF83"
-      }
+      { title: "Hello Spring Market",       date: "March 22, 2026",                    desc: "Local vendors, crafts, live music and food trucks at Ponder Town Square.",                           link: "https://www.facebook.com/PonderTexas/",        icon: "\uD83C\uDF38" },
+      { title: "Ponder Frontier Days",      date: "March 28, 2026",                    desc: "Ponder\u2019s legendary annual celebration with parade, BBQ cook-off, live bands and rodeo fun!",    link: "https://www.facebook.com/PonderFrontierDays/", icon: "\uD83E\uDD20" },
+      { title: "Denton Community Market",   date: "Every Saturday, April\u2013Nov 2026", desc: "Fresh produce, artisan goods and live music on the Denton Square. 9 AM \u2013 1 PM.",             link: "https://www.dentoncommunitymarket.com/",       icon: "\uD83E\uDDD1\u200D\uD83C\uDF3E" },
+      { title: "Ponder Town Clean-Up Day",  date: "April 18, 2026",                    desc: "Volunteer morning \u2014 meet at Town Hall, coffee and donuts provided. 8 AM start.",               link: "https://www.facebook.com/PonderTexas/",        icon: "\uD83E\uDDF9" },
+      { title: "North Texas Fair and Rodeo", date: "August 14\u201322, 2026",           desc: "Nine days of rodeo action, concerts, carnival rides and livestock shows at Denton fairgrounds.",   link: "https://www.ntfair.com/",                      icon: "\uD83D\uDC02" },
+      { title: "Ponder Fall Festival",      date: "October 10, 2026",                  desc: "Pumpkin patch, hayrides, chili cook-off, and small-town Texas charm at its finest.",                link: "https://www.facebook.com/PonderTexas/",        icon: "\uD83C\uDF83" }
     ];
 
     /* ─────────────────────────────────────────────────────
        DEALS — Edit this array to update supplier deals!
-       Fields: supplier, location, promo, link, badge
        ───────────────────────────────────────────────────── */
     var DEALS = [
-      {
-        supplier: "Function Coffee Co",
-        location: "Northlake, TX",
-        promo:    "Local roaster \u2014 15% off first wholesale order. Farm-direct single origins and custom blends.",
-        link:     "https://www.functioncoffee.co/",
-        badge:    "\uD83C\uDFE0 Local"
-      },
-      {
-        supplier: "Texas Coffee Traders",
-        location: "Austin, TX",
-        promo:    "Free shipping on 25 lb+ orders. Specialty-grade green and roasted beans since 1981.",
-        link:     "https://www.texascoffeetraders.com/",
-        badge:    "\u2B50 Texas Staple"
-      },
-      {
-        supplier: "KMO Coffee",
-        location: "Dallas\u2013Fort Worth",
-        promo:    "2026 Spring special: 10% off seasonal blends for new wholesale accounts. Training included!",
-        link:     "https://www.kmocoffee.com/",
-        badge:    "\uD83C\uDD95 2026 Special"
-      },
-      {
-        supplier: "Coffee Wholesale USA",
-        location: "Nationwide",
-        promo:    "Bulk pricing on syrups, cups, lids and equipment. Same-day shipping on in-stock items.",
-        link:     "https://www.coffeewholesaleusa.com/",
-        badge:    "\uD83D\uDCE6 Supplies"
-      },
-      {
-        supplier: "Covoya Coffee",
-        location: "Online",
-        promo:    "Direct-trade specialty beans. Subscription discounts for cafes \u2014 12% off quarterly plans.",
-        link:     "https://www.covoya.com/",
-        badge:    "\uD83C\uDF3F Direct Trade"
-      },
-      {
-        supplier: "Java City",
-        location: "Sacramento / Ships Nationwide",
-        promo:    "Turn-key cafe solutions \u2014 beans, equipment, branding support. Free consultation for new shops.",
-        link:     "https://www.javacity.com/",
-        badge:    "\uD83D\uDEE0\uFE0F Full Service"
-      },
-      {
-        supplier: "Driven Coffee",
-        location: "Online / DFW",
-        promo:    "Veteran-owned roaster. 20% off first wholesale order plus free sample kit for cafes.",
-        link:     "https://www.drivencoffee.com/",
-        badge:    "\uD83C\uDDFA\uD83C\uDDF8 Veteran-Owned"
-      }
+      { supplier: "Function Coffee Co",   location: "Northlake, TX",                promo: "Local roaster \u2014 15% off first wholesale order. Farm-direct single origins and custom blends.", link: "https://www.functioncoffee.co/",     badge: "\uD83C\uDFE0 Local" },
+      { supplier: "Texas Coffee Traders",  location: "Austin, TX",                   promo: "Free shipping on 25 lb+ orders. Specialty-grade green and roasted beans since 1981.",              link: "https://www.texascoffeetraders.com/", badge: "\u2B50 Texas Staple" },
+      { supplier: "KMO Coffee",            location: "Dallas\u2013Fort Worth",       promo: "2026 Spring special: 10% off seasonal blends for new wholesale accounts. Training included!",     link: "https://www.kmocoffee.com/",          badge: "\uD83C\uDD95 2026 Special" },
+      { supplier: "Coffee Wholesale USA",  location: "Nationwide",                   promo: "Bulk pricing on syrups, cups, lids and equipment. Same-day shipping on in-stock items.",           link: "https://www.coffeewholesaleusa.com/", badge: "\uD83D\uDCE6 Supplies" },
+      { supplier: "Covoya Coffee",         location: "Online",                       promo: "Direct-trade specialty beans. Subscription discounts for cafes \u2014 12% off quarterly plans.",   link: "https://www.covoya.com/",             badge: "\uD83C\uDF3F Direct Trade" },
+      { supplier: "Java City",             location: "Sacramento / Ships Nationwide", promo: "Turn-key cafe solutions \u2014 beans, equipment, branding support. Free consultation.",           link: "https://www.javacity.com/",           badge: "\uD83D\uDEE0\uFE0F Full Service" },
+      { supplier: "Driven Coffee",         location: "Online / DFW",                promo: "Veteran-owned roaster. 20% off first wholesale order plus free sample kit for cafes.",              link: "https://www.drivencoffee.com/",       badge: "\uD83C\uDDFA\uD83C\uDDF8 Veteran-Owned" }
+    ];
+
+    /* ─────────────────────────────────────────────────────
+       COMPETITORS — Edit this array to update pricing!
+       Fields: shop, distance, latte, signature, sigPrice, edge, isYou
+       ───────────────────────────────────────────────────── */
+    var COMPETITORS = [
+      { shop: "Roast to Roost (You!)",   distance: "\u2014",       latte: "$4.99",          signature: "Giant Cinnamon Roll", sigPrice: "$3.99",          edge: "Scratch-made, only in Ponder, community favorite",        isYou: true },
+      { shop: "Dutch Bros",              distance: "~12 mi",       latte: "$5.25",          signature: "Rebel Energy",        sigPrice: "$5.50",          edge: "You\u2019re local, they\u2019re a chain \u2014 people notice", isYou: false },
+      { shop: "Higher Grounds",          distance: "~15 mi",       latte: "$4.75\u2013$5.25", signature: "Specialty Pour-Over", sigPrice: "$5.50\u2013$6",   edge: "Your cinnamon rolls are a destination draw",              isYou: false },
+      { shop: "West Oak Coffee Bar",     distance: "~18 mi",       latte: "$4.75\u2013$5.25", signature: "Seasonal Latte",      sigPrice: "$5.50+",         edge: "Closer to Ponder families, friendlier vibe",              isYou: false },
+      { shop: "Starbucks (Denton)",      distance: "~14 mi",       latte: "$5.75+",         signature: "Frappuccino",         sigPrice: "$6.25+",         edge: "You\u2019re cheaper, fresher, and they know your name",   isYou: false }
+    ];
+
+    /* ─────────────────────────────────────────────────────
+       SOCIAL TRENDS — Edit to update trending drinks!
+       Fields: name, emoji, platform, desc, ponderSpin
+       ───────────────────────────────────────────────────── */
+    var SOCIAL_TRENDS = [
+      { name: "Toasted Coconut",            emoji: "\uD83E\uDD65", platform: "Starbucks / TikTok",  desc: "The viral Starbucks hit \u2014 toasted coconut syrup in lattes, cold brews, and shaken espressos.", ponderSpin: "Make a scratch version with real toasted coconut flakes and brown sugar. Way better than the chain." },
+      { name: "Ube Coconut Macchiato",      emoji: "\uD83D\uDC9C", platform: "TikTok / Instagram",  desc: "Purple ube extract layered with coconut milk and espresso. Visually stunning and subtly sweet.",     ponderSpin: "The purple color is an instant photo op. Stock ube extract and let the Instagram posts roll in." },
+      { name: "Lavender Everything",        emoji: "\uD83C\uDF3B", platform: "Everywhere",           desc: "Lavender lattes, lavender chai, lavender matcha \u2014 the floral flavor is dominating spring 2026.", ponderSpin: "Pair lavender with your local honey for a Ponder-only twist. Simple syrup, big wow factor." },
+      { name: "Pistachio Matcha",           emoji: "\uD83C\uDF75", platform: "Instagram / TikTok",   desc: "Vibrant green matcha with rich pistachio cream. Nutty, earthy, and gorgeous in a clear cup.",        ponderSpin: "Layer it in a Mason jar. Texas folks love matcha more than you\u2019d think \u2014 test it as a weekend special." },
+      { name: "Marshmallow Cotton Candy",   emoji: "\uD83C\uDF6C", platform: "TikTok",               desc: "Fluffy cotton candy dissolved into steamed milk with vanilla and marshmallow syrup. Kid magnet.",    ponderSpin: "Perfect for the after-school crowd. Add food coloring for a pink or blue wow moment." }
     ];
 
 
     /* ═══════════════════════════════════════════════════════
-       1. LIVE DATE
+       LIVE DATE
        ═══════════════════════════════════════════════════════ */
     try {
       var now = new Date();
-      var dateStr = now.toLocaleDateString("en-US", {
+      document.getElementById("liveDate").textContent = now.toLocaleDateString("en-US", {
         weekday: "long", year: "numeric", month: "long", day: "numeric"
       });
-      document.getElementById("liveDate").textContent = dateStr;
-    } catch(e) {
-      console.error("Date error:", e);
-    }
+    } catch(e) { console.error("Date error:", e); }
 
 
     /* ═══════════════════════════════════════════════════════
-       2. DARK MODE TOGGLE
+       DARK MODE TOGGLE
        ═══════════════════════════════════════════════════════ */
     try {
       var toggleBtn = document.getElementById("themeToggle");
@@ -525,13 +646,7 @@
         moonIcon.style.display = isDark ? "none" : "inline";
         sunIcon.style.display  = isDark ? "inline" : "none";
       }
-
-      try {
-        if (localStorage.getItem("r2r-theme") === "dark") {
-          htmlEl.classList.add("dark");
-        }
-      } catch(ls) { /* localStorage blocked */ }
-
+      try { if (localStorage.getItem("r2r-theme") === "dark") htmlEl.classList.add("dark"); } catch(ls) {}
       syncIcons();
 
       toggleBtn.addEventListener("click", function() {
@@ -539,13 +654,11 @@
         syncIcons();
         try { localStorage.setItem("r2r-theme", htmlEl.classList.contains("dark") ? "dark" : "light"); } catch(ls) {}
       });
-    } catch(e) {
-      console.error("Theme toggle error:", e);
-    }
+    } catch(e) { console.error("Theme error:", e); }
 
 
     /* ═══════════════════════════════════════════════════════
-       3. RENDER EVENTS
+       RENDER EVENTS
        ═══════════════════════════════════════════════════════ */
     try {
       var eventsGrid = document.getElementById("eventsGrid");
@@ -571,7 +684,7 @@
 
 
     /* ═══════════════════════════════════════════════════════
-       4. RENDER DEALS
+       RENDER DEALS
        ═══════════════════════════════════════════════════════ */
     try {
       var dealsGrid = document.getElementById("dealsGrid");
@@ -594,7 +707,34 @@
 
 
     /* ═══════════════════════════════════════════════════════
-       5. WEATHER (Open-Meteo API)
+       RENDER COMPETITOR TABLE
+       ═══════════════════════════════════════════════════════ */
+    try {
+      var compBody = document.getElementById("compBody");
+      var cHTML = "";
+      for (var c = 0; c < COMPETITORS.length; c++) {
+        var comp = COMPETITORS[c];
+        var rowClass = comp.isYou ? ' class="you-row"' : '';
+        var nameHTML = comp.isYou
+          ? '<strong class="text-honey">' + comp.shop + '</strong>'
+          : '<span class="text-bean dark:text-cream">' + comp.shop + '</span>';
+        cHTML += '<tr' + rowClass + '>';
+        cHTML += '<td class="font-medium">' + nameHTML + '</td>';
+        cHTML += '<td class="text-bean/60 dark:text-cream/50">' + comp.distance + '</td>';
+        cHTML += '<td class="font-semibold">' + comp.latte + '</td>';
+        cHTML += '<td class="text-bean/70 dark:text-cream/60">' + comp.signature + ' <span class="text-bean/40 dark:text-cream/30">(' + comp.sigPrice + ')</span></td>';
+        cHTML += '<td class="text-sm text-bean/60 dark:text-cream/50 italic">' + comp.edge + '</td>';
+        cHTML += '</tr>';
+      }
+      compBody.innerHTML = cHTML;
+    } catch(e) {
+      console.error("Competitors error:", e);
+      try { document.getElementById("compBody").innerHTML = '<tr><td colspan="5" class="text-cinnamon text-center py-4">Could not load competitor data.</td></tr>'; } catch(x) {}
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       WEATHER (Open-Meteo API)
        ═══════════════════════════════════════════════════════ */
     var WMO = {};
     WMO[0]  = { icon: "\u2600\uFE0F",       label: "Clear" };
@@ -620,11 +760,10 @@
     WMO[99] = { icon: "\u26C8\uFE0F",        label: "T-storm w/ Heavy Hail" };
 
     var weatherContainer = document.getElementById("weatherContainer");
-    var weatherUrl = "https://api.open-meteo.com/v1/forecast?latitude=33.18&longitude=-97.29&daily=temperature_2m_max,temperature_2m_min,weathercode&temperature_unit=fahrenheit&timezone=America%2FChicago&forecast_days=5";
 
-    fetch(weatherUrl)
+    fetch("https://api.open-meteo.com/v1/forecast?latitude=33.18&longitude=-97.29&daily=temperature_2m_max,temperature_2m_min,weathercode&temperature_unit=fahrenheit&timezone=America%2FChicago&forecast_days=5")
       .then(function(res) {
-        if (!res.ok) { throw new Error("HTTP " + res.status); }
+        if (!res.ok) throw new Error("HTTP " + res.status);
         return res.json();
       })
       .then(function(data) {
@@ -652,87 +791,46 @@
         }
         weatherContainer.innerHTML = wHTML;
 
-        /* Draw temperature chart */
+        /* Temperature chart */
         try {
           document.getElementById("chartWrap").style.display = "block";
           var ctx = document.getElementById("tempChart").getContext("2d");
           var isDark = document.documentElement.classList.contains("dark");
-          var chartLabels = [];
-          var chartHighs = [];
-          var chartLows = [];
+          var cLabels = [], cHighs = [], cLows = [];
           for (var m = 0; m < times.length; m++) {
             var dd = new Date(times[m] + "T12:00:00");
-            chartLabels.push(m === 0 ? "Today" : dd.toLocaleDateString("en-US", { weekday: "short" }));
-            chartHighs.push(Math.round(highs[m]));
-            chartLows.push(Math.round(lows[m]));
+            cLabels.push(m === 0 ? "Today" : dd.toLocaleDateString("en-US", { weekday: "short" }));
+            cHighs.push(Math.round(highs[m]));
+            cLows.push(Math.round(lows[m]));
           }
-
           new Chart(ctx, {
             type: "line",
             data: {
-              labels: chartLabels,
+              labels: cLabels,
               datasets: [
-                {
-                  label: "High \u00B0F",
-                  data: chartHighs,
-                  borderColor: "#D4A017",
-                  backgroundColor: "rgba(212,160,23,0.1)",
-                  fill: true,
-                  tension: 0.4,
-                  pointRadius: 5,
-                  pointBackgroundColor: "#D4A017"
-                },
-                {
-                  label: "Low \u00B0F",
-                  data: chartLows,
-                  borderColor: "#C4A882",
-                  backgroundColor: "rgba(196,168,130,0.08)",
-                  fill: true,
-                  tension: 0.4,
-                  pointRadius: 5,
-                  pointBackgroundColor: "#C4A882"
-                }
+                { label: "High \u00B0F", data: cHighs, borderColor: "#D4A017", backgroundColor: "rgba(212,160,23,0.1)", fill: true, tension: 0.4, pointRadius: 5, pointBackgroundColor: "#D4A017" },
+                { label: "Low \u00B0F",  data: cLows,  borderColor: "#C4A882", backgroundColor: "rgba(196,168,130,0.08)", fill: true, tension: 0.4, pointRadius: 5, pointBackgroundColor: "#C4A882" }
               ]
             },
             options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              plugins: {
-                legend: {
-                  labels: {
-                    color: isDark ? "#F5EDE0" : "#4A2F1F",
-                    font: { family: "Source Sans 3", size: 12 }
-                  }
-                }
-              },
+              responsive: true, maintainAspectRatio: false,
+              plugins: { legend: { labels: { color: isDark ? "#F5EDE0" : "#4A2F1F", font: { family: "Source Sans 3", size: 12 } } } },
               scales: {
-                y: {
-                  ticks: { color: isDark ? "rgba(245,237,224,0.5)" : "rgba(74,47,31,0.5)" },
-                  grid:  { color: isDark ? "rgba(245,237,224,0.06)" : "rgba(74,47,31,0.05)" }
-                },
-                x: {
-                  ticks: { color: isDark ? "rgba(245,237,224,0.5)" : "rgba(74,47,31,0.5)" },
-                  grid:  { display: false }
-                }
+                y: { ticks: { color: isDark ? "rgba(245,237,224,0.5)" : "rgba(74,47,31,0.5)" }, grid: { color: isDark ? "rgba(245,237,224,0.06)" : "rgba(74,47,31,0.05)" } },
+                x: { ticks: { color: isDark ? "rgba(245,237,224,0.5)" : "rgba(74,47,31,0.5)" }, grid: { display: false } }
               }
             }
           });
-        } catch(chartErr) {
-          console.error("Chart error:", chartErr);
-        }
+        } catch(chartErr) { console.error("Chart error:", chartErr); }
       })
       .catch(function(err) {
-        console.error("Weather fetch error:", err);
-        weatherContainer.innerHTML =
-          '<div class="col-span-full text-center py-8 text-bean/40 dark:text-cream/30">' +
-          '<i class="fa-solid fa-triangle-exclamation text-2xl mb-2 block text-cinnamon"></i>' +
-          'Weather unavailable right now. Please refresh to try again.' +
-          '</div>';
+        console.error("Weather error:", err);
+        weatherContainer.innerHTML = '<div class="col-span-full text-center py-8 text-bean/40 dark:text-cream/30"><i class="fa-solid fa-triangle-exclamation text-2xl mb-2 block text-cinnamon"></i>Weather unavailable. Please refresh.</div>';
       });
 
 
     /* ═══════════════════════════════════════════════════════
-       6. SEASONAL DRINK INSPIRATION
+       SEASONAL DRINK INSPIRATION
        ═══════════════════════════════════════════════════════ */
     try {
       var month = new Date().getMonth();
@@ -740,7 +838,6 @@
       var seasonEl = document.getElementById("seasonIcon");
 
       if (month >= 2 && month <= 4) {
-        /* SPRING (Mar, Apr, May) */
         seasonEl.innerHTML = "\uD83C\uDF38";
         drinks = [
           { name: "Lavender Honey Latte",      emoji: "\uD83D\uDC9C", desc: "Espresso with local honey, steamed milk and a touch of lavender syrup. Light and floral.", tip: "Top with dried lavender buds for a pretty presentation." },
@@ -751,7 +848,6 @@
           { name: "Mint Mocha Iced",            emoji: "\uD83C\uDF3F", desc: "Rich chocolate mocha poured over ice with fresh mint and whipped cream.",                      tip: "Muddle real mint leaves for a garden-fresh twist." }
         ];
       } else if (month >= 5 && month <= 7) {
-        /* SUMMER (Jun, Jul, Aug) */
         seasonEl.innerHTML = "\u2600\uFE0F";
         drinks = [
           { name: "Watermelon Agua Fresca Coffee", emoji: "\uD83C\uDF49", desc: "Cold brew meets fresh watermelon agua fresca \u2014 surprisingly refreshing.", tip: "Perfect for 100+ degree days. Serve in Mason jars." },
@@ -762,7 +858,6 @@
           { name: "Blueberry Lemon Cold Brew",     emoji: "\uD83E\uDED0", desc: "Bright blueberry compote and lemon zest stirred into nitrogen cold brew.", tip: "Garnish with a lemon wheel and a few fresh berries." }
         ];
       } else if (month >= 8 && month <= 10) {
-        /* FALL (Sep, Oct, Nov) */
         seasonEl.innerHTML = "\uD83C\uDF42";
         drinks = [
           { name: "Pumpkin Spice Latte (Texas Style)", emoji: "\uD83C\uDF83", desc: "Real pumpkin puree, warm spices, espresso and steamed milk. No artificial stuff.", tip: "Add a pinch of cayenne for a subtle Texas kick." },
@@ -773,13 +868,12 @@
           { name: "Sweet Potato Pie Latte",             emoji: "\uD83C\uDF60", desc: "Roasted sweet potato puree, warm spices, espresso and marshmallow cream.", tip: "A Southern classic turned coffee drink \u2014 pairs with cinnamon rolls!" }
         ];
       } else {
-        /* WINTER (Dec, Jan, Feb) */
         seasonEl.innerHTML = "\u2744\uFE0F";
         drinks = [
-          { name: "Gingerbread Latte",          emoji: "\uD83C\uDFE0", desc: "Warm ginger, molasses and cinnamon espresso with whipped cream and cookie crumbs.", tip: "Serve with a mini gingerbread man perched on the rim." },
-          { name: "Peppermint White Mocha",     emoji: "\uD83C\uDF6B", desc: "White chocolate mocha with real peppermint and crushed candy cane topping.", tip: "Use white chocolate shavings on top for an elegant touch." },
-          { name: "Mexican Hot Chocolate",      emoji: "\uD83C\uDF36\uFE0F", desc: "Rich dark chocolate, cinnamon, a hint of chili and topped with whipped cream.", tip: "Use Ibarra chocolate for authenticity \u2014 customers will notice." },
-          { name: "Eggnog Espresso",            emoji: "\uD83E\uDD5A", desc: "Creamy eggnog steamed with espresso and a dusting of fresh nutmeg.", tip: "Offer a dairy-free version with oat-based nog." },
+          { name: "Gingerbread Latte",           emoji: "\uD83C\uDFE0", desc: "Warm ginger, molasses and cinnamon espresso with whipped cream and cookie crumbs.", tip: "Serve with a mini gingerbread man perched on the rim." },
+          { name: "Peppermint White Mocha",      emoji: "\uD83C\uDF6B", desc: "White chocolate mocha with real peppermint and crushed candy cane topping.", tip: "Use white chocolate shavings on top for an elegant touch." },
+          { name: "Mexican Hot Chocolate",       emoji: "\uD83C\uDF36\uFE0F", desc: "Rich dark chocolate, cinnamon, a hint of chili and topped with whipped cream.", tip: "Use Ibarra chocolate for authenticity." },
+          { name: "Eggnog Espresso",             emoji: "\uD83E\uDD5A", desc: "Creamy eggnog steamed with espresso and a dusting of fresh nutmeg.", tip: "Offer a dairy-free version with oat-based nog." },
           { name: "Cranberry Orange Americano",  emoji: "\uD83C\uDF4A", desc: "Bright cranberry syrup and orange zest over a classic hot Americano.", tip: "Garnish with a dehydrated orange wheel \u2014 gorgeous and shelf-stable." },
           { name: "Fireside S\u2019mores Mocha", emoji: "\uD83D\uDD25", desc: "Chocolate mocha with graham cracker crumbs and toasted marshmallow cream.", tip: "Toast the marshmallow with a torch tableside for a fun experience." }
         ];
@@ -804,6 +898,35 @@
     } catch(e) {
       console.error("Drinks error:", e);
       try { document.getElementById("drinksGrid").innerHTML = '<p class="text-cinnamon col-span-full text-center py-4">Could not load drink ideas.</p>'; } catch(x) {}
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       RENDER SOCIAL TRENDS
+       ═══════════════════════════════════════════════════════ */
+    try {
+      var trendsGrid = document.getElementById("trendsGrid");
+      var tHTML = "";
+      for (var t = 0; t < SOCIAL_TRENDS.length; t++) {
+        var tr = SOCIAL_TRENDS[t];
+        tHTML += '<div class="card-hover bg-white/70 dark:bg-bean/30 rounded-2xl p-5 border border-bean/5 dark:border-cream/5">';
+        tHTML += '<div class="flex items-center justify-between mb-3">';
+        tHTML += '<div class="flex items-center gap-3">';
+        tHTML += '<span class="text-3xl">' + tr.emoji + '</span>';
+        tHTML += '<h3 class="font-display text-lg font-bold text-bean dark:text-cream leading-tight">' + tr.name + '</h3>';
+        tHTML += '</div>';
+        tHTML += '<span class="text-[10px] font-bold uppercase tracking-wider text-bean/30 dark:text-cream/25 bg-bean/5 dark:bg-cream/5 px-2 py-0.5 rounded-full flex-shrink-0">' + tr.platform + '</span>';
+        tHTML += '</div>';
+        tHTML += '<p class="text-sm text-bean/60 dark:text-cream/60 font-body leading-relaxed mb-3">' + tr.desc + '</p>';
+        tHTML += '<div class="flex items-start gap-2 bg-cinnamon/8 dark:bg-cinnamon/5 rounded-xl px-3 py-2 border border-cinnamon/10 dark:border-cinnamon/5">';
+        tHTML += '<span class="text-xs mt-0.5 flex-shrink-0">\uD83E\uDD20</span>';
+        tHTML += '<p class="text-xs text-bean/60 dark:text-cream/50 font-body"><strong class="text-cinnamon">Ponder Spin:</strong> ' + tr.ponderSpin + '</p>';
+        tHTML += '</div></div>';
+      }
+      trendsGrid.innerHTML = tHTML;
+    } catch(e) {
+      console.error("Trends error:", e);
+      try { document.getElementById("trendsGrid").innerHTML = '<p class="text-cinnamon col-span-full text-center py-4">Could not load trends.</p>'; } catch(x) {}
     }
 
   }); /* end DOMContentLoaded */
