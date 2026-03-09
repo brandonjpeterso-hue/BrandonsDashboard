@@ -1,0 +1,806 @@
+<!--
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║  ROAST TO ROOST COFFEE — Ponder, Texas                         ║
+  ║  Owner Dashboard (100% Read-Only, Zero Data Entry)              ║
+  ╠══════════════════════════════════════════════════════════════════╣
+  ║                                                                  ║
+  ║  HOW TO USE:                                                     ║
+  ║  1. Create a new GitHub repo (e.g., "roast-to-roost-dashboard") ║
+  ║  2. Drop this file in as index.html                              ║
+  ║  3. Go to Settings → Pages → Deploy from main branch            ║
+  ║  4. Your dashboard is live!                                      ║
+  ║                                                                  ║
+  ║  HOW TO UPDATE:                                                  ║
+  ║  • Events → Edit the EVENTS array below (~line 65)              ║
+  ║  • Deals  → Edit the DEALS array below (~line 110)              ║
+  ║  • Weather updates automatically via Open-Meteo API              ║
+  ║  • Owner photo → Replace the placeholder URL (~line 300)        ║
+  ║                                                                  ║
+  ║  Built with ❤️ for Ponder's favorite coffee spot                 ║
+  ╚══════════════════════════════════════════════════════════════════╝
+-->
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roast to Roost • Ponder, TX — Dashboard</title>
+  <meta name="description" content="Dashboard for Roast to Roost Coffee in Ponder, Texas. Events, weather, deals, and more." />
+
+  <!-- Tailwind CSS -->
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Chart.js (lightweight) -->
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+
+  <!-- Font Awesome icons -->
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Google Fonts: Playfair Display + Source Sans 3 -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <script>
+    // ── Tailwind Config ──────────────────────────────────────────
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            bean:      '#4A2F1F',
+            'bean-light': '#6B4430',
+            honey:     '#D4A017',
+            'honey-light': '#E8BD4A',
+            cream:     '#F5EDE0',
+            'cream-dark': '#E8DCC8',
+            latte:     '#C4A882',
+            espresso:  '#2C1810',
+            cinnamon:  '#D2691E',
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            body:    ['"Source Sans 3"', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <script>
+  // ═══════════════════════════════════════════════════════════════
+  //  📅 EVENTS — Edit this array to update upcoming events!
+  //  Format: { title, date, desc, link, icon }
+  // ═══════════════════════════════════════════════════════════════
+  const EVENTS = [
+    {
+      title: "Hello Spring Market",
+      date:  "March 22, 2026",
+      desc:  "Local vendors, crafts, live music & food trucks at Ponder Town Square.",
+      link:  "https://www.facebook.com/PonderTexas/",
+      icon:  "🌸"
+    },
+    {
+      title: "Ponder Frontier Days",
+      date:  "March 28, 2026",
+      desc:  "Ponder's legendary annual celebration — parade, BBQ cook-off, live bands & rodeo fun!",
+      link:  "https://www.facebook.com/PonderFrontierDays/",
+      icon:  "🤠"
+    },
+    {
+      title: "Denton Community Market",
+      date:  "Every Saturday, April–Nov 2026",
+      desc:  "Fresh produce, artisan goods & live music on the Denton Square. 9 AM – 1 PM.",
+      link:  "https://www.dentoncommunitymarket.com/",
+      icon:  "🧑‍🌾"
+    },
+    {
+      title: "Ponder Town Clean-Up Day",
+      date:  "April 18, 2026",
+      desc:  "Volunteer morning — meet at Town Hall, coffee & donuts provided. 8 AM start.",
+      link:  "https://www.facebook.com/PonderTexas/",
+      icon:  "🧹"
+    },
+    {
+      title: "North Texas Fair & Rodeo",
+      date:  "August 14–22, 2026",
+      desc:  "Nine days of rodeo action, concerts, carnival rides & livestock shows at Denton fairgrounds.",
+      link:  "https://www.ntfair.com/",
+      icon:  "🐂"
+    },
+    {
+      title: "Ponder Fall Festival",
+      date:  "October 10, 2026",
+      desc:  "Pumpkin patch, hayrides, chili cook-off, and small-town Texas charm at its finest.",
+      link:  "https://www.facebook.com/PonderTexas/",
+      icon:  "🎃"
+    },
+  ];
+
+  // ═══════════════════════════════════════════════════════════════
+  //  ☕ DEALS — Edit this array to update supplier deals!
+  //  Format: { supplier, promo, link, badge }
+  // ═══════════════════════════════════════════════════════════════
+  const DEALS = [
+    {
+      supplier: "Function Coffee Co",
+      location: "Northlake, TX",
+      promo:    "Local roaster — 15% off first wholesale order. Farm-direct single origins & custom blends.",
+      link:     "https://www.functioncoffee.co/",
+      badge:    "🏠 Local"
+    },
+    {
+      supplier: "Texas Coffee Traders",
+      location: "Austin, TX",
+      promo:    "Free shipping on 25 lb+ orders. Specialty-grade green & roasted beans since 1981.",
+      link:     "https://www.texascoffeetraders.com/",
+      badge:    "⭐ Texas Staple"
+    },
+    {
+      supplier: "KMO Coffee",
+      location: "Dallas–Fort Worth",
+      promo:    "2026 Spring special: 10% off seasonal blends for new wholesale accounts. Training included!",
+      link:     "https://www.kmocoffee.com/",
+      badge:    "🆕 2026 Special"
+    },
+    {
+      supplier: "Coffee Wholesale USA",
+      location: "Nationwide",
+      promo:    "Bulk pricing on syrups, cups, lids & equipment. Same-day shipping on in-stock items.",
+      link:     "https://www.coffeewholesaleusa.com/",
+      badge:    "📦 Supplies"
+    },
+    {
+      supplier: "Covoya Coffee",
+      location: "Online",
+      promo:    "Direct-trade specialty beans. Subscription discounts for cafés — 12% off quarterly plans.",
+      link:     "https://www.covoya.com/",
+      badge:    "🌿 Direct Trade"
+    },
+    {
+      supplier: "Java City",
+      location: "Sacramento / Ships Nationwide",
+      promo:    "Turn-key café solutions — beans, equipment, branding support. Free consultation for new shops.",
+      link:     "https://www.javacity.com/",
+      badge:    "🛠️ Full Service"
+    },
+    {
+      supplier: "Driven Coffee",
+      location: "Online / DFW",
+      promo:    "Veteran-owned roaster. 20% off first wholesale order + free sample kit for cafés.",
+      link:     "https://www.drivencoffee.com/",
+      badge:    "🇺🇸 Veteran-Owned"
+    },
+  ];
+  </script>
+
+  <style>
+    /* ── Base & Animations ──────────────────────────────────── */
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+    }
+
+    /* Page load fade-in */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up {
+      animation: fadeUp 0.6s ease-out both;
+    }
+    .fade-up-1 { animation-delay: 0.08s; }
+    .fade-up-2 { animation-delay: 0.16s; }
+    .fade-up-3 { animation-delay: 0.24s; }
+    .fade-up-4 { animation-delay: 0.32s; }
+    .fade-up-5 { animation-delay: 0.40s; }
+    .fade-up-6 { animation-delay: 0.48s; }
+
+    /* Card hover lift */
+    .card-hover {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(74, 47, 31, 0.15);
+    }
+
+    /* Steam animation for header */
+    @keyframes steam {
+      0%   { opacity: 0; transform: translateY(0) scaleX(1); }
+      50%  { opacity: 0.6; }
+      100% { opacity: 0; transform: translateY(-28px) scaleX(1.4); }
+    }
+    .steam-line {
+      position: absolute;
+      width: 3px;
+      height: 16px;
+      background: rgba(212, 160, 23, 0.4);
+      border-radius: 50%;
+      animation: steam 2s ease-in-out infinite;
+    }
+
+    /* Grain overlay for warmth */
+    .grain::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      opacity: 0.025;
+      z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    /* Dark mode overrides */
+    .dark .grain::before { opacity: 0.04; }
+
+    /* Weather icon bounce */
+    @keyframes gentleBounce {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-3px); }
+    }
+    .weather-icon {
+      animation: gentleBounce 3s ease-in-out infinite;
+    }
+
+    /* Badge shimmer */
+    .badge-shimmer {
+      position: relative;
+      overflow: hidden;
+    }
+    .badge-shimmer::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      animation: shimmer 3s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0%   { left: -100%; }
+      100% { left: 200%; }
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #F5EDE0; }
+    ::-webkit-scrollbar-thumb { background: #C4A882; border-radius: 4px; }
+    .dark ::-webkit-scrollbar-track { background: #1a1a1a; }
+    .dark ::-webkit-scrollbar-thumb { background: #4A2F1F; }
+
+    /* Print styles */
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; }
+      .dark body { color: #1a1a1a !important; }
+    }
+  </style>
+
+</head>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+
+<!--  BODY                                                      -->
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+
+<body class="grain bg-cream text-bean dark:bg-espresso dark:text-cream min-h-screen transition-colors duration-500">
+
+  <!-- ─── HEADER ────────────────────────────────────────────── -->
+
+  <header class="relative overflow-hidden bg-gradient-to-br from-bean via-bean-light to-bean text-cream py-8 px-4 sm:px-8">
+    <!-- Decorative coffee ring -->
+    <div class="absolute -top-16 -right-16 w-56 h-56 border-[6px] border-honey/10 rounded-full"></div>
+    <div class="absolute -bottom-20 -left-12 w-40 h-40 border-[4px] border-latte/10 rounded-full"></div>
+
+```
+<div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 relative z-10">
+  <!-- Logo / Title -->
+  <div class="text-center sm:text-left">
+    <div class="flex items-center justify-center sm:justify-start gap-3 mb-1">
+      <!-- Coffee cup with steam -->
+      <div class="relative text-4xl">
+        ☕
+        <span class="steam-line" style="top:-8px;left:12px;animation-delay:0s;"></span>
+        <span class="steam-line" style="top:-6px;left:20px;animation-delay:0.5s;"></span>
+        <span class="steam-line" style="top:-9px;left:28px;animation-delay:1s;"></span>
+      </div>
+      <h1 class="font-display text-3xl sm:text-4xl font-extrabold tracking-tight">
+        Roast to Roost
+      </h1>
+    </div>
+    <p class="text-latte text-sm tracking-widest uppercase font-body font-light">
+      Ponder, Texas &nbsp;·&nbsp; Giant Cinnamon Rolls &nbsp;·&nbsp; Big Heart
+    </p>
+  </div>
+
+  <!-- Right side: date + controls -->
+  <div class="flex flex-col items-center sm:items-end gap-2">
+    <time id="liveDate" class="text-honey font-display text-lg font-semibold"></time>
+    <div class="flex items-center gap-3 no-print">
+      <!-- Dark mode toggle -->
+      <button id="themeToggle" aria-label="Toggle dark mode"
+        class="w-10 h-10 rounded-full bg-cream/10 hover:bg-cream/20 flex items-center justify-center transition-all text-lg"
+        title="Toggle dark/light mode">
+        <i class="fa-solid fa-moon dark:hidden"></i>
+        <i class="fa-solid fa-sun hidden dark:inline text-honey"></i>
+      </button>
+      <!-- Print / Export -->
+      <button onclick="window.print()" aria-label="Print dashboard"
+        class="w-10 h-10 rounded-full bg-cream/10 hover:bg-cream/20 flex items-center justify-center transition-all text-lg"
+        title="Print / Export">
+        <i class="fa-solid fa-print"></i>
+      </button>
+    </div>
+  </div>
+</div>
+```
+
+  </header>
+
+  <!-- ─── MAIN CONTENT ──────────────────────────────────────── -->
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-8 py-8 space-y-10">
+
+```
+<!-- ═══ 1. UPCOMING EVENTS ═══════════════════════════════ -->
+<section class="fade-up fade-up-1">
+  <div class="flex items-center gap-3 mb-5">
+    <span class="text-2xl">📅</span>
+    <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Upcoming Events in Ponder & Denton County</h2>
+  </div>
+  <div id="eventsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <!-- Populated by JS -->
+  </div>
+</section>
+
+<!-- ═══ 2. COFFEE BEAN & SUPPLY DEALS ════════════════════ -->
+<section class="fade-up fade-up-2">
+  <div class="flex items-center gap-3 mb-5">
+    <span class="text-2xl">☕</span>
+    <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Coffee Bean & Supply Deals</h2>
+  </div>
+  <div id="dealsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <!-- Populated by JS -->
+  </div>
+</section>
+
+<!-- ═══ 3. LIVE WEATHER ══════════════════════════════════ -->
+<section class="fade-up fade-up-3">
+  <div class="flex items-center gap-3 mb-1">
+    <span class="text-2xl">🌤️</span>
+    <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Live Ponder Weather Forecast</h2>
+  </div>
+  <p class="text-sm text-bean/50 dark:text-cream/40 mb-5 ml-10 font-body">
+    <i class="fa-solid fa-arrows-rotate text-xs mr-1"></i> Refresh page for latest weather &nbsp;·&nbsp; Powered by Open-Meteo
+  </p>
+  <div id="weatherContainer" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+    <!-- Populated by JS -->
+    <div class="col-span-full text-center py-8 text-bean/40 dark:text-cream/30">
+      <i class="fa-solid fa-spinner fa-spin text-2xl mb-2 block"></i>
+      Loading weather…
+    </div>
+  </div>
+  <!-- Temperature chart -->
+  <div class="mt-6 bg-white/60 dark:bg-espresso/60 rounded-2xl p-4 backdrop-blur-sm border border-bean/5 dark:border-cream/5">
+    <canvas id="tempChart" height="120"></canvas>
+  </div>
+</section>
+
+<!-- ═══ 4. PONDER ISD & SCHOOL CALENDAR ══════════════════ -->
+<section class="fade-up fade-up-4">
+  <div class="flex items-center gap-3 mb-5">
+    <span class="text-2xl">🏫</span>
+    <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Ponder ISD & School Calendar Highlights</h2>
+  </div>
+  <div class="bg-white/70 dark:bg-bean/30 rounded-2xl p-6 border border-bean/5 dark:border-cream/5 card-hover">
+    <p class="font-body text-bean/80 dark:text-cream/80 leading-relaxed mb-4">
+      Ponder ISD serves the heart of our little town. Here are some key dates for the 2025–2026 school year:
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div class="flex items-start gap-3 p-3 rounded-xl bg-cream/50 dark:bg-espresso/40">
+        <span class="text-xl mt-0.5">🌷</span>
+        <div>
+          <p class="font-semibold text-bean dark:text-honey text-sm">Spring Break</p>
+          <p class="text-sm text-bean/60 dark:text-cream/60">March 9–13, 2026</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-3 p-3 rounded-xl bg-cream/50 dark:bg-espresso/40">
+        <span class="text-xl mt-0.5">🐣</span>
+        <div>
+          <p class="font-semibold text-bean dark:text-honey text-sm">Easter / Good Friday</p>
+          <p class="text-sm text-bean/60 dark:text-cream/60">April 3, 2026 — Student Holiday</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-3 p-3 rounded-xl bg-cream/50 dark:bg-espresso/40">
+        <span class="text-xl mt-0.5">🎓</span>
+        <div>
+          <p class="font-semibold text-bean dark:text-honey text-sm">Last Day of School</p>
+          <p class="text-sm text-bean/60 dark:text-cream/60">May 28, 2026</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-3 p-3 rounded-xl bg-cream/50 dark:bg-espresso/40">
+        <span class="text-xl mt-0.5">🏈</span>
+        <div>
+          <p class="font-semibold text-bean dark:text-honey text-sm">Ponder Lions Football</p>
+          <p class="text-sm text-bean/60 dark:text-cream/60">Season kicks off August 2026 — Go Lions!</p>
+        </div>
+      </div>
+    </div>
+    <a href="https://www.ponderisd.net/" target="_blank" rel="noopener"
+      class="inline-flex items-center gap-2 mt-5 text-sm font-semibold text-honey hover:text-cinnamon transition-colors">
+      <i class="fa-solid fa-arrow-up-right-from-square"></i> Visit Ponder ISD Website
+    </a>
+  </div>
+</section>
+
+<!-- ═══ 5. LOCAL BUSINESS RESOURCES & PARTNERS ═══════════ -->
+<section class="fade-up fade-up-5">
+  <div class="flex items-center gap-3 mb-5">
+    <span class="text-2xl">🤝</span>
+    <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Local Business Resources & Partners</h2>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <!-- Resource cards -->
+    <a href="https://www.dentonchamber.com/" target="_blank" rel="noopener"
+      class="card-hover bg-white/70 dark:bg-bean/30 rounded-2xl p-5 border border-bean/5 dark:border-cream/5 block group">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-2xl">🏛️</span>
+        <h3 class="font-display text-lg font-bold text-bean dark:text-cream group-hover:text-honey transition-colors">Denton Chamber of Commerce</h3>
+      </div>
+      <p class="text-sm text-bean/60 dark:text-cream/60 font-body">Networking events, business advocacy & resources for Denton County small businesses.</p>
+    </a>
+
+    <a href="https://www.sba.gov/district/dallas-fort-worth" target="_blank" rel="noopener"
+      class="card-hover bg-white/70 dark:bg-bean/30 rounded-2xl p-5 border border-bean/5 dark:border-cream/5 block group">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-2xl">🇺🇸</span>
+        <h3 class="font-display text-lg font-bold text-bean dark:text-cream group-hover:text-honey transition-colors">SBA – DFW District</h3>
+      </div>
+      <p class="text-sm text-bean/60 dark:text-cream/60 font-body">Small business loans, mentoring, and disaster assistance. Free counseling available.</p>
+    </a>
+
+    <a href="https://www.twc.texas.gov/" target="_blank" rel="noopener"
+      class="card-hover bg-white/70 dark:bg-bean/30 rounded-2xl p-5 border border-bean/5 dark:border-cream/5 block group">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-2xl">💼</span>
+        <h3 class="font-display text-lg font-bold text-bean dark:text-cream group-hover:text-honey transition-colors">Texas Workforce Commission</h3>
+      </div>
+      <p class="text-sm text-bean/60 dark:text-cream/60 font-body">Hiring resources, labor law info, skills training programs & unemployment support.</p>
+    </a>
+
+    <a href="https://www.nttc.edu/" target="_blank" rel="noopener"
+      class="card-hover bg-white/70 dark:bg-bean/30 rounded-2xl p-5 border border-bean/5 dark:border-cream/5 block group">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-2xl">📚</span>
+        <h3 class="font-display text-lg font-bold text-bean dark:text-cream group-hover:text-honey transition-colors">NCTC – North Central Texas College</h3>
+      </div>
+      <p class="text-sm text-bean/60 dark:text-cream/60 font-body">Continuing education, workforce development & culinary programs right in Denton County.</p>
+    </a>
+
+    <a href="https://www.score.org/dallas" target="_blank" rel="noopener"
+      class="card-hover bg-white/70 dark:bg-bean/30 rounded-2xl p-5 border border-bean/5 dark:border-cream/5 block group">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-2xl">🧭</span>
+        <h3 class="font-display text-lg font-bold text-bean dark:text-cream group-hover:text-honey transition-colors">SCORE Dallas – Free Mentoring</h3>
+      </div>
+      <p class="text-sm text-bean/60 dark:text-cream/60 font-body">Free business mentoring from experienced entrepreneurs. Workshops & webinars available.</p>
+    </a>
+
+    <a href="https://www.facebook.com/PonderTexas/" target="_blank" rel="noopener"
+      class="card-hover bg-white/70 dark:bg-bean/30 rounded-2xl p-5 border border-bean/5 dark:border-cream/5 block group">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-2xl">🏘️</span>
+        <h3 class="font-display text-lg font-bold text-bean dark:text-cream group-hover:text-honey transition-colors">Town of Ponder Community</h3>
+      </div>
+      <p class="text-sm text-bean/60 dark:text-cream/60 font-body">Stay connected with Ponder news, town meetings, and community updates.</p>
+    </a>
+  </div>
+</section>
+
+<!-- ═══ 6. SEASONAL DRINK INSPIRATION ════════════════════ -->
+<section class="fade-up fade-up-6">
+  <div class="flex items-center gap-3 mb-5">
+    <span class="text-2xl">🍂</span>
+    <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Seasonal Drink Inspiration</h2>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="drinksGrid">
+    <!-- Populated by JS based on season -->
+  </div>
+</section>
+```
+
+  </main>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────── -->
+
+  <footer class="bg-bean text-cream/60 py-8 px-4 mt-12">
+    <div class="max-w-6xl mx-auto text-center space-y-3">
+      <p class="font-display text-lg text-cream/80">
+        Built with <span class="text-red-400">❤️</span> for Ponder's favorite coffee spot
+      </p>
+      <p class="text-sm text-cream/30">
+        Weather data by <a href="https://open-meteo.com/" class="underline hover:text-honey transition-colors" target="_blank" rel="noopener">Open-Meteo</a>
+        &nbsp;·&nbsp; Dashboard auto-refreshes weather on each visit
+      </p>
+      <p class="text-xs text-cream/20 mt-2">
+        <!-- Replace this with owner photo and credit -->
+        📸 Owner photo placeholder — replace the image URL in the source to add your photo!
+      </p>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+
+  <!--  JAVASCRIPT                                                 -->
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+
+  <script>
+  (function() {
+    'use strict';
+
+    // ── Live Date ────────────────────────────────────────────
+    const dateEl = document.getElementById('liveDate');
+    const now = new Date();
+    dateEl.textContent = now.toLocaleDateString('en-US', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+
+    // ── Dark Mode Toggle ────────────────────────────────────
+    const toggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+
+    // Check saved preference or default to light
+    if (localStorage.getItem('r2r-theme') === 'dark') {
+      html.classList.add('dark');
+    }
+
+    toggle.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      localStorage.setItem('r2r-theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+
+    // ── Render Events ───────────────────────────────────────
+    const eventsGrid = document.getElementById('eventsGrid');
+    EVENTS.forEach(ev => {
+      eventsGrid.innerHTML += `
+        <a href="${ev.link}" target="_blank" rel="noopener"
+          class="card-hover bg-white/70 dark:bg-bean/30 rounded-2xl p-5 border border-bean/5 dark:border-cream/5 block group">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-3xl">${ev.icon}</span>
+            <div>
+              <h3 class="font-display text-lg font-bold text-bean dark:text-cream group-hover:text-honey transition-colors leading-tight">${ev.title}</h3>
+              <p class="text-xs text-honey font-semibold uppercase tracking-wider mt-0.5">${ev.date}</p>
+            </div>
+          </div>
+          <p class="text-sm text-bean/60 dark:text-cream/60 font-body leading-relaxed">${ev.desc}</p>
+          <span class="inline-flex items-center gap-1 mt-3 text-xs font-semibold text-honey/70 group-hover:text-honey transition-colors">
+            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> Details
+          </span>
+        </a>
+      `;
+    });
+
+    // ── Render Deals ────────────────────────────────────────
+    const dealsGrid = document.getElementById('dealsGrid');
+    DEALS.forEach(deal => {
+      dealsGrid.innerHTML += `
+        <a href="${deal.link}" target="_blank" rel="noopener"
+          class="card-hover bg-white/70 dark:bg-bean/30 rounded-2xl p-5 border border-bean/5 dark:border-cream/5 block group relative overflow-hidden">
+          <div class="absolute top-3 right-3 badge-shimmer bg-honey/15 dark:bg-honey/20 text-honey text-xs font-bold px-2.5 py-1 rounded-full">
+            ${deal.badge}
+          </div>
+          <h3 class="font-display text-lg font-bold text-bean dark:text-cream group-hover:text-honey transition-colors pr-20">${deal.supplier}</h3>
+          <p class="text-xs text-cinnamon dark:text-latte font-semibold mb-2">${deal.location}</p>
+          <p class="text-sm text-bean/60 dark:text-cream/60 font-body leading-relaxed">${deal.promo}</p>
+          <span class="inline-flex items-center gap-1 mt-3 text-xs font-semibold text-honey/70 group-hover:text-honey transition-colors">
+            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> Visit Supplier
+          </span>
+        </a>
+      `;
+    });
+
+    // ── Weather Fetch (Open-Meteo) ──────────────────────────
+    const weatherUrl = 'https://api.open-meteo.com/v1/forecast?latitude=33.18&longitude=-97.29&daily=temperature_2m_max,temperature_2m_min,weathercode&temperature_unit=fahrenheit&timezone=America%2FChicago&forecast_days=5';
+
+    const WMO_ICONS = {
+      0: { icon: '☀️',  label: 'Clear' },
+      1: { icon: '🌤️', label: 'Mostly Clear' },
+      2: { icon: '⛅',  label: 'Partly Cloudy' },
+      3: { icon: '☁️',  label: 'Overcast' },
+      45:{ icon: '🌫️', label: 'Foggy' },
+      48:{ icon: '🌫️', label: 'Freezing Fog' },
+      51:{ icon: '🌦️', label: 'Light Drizzle' },
+      53:{ icon: '🌦️', label: 'Drizzle' },
+      55:{ icon: '🌧️', label: 'Heavy Drizzle' },
+      61:{ icon: '🌧️', label: 'Light Rain' },
+      63:{ icon: '🌧️', label: 'Rain' },
+      65:{ icon: '🌧️', label: 'Heavy Rain' },
+      71:{ icon: '🌨️', label: 'Light Snow' },
+      73:{ icon: '🌨️', label: 'Snow' },
+      75:{ icon: '❄️',  label: 'Heavy Snow' },
+      80:{ icon: '🌦️', label: 'Showers' },
+      81:{ icon: '🌧️', label: 'Heavy Showers' },
+      82:{ icon: '⛈️',  label: 'Violent Showers' },
+      95:{ icon: '⛈️',  label: 'Thunderstorm' },
+      96:{ icon: '⛈️',  label: 'T-storm w/ Hail' },
+      99:{ icon: '⛈️',  label: 'T-storm w/ Heavy Hail' },
+    };
+
+    async function fetchWeather() {
+      const container = document.getElementById('weatherContainer');
+      try {
+        const res = await fetch(weatherUrl);
+        const data = await res.json();
+        const { time, temperature_2m_max: highs, temperature_2m_min: lows, weathercode: codes } = data.daily;
+
+        container.innerHTML = '';
+        const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+        time.forEach((dateStr, i) => {
+          const d = new Date(dateStr + 'T12:00:00');
+          const dayName = i === 0 ? 'Today' : dayNames[d.getDay()];
+          const wmo = WMO_ICONS[codes[i]] || { icon: '🌡️', label: 'N/A' };
+
+          container.innerHTML += `
+            <div class="card-hover bg-white/70 dark:bg-bean/30 rounded-2xl p-4 border border-bean/5 dark:border-cream/5 text-center">
+              <p class="text-xs font-bold uppercase tracking-widest text-bean/50 dark:text-cream/40 mb-1">${dayName}</p>
+              <p class="text-xs text-bean/40 dark:text-cream/30 mb-2">${d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p>
+              <div class="weather-icon text-4xl mb-2" style="animation-delay:${i * 0.3}s">${wmo.icon}</div>
+              <p class="text-xs text-bean/50 dark:text-cream/50 mb-2 font-medium">${wmo.label}</p>
+              <p class="font-display text-xl font-bold text-bean dark:text-cream">${Math.round(highs[i])}°</p>
+              <p class="text-sm text-bean/40 dark:text-cream/40">${Math.round(lows[i])}°</p>
+            </div>
+          `;
+        });
+
+        // ── Temperature Chart ─────────────────────────────
+        const ctx = document.getElementById('tempChart').getContext('2d');
+        const labels = time.map((t, i) => {
+          const d = new Date(t + 'T12:00:00');
+          return i === 0 ? 'Today' : d.toLocaleDateString('en-US', { weekday: 'short' });
+        });
+
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels,
+            datasets: [
+              {
+                label: 'High °F',
+                data: highs.map(Math.round),
+                borderColor: '#D4A017',
+                backgroundColor: 'rgba(212,160,23,0.1)',
+                fill: true,
+                tension: 0.4,
+                pointRadius: 5,
+                pointBackgroundColor: '#D4A017',
+              },
+              {
+                label: 'Low °F',
+                data: lows.map(Math.round),
+                borderColor: '#C4A882',
+                backgroundColor: 'rgba(196,168,130,0.08)',
+                fill: true,
+                tension: 0.4,
+                pointRadius: 5,
+                pointBackgroundColor: '#C4A882',
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                labels: {
+                  color: html.classList.contains('dark') ? '#F5EDE0' : '#4A2F1F',
+                  font: { family: '"Source Sans 3"', size: 12 },
+                },
+              },
+            },
+            scales: {
+              y: {
+                ticks: { color: html.classList.contains('dark') ? '#F5EDE088' : '#4A2F1F88', font: { family: '"Source Sans 3"' } },
+                grid:  { color: html.classList.contains('dark') ? '#F5EDE010' : '#4A2F1F08' },
+              },
+              x: {
+                ticks: { color: html.classList.contains('dark') ? '#F5EDE088' : '#4A2F1F88', font: { family: '"Source Sans 3"' } },
+                grid:  { display: false },
+              },
+            },
+          },
+        });
+
+      } catch (err) {
+        container.innerHTML = `
+          <div class="col-span-full text-center py-8 text-bean/40 dark:text-cream/30">
+            <i class="fa-solid fa-triangle-exclamation text-2xl mb-2 block text-cinnamon"></i>
+            Weather unavailable — please refresh to try again.
+          </div>
+        `;
+        console.error('Weather fetch error:', err);
+      }
+    }
+
+    fetchWeather();
+
+    // ── Seasonal Drink Inspiration ──────────────────────────
+    const month = now.getMonth(); // 0-indexed
+    let season, drinks;
+
+    if (month >= 2 && month <= 4) {
+      season = 'spring';
+      drinks = [
+        { name: 'Lavender Honey Latte',        emoji: '💜', desc: 'Espresso with local honey, steamed milk & a touch of lavender syrup. Light and floral.', tip: 'Top with dried lavender buds for a pretty presentation.' },
+        { name: 'Texas Pecan Cold Brew',        emoji: '🥜', desc: 'Slow-steeped cold brew with house-made pecan syrup & a splash of oat milk.', tip: 'Use locally sourced pecans for that real Texas flavor.' },
+        { name: 'Strawberry Matcha Lemonade',   emoji: '🍓', desc: 'Iced matcha layered over fresh strawberry purée and sparkling lemonade.', tip: 'Beautiful Instagram-worthy layers — let customers pour themselves!' },
+        { name: 'Cinnamon Roll Latte',          emoji: '🍥', desc: "Inspired by your famous scratch-made cinnamon rolls — cinnamon, brown sugar, cream cheese foam.", tip: "Pair it with an actual cinnamon roll for the ultimate combo deal." },
+        { name: 'Honey Bee Flat White',         emoji: '🐝', desc: 'Velvety flat white sweetened with raw local honey and a light dusting of cinnamon.', tip: 'Source honey from Denton County beekeepers for a hyper-local story.' },
+        { name: 'Mint Mocha Iced',              emoji: '🌿', desc: 'Rich chocolate mocha poured over ice with fresh mint and whipped cream.', tip: 'Muddle real mint leaves for a garden-fresh twist.' },
+      ];
+    } else if (month >= 5 && month <= 7) {
+      season = 'summer';
+      drinks = [
+        { name: 'Watermelon Agua Fresca Coffee', emoji: '🍉', desc: 'Cold brew meets fresh watermelon agua fresca — surprisingly refreshing.', tip: 'Perfect for Ponder's 100°+ days. Serve in Mason jars.' },
+        { name: 'Coconut Vanilla Cold Brew',     emoji: '🥥', desc: 'Smooth cold brew, coconut cream & Madagascar vanilla over crushed ice.', tip: 'Freeze coconut milk into cubes so it never gets watered down.' },
+        { name: 'Peach Sweet Tea Espresso',      emoji: '🍑', desc: 'A true Texas fusion — sweet peach tea with a shot of espresso over ice.', tip: 'Use Hill Country peaches when they\'re in season.' },
+        { name: 'Mexican Horchata Latte',        emoji: '🥛', desc: 'Creamy cinnamon-rice milk horchata mixed with espresso. Sweet and spiced.', tip: 'Batch the horchata base daily for consistent creaminess.' },
+        { name: 'Frozen Caramel Macchiato',      emoji: '🧊', desc: 'Blended espresso with caramel, vanilla & milk — frozen to perfection.', tip: 'Drizzle caramel inside the cup for a beautiful spiral effect.' },
+        { name: 'Blueberry Lemon Cold Brew',     emoji: '🫐', desc: 'Bright blueberry compote and lemon zest stirred into nitrogen cold brew.', tip: 'Garnish with a lemon wheel and a few fresh berries.' },
+      ];
+    } else if (month >= 8 && month <= 10) {
+      season = 'fall';
+      drinks = [
+        { name: 'Pumpkin Spice Latte (Texas Style)', emoji: '🎃', desc: 'Real pumpkin purée, warm spices, espresso & steamed milk. No artificial stuff.', tip: 'Add a pinch of cayenne for a subtle Texas kick.' },
+        { name: 'Maple Pecan Cappuccino',             emoji: '🍁', desc: 'Rich cappuccino topped with maple syrup foam and candied pecan pieces.', tip: 'Candy the pecans in-house — they smell amazing and draw people in.' },
+        { name: 'Apple Cider Chai',                   emoji: '🍎', desc: 'Hot apple cider blended with spiced chai concentrate. Autumn in a cup.', tip: 'Rim the mug with cinnamon sugar for that extra fall feeling.' },
+        { name: 'Salted Caramel Mocha',               emoji: '🧂', desc: 'Dark chocolate mocha with house salted caramel and a flaky salt finish.', tip: 'Use Maldon sea salt flakes — the crunch makes it special.' },
+        { name: 'Brown Sugar Oat Latte',              emoji: '🤎', desc: 'Espresso with oat milk and torched brown sugar syrup. Cozy and sweet.', tip: 'Brûlée the brown sugar on top with a kitchen torch for drama.' },
+        { name: 'Sweet Potato Pie Latte',             emoji: '🍠', desc: 'Roasted sweet potato purée, warm spices, espresso & marshmallow cream.', tip: 'A Southern classic turned coffee drink — pairs with your cinnamon rolls!' },
+      ];
+    } else {
+      season = 'winter';
+      drinks = [
+        { name: 'Gingerbread Latte',             emoji: '🏠', desc: 'Warm ginger, molasses & cinnamon espresso with whipped cream & cookie crumbs.', tip: 'Serve with a mini gingerbread man perched on the rim.' },
+        { name: 'Peppermint White Mocha',        emoji: '🍫', desc: 'White chocolate mocha with real peppermint and crushed candy cane topping.', tip: 'Use white chocolate shavings on top for an elegant touch.' },
+        { name: 'Mexican Hot Chocolate',         emoji: '🌶️', desc: 'Rich dark chocolate, cinnamon, a hint of chili & topped with whipped cream.', tip: 'Use Ibarra chocolate for authenticity — customers will notice.' },
+        { name: 'Eggnog Espresso',               emoji: '🥚', desc: 'Creamy eggnog steamed with espresso and a dusting of fresh nutmeg.', tip: 'Offer a dairy-free version with oat-based nog.' },
+        { name: 'Cranberry Orange Americano',    emoji: '🍊', desc: 'Bright cranberry syrup and orange zest over a classic hot Americano.', tip: 'Garnish with a dehydrated orange wheel — gorgeous and shelf-stable.' },
+        { name: 'Fireside S\'mores Mocha',       emoji: '🔥', desc: 'Chocolate mocha with graham cracker crumbs and toasted marshmallow cream.', tip: 'Toast the marshmallow with a torch tableside for a fun experience.' },
+      ];
+    }
+
+    const drinksGrid = document.getElementById('drinksGrid');
+    drinks.forEach(drink => {
+      drinksGrid.innerHTML += `
+        <div class="card-hover bg-white/70 dark:bg-bean/30 rounded-2xl p-5 border border-bean/5 dark:border-cream/5">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-3xl">${drink.emoji}</span>
+            <h3 class="font-display text-lg font-bold text-bean dark:text-cream leading-tight">${drink.name}</h3>
+          </div>
+          <p class="text-sm text-bean/60 dark:text-cream/60 font-body leading-relaxed mb-3">${drink.desc}</p>
+          <div class="flex items-start gap-2 bg-honey/10 dark:bg-honey/5 rounded-xl px-3 py-2">
+            <span class="text-xs mt-0.5">💡</span>
+            <p class="text-xs text-bean/50 dark:text-cream/40 font-body italic">${drink.tip}</p>
+          </div>
+        </div>
+      `;
+    });
+
+  })();
+  </script>
+
+</body>
+</html>
