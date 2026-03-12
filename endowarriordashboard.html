@@ -1526,7 +1526,7 @@ async function loadSurgeons() {
   populateSurgeonStateDropdown();
   updateCityDropdown();
   applyFilters();
-  updateMap();
+  plotMapDots();
   // Dynamic hero surgeon count — rounds down to nearest 10 unless exact multiple
   const heroCount = document.getElementById('hero-surgeon-count');
   if (heroCount && DOCTORS.length > 0) {
@@ -2050,69 +2050,7 @@ function switchPelvicTab(tab, btn) {
 
 
 /* ── SURGEON MAP (Leaflet) ── */
-let _map = null;
-let _markerLayer = null;
-
-function initMap() {
-  if (_map) return; // already initialized
-  _map = L.map('surgeon-map', {
-    center: [38.5, -96],
-    zoom: 4,
-    scrollWheelZoom: false,
-    zoomControl: true,
-    attributionControl: true
-  });
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
-    subdomains: 'abcd', maxZoom: 10
-  }).addTo(_map);
-  _markerLayer = L.layerGroup().addTo(_map);
-}
-
-const _pinkIcon = function() {
-  return L.divIcon({
-    className: '',
-    html: '<div style="width:12px;height:12px;background:#B0407A;border:2.5px solid #fff;border-radius:50%;box-shadow:0 2px 6px rgba(176,64,122,.5);"></div>',
-    iconSize: [12,12],
-    iconAnchor: [6,6]
-  });
-};
-
-function updateMap() {
-  const mapEl = document.getElementById('surgeon-map');
-  if (!mapEl || !DOCTORS.length) return;
-  if (!_map) initMap();
-  _markerLayer.clearLayers();
-
-  const state = document.getElementById('filter-state') ? document.getElementById('filter-state').value : '';
-  const visible = DOCTORS.filter(d => {
-    if (!d.lat || !d.lon) return false;
-    if (d.state === 'International') return false;
-    if (state && d.state !== state) return false;
-    return true;
-  });
-
-  const bounds = [];
-  visible.forEach(d => {
-    const m = L.marker([d.lat, d.lon], {icon: _pinkIcon()});
-    m.bindPopup(`<strong>${d.name}</strong><br>${d.city}, ${d.state}<br><small>${d.org || ''}</small>`, {maxWidth:220});
-    m.addTo(_markerLayer);
-    bounds.push([d.lat, d.lon]);
-  });
-
-  const label = document.getElementById('map-count-label');
-  if (label) label.textContent = visible.length + ' location' + (visible.length !== 1 ? 's' : '');
-
-  if (bounds.length > 0) {
-    if (state && bounds.length < 20) {
-      _map.fitBounds(bounds, {padding: [30, 30], maxZoom: 7});
-    } else {
-      _map.setView([38.5, -96], 4);
-    }
-  }
-  setTimeout(() => { if (_map) _map.invalidateSize(); }, 100);
-}
-
+le
 
 /* ── SURGEON MAP ── */
 let _emap = null, _elayer = null;
@@ -2149,7 +2087,7 @@ function plotMapDots() {
 /* ── INIT ── */
 (function init(){
   // Surgeon dropdowns — wired here, data loaded async by loadSurgeons()
-  document.getElementById("filter-state").addEventListener("change",()=>{updateCityDropdown();applyFilters();updateMap();});
+  document.getElementById("filter-state").addEventListener("change",()=>{updateCityDropdown();applyFilters();plotMapDots();});
   document.getElementById("filter-city").addEventListener("change",applyFilters);
   document.getElementById("filter-cred").addEventListener("change",applyFilters);
   document.getElementById("filter-spec").addEventListener("change",applyFilters);
