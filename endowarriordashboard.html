@@ -2096,11 +2096,7 @@ function plotMapDots() {
   filterVulvo();
 
 })();
-</script>
 
-</body>
-</html
-]
 /* ── OB/GYN DATA ── */
 const OBGYNS = [
   {name:"Dr. Molly Carnahan",fn:"Molly",ln:"Carnahan",creds:["MD"],org:"Texas Health Resources",city:"Dallas",state:"TX",lat:32.78,lon:-96.8,web:"https://www.texashealth.org/",focus:["Endometriosis","PCOS"],ins:"Texas Health — most major plans",accepting:true,notes:"OB/GYN with dedicated focus on endometriosis and PCOS hormonal management. Patient-centered, evidence-based care.",rev:{txt:"Highly regarded by DFW patients for her patient-centered approach to endometriosis and PCOS management.",stars:4,links:[{n:"Healthgrades",u:"https://www.healthgrades.com/search?what=endometriosis+PCOS+Dallas+obgyn"}]}},
@@ -2125,257 +2121,306 @@ const OBGYNS = [
 
 /* ── SUPPORT GROUPS ── */
 const GROUPS = [
-{name:“Nancy’s Nook Endometriosis Education”,city:“Online”,state:“National”,type:“online”,icon:”\uD83D\uDCBB”,desc:“Facebook group with 40,000+ members. Focuses on evidence-based excision education.”,url:“https://www.facebook.com/groups/NancysNookEndometriosisEducation/”,members:“40,000+”},
-{name:“Endometriosis Foundation of America Community”,city:“Online”,state:“National”,type:“online”,icon:”\uD83C\uDF38”,desc:“Official community from EndoFound. Resources, webinars, and peer connections.”,url:“https://www.endofound.org/”,members:“Open”},
-{name:“iCareBetter Endo Community”,city:“Online”,state:“National”,type:“online”,icon:”\uD83D\uDCBB”,desc:“Platform connecting endo patients with vetted specialists and a peer community.”,url:“https://icarebetter.com/”,members:“Open”},
-{name:“Endo Warriors Support Group”,city:“Online”,state:“National”,type:“online”,icon:”\uD83D\uDC9C”,desc:“Large, active Facebook community with daily support and encouragement.”,url:“https://www.facebook.com/groups/endowarriors/”,members:“50,000+”},
-{name:“r/Endo — Reddit Community”,city:“Online”,state:“National”,type:“online”,icon:”\uD83D\uDCBB”,desc:“Active Reddit community. Anonymous support, advice, surgery discussions.”,url:“https://www.reddit.com/r/Endo/”,members:“70,000+”},
-{name:“Endometriosis Association”,city:“Online”,state:“National”,type:“online”,icon:”\uD83C\uDF38”,desc:“Long-standing nonprofit providing support, education, and research.”,url:“https://endometriosisassn.org/”,members:“Open”},
-{name:“Endometriosis Foundation of Houston”,city:“Houston”,state:“TX”,type:“hybrid”,icon:”\uD83C\uDF38”,desc:“Local Houston nonprofit raising awareness. Events, education, and support group connections.”,url:“https://www.efhou.org/”,members:“Open”},
-{name:“DFW Endometriosis Support Group”,city:“Dallas”,state:“TX”,type:“inperson”,icon:”\uD83D\uDC9C”,desc:“In-person and online support group for Dallas-Fort Worth endo patients.”,url:“https://www.facebook.com/groups/dfwendosupport/”,members:“Open”},
-{name:“Austin Endo Warriors”,city:“Austin”,state:“TX”,type:“hybrid”,icon:”\uD83C\uDF3C”,desc:“Austin-based group offering monthly meetups and an active online community.”,url:“https://www.facebook.com/groups/austinendowarriors/”,members:“Open”},
-{name:“San Antonio Endometriosis Support”,city:“San Antonio”,state:“TX”,type:“inperson”,icon:”\uD83D\uDC9C”,desc:“San Antonio area support group for monthly in-person meetings.”,url:“https://www.facebook.com/groups/sanantonioendo/”,members:“Open”},
-{name:“EndoFound NYC Support Program”,city:“New York”,state:“NY”,type:“hybrid”,icon:”\uD83C\uDF38”,desc:“Support program run by EndoFound. NYC-area events and patient education.”,url:“https://www.endofound.org/support-groups”,members:“Open”},
-{name:“SoCal Endo Support Group”,city:“Los Angeles”,state:“CA”,type:“hybrid”,icon:”\uD83D\uDC9C”,desc:“Southern California endometriosis support group with regular meetups.”,url:“https://www.facebook.com/groups/socalendo/”,members:“Open”},
-{name:“Bay Area Endometriosis Support”,city:“San Francisco”,state:“CA”,type:“inperson”,icon:”\uD83C\uDF3C”,desc:“SF Bay Area group offering monthly in-person meetups and peer support.”,url:“https://www.facebook.com/groups/bayareaendo/”,members:“Open”},
-{name:“Center for Endometriosis Care Community”,city:“Atlanta”,state:“GA”,type:“online”,icon:”\uD83C\uDF38”,desc:“Patient community affiliated with the Center for Endometriosis Care.”,url:“https://www.centerforendo.com/resources”,members:“Open”},
-{name:“Chicago Endometriosis Support Network”,city:“Chicago”,state:“IL”,type:“hybrid”,icon:”\uD83D\uDC9C”,desc:“Monthly meetups and an active online community.”,url:“https://www.facebook.com/groups/chicagoendo/”,members:“Open”},
-{name:“Boston Endometriosis Support Group”,city:“Boston”,state:“MA”,type:“hybrid”,icon:”\uD83D\uDC9C”,desc:“Peer support, education, and connections to local excision specialists.”,url:“https://www.facebook.com/groups/bostonendo/”,members:“Open”},
-{name:“South Florida Endo Warriors”,city:“Miami”,state:“FL”,type:“hybrid”,icon:”\uD83D\uDC9C”,desc:“Meetups in Miami, Fort Lauderdale, and West Palm Beach.”,url:“https://www.facebook.com/groups/sfloendowarriors/”,members:“Open”},
-{name:“Cleveland Clinic Endo Support Program”,city:“Cleveland”,state:“OH”,type:“inperson”,icon:”\uD83C\uDF38”,desc:“Hospital support group affiliated with Cleveland Clinic’s women’s health program.”,url:“https://my.clevelandclinic.org/”,members:“Open”},
-{name:“DC Metro Endo Support Group”,city:“Washington DC”,state:“VA”,type:“hybrid”,icon:”\uD83D\uDC9C”,desc:“Serves DC, Maryland, and Northern Virginia.”,url:“https://www.facebook.com/groups/dcmetroendo/”,members:“Open”},
-{name:“St. Louis Endometriosis Support”,city:“St. Louis”,state:“MO”,type:“hybrid”,icon:”\uD83D\uDC9C”,desc:“St. Louis area endo support group.”,url:“https://www.facebook.com/groups/stlouisendo/”,members:“Open”},
-{name:“Seattle Endometriosis Support Network”,city:“Seattle”,state:“WA”,type:“hybrid”,icon:”\uD83D\uDC9C”,desc:“Monthly meetups for Pacific Northwest patients.”,url:“https://www.facebook.com/groups/seattleendo/”,members:“Open”},
-{name:“Colorado Endo Warriors”,city:“Denver”,state:“CO”,type:“hybrid”,icon:”\uD83C\uDF3C”,desc:“Denver-based support group with regular meetings.”,url:“https://www.facebook.com/groups/coloradoendo/”,members:“Open”},
-{name:“Phoenix Endometriosis Support”,city:“Phoenix”,state:“AZ”,type:“hybrid”,icon:”\uD83D\uDC9C”,desc:“Phoenix metro area endometriosis support group.”,url:“https://www.facebook.com/groups/phoenixendo/”,members:“Open”},
-{name:“Twin Cities Endo Warriors”,city:“Minneapolis”,state:“MN”,type:“hybrid”,icon:”\uD83C\uDF3C”,desc:“Minneapolis/St. Paul area. Monthly meetings and Mayo Clinic resources.”,url:“https://www.facebook.com/groups/twincitiesendo/”,members:“Open”},
-{name:“Philadelphia Endo Support Group”,city:“Philadelphia”,state:“PA”,type:“hybrid”,icon:”\uD83D\uDC9C”,desc:“Monthly meetings and local clinical resource sharing.”,url:“https://www.facebook.com/groups/phillyendo/”,members:“Open”},
-{name:“Portland Endo Warriors”,city:“Portland”,state:“OR”,type:“hybrid”,icon:”\uD83C\uDF3F”,desc:“Monthly gatherings and OHSU resources.”,url:“https://www.facebook.com/groups/portlandendo/”,members:“Open”},
-{name:“Salt Lake Endometriosis Support”,city:“Salt Lake City”,state:“UT”,type:“inperson”,icon:”\uD83D\uDC9C”,desc:“Monthly meetings and University of Utah resources.”,url:“https://www.facebook.com/groups/slcendo/”,members:“Open”},
-{name:“Nashville Endo Warriors”,city:“Nashville”,state:“TN”,type:“hybrid”,icon:”\uD83C\uDF38”,desc:“Monthly meetups and peer support for Tennessee patients.”,url:“https://www.facebook.com/groups/nashvilleendo/”,members:“Open”},
-{name:“New Orleans Endometriosis Support”,city:“New Orleans”,state:“LA”,type:“hybrid”,icon:”\uD83D\uDC9C”,desc:“Monthly meetings and local resource sharing.”,url:“https://www.facebook.com/groups/neworleansendo/”,members:“Open”}
+  {name:"Nancy's Nook Endometriosis Education",city:"Online",state:"National",type:"online",icon:"\uD83D\uDCBB",desc:"Facebook group with 40,000+ members. Focuses on evidence-based excision education.",url:"https://www.facebook.com/groups/NancysNookEndometriosisEducation/",members:"40,000+"},
+  {name:"Endometriosis Foundation of America Community",city:"Online",state:"National",type:"online",icon:"\uD83C\uDF38",desc:"Official community from EndoFound. Resources, webinars, and peer connections.",url:"https://www.endofound.org/",members:"Open"},
+  {name:"iCareBetter Endo Community",city:"Online",state:"National",type:"online",icon:"\uD83D\uDCBB",desc:"Platform connecting endo patients with vetted specialists and a peer community.",url:"https://icarebetter.com/",members:"Open"},
+  {name:"Endo Warriors Support Group",city:"Online",state:"National",type:"online",icon:"\uD83D\uDC9C",desc:"Large, active Facebook community with daily support and encouragement.",url:"https://www.facebook.com/groups/endowarriors/",members:"50,000+"},
+  {name:"r/Endo — Reddit Community",city:"Online",state:"National",type:"online",icon:"\uD83D\uDCBB",desc:"Active Reddit community. Anonymous support, advice, surgery discussions.",url:"https://www.reddit.com/r/Endo/",members:"70,000+"},
+  {name:"Endometriosis Association",city:"Online",state:"National",type:"online",icon:"\uD83C\uDF38",desc:"Long-standing nonprofit providing support, education, and research.",url:"https://endometriosisassn.org/",members:"Open"},
+  {name:"Endometriosis Foundation of Houston",city:"Houston",state:"TX",type:"hybrid",icon:"\uD83C\uDF38",desc:"Local Houston nonprofit raising awareness. Events, education, and support group connections.",url:"https://www.efhou.org/",members:"Open"},
+  {name:"DFW Endometriosis Support Group",city:"Dallas",state:"TX",type:"inperson",icon:"\uD83D\uDC9C",desc:"In-person and online support group for Dallas-Fort Worth endo patients.",url:"https://www.facebook.com/groups/dfwendosupport/",members:"Open"},
+  {name:"Austin Endo Warriors",city:"Austin",state:"TX",type:"hybrid",icon:"\uD83C\uDF3C",desc:"Austin-based group offering monthly meetups and an active online community.",url:"https://www.facebook.com/groups/austinendowarriors/",members:"Open"},
+  {name:"San Antonio Endometriosis Support",city:"San Antonio",state:"TX",type:"inperson",icon:"\uD83D\uDC9C",desc:"San Antonio area support group for monthly in-person meetings.",url:"https://www.facebook.com/groups/sanantonioendo/",members:"Open"},
+  {name:"EndoFound NYC Support Program",city:"New York",state:"NY",type:"hybrid",icon:"\uD83C\uDF38",desc:"Support program run by EndoFound. NYC-area events and patient education.",url:"https://www.endofound.org/support-groups",members:"Open"},
+  {name:"SoCal Endo Support Group",city:"Los Angeles",state:"CA",type:"hybrid",icon:"\uD83D\uDC9C",desc:"Southern California endometriosis support group with regular meetups.",url:"https://www.facebook.com/groups/socalendo/",members:"Open"},
+  {name:"Bay Area Endometriosis Support",city:"San Francisco",state:"CA",type:"inperson",icon:"\uD83C\uDF3C",desc:"SF Bay Area group offering monthly in-person meetups and peer support.",url:"https://www.facebook.com/groups/bayareaendo/",members:"Open"},
+  {name:"Center for Endometriosis Care Community",city:"Atlanta",state:"GA",type:"online",icon:"\uD83C\uDF38",desc:"Patient community affiliated with the Center for Endometriosis Care.",url:"https://www.centerforendo.com/resources",members:"Open"},
+  {name:"Chicago Endometriosis Support Network",city:"Chicago",state:"IL",type:"hybrid",icon:"\uD83D\uDC9C",desc:"Monthly meetups and an active online community.",url:"https://www.facebook.com/groups/chicagoendo/",members:"Open"},
+  {name:"Boston Endometriosis Support Group",city:"Boston",state:"MA",type:"hybrid",icon:"\uD83D\uDC9C",desc:"Peer support, education, and connections to local excision specialists.",url:"https://www.facebook.com/groups/bostonendo/",members:"Open"},
+  {name:"South Florida Endo Warriors",city:"Miami",state:"FL",type:"hybrid",icon:"\uD83D\uDC9C",desc:"Meetups in Miami, Fort Lauderdale, and West Palm Beach.",url:"https://www.facebook.com/groups/sfloendowarriors/",members:"Open"},
+  {name:"Cleveland Clinic Endo Support Program",city:"Cleveland",state:"OH",type:"inperson",icon:"\uD83C\uDF38",desc:"Hospital support group affiliated with Cleveland Clinic's women's health program.",url:"https://my.clevelandclinic.org/",members:"Open"},
+  {name:"DC Metro Endo Support Group",city:"Washington DC",state:"VA",type:"hybrid",icon:"\uD83D\uDC9C",desc:"Serves DC, Maryland, and Northern Virginia.",url:"https://www.facebook.com/groups/dcmetroendo/",members:"Open"},
+  {name:"St. Louis Endometriosis Support",city:"St. Louis",state:"MO",type:"hybrid",icon:"\uD83D\uDC9C",desc:"St. Louis area endo support group.",url:"https://www.facebook.com/groups/stlouisendo/",members:"Open"},
+  {name:"Seattle Endometriosis Support Network",city:"Seattle",state:"WA",type:"hybrid",icon:"\uD83D\uDC9C",desc:"Monthly meetups for Pacific Northwest patients.",url:"https://www.facebook.com/groups/seattleendo/",members:"Open"},
+  {name:"Colorado Endo Warriors",city:"Denver",state:"CO",type:"hybrid",icon:"\uD83C\uDF3C",desc:"Denver-based support group with regular meetings.",url:"https://www.facebook.com/groups/coloradoendo/",members:"Open"},
+  {name:"Phoenix Endometriosis Support",city:"Phoenix",state:"AZ",type:"hybrid",icon:"\uD83D\uDC9C",desc:"Phoenix metro area endometriosis support group.",url:"https://www.facebook.com/groups/phoenixendo/",members:"Open"},
+  {name:"Twin Cities Endo Warriors",city:"Minneapolis",state:"MN",type:"hybrid",icon:"\uD83C\uDF3C",desc:"Minneapolis/St. Paul area. Monthly meetings and Mayo Clinic resources.",url:"https://www.facebook.com/groups/twincitiesendo/",members:"Open"},
+  {name:"Philadelphia Endo Support Group",city:"Philadelphia",state:"PA",type:"hybrid",icon:"\uD83D\uDC9C",desc:"Monthly meetings and local clinical resource sharing.",url:"https://www.facebook.com/groups/phillyendo/",members:"Open"},
+  {name:"Portland Endo Warriors",city:"Portland",state:"OR",type:"hybrid",icon:"\uD83C\uDF3F",desc:"Monthly gatherings and OHSU resources.",url:"https://www.facebook.com/groups/portlandendo/",members:"Open"},
+  {name:"Salt Lake Endometriosis Support",city:"Salt Lake City",state:"UT",type:"inperson",icon:"\uD83D\uDC9C",desc:"Monthly meetings and University of Utah resources.",url:"https://www.facebook.com/groups/slcendo/",members:"Open"},
+  {name:"Nashville Endo Warriors",city:"Nashville",state:"TN",type:"hybrid",icon:"\uD83C\uDF38",desc:"Monthly meetups and peer support for Tennessee patients.",url:"https://www.facebook.com/groups/nashvilleendo/",members:"Open"},
+  {name:"New Orleans Endometriosis Support",city:"New Orleans",state:"LA",type:"hybrid",icon:"\uD83D\uDC9C",desc:"Monthly meetings and local resource sharing.",url:"https://www.facebook.com/groups/neworleansendo/",members:"Open"}
 ];
 
 /* ── HELPERS ── */
-function getInitials(n){return n.replace(“Dr. “,””).split(” “).map(w=>w[0]).slice(0,2).join(””);}
-function starRow(n){return ‘<span class="stars">’+”★”.repeat(n)+”☆”.repeat(5-n)+’</span>’;}
+function getInitials(n){return n.replace("Dr. ","").split(" ").map(w=>w[0]).slice(0,2).join("");}
+function starRow(n){return '<span class="stars">'+"&#9733;".repeat(n)+"&#9734;".repeat(5-n)+'</span>';}
 function haversine(a,b,c,d){
-const R=3958.8,dL=(c-a)*Math.PI/180,dO=(d-b)*Math.PI/180;
-const x=Math.sin(dL/2)**2+Math.cos(a*Math.PI/180)*Math.cos(c*Math.PI/180)*Math.sin(dO/2)**2;
-return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
+  const R=3958.8,dL=(c-a)*Math.PI/180,dO=(d-b)*Math.PI/180;
+  const x=Math.sin(dL/2)**2+Math.cos(a*Math.PI/180)*Math.cos(c*Math.PI/180)*Math.sin(dO/2)**2;
+  return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
 }
 
 /* ── LOCATION ── */
 let userLat=null,userLon=null;
 function setStatus(m,ok=true){
-const e=document.getElementById(“zip-status”);
-e.textContent=m;e.style.color=ok?‘var(–nude-dk)’:’#B94A1A’;
+  const e=document.getElementById("zip-status");
+  e.textContent=m;e.style.color=ok?'var(--nude-dk)':'#B94A1A';
 }
 async function lookupZip(z){
-const r=await fetch(`https://api.zippopotam.us/us/${z}`);
-if(!r.ok)throw new Error(“not found”);
-const d=await r.json();
-return {lat:+d.places[0].latitude,lon:+d.places[0].longitude,
-label:d.places[0][‘place name’]+’, ‘+d.places[0][‘state abbreviation’]};
+  const r=await fetch(`https://api.zippopotam.us/us/${z}`);
+  if(!r.ok)throw new Error("not found");
+  const d=await r.json();
+  return {lat:+d.places[0].latitude,lon:+d.places[0].longitude,
+          label:d.places[0]['place name']+', '+d.places[0]['state abbreviation']};
 }
 function useMyLocation(){
-if(!navigator.geolocation){setStatus(‘Geolocation not supported.’,false);return;}
-setStatus(‘Detecting location\u2026’);
-navigator.geolocation.getCurrentPosition(
-p=>{userLat=p.coords.latitude;userLon=p.coords.longitude;
-document.getElementById(“filter-zip”).value=’’;
-setStatus(’\u2713 Using your current location’);applyFilters();},
-()=>setStatus(‘Location denied. Enter a ZIP instead.’,false));
+  if(!navigator.geolocation){setStatus('Geolocation not supported.',false);return;}
+  setStatus('Detecting location\u2026');
+  navigator.geolocation.getCurrentPosition(
+    p=>{userLat=p.coords.latitude;userLon=p.coords.longitude;
+        document.getElementById("filter-zip").value='';
+        setStatus('\u2713 Using your current location');applyFilters();},
+    ()=>setStatus('Location denied. Enter a ZIP instead.',false));
 }
 
 /* ── SORT ── */
 const SORT_FIELDS=[
-{v:“ln”,l:“Last Name”},{v:“fn”,l:“First Name”},{v:“state”,l:“State”},
-{v:“city”,l:“City”},{v:“accept”,l:“Accepting (Yes first)”},
-{v:“stars”,l:“Review Rating”},{v:“dist”,l:“Distance (nearest)”}
+  {v:"ln",l:"Last Name"},{v:"fn",l:"First Name"},{v:"state",l:"State"},
+  {v:"city",l:"City"},{v:"accept",l:"Accepting (Yes first)"},
+  {v:"stars",l:"Review Rating"},{v:"dist",l:"Distance (nearest)"}
 ];
-let sortLevels=[{f:“ln”,d:“asc”}];
+let sortLevels=[{f:"ln",d:"asc"}];
 function renderSortLevels(){
-document.getElementById(“sort-levels”).innerHTML=sortLevels.map((lv,i)=>` <div class="sort-level"> <span class="sort-level-num">${i+1}.</span> <select onchange="sortLevels[${i}].f=this.value"> ${SORT_FIELDS.map(f=>`<option value=”${f.v}”${lv.f===f.v?’ selected’:’’}>${f.l}</option>`).join('')} </select> <button class="sort-dir-btn" onclick="toggleDir(${i})">${lv.d==='asc'?'A\u2192Z':'Z\u2192A'}</button> <button class="sort-lv-up" onclick="moveLv(${i},-1)">\u2191</button> <button class="sort-lv-dn" onclick="moveLv(${i},1)">\u2193</button> ${sortLevels.length>1?`<button class="sort-lv-del" onclick="rmLv(${i})">\u2715</button>`:''} </div>`).join(’’);
+  document.getElementById("sort-levels").innerHTML=sortLevels.map((lv,i)=>`
+    <div class="sort-level">
+      <span class="sort-level-num">${i+1}.</span>
+      <select onchange="sortLevels[${i}].f=this.value">
+        ${SORT_FIELDS.map(f=>`<option value="${f.v}"${lv.f===f.v?' selected':''}>${f.l}</option>`).join('')}
+      </select>
+      <button class="sort-dir-btn" onclick="toggleDir(${i})">${lv.d==='asc'?'A\u2192Z':'Z\u2192A'}</button>
+      <button class="sort-lv-up" onclick="moveLv(${i},-1)">\u2191</button>
+      <button class="sort-lv-dn" onclick="moveLv(${i},1)">\u2193</button>
+      ${sortLevels.length>1?`<button class="sort-lv-del" onclick="rmLv(${i})">\u2715</button>`:''}
+    </div>`).join('');
 }
-function toggleDir(i){sortLevels[i].d=sortLevels[i].d===‘asc’?‘desc’:‘asc’;renderSortLevels();}
+function toggleDir(i){sortLevels[i].d=sortLevels[i].d==='asc'?'desc':'asc';renderSortLevels();}
 function moveLv(i,d){const j=i+d;if(j<0||j>=sortLevels.length)return;[sortLevels[i],sortLevels[j]]=[sortLevels[j],sortLevels[i]];renderSortLevels();}
 function rmLv(i){sortLevels.splice(i,1);renderSortLevels();}
-function addSortLevel(){if(sortLevels.length>=5)return;sortLevels.push({f:“fn”,d:“asc”});renderSortLevels();}
+function addSortLevel(){if(sortLevels.length>=5)return;sortLevels.push({f:"fn",d:"asc"});renderSortLevels();}
 function toggleSortPanel(){
-document.getElementById(“sort-panel”).classList.toggle(“visible”);
-document.getElementById(“sort-toggle”).classList.toggle(“open”);
+  document.getElementById("sort-panel").classList.toggle("visible");
+  document.getElementById("sort-toggle").classList.toggle("open");
 }
 function getSortVal(doc,f){
-if(f===‘ln’)return(doc.ln||’’).toLowerCase();
-if(f===‘fn’)return(doc.fn||’’).toLowerCase();
-if(f===‘state’)return(doc.state||’’).toLowerCase();
-if(f===‘city’)return(doc.city||’’).toLowerCase();
-if(f===‘accept’)return doc.accepting?0:1;
-if(f===‘stars’)return doc.rev?-doc.rev.stars:0;
-if(f===‘dist’&&userLat!==null)return haversine(userLat,userLon,doc.lat,doc.lon);
-return 0;
+  if(f==='ln')return(doc.ln||'').toLowerCase();
+  if(f==='fn')return(doc.fn||'').toLowerCase();
+  if(f==='state')return(doc.state||'').toLowerCase();
+  if(f==='city')return(doc.city||'').toLowerCase();
+  if(f==='accept')return doc.accepting?0:1;
+  if(f==='stars')return doc.rev?-doc.rev.stars:0;
+  if(f==='dist'&&userLat!==null)return haversine(userLat,userLon,doc.lat,doc.lon);
+  return 0;
 }
 
 /* ── SURGEON RENDER ── */
 function renderDoc(d,i,dist){
-const r=d.rev;
-const db=dist!==null?`<span class="dist-badge">${Math.round(dist)} mi</span>`:’’;
-return `<div class="doctor-card" style="animation-delay:${(i%9)*.05}s"> <div class="card-header"> <div class="avatar">${getInitials(d.name)}</div> <div> <div class="doctor-name">${d.name}</div> ${d.creds.map(c=>`<span class="doctor-cred">${c}</span>`).join('')} <div class="doctor-org">${d.org}</div> </div> </div> <div class="info-row"><span class="info-icon">&#128205;</span><span>${d.city}, ${d.state}${db}</span></div> ${d.phone?`<div class="info-row"><span class="info-icon">📞</span><a href="tel:${d.phone}" style="color:var(--nude-dk);text-decoration:none;">${d.phone}</a></div>`:''} <div class="info-row"><span class="info-icon">&#128161;</span><span>${d.notes}</span></div> <div class="tags">${d.specs.map(s=>`<span class="tag${s==='Robotic Surgery'?' mint':s==='Fertility Preservation'?' lav':''}">${s}</span>`).join('')}</div> <div class="info-row" style="font-size:.76rem;"><span class="info-icon">&#127973;</span><span>${d.ins}</span></div> ${r?`<div class="review-block"><div class="review-label">Patient Reviews ${starRow(r.stars)}</div>
-<div class="review-text">${r.txt}</div>
-<div class="review-sources">${r.links.map(l=>`<a class="review-link" href="${l.u}" target="_blank" rel="noopener">${l.n} &#8599;</a>`).join(’’)}</div>
-</div>`:''} <div class="card-footer"> ${d.web?`<a class="btn-site" href="${d.web}" target="_blank" rel="noopener">Website ↗</a>`:’’}
-<span class="badge${d.accepting?'':' no'}">${d.accepting?’\u2705 Accepting’:’\u23f3 Not Accepting’}</span>
-</div>
-
+  const r=d.rev;
+  const db=dist!==null?`<span class="dist-badge">${Math.round(dist)} mi</span>`:'';
+  return `<div class="doctor-card" style="animation-delay:${(i%9)*.05}s">
+    <div class="card-header">
+      <div class="avatar">${getInitials(d.name)}</div>
+      <div>
+        <div class="doctor-name">${d.name}</div>
+        ${d.creds.map(c=>`<span class="doctor-cred">${c}</span>`).join('')}
+        <div class="doctor-org">${d.org}</div>
+      </div>
+    </div>
+    <div class="info-row"><span class="info-icon">&#128205;</span><span>${d.city}, ${d.state}${db}</span></div>
+    ${d.phone?`<div class="info-row"><span class="info-icon">&#128222;</span><a href="tel:${d.phone}" style="color:var(--nude-dk);text-decoration:none;">${d.phone}</a></div>`:''}
+    <div class="info-row"><span class="info-icon">&#128161;</span><span>${d.notes}</span></div>
+    <div class="tags">${d.specs.map(s=>`<span class="tag${s==='Robotic Surgery'?' mint':s==='Fertility Preservation'?' lav':''}">${s}</span>`).join('')}</div>
+    <div class="info-row" style="font-size:.76rem;"><span class="info-icon">&#127973;</span><span>${d.ins}</span></div>
+    ${r?`<div class="review-block"><div class="review-label">Patient Reviews ${starRow(r.stars)}</div>
+      <div class="review-text">${r.txt}</div>
+      <div class="review-sources">${r.links.map(l=>`<a class="review-link" href="${l.u}" target="_blank" rel="noopener">${l.n} &#8599;</a>`).join('')}</div>
+    </div>`:''}
+    <div class="card-footer">
+      ${d.web?`<a class="btn-site" href="${d.web}" target="_blank" rel="noopener">Website &#8599;</a>`:''}
+      <span class="badge${d.accepting?'':' no'}">${d.accepting?'\u2705 Accepting':'\u23f3 Not Accepting'}</span>
+    </div>
   </div>`;
 }
 
 /* ── SURGEON FILTER ── */
 function updateCityDropdown(){
-const state=document.getElementById(“filter-state”).value;
-const cityEl=document.getElementById(“filter-city”);
-const cur=cityEl.value;
-cityEl.innerHTML=’<option value="">All Cities</option>’;
-[…new Set(DOCTORS.filter(d=>!state||d.state===state).map(d=>d.city))].sort()
-.forEach(c=>{const o=document.createElement(“option”);o.value=c;o.textContent=c;if(c===cur)o.selected=true;cityEl.appendChild(o);});
+  const state=document.getElementById("filter-state").value;
+  const cityEl=document.getElementById("filter-city");
+  const cur=cityEl.value;
+  cityEl.innerHTML='<option value="">All Cities</option>';
+  [...new Set(DOCTORS.filter(d=>!state||d.state===state).map(d=>d.city))].sort()
+    .forEach(c=>{const o=document.createElement("option");o.value=c;o.textContent=c;if(c===cur)o.selected=true;cityEl.appendChild(o);});
 }
 
 async function applyFilters(){
-const zipVal=document.getElementById(“filter-zip”).value.trim();
-if(zipVal.length===5&&/^\d+$/.test(zipVal)){
-try{
-setStatus(‘Looking up ZIP\u2026’);
-const loc=await lookupZip(zipVal);
-userLat=loc.lat;userLon=loc.lon;
-setStatus(’\u2713 Near ‘+loc.label);
-}catch{setStatus(‘ZIP not found.’,false);userLat=null;userLon=null;}
-}
-const state=document.getElementById(“filter-state”).value;
-const city=document.getElementById(“filter-city”).value;
-const cred=document.getElementById(“filter-cred”).value;
-const spec=document.getElementById(“filter-spec”).value;
-const acc=document.getElementById(“filter-accepting”).value;
-const maxD=parseFloat(document.getElementById(“filter-dist”).value)||null;
-const distMap={};
-if(userLat!==null)DOCTORS.forEach(d=>{distMap[d.name]=haversine(userLat,userLon,d.lat,d.lon);});
-let f=DOCTORS.filter(d=>{
-if(d.state===‘International’)return false;
-if(state&&d.state!==state)return false;
-if(city&&d.city!==city)return false;
-if(cred&&!d.creds.includes(cred))return false;
-if(spec&&!d.specs.includes(spec))return false;
-if(acc===“true”&&!d.accepting)return false;
-if(acc===“false”&&d.accepting)return false;
-if(maxD!==null&&userLat!==null&&(distMap[d.name]||9999)>maxD)return false;
-return true;
-});
-f=[…f].sort((a,b)=>{
-for(const lv of sortLevels){
-const av=getSortVal(a,lv.f),bv=getSortVal(b,lv.f);
-if(av<bv)return lv.d===‘asc’?-1:1;
-if(av>bv)return lv.d===‘asc’?1:-1;
-}return 0;
-});
-const grid=document.getElementById(“cards-grid”);
-const empty=document.getElementById(“empty-state”);
-const count=document.getElementById(“doc-count”);
-if(!f.length){grid.innerHTML=’’;empty.style.display=‘block’;count.textContent=‘0 results’;}
-else{empty.style.display=‘none’;
-grid.innerHTML=f.map((d,i)=>renderDoc(d,i,distMap[d.name]!==undefined?distMap[d.name]:null)).join(’’);
-count.textContent=`${f.length} surgeon${f.length>1?'s':''} found`;
-plotMapDots();
-}
+  const zipVal=document.getElementById("filter-zip").value.trim();
+  if(zipVal.length===5&&/^\d+$/.test(zipVal)){
+    try{
+      setStatus('Looking up ZIP\u2026');
+      const loc=await lookupZip(zipVal);
+      userLat=loc.lat;userLon=loc.lon;
+      setStatus('\u2713 Near '+loc.label);
+    }catch{setStatus('ZIP not found.',false);userLat=null;userLon=null;}
+  }
+  const state=document.getElementById("filter-state").value;
+  const city=document.getElementById("filter-city").value;
+  const cred=document.getElementById("filter-cred").value;
+  const spec=document.getElementById("filter-spec").value;
+  const acc=document.getElementById("filter-accepting").value;
+  const maxD=parseFloat(document.getElementById("filter-dist").value)||null;
+  const distMap={};
+  if(userLat!==null)DOCTORS.forEach(d=>{distMap[d.name]=haversine(userLat,userLon,d.lat,d.lon);});
+  let f=DOCTORS.filter(d=>{
+    if(d.state==='International')return false;
+    if(state&&d.state!==state)return false;
+    if(city&&d.city!==city)return false;
+    if(cred&&!d.creds.includes(cred))return false;
+    if(spec&&!d.specs.includes(spec))return false;
+    if(acc==="true"&&!d.accepting)return false;
+    if(acc==="false"&&d.accepting)return false;
+    if(maxD!==null&&userLat!==null&&(distMap[d.name]||9999)>maxD)return false;
+    return true;
+  });
+  f=[...f].sort((a,b)=>{
+    for(const lv of sortLevels){
+      const av=getSortVal(a,lv.f),bv=getSortVal(b,lv.f);
+      if(av<bv)return lv.d==='asc'?-1:1;
+      if(av>bv)return lv.d==='asc'?1:-1;
+    }return 0;
+  });
+  const grid=document.getElementById("cards-grid");
+  const empty=document.getElementById("empty-state");
+  const count=document.getElementById("doc-count");
+  if(!f.length){grid.innerHTML='';empty.style.display='block';count.textContent='0 results';}
+  else{empty.style.display='none';
+    grid.innerHTML=f.map((d,i)=>renderDoc(d,i,distMap[d.name]!==undefined?distMap[d.name]:null)).join('');
+    count.textContent=`${f.length} surgeon${f.length>1?'s':''} found`;
+    plotMapDots();
+  }
 }
 
 function resetAll(){
-[‘filter-state’,‘filter-city’,‘filter-cred’,‘filter-spec’,‘filter-accepting’,‘filter-dist’].forEach(id=>document.getElementById(id).value=’’);
-document.getElementById(“filter-zip”).value=’’;
-document.getElementById(“zip-status”).textContent=’’;
-userLat=null;userLon=null;
-sortLevels=[{f:“ln”,d:“asc”}];
-renderSortLevels();updateCityDropdown();applyFilters();
+  ['filter-state','filter-city','filter-cred','filter-spec','filter-accepting','filter-dist'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById("filter-zip").value='';
+  document.getElementById("zip-status").textContent='';
+  userLat=null;userLon=null;
+  sortLevels=[{f:"ln",d:"asc"}];
+  renderSortLevels();updateCityDropdown();applyFilters();
 }
 
 /* ── OB/GYN RENDER ── */
 function renderOBGYN(d,i){
-const r=d.rev;
-return `<div class="obgyn-card" style="animation-delay:${(i%9)*.05}s"> <div class="card-header"> <div class="obgyn-avatar">${getInitials(d.name)}</div> <div> <div class="doctor-name">${d.name}</div> ${d.creds.map(c=>`<span class="doctor-cred">${c}</span>`).join('')} <div class="doctor-org">${d.org}</div> </div> </div> <div class="info-row"><span class="info-icon">&#128205;</span><span>${d.city}, ${d.state}</span></div> <div class="info-row"><span class="info-icon">&#128161;</span><span>${d.notes}</span></div> <div class="tags">${d.focus.map(f=>{ const cls=f==='Adenomyosis'?' adeno':f==='PCOS'?' pcos':''; return `<span class="spec-tag${cls}">${f}</span>`; }).join('')}</div> <div class="info-row" style="font-size:.76rem;"><span class="info-icon">&#127973;</span><span>${d.ins}</span></div> ${r?`<div class="review-block"><div class="review-label">Patient Reviews ${starRow(r.stars)}</div>
-<div class="review-text">${r.txt}</div>
-<div class="review-sources">${r.links.map(l=>`<a class="review-link" href="${l.u}" target="_blank" rel="noopener">${l.n} &#8599;</a>`).join(’’)}</div>
-</div>`:''} <div class="card-footer"> ${d.web?`<a class="btn-site" href="${d.web}" target="_blank" rel="noopener">Website ↗</a>`:’’}
-<span class="badge${d.accepting?'':' no'}">${d.accepting?’\u2705 Accepting’:’\u23f3 Not Accepting’}</span>
-</div>
-
+  const r=d.rev;
+  return `<div class="obgyn-card" style="animation-delay:${(i%9)*.05}s">
+    <div class="card-header">
+      <div class="obgyn-avatar">${getInitials(d.name)}</div>
+      <div>
+        <div class="doctor-name">${d.name}</div>
+        ${d.creds.map(c=>`<span class="doctor-cred">${c}</span>`).join('')}
+        <div class="doctor-org">${d.org}</div>
+      </div>
+    </div>
+    <div class="info-row"><span class="info-icon">&#128205;</span><span>${d.city}, ${d.state}</span></div>
+    <div class="info-row"><span class="info-icon">&#128161;</span><span>${d.notes}</span></div>
+    <div class="tags">${d.focus.map(f=>{
+      const cls=f==='Adenomyosis'?' adeno':f==='PCOS'?' pcos':'';
+      return `<span class="spec-tag${cls}">${f}</span>`;
+    }).join('')}</div>
+    <div class="info-row" style="font-size:.76rem;"><span class="info-icon">&#127973;</span><span>${d.ins}</span></div>
+    ${r?`<div class="review-block"><div class="review-label">Patient Reviews ${starRow(r.stars)}</div>
+      <div class="review-text">${r.txt}</div>
+      <div class="review-sources">${r.links.map(l=>`<a class="review-link" href="${l.u}" target="_blank" rel="noopener">${l.n} &#8599;</a>`).join('')}</div>
+    </div>`:''}
+    <div class="card-footer">
+      ${d.web?`<a class="btn-site" href="${d.web}" target="_blank" rel="noopener">Website &#8599;</a>`:''}
+      <span class="badge${d.accepting?'':' no'}">${d.accepting?'\u2705 Accepting':'\u23f3 Not Accepting'}</span>
+    </div>
   </div>`;
 }
 
 /* ── OB/GYN FILTER ── */
 function updateOGCityDropdown(){
-const state=document.getElementById(“og-state”).value;
-const cityEl=document.getElementById(“og-city”);
-cityEl.innerHTML=’<option value="">All Cities</option>’;
-[…new Set(OBGYNS.filter(d=>!state||d.state===state).map(d=>d.city))].sort()
-.forEach(c=>{const o=document.createElement(“option”);o.value=c;o.textContent=c;cityEl.appendChild(o);});
+  const state=document.getElementById("og-state").value;
+  const cityEl=document.getElementById("og-city");
+  cityEl.innerHTML='<option value="">All Cities</option>';
+  [...new Set(OBGYNS.filter(d=>!state||d.state===state).map(d=>d.city))].sort()
+    .forEach(c=>{const o=document.createElement("option");o.value=c;o.textContent=c;cityEl.appendChild(o);});
 }
 function filterOBGYN(){
-const state=document.getElementById(“og-state”).value;
-const city=document.getElementById(“og-city”).value;
-const focus=document.getElementById(“og-focus”).value;
-const acc=document.getElementById(“og-accepting”).value;
-const f=OBGYNS.filter(d=>{
-if(state&&d.state!==state)return false;
-if(city&&d.city!==city)return false;
-if(focus&&!d.focus.includes(focus))return false;
-if(acc===“true”&&!d.accepting)return false;
-if(acc===“false”&&d.accepting)return false;
-return true;
-});
-const grid=document.getElementById(“og-grid”);
-const empty=document.getElementById(“og-empty”);
-const count=document.getElementById(“og-count”);
-if(!f.length){grid.innerHTML=’’;empty.style.display=‘block’;count.textContent=‘0 results’;}
-else{empty.style.display=‘none’;
-grid.innerHTML=f.map((d,i)=>renderOBGYN(d,i)).join(’’);
-count.textContent=`${f.length} specialist${f.length>1?'s':''} found`;}
+  const state=document.getElementById("og-state").value;
+  const city=document.getElementById("og-city").value;
+  const focus=document.getElementById("og-focus").value;
+  const acc=document.getElementById("og-accepting").value;
+  const f=OBGYNS.filter(d=>{
+    if(state&&d.state!==state)return false;
+    if(city&&d.city!==city)return false;
+    if(focus&&!d.focus.includes(focus))return false;
+    if(acc==="true"&&!d.accepting)return false;
+    if(acc==="false"&&d.accepting)return false;
+    return true;
+  });
+  const grid=document.getElementById("og-grid");
+  const empty=document.getElementById("og-empty");
+  const count=document.getElementById("og-count");
+  if(!f.length){grid.innerHTML='';empty.style.display='block';count.textContent='0 results';}
+  else{empty.style.display='none';
+    grid.innerHTML=f.map((d,i)=>renderOBGYN(d,i)).join('');
+    count.textContent=`${f.length} specialist${f.length>1?'s':''} found`;}
 }
 function resetOBGYN(){
-[‘og-state’,‘og-city’,‘og-focus’,‘og-accepting’].forEach(id=>document.getElementById(id).value=’’);
-filterOBGYN();
+  ['og-state','og-city','og-focus','og-accepting'].forEach(id=>document.getElementById(id).value='');
+  filterOBGYN();
 }
 
 /* ── SUB-TABS ── */
 function switchSubTab(tab,btn){
-document.querySelectorAll(”.sub-page”).forEach(p=>p.classList.remove(“active”));
-document.querySelectorAll(”.sub-tab-btn”).forEach(b=>b.classList.remove(“active”));
-document.getElementById(“sub-”+tab).classList.add(“active”);
-btn.classList.add(“active”);
+  document.querySelectorAll(".sub-page").forEach(p=>p.classList.remove("active"));
+  document.querySelectorAll(".sub-tab-btn").forEach(b=>b.classList.remove("active"));
+  document.getElementById("sub-"+tab).classList.add("active");
+  btn.classList.add("active");
 }
 
 /* ── MAIN TABS ── */
 let newsLoaded=false;
 function switchTab(tab,btn){
-document.querySelectorAll(”.page”).forEach(p=>p.classList.remove(“active”));
-document.querySelectorAll(”.tab-btn”).forEach(b=>b.classList.remove(“active”));
-document.getElementById(“page-”+tab).classList.add(“active”);
-btn.classList.add(“active”);
-if(tab===“news”&&!newsLoaded){loadAllNews();newsLoaded=true;}
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+  document.getElementById("page-"+tab).classList.add("active");
+  btn.classList.add("active");
+  if(tab==="news"&&!newsLoaded){loadAllNews();newsLoaded=true;}
 }
 function filterNews(cat,btn){
-document.querySelectorAll(”.cat-pill”).forEach(p=>p.classList.remove(“active”));
-btn.classList.add(“active”);
-[‘endo’,‘womens’,‘fertility’,‘medical’,‘heartwarming’].forEach(s=>{
-document.getElementById(“section-”+s).style.display=(cat===‘all’||cat===s)?‘block’:‘none’;
-});
+  document.querySelectorAll(".cat-pill").forEach(p=>p.classList.remove("active"));
+  btn.classList.add("active");
+  ['endo','womens','fertility','medical','heartwarming'].forEach(s=>{
+    document.getElementById("section-"+s).style.display=(cat==='all'||cat===s)?'block':'none';
+  });
 }
 
 /* ── SUPPORT GROUPS ── */
 function renderGroup(g,i){
-const tc=g.type===‘online’?‘gt-online’:g.type===‘inperson’?‘gt-inperson’:‘gt-hybrid’;
-const tl=g.type===‘online’?‘Online’:g.type===‘inperson’?‘In-Person’:‘Hybrid’;
-return `<div class="group-card" style="animation-delay:${(i%9)*.05}s"> <div class="group-card-header"> <div class="group-icon">${g.icon}</div> <div><div class="group-name">${g.name}</div> <span class="group-type-badge ${tc}">${tl}</span></div> </div> <div class="group-loc">&#128205; ${g.city}${g.state!=='National'?', '+g.state:' \u2014 Nationwide'}</div> <div class="group-desc">${g.desc}</div> ${g.members?`<div class="group-members">👥 ${g.members}</div>`:’’}
-<a class="btn-group" href="${g.url}" target="_blank" rel="noopener">Visit Group ↗</a>
-
+  const tc=g.type==='online'?'gt-online':g.type==='inperson'?'gt-inperson':'gt-hybrid';
+  const tl=g.type==='online'?'Online':g.type==='inperson'?'In-Person':'Hybrid';
+  return `<div class="group-card" style="animation-delay:${(i%9)*.05}s">
+    <div class="group-card-header">
+      <div class="group-icon">${g.icon}</div>
+      <div><div class="group-name">${g.name}</div>
+        <span class="group-type-badge ${tc}">${tl}</span></div>
+    </div>
+    <div class="group-loc">&#128205; ${g.city}${g.state!=='National'?', '+g.state:' \u2014 Nationwide'}</div>
+    <div class="group-desc">${g.desc}</div>
+    ${g.members?`<div class="group-members">&#128101; ${g.members}</div>`:''}
+    <a class="btn-group" href="${g.url}" target="_blank" rel="noopener">Visit Group &#8599;</a>
   </div>`;
 }
 function updateSGCityDropdown(){
@@ -2413,321 +2458,333 @@ function resetGroups(){
 
 /* ── NEWS ── */
 const NEWS_FEEDS={
-endo:{url:“https://news.google.com/rss/search?q=endometriosis+excision+surgery+treatment&hl=en-US&gl=US&ceid=US:en”,emoji:”🤒”},
-womens:{url:“https://news.google.com/rss/search?q=women+gynecology+health+pelvic+pain&hl=en-US&gl=US&ceid=US:en”,emoji:”💜”},
-fertility:{url:“https://news.google.com/rss/search?q=IVF+fertility+treatment+reproductive&hl=en-US&gl=US&ceid=US:en”,emoji:”🌿”},
-medical:{url:“https://news.google.com/rss/search?q=medical+breakthrough+surgery+innovation&hl=en-US&gl=US&ceid=US:en”,emoji:”🔬”},
-heartwarming:{url:“https://news.google.com/rss/search?q=heartwarming+patient+recovery+medical+kindness&hl=en-US&gl=US&ceid=US:en”,emoji:”🌟”}
+  endo:{url:"https://news.google.com/rss/search?q=endometriosis+excision+surgery+treatment&hl=en-US&gl=US&ceid=US:en",emoji:"&#129298;"},
+  womens:{url:"https://news.google.com/rss/search?q=women+gynecology+health+pelvic+pain&hl=en-US&gl=US&ceid=US:en",emoji:"&#128156;"},
+  fertility:{url:"https://news.google.com/rss/search?q=IVF+fertility+treatment+reproductive&hl=en-US&gl=US&ceid=US:en",emoji:"&#127807;"},
+  medical:{url:"https://news.google.com/rss/search?q=medical+breakthrough+surgery+innovation&hl=en-US&gl=US&ceid=US:en",emoji:"&#128300;"},
+  heartwarming:{url:"https://news.google.com/rss/search?q=heartwarming+patient+recovery+medical+kindness&hl=en-US&gl=US&ceid=US:en",emoji:"&#127775;"}
 };
-const RSS2J=“https://api.rss2json.com/v1/api.json?count=5&rss_url=”;
-function strip(s){return(s||’’).replace(/<[^>]+>/g,’’).replace(/&/g,’&’).replace(/</g,’<’).replace(/>/g,’>’).replace(/"/g,’”’).replace(/'/g,”’”).trim().slice(0,230)+(s&&s.length>230?’\u2026’:’’);}
-function fmtDate(s){try{return new Date(s).toLocaleDateString(“en-US”,{month:“short”,day:“numeric”,year:“numeric”});}catch{return s||’’;}}
-function showSkel(id){document.getElementById(id).innerHTML=[1,2,3,4,5].map(()=>`<div class="skel-card"><div class="skeleton" style="width:80%;height:14px;margin-bottom:.65rem;"></div><div class="skeleton" style="width:96%;height:10px;"></div><div class="skeleton" style="width:70%;height:10px;"></div><div class="skeleton" style="width:38%;height:10px;margin-top:.5rem;"></div></div>`).join(’’);}
+const RSS2J="https://api.rss2json.com/v1/api.json?count=5&rss_url=";
+function strip(s){return(s||'').replace(/<[^>]+>/g,'').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'").trim().slice(0,230)+(s&&s.length>230?'\u2026':'');}
+function fmtDate(s){try{return new Date(s).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});}catch{return s||'';}}
+function showSkel(id){document.getElementById(id).innerHTML=[1,2,3,4,5].map(()=>`<div class="skel-card"><div class="skeleton" style="width:80%;height:14px;margin-bottom:.65rem;"></div><div class="skeleton" style="width:96%;height:10px;"></div><div class="skeleton" style="width:70%;height:10px;"></div><div class="skeleton" style="width:38%;height:10px;margin-top:.5rem;"></div></div>`).join('');}
 function renderItems(cid,items,emoji){
-if(!items||!items.length){document.getElementById(cid).innerHTML=`<div class="news-card"><div class="nc-emoji">&#128219;</div><div class="nc-body"><div class="nc-title">No articles found</div><div class="nc-summary">Try refreshing.</div></div></div>`;return;}
-document.getElementById(cid).innerHTML=items.map((it,i)=>`<div class="news-card" style="animation-delay:${i*.06}s"> <div class="nc-emoji">${emoji}</div> <div class="nc-body"> <div class="nc-title"><a href="${it.link||'#'}" target="_blank" rel="noopener">${it.title||'Untitled'}</a></div> <div class="nc-summary">${strip(it.description||it.summary||'')}</div> <div class="nc-meta"><span class="nc-source">${(it.author||'Google News').split(',')[0].slice(0,40)}</span><span class="nc-date">${fmtDate(it.pubDate)}</span></div> </div></div>`).join(’’);
+  if(!items||!items.length){document.getElementById(cid).innerHTML=`<div class="news-card"><div class="nc-emoji">&#128219;</div><div class="nc-body"><div class="nc-title">No articles found</div><div class="nc-summary">Try refreshing.</div></div></div>`;return;}
+  document.getElementById(cid).innerHTML=items.map((it,i)=>`<div class="news-card" style="animation-delay:${i*.06}s">
+    <div class="nc-emoji">${emoji}</div>
+    <div class="nc-body">
+      <div class="nc-title"><a href="${it.link||'#'}" target="_blank" rel="noopener">${it.title||'Untitled'}</a></div>
+      <div class="nc-summary">${strip(it.description||it.summary||'')}</div>
+      <div class="nc-meta"><span class="nc-source">${(it.author||'Google News').split(',')[0].slice(0,40)}</span><span class="nc-date">${fmtDate(it.pubDate)}</span></div>
+    </div></div>`).join('');
 }
 function parseRSS(xml){
-const doc=new DOMParser().parseFromString(xml,‘text/xml’);
-return[…doc.querySelectorAll(‘item’)].slice(0,5).map(it=>({
-title:it.querySelector(‘title’)?.textContent||’’,link:it.querySelector(‘link’)?.textContent||’#’,
-description:it.querySelector(‘description’)?.textContent||’’,
-pubDate:it.querySelector(‘pubDate’)?.textContent||’’,
-author:it.querySelector(‘source’)?.textContent||‘Google News’}));
+  const doc=new DOMParser().parseFromString(xml,'text/xml');
+  return[...doc.querySelectorAll('item')].slice(0,5).map(it=>({
+    title:it.querySelector('title')?.textContent||'',link:it.querySelector('link')?.textContent||'#',
+    description:it.querySelector('description')?.textContent||'',
+    pubDate:it.querySelector('pubDate')?.textContent||'',
+    author:it.querySelector('source')?.textContent||'Google News'}));
 }
 async async function loadSection(key,btnEl){
-const btn=btnEl||document.querySelector(`#section-${key} .news-refresh`);
-if(btn)btn.classList.add(“spinning”);
-showSkel(“cards-”+key);
-try{
-const r=await fetch(RSS2J+encodeURIComponent(NEWS_FEEDS[key].url));
-const d=await r.json();
-if(d.status===‘ok’&&d.items?.length){renderItems(“cards-”+key,d.items,NEWS_FEEDS[key].emoji);}
-else throw 0;
-}catch{
-try{
-const r=await fetch(“https://corsproxy.io/?”+encodeURIComponent(NEWS_FEEDS[key].url));
-renderItems(“cards-”+key,parseRSS(await r.text()),NEWS_FEEDS[key].emoji);
-}catch{
-document.getElementById(“cards-”+key).innerHTML=`<div class="news-card"><div class="nc-emoji">&#9888;&#65039;</div><div class="nc-body"><div class="nc-title">Temporarily unavailable</div><div class="nc-summary">Click Refresh to try again.</div></div></div>`;
-}
-}finally{if(btn)btn.classList.remove(“spinning”);}
+  const btn=btnEl||document.querySelector(`#section-${key} .news-refresh`);
+  if(btn)btn.classList.add("spinning");
+  showSkel("cards-"+key);
+  try{
+    const r=await fetch(RSS2J+encodeURIComponent(NEWS_FEEDS[key].url));
+    const d=await r.json();
+    if(d.status==='ok'&&d.items?.length){renderItems("cards-"+key,d.items,NEWS_FEEDS[key].emoji);}
+    else throw 0;
+  }catch{
+    try{
+      const r=await fetch("https://corsproxy.io/?"+encodeURIComponent(NEWS_FEEDS[key].url));
+      renderItems("cards-"+key,parseRSS(await r.text()),NEWS_FEEDS[key].emoji);
+    }catch{
+      document.getElementById("cards-"+key).innerHTML=`<div class="news-card"><div class="nc-emoji">&#9888;&#65039;</div><div class="nc-body"><div class="nc-title">Temporarily unavailable</div><div class="nc-summary">Click Refresh to try again.</div></div></div>`;
+    }
+  }finally{if(btn)btn.classList.remove("spinning");}
 }
 function loadAllNews(){Object.keys(NEWS_FEEDS).forEach(k=>loadSection(k));}
 
+
 /* ── PELVIC SUB-TAB ── */
 function switchPelvicTab(tab, btn) {
-document.querySelectorAll(”.pelvic-sub-page”).forEach(p => p.classList.remove(“active”));
-document.querySelectorAll(”.pelvic-sub-btn”).forEach(b => b.classList.remove(“active”));
-document.getElementById(“pelvic-sub-” + tab).classList.add(“active”);
-btn.classList.add(“active”);
+  document.querySelectorAll(".pelvic-sub-page").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll(".pelvic-sub-btn").forEach(b => b.classList.remove("active"));
+  document.getElementById("pelvic-sub-" + tab).classList.add("active");
+  btn.classList.add("active");
 }
+
 
 /* ── SURGEON MAP (Leaflet) ── */
 let _map = null;
 let _markerLayer = null;
 
 function initSurgeonMap() {
-if (_map) return; // already initialized
-_map = L.map(‘surgeon-map’, {
-center: [38.5, -96],
-zoom: 4,
-scrollWheelZoom: false,
-zoomControl: true,
-attributionControl: true
-});
-L.tileLayer(‘https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png’, {
-attribution: ‘© <a href="https://carto.com/">CARTO</a>’,
-subdomains: ‘abcd’, maxZoom: 10
-}).addTo(_map);
-_markerLayer = L.layerGroup().addTo(_map);
+  if (_map) return; // already initialized
+  _map = L.map('surgeon-map', {
+    center: [38.5, -96],
+    zoom: 4,
+    scrollWheelZoom: false,
+    zoomControl: true,
+    attributionControl: true
+  });
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
+    subdomains: 'abcd', maxZoom: 10
+  }).addTo(_map);
+  _markerLayer = L.layerGroup().addTo(_map);
 }
 
 const _pinkIcon = function() {
-return L.divIcon({
-className: ‘’,
-html: ‘<div style="width:12px;height:12px;background:#B0407A;border:2.5px solid #fff;border-radius:50%;box-shadow:0 2px 6px rgba(176,64,122,.5);"></div>’,
-iconSize: [12,12],
-iconAnchor: [6,6]
-});
+  return L.divIcon({
+    className: '',
+    html: '<div style="width:12px;height:12px;background:#B0407A;border:2.5px solid #fff;border-radius:50%;box-shadow:0 2px 6px rgba(176,64,122,.5);"></div>',
+    iconSize: [12,12],
+    iconAnchor: [6,6]
+  });
 };
 
 function updateMap() {
-const mapEl = document.getElementById(‘surgeon-map’);
-if (!mapEl || !DOCTORS.length) return;
-if (!_map) initSurgeonMap();
-_markerLayer.clearLayers();
+  const mapEl = document.getElementById('surgeon-map');
+  if (!mapEl || !DOCTORS.length) return;
+  if (!_map) initSurgeonMap();
+  _markerLayer.clearLayers();
 
-const state = document.getElementById(‘filter-state’) ? document.getElementById(‘filter-state’).value : ‘’;
-const visible = DOCTORS.filter(d => {
-if (!d.lat || !d.lon) return false;
-if (d.state === ‘International’) return false;
-if (state && d.state !== state) return false;
-return true;
-});
+  const state = document.getElementById('filter-state') ? document.getElementById('filter-state').value : '';
+  const visible = DOCTORS.filter(d => {
+    if (!d.lat || !d.lon) return false;
+    if (d.state === 'International') return false;
+    if (state && d.state !== state) return false;
+    return true;
+  });
 
-const bounds = [];
-visible.forEach(d => {
-const m = L.marker([d.lat, d.lon], {icon: _pinkIcon()});
-m.bindPopup(`<strong>${d.name}</strong><br>${d.city}, ${d.state}<br><small>${d.org || ''}</small>`, {maxWidth:220});
-m.addTo(_markerLayer);
-bounds.push([d.lat, d.lon]);
-});
+  const bounds = [];
+  visible.forEach(d => {
+    const m = L.marker([d.lat, d.lon], {icon: _pinkIcon()});
+    m.bindPopup(`<strong>${d.name}</strong><br>${d.city}, ${d.state}<br><small>${d.org || ''}</small>`, {maxWidth:220});
+    m.addTo(_markerLayer);
+    bounds.push([d.lat, d.lon]);
+  });
 
-const label = document.getElementById(‘map-count-label’);
-if (label) label.textContent = visible.length + ’ location’ + (visible.length !== 1 ? ‘s’ : ‘’);
+  const label = document.getElementById('map-count-label');
+  if (label) label.textContent = visible.length + ' location' + (visible.length !== 1 ? 's' : '');
 
-if (bounds.length > 0) {
-if (state && bounds.length < 20) {
-_map.fitBounds(bounds, {padding: [30, 30], maxZoom: 7});
-} else {
-_map.setView([38.5, -96], 4);
+  if (bounds.length > 0) {
+    if (state && bounds.length < 20) {
+      _map.fitBounds(bounds, {padding: [30, 30], maxZoom: 7});
+    } else {
+      _map.setView([38.5, -96], 4);
+    }
+  }
+  setTimeout(() => { if (_map) _map.invalidateSize(); }, 100);
 }
-}
-setTimeout(() => { if (_map) _map.invalidateSize(); }, 100);
-}
+
 
 /* ── SURGEON MAP ── */
 
+
 function initSurgeonMap() {
-if (surgeonMap) return;
-const container = document.getElementById(‘surgeon-map’);
-if (!container) return;
-surgeonMap = L.map(‘surgeon-map’, {
-center: [38.5, -96],
-zoom: 4,
-scrollWheelZoom: false,
-zoomControl: true,
-attributionControl: true,
-});
-L.tileLayer(‘https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png’, {
-attribution: ‘© <a href="https://carto.com/">CARTO</a>’,
-maxZoom: 10,
-minZoom: 3,
-}).addTo(surgeonMap);
-markerLayer = L.layerGroup().addTo(surgeonMap);
-// Force Leaflet to recalculate container size after render
-setTimeout(() => {
-surgeonMap.invalidateSize();
-plotMapDots(); // .filter(d => d.state !== ‘International’));
-}, 150);
+  if (surgeonMap) return;
+  const container = document.getElementById('surgeon-map');
+  if (!container) return;
+  surgeonMap = L.map('surgeon-map', {
+    center: [38.5, -96],
+    zoom: 4,
+    scrollWheelZoom: false,
+    zoomControl: true,
+    attributionControl: true,
+  });
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
+    maxZoom: 10,
+    minZoom: 3,
+  }).addTo(surgeonMap);
+  markerLayer = L.layerGroup().addTo(surgeonMap);
+  // Force Leaflet to recalculate container size after render
+  setTimeout(() => {
+    surgeonMap.invalidateSize();
+    plotMapDots(); // .filter(d => d.state !== 'International'));
+  }, 150);
 }
 
 function updateMap(filtered) {
-if (!surgeonMap) { initSurgeonMap(); return; } // initMap will call updateMap after size fix
-surgeonMap.invalidateSize();
-markerLayer.clearLayers();
+  if (!surgeonMap) { initSurgeonMap(); return; } // initMap will call updateMap after size fix
+  surgeonMap.invalidateSize();
+  markerLayer.clearLayers();
 
-const usOnly = filtered.filter(d => d.lat && d.lon && d.state !== ‘International’);
+  const usOnly = filtered.filter(d => d.lat && d.lon && d.state !== 'International');
 
-// Custom pink circle marker
-usOnly.forEach(d => {
-const marker = L.circleMarker([d.lat, d.lon], {
-radius: 7,
-fillColor: ‘#C4607A’,
-color: ‘#fff’,
-weight: 2,
-opacity: 1,
-fillOpacity: 0.85,
-});
-marker.bindTooltip(
-‘<strong>’ + d.name + ‘</strong><br>’ + d.city + ’, ’ + d.state +
-(d.org ? ‘<br><span style="font-size:.8em;opacity:.8">’ + d.org + ‘</span>’ : ‘’),
-{ direction: ‘top’, offset: [0, -6], className: ‘endo-tooltip’ }
-);
-markerLayer.addLayer(marker);
-});
+  // Custom pink circle marker
+  usOnly.forEach(d => {
+    const marker = L.circleMarker([d.lat, d.lon], {
+      radius: 7,
+      fillColor: '#C4607A',
+      color: '#fff',
+      weight: 2,
+      opacity: 1,
+      fillOpacity: 0.85,
+    });
+    marker.bindTooltip(
+      '<strong>' + d.name + '</strong><br>' + d.city + ', ' + d.state +
+      (d.org ? '<br><span style="font-size:.8em;opacity:.8">' + d.org + '</span>' : ''),
+      { direction: 'top', offset: [0, -6], className: 'endo-tooltip' }
+    );
+    markerLayer.addLayer(marker);
+  });
 
-// Fit map to markers or reset to US view
-if (usOnly.length > 0) {
-const bounds = L.latLngBounds(usOnly.map(d => [d.lat, d.lon]));
-surgeonMap.fitBounds(bounds.pad(0.15), { maxZoom: 7 });
-} else {
-surgeonMap.setView([38.5, -96], 4);
+  // Fit map to markers or reset to US view
+  if (usOnly.length > 0) {
+    const bounds = L.latLngBounds(usOnly.map(d => [d.lat, d.lon]));
+    surgeonMap.fitBounds(bounds.pad(0.15), { maxZoom: 7 });
+  } else {
+    surgeonMap.setView([38.5, -96], 4);
+  }
+
+  // Update bar label
+  const stateEl = document.getElementById('filter-state');
+  const label = document.getElementById('map-state-label');
+  if (label && stateEl) {
+    label.textContent = stateEl.value ? '— ' + stateEl.value : '— All States';
+  }
 }
 
-// Update bar label
-const stateEl = document.getElementById(‘filter-state’);
-const label = document.getElementById(‘map-state-label’);
-if (label && stateEl) {
-label.textContent = stateEl.value ? ’— ’ + stateEl.value : ‘— All States’;
-}
-}
+
 
 /* ── SURGEON MAP ── */
 let _emap = null;
 let _elayer = null;
 
 function _pinkDot() {
-return L.circleMarker;  // used inline
+  return L.circleMarker;  // used inline
 }
 
 function initSurgeonMap() {
-if (_emap) return;
-const el = document.getElementById(‘surgeon-map’);
-if (!el) return;
-_emap = L.map(‘surgeon-map’, {
-center: [38.5, -96], zoom: 4,
-scrollWheelZoom: false, zoomControl: true
-});
-L.tileLayer(‘https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png’, {
-attribution: ‘© <a href="https://carto.com/">CARTO</a>’,
-maxZoom: 10, minZoom: 3
-}).addTo(_emap);
-_elayer = L.layerGroup().addTo(_emap);
-setTimeout(() => { _emap.invalidateSize(); plotMapDots(); }, 200);
+  if (_emap) return;
+  const el = document.getElementById('surgeon-map');
+  if (!el) return;
+  _emap = L.map('surgeon-map', {
+    center: [38.5, -96], zoom: 4,
+    scrollWheelZoom: false, zoomControl: true
+  });
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
+    maxZoom: 10, minZoom: 3
+  }).addTo(_emap);
+  _elayer = L.layerGroup().addTo(_emap);
+  setTimeout(() => { _emap.invalidateSize(); plotMapDots(); }, 200);
 }
 
 function plotMapDots() {
-if (!_emap || !_elayer) return;
-_emap.invalidateSize();
-_elayer.clearLayers();
+  if (!_emap || !_elayer) return;
+  _emap.invalidateSize();
+  _elayer.clearLayers();
 
-const stateEl = document.getElementById(‘filter-state’);
-const selectedState = stateEl ? stateEl.value : ‘’;
+  const stateEl = document.getElementById('filter-state');
+  const selectedState = stateEl ? stateEl.value : '';
 
-const visible = DOCTORS.filter(d => {
-if (!d.lat || !d.lon) return false;
-if (d.state === ‘International’) return false;
-if (selectedState && d.state !== selectedState) return false;
-return true;
-});
+  const visible = DOCTORS.filter(d => {
+    if (!d.lat || !d.lon) return false;
+    if (d.state === 'International') return false;
+    if (selectedState && d.state !== selectedState) return false;
+    return true;
+  });
 
-visible.forEach(d => {
-const dot = L.circleMarker([d.lat, d.lon], {
-radius: 7, fillColor: ‘#C4607A’, color: ‘#fff’,
-weight: 2, opacity: 1, fillOpacity: 0.88
-});
-dot.bindTooltip(
-‘<strong>’ + d.name + ‘</strong><br>’ +
-d.city + ’, ’ + d.state +
-(d.org ? ‘<br><span style="font-size:.78em;opacity:.75">’ + d.org + ‘</span>’ : ‘’),
-{ direction: ‘top’, offset: [0, -6], className: ‘endo-tooltip’ }
-);
-_elayer.addLayer(dot);
-});
+  visible.forEach(d => {
+    const dot = L.circleMarker([d.lat, d.lon], {
+      radius: 7, fillColor: '#C4607A', color: '#fff',
+      weight: 2, opacity: 1, fillOpacity: 0.88
+    });
+    dot.bindTooltip(
+      '<strong>' + d.name + '</strong><br>' +
+      d.city + ', ' + d.state +
+      (d.org ? '<br><span style="font-size:.78em;opacity:.75">' + d.org + '</span>' : ''),
+      { direction: 'top', offset: [0, -6], className: 'endo-tooltip' }
+    );
+    _elayer.addLayer(dot);
+  });
 
-const label = document.getElementById(‘map-state-label’);
-if (label) label.textContent = selectedState ? ’— ’ + selectedState : ‘— All States’;
+  const label = document.getElementById('map-state-label');
+  if (label) label.textContent = selectedState ? '— ' + selectedState : '— All States';
 
-if (visible.length > 0) {
-const bounds = L.latLngBounds(visible.map(d => [d.lat, d.lon]));
-_emap.fitBounds(bounds.pad(0.15), { maxZoom: 7 });
-} else {
-_emap.setView([38.5, -96], 4);
-}
+  if (visible.length > 0) {
+    const bounds = L.latLngBounds(visible.map(d => [d.lat, d.lon]));
+    _emap.fitBounds(bounds.pad(0.15), { maxZoom: 7 });
+  } else {
+    _emap.setView([38.5, -96], 4);
+  }
 }
 
 /* ── INIT ── */
 (function init(){
-// Surgeon dropdowns — wired here, data loaded async by loadSurgeons()
-document.getElementById(“filter-state”).addEventListener(“change”,()=>{updateCityDropdown();applyFilters();updateMap();});
-document.getElementById(“filter-city”).addEventListener(“change”,applyFilters);
-document.getElementById(“filter-cred”).addEventListener(“change”,applyFilters);
-document.getElementById(“filter-spec”).addEventListener(“change”,applyFilters);
-document.getElementById(“filter-accepting”).addEventListener(“change”,applyFilters);
-document.getElementById(“filter-dist”).addEventListener(“change”,applyFilters);
-loadSurgeons(); // async: fetches JSON, then calls populateSurgeonStateDropdown + applyFilters
-setTimeout(initMap, 300); // pre-init map
+  // Surgeon dropdowns — wired here, data loaded async by loadSurgeons()
+  document.getElementById("filter-state").addEventListener("change",()=>{updateCityDropdown();applyFilters();updateMap();});
+  document.getElementById("filter-city").addEventListener("change",applyFilters);
+  document.getElementById("filter-cred").addEventListener("change",applyFilters);
+  document.getElementById("filter-spec").addEventListener("change",applyFilters);
+  document.getElementById("filter-accepting").addEventListener("change",applyFilters);
+  document.getElementById("filter-dist").addEventListener("change",applyFilters);
+  loadSurgeons(); // async: fetches JSON, then calls populateSurgeonStateDropdown + applyFilters
+  setTimeout(initMap, 300); // pre-init map
 
-// OB/GYN state dropdown
-const ogEl=document.getElementById(“og-state”);
-[…new Set(OBGYNS.map(d=>d.state))].sort().forEach(s=>{
-const o=document.createElement(“option”);o.value=s;o.textContent=s;ogEl.appendChild(o);
-});
-ogEl.addEventListener(“change”,()=>{updateOGCityDropdown();filterOBGYN();});
-document.getElementById(“og-city”).addEventListener(“change”,filterOBGYN);
-document.getElementById(“og-focus”).addEventListener(“change”,filterOBGYN);
-document.getElementById(“og-accepting”).addEventListener(“change”,filterOBGYN);
-updateOGCityDropdown();
+  // OB/GYN state dropdown
+  const ogEl=document.getElementById("og-state");
+  [...new Set(OBGYNS.map(d=>d.state))].sort().forEach(s=>{
+    const o=document.createElement("option");o.value=s;o.textContent=s;ogEl.appendChild(o);
+  });
+  ogEl.addEventListener("change",()=>{updateOGCityDropdown();filterOBGYN();});
+  document.getElementById("og-city").addEventListener("change",filterOBGYN);
+  document.getElementById("og-focus").addEventListener("change",filterOBGYN);
+  document.getElementById("og-accepting").addEventListener("change",filterOBGYN);
+  updateOGCityDropdown();
 
-// Support group state dropdown
-const sgEl=document.getElementById(“sg-state”);
-[…new Set(GROUPS.filter(g=>g.state!==‘National’).map(g=>g.state))].sort().forEach(s=>{
-const o=document.createElement(“option”);o.value=s;o.textContent=s;sgEl.appendChild(o);
-});
-sgEl.addEventListener(“change”,()=>{updateSGCityDropdown();filterGroups();});
-updateSGCityDropdown();
+  // Support group state dropdown
+  const sgEl=document.getElementById("sg-state");
+  [...new Set(GROUPS.filter(g=>g.state!=='National').map(g=>g.state))].sort().forEach(s=>{
+    const o=document.createElement("option");o.value=s;o.textContent=s;sgEl.appendChild(o);
+  });
+  sgEl.addEventListener("change",()=>{updateSGCityDropdown();filterGroups();});
+  updateSGCityDropdown();
 
-renderSortLevels();
-applyFilters();
-filterOBGYN();
+  renderSortLevels();
+  applyFilters();
+  filterOBGYN();
 
-// Fertility state dropdown
-const fertEl = document.getElementById(“fert-state”);
-[…new Set(FERTILITY.map(d => d.state))].sort().forEach(s => {
-const o = document.createElement(“option”); o.value = s; o.textContent = s; fertEl.appendChild(o);
-});
-fertEl.addEventListener(“change”, () => { updateFertCityDropdown(); filterFertility(); });
-document.getElementById(“fert-city”).addEventListener(“change”, filterFertility);
-document.getElementById(“fert-gender”).addEventListener(“change”, filterFertility);
-document.getElementById(“fert-accepting”).addEventListener(“change”, filterFertility);
-updateFertCityDropdown();
-filterFertility();
+  // Fertility state dropdown
+  const fertEl = document.getElementById("fert-state");
+  [...new Set(FERTILITY.map(d => d.state))].sort().forEach(s => {
+    const o = document.createElement("option"); o.value = s; o.textContent = s; fertEl.appendChild(o);
+  });
+  fertEl.addEventListener("change", () => { updateFertCityDropdown(); filterFertility(); });
+  document.getElementById("fert-city").addEventListener("change", filterFertility);
+  document.getElementById("fert-gender").addEventListener("change", filterFertility);
+  document.getElementById("fert-accepting").addEventListener("change", filterFertility);
+  updateFertCityDropdown();
+  filterFertility();
 
-filterGroups();
+  filterGroups();
 
-// IC state dropdown
-const icEl = document.getElementById(“ic-state”);
-[…new Set(IC_SPECIALISTS.filter(d=>d.state!==‘International’).map(d => d.state))].sort().forEach(s => {
-const o = document.createElement(“option”); o.value = s; o.textContent = s; icEl.appendChild(o);
-});
-icEl.addEventListener(“change”, () => { updateICCityDropdown(); filterIC(); });
-document.getElementById(“ic-city”).addEventListener(“change”, filterIC);
-document.getElementById(“ic-accepting”).addEventListener(“change”, filterIC);
-updateICCityDropdown();
-filterIC();
+  // IC state dropdown
+  const icEl = document.getElementById("ic-state");
+  [...new Set(IC_SPECIALISTS.filter(d=>d.state!=='International').map(d => d.state))].sort().forEach(s => {
+    const o = document.createElement("option"); o.value = s; o.textContent = s; icEl.appendChild(o);
+  });
+  icEl.addEventListener("change", () => { updateICCityDropdown(); filterIC(); });
+  document.getElementById("ic-city").addEventListener("change", filterIC);
+  document.getElementById("ic-accepting").addEventListener("change", filterIC);
+  updateICCityDropdown();
+  filterIC();
 
-// Vulvodynia state dropdown
-const vulvoEl = document.getElementById(“vulvo-state”);
-[…new Set(VULVO_SPECIALISTS.filter(d=>d.state!==‘International’).map(d => d.state))].sort().forEach(s => {
-const o = document.createElement(“option”); o.value = s; o.textContent = s; vulvoEl.appendChild(o);
-});
-vulvoEl.addEventListener(“change”, () => { updateVulvoCityDropdown(); filterVulvo(); });
-document.getElementById(“vulvo-city”).addEventListener(“change”, filterVulvo);
-document.getElementById(“vulvo-accepting”).addEventListener(“change”, filterVulvo);
-updateVulvoCityDropdown();
-filterVulvo();
+  // Vulvodynia state dropdown
+  const vulvoEl = document.getElementById("vulvo-state");
+  [...new Set(VULVO_SPECIALISTS.filter(d=>d.state!=='International').map(d => d.state))].sort().forEach(s => {
+    const o = document.createElement("option"); o.value = s; o.textContent = s; vulvoEl.appendChild(o);
+  });
+  vulvoEl.addEventListener("change", () => { updateVulvoCityDropdown(); filterVulvo(); });
+  document.getElementById("vulvo-city").addEventListener("change", filterVulvo);
+  document.getElementById("vulvo-accepting").addEventListener("change", filterVulvo);
+  updateVulvoCityDropdown();
+  filterVulvo();
 
 })();
 </script>
