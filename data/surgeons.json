@@ -25,6 +25,56 @@
     "verified": false
   },
   {
+    "id": "sozdar-abed",
+    "name": "Dr. Sozdar Abed",
+    "fn": "Sozdar",
+    "ln": "Abed",
+    "creds": [
+      "MD"
+    ],
+    "org": "Verify directly",
+    "city": "",
+    "state": "",
+    "lat": null,
+    "lon": null,
+    "phone": null,
+    "web": "https://pelvicrehabilitation.com/request-an-appointment/",
+    "specs": [
+      "Excision Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Fellowship-trained excision surgeon listed by Pelvic Rehabilitation Medicine.",
+    "stars": 4,
+    "source": "Pelvic Rehabilitation Medicine",
+    "verified": false
+  },
+  {
+    "id": "evan-friedman",
+    "name": "Dr. Evan Friedman",
+    "fn": "Evan",
+    "ln": "Friedman",
+    "creds": [
+      "MD"
+    ],
+    "org": "Verify directly",
+    "city": "",
+    "state": "",
+    "lat": null,
+    "lon": null,
+    "phone": null,
+    "web": "https://pelvicrehabilitation.com/request-an-appointment/",
+    "specs": [
+      "Excision Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Fellowship-trained excision surgeon listed by Pelvic Rehabilitation Medicine.",
+    "stars": 4,
+    "source": "Pelvic Rehabilitation Medicine",
+    "verified": false
+  },
+  {
     "id": "francisco-garcini",
     "name": "Dr. Francisco Garcini",
     "fn": "Francisco",
@@ -222,6 +272,31 @@
     "notes": "Added via EndofEndo. Verify details directly.",
     "stars": 4,
     "source": "EndofEndo",
+    "verified": false
+  },
+  {
+    "id": "mariah-sankey",
+    "name": "Dr. Mariah Sankey",
+    "fn": "Mariah",
+    "ln": "Sankey",
+    "creds": [
+      "MD"
+    ],
+    "org": "Verify directly",
+    "city": "",
+    "state": "",
+    "lat": null,
+    "lon": null,
+    "phone": null,
+    "web": "https://pelvicrehabilitation.com/request-an-appointment/",
+    "specs": [
+      "Excision Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Fellowship-trained excision surgeon listed by Pelvic Rehabilitation Medicine.",
+    "stars": 4,
+    "source": "Pelvic Rehabilitation Medicine",
     "verified": false
   },
   {
@@ -1011,6 +1086,31 @@
     "accepting": true,
     "notes": "Co-founder of CIGC. Developer of the DualPortGYN technique.",
     "stars": 5
+  },
+  {
+    "id": "first-name-last-name",
+    "name": "Dr. First Name Last Name",
+    "fn": "First",
+    "ln": "Name",
+    "creds": [
+      "MD"
+    ],
+    "org": "Verify directly",
+    "city": "First Name Last Name",
+    "state": "MD",
+    "lat": null,
+    "lon": null,
+    "phone": null,
+    "web": "",
+    "specs": [
+      "Excision Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Added via EndofEndo. Verify details directly.",
+    "stars": 4,
+    "source": "EndofEndo",
+    "verified": false
   },
   {
     "id": "trevor-worrell",
@@ -1960,5 +2060,55 @@
     "accepting": true,
     "notes": "Dedicated endometriosis excision practice in the Pacific Northwest.",
     "stars": 5
+  },
+  {
+    "id": "melissa-mc",
+    "name": "Dr. Melissa Mc",
+    "fn": "Melissa",
+    "ln": "Mc",
+    "creds": [
+      "MD"
+    ],
+    "org": "Verify directly",
+    "city": "Hale",
+    "state": "along",
+    "lat": null,
+    "lon": null,
+    "phone": null,
+    "web": "https://pelvicrehabilitation.com/request-an-appointment/",
+    "specs": [
+      "Excision Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Fellowship-trained excision surgeon listed by Pelvic Rehabilitation Medicine.",
+    "stars": 4,
+    "source": "Pelvic Rehabilitation Medicine",
+    "verified": false
+  },
+  {
+    "id": "robyn-power",
+    "name": "Dr. Robyn Power",
+    "fn": "Robyn",
+    "ln": "Power",
+    "creds": [
+      "MD"
+    ],
+    "org": "Verify directly",
+    "city": "Tennessee",
+    "state": "where",
+    "lat": null,
+    "lon": null,
+    "phone": null,
+    "web": "https://pelvicrehabilitation.com/request-an-appointment/",
+    "specs": [
+      "Excision Surgery"
+    ],
+    "ins": "Verify directly",
+    "accepting": true,
+    "notes": "Fellowship-trained excision surgeon listed by Pelvic Rehabilitation Medicine.",
+    "stars": 4,
+    "source": "Pelvic Rehabilitation Medicine",
+    "verified": false
   }
 ]
