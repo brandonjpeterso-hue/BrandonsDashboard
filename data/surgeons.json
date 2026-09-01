@@ -1,355 +1,5 @@
 [
   {
-    "id": "ben-abdu",
-    "name": "Dr. Ben Abdu",
-    "fn": "Ben",
-    "ln": "Abdu",
-    "creds": [
-      "MD"
-    ],
-    "org": "Verify directly",
-    "city": "",
-    "state": "",
-    "lat": null,
-    "lon": null,
-    "phone": null,
-    "web": "",
-    "specs": [
-      "Excision Surgery"
-    ],
-    "ins": "Verify directly",
-    "accepting": true,
-    "notes": "Added via EndofEndo. Verify details directly.",
-    "stars": 4,
-    "source": "EndofEndo",
-    "verified": false
-  },
-  {
-    "id": "sozdar-abed",
-    "name": "Dr. Sozdar Abed",
-    "fn": "Sozdar",
-    "ln": "Abed",
-    "creds": [
-      "MD"
-    ],
-    "org": "Verify directly",
-    "city": "",
-    "state": "",
-    "lat": null,
-    "lon": null,
-    "phone": null,
-    "web": "https://pelvicrehabilitation.com/request-an-appointment/",
-    "specs": [
-      "Excision Surgery"
-    ],
-    "ins": "Verify directly",
-    "accepting": true,
-    "notes": "Fellowship-trained excision surgeon listed by Pelvic Rehabilitation Medicine.",
-    "stars": 4,
-    "source": "Pelvic Rehabilitation Medicine",
-    "verified": false
-  },
-  {
-    "id": "evan-friedman",
-    "name": "Dr. Evan Friedman",
-    "fn": "Evan",
-    "ln": "Friedman",
-    "creds": [
-      "MD"
-    ],
-    "org": "Verify directly",
-    "city": "",
-    "state": "",
-    "lat": null,
-    "lon": null,
-    "phone": null,
-    "web": "https://pelvicrehabilitation.com/request-an-appointment/",
-    "specs": [
-      "Excision Surgery"
-    ],
-    "ins": "Verify directly",
-    "accepting": true,
-    "notes": "Fellowship-trained excision surgeon listed by Pelvic Rehabilitation Medicine.",
-    "stars": 4,
-    "source": "Pelvic Rehabilitation Medicine",
-    "verified": false
-  },
-  {
-    "id": "francisco-garcini",
-    "name": "Dr. Francisco Garcini",
-    "fn": "Francisco",
-    "ln": "Garcini",
-    "creds": [
-      "MD"
-    ],
-    "org": "Verify directly",
-    "city": "",
-    "state": "",
-    "lat": null,
-    "lon": null,
-    "phone": null,
-    "web": "",
-    "specs": [
-      "Excision Surgery"
-    ],
-    "ins": "Verify directly",
-    "accepting": true,
-    "notes": "Added via EndofEndo. Verify details directly.",
-    "stars": 4,
-    "source": "EndofEndo",
-    "verified": false
-  },
-  {
-    "id": "grace-janik",
-    "name": "Dr. Grace Janik",
-    "fn": "Grace",
-    "ln": "Janik",
-    "creds": [
-      "MD"
-    ],
-    "org": "Verify directly",
-    "city": "",
-    "state": "",
-    "lat": null,
-    "lon": null,
-    "phone": null,
-    "web": "",
-    "specs": [
-      "Excision Surgery"
-    ],
-    "ins": "Verify directly",
-    "accepting": true,
-    "notes": "Added via EndofEndo. Verify details directly.",
-    "stars": 4,
-    "source": "EndofEndo",
-    "verified": false
-  },
-  {
-    "id": "alan-johns",
-    "name": "Dr. Alan Johns",
-    "fn": "Alan",
-    "ln": "Johns",
-    "creds": [
-      "MD"
-    ],
-    "org": "Verify directly",
-    "city": "",
-    "state": "",
-    "lat": null,
-    "lon": null,
-    "phone": null,
-    "web": "",
-    "specs": [
-      "Excision Surgery"
-    ],
-    "ins": "Verify directly",
-    "accepting": true,
-    "notes": "Added via EndofEndo. Verify details directly.",
-    "stars": 4,
-    "source": "EndofEndo",
-    "verified": false
-  },
-  {
-    "id": "rami-kaldas",
-    "name": "Dr. Rami Kaldas",
-    "fn": "Rami",
-    "ln": "Kaldas",
-    "creds": [
-      "MD"
-    ],
-    "org": "Verify directly",
-    "city": "",
-    "state": "",
-    "lat": null,
-    "lon": null,
-    "phone": null,
-    "web": "",
-    "specs": [
-      "Excision Surgery"
-    ],
-    "ins": "Verify directly",
-    "accepting": true,
-    "notes": "Added via EndofEndo. Verify details directly.",
-    "stars": 4,
-    "source": "EndofEndo",
-    "verified": false
-  },
-  {
-    "id": "james-kondrup",
-    "name": "Dr. James Kondrup",
-    "fn": "James",
-    "ln": "Kondrup",
-    "creds": [
-      "MD"
-    ],
-    "org": "Verify directly",
-    "city": "",
-    "state": "",
-    "lat": null,
-    "lon": null,
-    "phone": null,
-    "web": "",
-    "specs": [
-      "Excision Surgery"
-    ],
-    "ins": "Verify directly",
-    "accepting": true,
-    "notes": "Added via EndofEndo. Verify details directly.",
-    "stars": 4,
-    "source": "EndofEndo",
-    "verified": false
-  },
-  {
-    "id": "mario-nutis",
-    "name": "Dr. Mario Nutis",
-    "fn": "Mario",
-    "ln": "Nutis",
-    "creds": [
-      "MD"
-    ],
-    "org": "Verify directly",
-    "city": "",
-    "state": "",
-    "lat": null,
-    "lon": null,
-    "phone": null,
-    "web": "",
-    "specs": [
-      "Excision Surgery"
-    ],
-    "ins": "Verify directly",
-    "accepting": true,
-    "notes": "Added via EndofEndo. Verify details directly.",
-    "stars": 4,
-    "source": "EndofEndo",
-    "verified": false
-  },
-  {
-    "id": "resad-pasic",
-    "name": "Dr. Resad Pasic",
-    "fn": "Resad",
-    "ln": "Pasic",
-    "creds": [
-      "MD"
-    ],
-    "org": "Verify directly",
-    "city": "",
-    "state": "",
-    "lat": null,
-    "lon": null,
-    "phone": null,
-    "web": "",
-    "specs": [
-      "Excision Surgery"
-    ],
-    "ins": "Verify directly",
-    "accepting": true,
-    "notes": "Added via EndofEndo. Verify details directly.",
-    "stars": 4,
-    "source": "EndofEndo",
-    "verified": false
-  },
-  {
-    "id": "robert-pollard",
-    "name": "Dr. Robert Pollard",
-    "fn": "Robert",
-    "ln": "Pollard",
-    "creds": [
-      "MD"
-    ],
-    "org": "Verify directly",
-    "city": "",
-    "state": "",
-    "lat": null,
-    "lon": null,
-    "phone": null,
-    "web": "",
-    "specs": [
-      "Excision Surgery"
-    ],
-    "ins": "Verify directly",
-    "accepting": true,
-    "notes": "Added via EndofEndo. Verify details directly.",
-    "stars": 4,
-    "source": "EndofEndo",
-    "verified": false
-  },
-  {
-    "id": "mariah-sankey",
-    "name": "Dr. Mariah Sankey",
-    "fn": "Mariah",
-    "ln": "Sankey",
-    "creds": [
-      "MD"
-    ],
-    "org": "Verify directly",
-    "city": "",
-    "state": "",
-    "lat": null,
-    "lon": null,
-    "phone": null,
-    "web": "https://pelvicrehabilitation.com/request-an-appointment/",
-    "specs": [
-      "Excision Surgery"
-    ],
-    "ins": "Verify directly",
-    "accepting": true,
-    "notes": "Fellowship-trained excision surgeon listed by Pelvic Rehabilitation Medicine.",
-    "stars": 4,
-    "source": "Pelvic Rehabilitation Medicine",
-    "verified": false
-  },
-  {
-    "id": "frank-tu",
-    "name": "Dr. Frank Tu",
-    "fn": "Frank",
-    "ln": "Tu",
-    "creds": [
-      "MD"
-    ],
-    "org": "Verify directly",
-    "city": "",
-    "state": "",
-    "lat": null,
-    "lon": null,
-    "phone": null,
-    "web": "",
-    "specs": [
-      "Excision Surgery"
-    ],
-    "ins": "Verify directly",
-    "accepting": true,
-    "notes": "Added via EndofEndo. Verify details directly.",
-    "stars": 4,
-    "source": "EndofEndo",
-    "verified": false
-  },
-  {
-    "id": "ranae-yockey",
-    "name": "Dr. Ranae Yockey",
-    "fn": "Ranae",
-    "ln": "Yockey",
-    "creds": [
-      "MD"
-    ],
-    "org": "Verify directly",
-    "city": "",
-    "state": "",
-    "lat": null,
-    "lon": null,
-    "phone": null,
-    "web": "",
-    "specs": [
-      "Excision Surgery"
-    ],
-    "ins": "Verify directly",
-    "accepting": true,
-    "notes": "Added via EndofEndo. Verify details directly.",
-    "stars": 4,
-    "source": "EndofEndo",
-    "verified": false
-  },
-  {
     "id": "alaniz-veronica",
     "name": "Dr. Veronica Alaniz",
     "fn": "Veronica",
@@ -368,7 +18,7 @@
       "Excision Surgery",
       "Adolescent Endo"
     ],
-    "ins": "Mayo Clinic \u2014 most major plans",
+    "ins": "Mayo Clinic — most major plans",
     "accepting": true,
     "notes": "Part of Mayo Clinic Arizona's women's health program.",
     "stars": 5
@@ -381,7 +31,7 @@
     "creds": [
       "MD"
     ],
-    "org": "Dignity Health \u2014 St. Joseph's Hospital",
+    "org": "Dignity Health — St. Joseph's Hospital",
     "city": "Phoenix",
     "state": "AZ",
     "lat": 33.4942,
@@ -418,7 +68,7 @@
       "Excision Surgery",
       "Robotic Surgery"
     ],
-    "ins": "Most major AZ plans \u2014 verify directly",
+    "ins": "Most major AZ plans — verify directly",
     "accepting": true,
     "notes": "Founder of Marchand Women's Health. Prolific excision surgeon, researcher, and author of peer-reviewed endo papers.",
     "stars": 5
@@ -443,7 +93,7 @@
     ],
     "ins": "Verify directly",
     "accepting": true,
-    "notes": "Fellowship-trained MIGS surgeon. 150\u2013200 advanced gynecologic surgeries annually.",
+    "notes": "Fellowship-trained MIGS surgeon. 150–200 advanced gynecologic surgeries annually.",
     "stars": 5
   },
   {
@@ -517,7 +167,7 @@
       "Robotic Surgery",
       "Fertility Preservation"
     ],
-    "ins": "El Camino Health \u2014 most major plans",
+    "ins": "El Camino Health — most major plans",
     "accepting": true,
     "notes": "Expert in minimally invasive excision and endometriosis-related infertility. Part of the renowned Nezhat surgical family.",
     "stars": 5
@@ -568,7 +218,7 @@
       "Robotic Surgery",
       "Fertility Preservation"
     ],
-    "ins": "Cedars-Sinai \u2014 most major plans",
+    "ins": "Cedars-Sinai — most major plans",
     "accepting": true,
     "notes": "Chief of MIGS at Cedars-Sinai. Nationally recognized excision specialist and researcher. Former Duke faculty.",
     "stars": 5
@@ -592,7 +242,7 @@
       "Excision Surgery",
       "Robotic Surgery"
     ],
-    "ins": "Providence \u2014 most major plans",
+    "ins": "Providence — most major plans",
     "accepting": true,
     "notes": "iCareBetter-vetted excision specialist. Gynecologic oncologist with deep excision expertise for complex cases.",
     "stars": 5
@@ -616,7 +266,7 @@
       "Excision Surgery",
       "Robotic Surgery"
     ],
-    "ins": "Loma Linda \u2014 most major plans",
+    "ins": "Loma Linda — most major plans",
     "accepting": true,
     "notes": "Loma Linda University excision specialist serving the Inland Empire.",
     "stars": 4
@@ -641,7 +291,7 @@
       "Robotic Surgery",
       "Fertility Preservation"
     ],
-    "ins": "USC/Keck \u2014 most major plans",
+    "ins": "USC/Keck — most major plans",
     "accepting": true,
     "notes": "USC minimally invasive GYN surgeon specializing in excision and fertility preservation.",
     "stars": 5
@@ -665,7 +315,7 @@
       "Excision Surgery",
       "Fertility Preservation"
     ],
-    "ins": "Cleveland Clinic \u2014 major plans",
+    "ins": "Cleveland Clinic — major plans",
     "accepting": true,
     "notes": "Past president of AAGL. Internationally respected with decades of excision expertise.",
     "stars": 5
@@ -713,7 +363,7 @@
       "Excision Surgery",
       "Robotic Surgery"
     ],
-    "ins": "GWU \u2014 most major plans",
+    "ins": "GWU — most major plans",
     "accepting": true,
     "notes": "Chief of MIGS at GWU. One of DC area's leading excision surgeons. iCareBetter-vetted.",
     "stars": 5
@@ -861,7 +511,7 @@
       "Adolescent Endo",
       "Fertility Preservation"
     ],
-    "ins": "Contact CEC \u2014 out-of-network option available",
+    "ins": "Contact CEC — out-of-network option available",
     "accepting": true,
     "notes": "Medical director of the Center for Endometriosis Care. One of the most experienced excision surgeons in North America.",
     "stars": 5
@@ -909,7 +559,7 @@
       "Excision Surgery",
       "Robotic Surgery"
     ],
-    "ins": "Tulane \u2014 most major plans",
+    "ins": "Tulane — most major plans",
     "accepting": true,
     "notes": "Tulane University minimally invasive GYN surgeon. Expert in laparoscopic and robotic excision.",
     "stars": 4
@@ -935,7 +585,7 @@
       "Excision Surgery",
       "Robotic Surgery"
     ],
-    "ins": "BWH \u2014 most major plans",
+    "ins": "BWH — most major plans",
     "accepting": true,
     "notes": "Chief of MIGS at Brigham and Women's. World-renowned excision surgeon who trains surgeons globally.",
     "stars": 5
@@ -960,7 +610,7 @@
       "Robotic Surgery",
       "Fertility Preservation"
     ],
-    "ins": "BWH \u2014 most major plans",
+    "ins": "BWH — most major plans",
     "accepting": true,
     "notes": "Minimally invasive GYN surgeon at Brigham and Women's.",
     "stars": 5
@@ -1009,7 +659,7 @@
       "Excision Surgery",
       "Adolescent Endo"
     ],
-    "ins": "Boston Children's \u2014 most major plans",
+    "ins": "Boston Children's — most major plans",
     "accepting": true,
     "notes": "Chief of Gynecology at Boston Children's. The leading adolescent endometriosis excision specialist in the US.",
     "stars": 5
@@ -1022,7 +672,7 @@
     "creds": [
       "MD"
     ],
-    "org": "CIGC \u2014 Center for Innovative GYN Care",
+    "org": "CIGC — Center for Innovative GYN Care",
     "city": "Bethesda",
     "state": "MD",
     "lat": 38.984,
@@ -1058,7 +708,7 @@
       "Excision Surgery",
       "Fertility Preservation"
     ],
-    "ins": "Hopkins \u2014 most major plans",
+    "ins": "Hopkins — most major plans",
     "accepting": true,
     "notes": "Johns Hopkins minimally invasive GYN surgeon. World-class academic support.",
     "stars": 5
@@ -1071,7 +721,7 @@
     "creds": [
       "MD"
     ],
-    "org": "CIGC \u2014 Center for Innovative GYN Care",
+    "org": "CIGC — Center for Innovative GYN Care",
     "city": "Bethesda",
     "state": "MD",
     "lat": 38.984,
@@ -1086,56 +736,6 @@
     "accepting": true,
     "notes": "Co-founder of CIGC. Developer of the DualPortGYN technique.",
     "stars": 5
-  },
-  {
-    "id": "first-name-last-name",
-    "name": "Dr. First Name Last Name",
-    "fn": "First",
-    "ln": "Name",
-    "creds": [
-      "MD"
-    ],
-    "org": "Verify directly",
-    "city": "First Name Last Name",
-    "state": "MD",
-    "lat": null,
-    "lon": null,
-    "phone": null,
-    "web": "",
-    "specs": [
-      "Excision Surgery"
-    ],
-    "ins": "Verify directly",
-    "accepting": true,
-    "notes": "Added via EndofEndo. Verify details directly.",
-    "stars": 4,
-    "source": "EndofEndo",
-    "verified": false
-  },
-  {
-    "id": "trevor-worrell",
-    "name": "Dr. Trevor Worrell",
-    "fn": "Trevor",
-    "ln": "Worrell",
-    "creds": [
-      "MD"
-    ],
-    "org": "Verify directly",
-    "city": "Trevor Worrell",
-    "state": "MD",
-    "lat": null,
-    "lon": null,
-    "phone": null,
-    "web": "",
-    "specs": [
-      "Excision Surgery"
-    ],
-    "ins": "Verify directly",
-    "accepting": true,
-    "notes": "Added via EndofEndo. Verify details directly.",
-    "stars": 4,
-    "source": "EndofEndo",
-    "verified": false
   },
   {
     "id": "as-sanie-sawsan",
@@ -1158,7 +758,7 @@
       "Adolescent Endo",
       "Fertility Preservation"
     ],
-    "ins": "U of M \u2014 most major plans",
+    "ins": "U of M — most major plans",
     "accepting": true,
     "notes": "Director of the Michigan Endometriosis Center. Leading researcher in excision outcomes.",
     "stars": 5
@@ -1229,7 +829,7 @@
       "Excision Surgery",
       "Robotic Surgery"
     ],
-    "ins": "Mayo Clinic \u2014 most major plans",
+    "ins": "Mayo Clinic — most major plans",
     "accepting": true,
     "notes": "Mayo Clinic minimally invasive GYN surgeon. Expert in complex excision.",
     "stars": 5
@@ -1254,7 +854,7 @@
       "Robotic Surgery",
       "Fertility Preservation"
     ],
-    "ins": "Mayo Clinic \u2014 most major plans",
+    "ins": "Mayo Clinic — most major plans",
     "accepting": true,
     "notes": "Part of Mayo Clinic's world-renowned gynecology program.",
     "stars": 5
@@ -1279,7 +879,7 @@
       "Fertility Preservation",
       "Adolescent Endo"
     ],
-    "ins": "SLUCare \u2014 most major plans",
+    "ins": "SLUCare — most major plans",
     "accepting": true,
     "notes": "One of the most respected excision surgeons in the Midwest. Prolific researcher at Saint Louis University.",
     "stars": 5
@@ -1305,7 +905,7 @@
       "Adolescent Endo",
       "Fertility Preservation"
     ],
-    "ins": "UNC \u2014 most major plans",
+    "ins": "UNC — most major plans",
     "accepting": true,
     "notes": "UNC MIGS surgeon and endo researcher. Expert in excision and chronic pelvic pain.",
     "stars": 5
@@ -1402,7 +1002,7 @@
       "Excision Surgery",
       "Fertility Preservation"
     ],
-    "ins": "NYU Langone \u2014 most major plans",
+    "ins": "NYU Langone — most major plans",
     "accepting": true,
     "notes": "Program director of NYU Langone Fertility. Pioneer in PGT and IVF.",
     "stars": 5
@@ -1428,7 +1028,7 @@
       "Robotic Surgery",
       "Fertility Preservation"
     ],
-    "ins": "Most major plans \u2014 verify directly",
+    "ins": "Most major plans — verify directly",
     "accepting": true,
     "notes": "Pioneer in minimally invasive surgery. Over 30 years experience.",
     "stars": 5
@@ -1502,7 +1102,7 @@
       "Adolescent Endo",
       "Fertility Preservation"
     ],
-    "ins": "Cleveland Clinic \u2014 major plans",
+    "ins": "Cleveland Clinic — major plans",
     "accepting": true,
     "notes": "Cleveland Clinic endo specialist with focus on adolescent endo and fertility preservation.",
     "stars": 5
@@ -1526,7 +1126,7 @@
       "Excision Surgery",
       "Robotic Surgery"
     ],
-    "ins": "Cleveland Clinic \u2014 major plans",
+    "ins": "Cleveland Clinic — major plans",
     "accepting": true,
     "notes": "Section head of Benign Gynecology at Cleveland Clinic.",
     "stars": 5
@@ -1550,7 +1150,7 @@
       "Excision Surgery",
       "Fertility Preservation"
     ],
-    "ins": "OHSU \u2014 most major plans",
+    "ins": "OHSU — most major plans",
     "accepting": true,
     "notes": "OHSU gynecologist specializing in minimally invasive excision and complex pelvic pain.",
     "stars": 4
@@ -1575,7 +1175,7 @@
       "Adolescent Endo",
       "Fertility Preservation"
     ],
-    "ins": "UPMC \u2014 most major plans",
+    "ins": "UPMC — most major plans",
     "accepting": true,
     "notes": "Expert in adolescent endometriosis at UPMC Magee.",
     "stars": 5
@@ -1600,7 +1200,7 @@
       "Excision Surgery",
       "Robotic Surgery"
     ],
-    "ins": "Penn Medicine \u2014 major plans",
+    "ins": "Penn Medicine — major plans",
     "accepting": true,
     "notes": "Penn Medicine minimally invasive GYN surgeon.",
     "stars": 5
@@ -1625,7 +1225,7 @@
       "Robotic Surgery",
       "Adolescent Endo"
     ],
-    "ins": "UPMC \u2014 most major plans",
+    "ins": "UPMC — most major plans",
     "accepting": true,
     "notes": "Director of minimally invasive GYN surgery at UPMC Magee.",
     "stars": 5
@@ -1821,7 +1421,7 @@
       "Excision Surgery",
       "Robotic Surgery"
     ],
-    "ins": "UT Southwestern \u2014 most major plans",
+    "ins": "UT Southwestern — most major plans",
     "accepting": true,
     "notes": "Academic medical center with full multidisciplinary team.",
     "stars": 5
@@ -1868,7 +1468,7 @@
     "specs": [
       "Excision Surgery"
     ],
-    "ins": "UT Physicians \u2014 verify directly",
+    "ins": "UT Physicians — verify directly",
     "accepting": false,
     "notes": "Currently NOT accepting new patients. Worth contacting for waitlist.",
     "stars": 5
@@ -1961,7 +1561,7 @@
       "Excision Surgery",
       "Fertility Preservation"
     ],
-    "ins": "U of Utah Health \u2014 major plans",
+    "ins": "U of Utah Health — major plans",
     "accepting": true,
     "notes": "University of Utah minimally invasive GYN surgeon with expertise in endometriosis excision.",
     "stars": 4
@@ -1985,7 +1585,7 @@
       "Excision Surgery",
       "Adolescent Endo"
     ],
-    "ins": "INOVA \u2014 most major plans",
+    "ins": "INOVA — most major plans",
     "accepting": true,
     "notes": "Excision specialist with INOVA's minimally invasive GYN surgery program.",
     "stars": 4
@@ -2009,7 +1609,7 @@
       "Excision Surgery",
       "Robotic Surgery"
     ],
-    "ins": "INOVA \u2014 most major plans",
+    "ins": "INOVA — most major plans",
     "accepting": true,
     "notes": "iCareBetter-vetted excision surgeon in the DC/Virginia area. Complex case expertise.",
     "stars": 5
@@ -2033,7 +1633,7 @@
       "Excision Surgery",
       "Fertility Preservation"
     ],
-    "ins": "Virginia Mason \u2014 most major WA plans",
+    "ins": "Virginia Mason — most major WA plans",
     "accepting": true,
     "notes": "Excision specialist in the Seattle area. Known for compassionate care and patient advocacy.",
     "stars": 4
@@ -2060,55 +1660,5 @@
     "accepting": true,
     "notes": "Dedicated endometriosis excision practice in the Pacific Northwest.",
     "stars": 5
-  },
-  {
-    "id": "melissa-mc",
-    "name": "Dr. Melissa Mc",
-    "fn": "Melissa",
-    "ln": "Mc",
-    "creds": [
-      "MD"
-    ],
-    "org": "Verify directly",
-    "city": "Hale",
-    "state": "along",
-    "lat": null,
-    "lon": null,
-    "phone": null,
-    "web": "https://pelvicrehabilitation.com/request-an-appointment/",
-    "specs": [
-      "Excision Surgery"
-    ],
-    "ins": "Verify directly",
-    "accepting": true,
-    "notes": "Fellowship-trained excision surgeon listed by Pelvic Rehabilitation Medicine.",
-    "stars": 4,
-    "source": "Pelvic Rehabilitation Medicine",
-    "verified": false
-  },
-  {
-    "id": "robyn-power",
-    "name": "Dr. Robyn Power",
-    "fn": "Robyn",
-    "ln": "Power",
-    "creds": [
-      "MD"
-    ],
-    "org": "Verify directly",
-    "city": "Tennessee",
-    "state": "where",
-    "lat": null,
-    "lon": null,
-    "phone": null,
-    "web": "https://pelvicrehabilitation.com/request-an-appointment/",
-    "specs": [
-      "Excision Surgery"
-    ],
-    "ins": "Verify directly",
-    "accepting": true,
-    "notes": "Fellowship-trained excision surgeon listed by Pelvic Rehabilitation Medicine.",
-    "stars": 4,
-    "source": "Pelvic Rehabilitation Medicine",
-    "verified": false
   }
 ]
