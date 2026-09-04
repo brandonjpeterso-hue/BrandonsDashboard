@@ -192,6 +192,40 @@
     .dark ::-webkit-scrollbar-track { background: #1a1a1a; }
     .dark ::-webkit-scrollbar-thumb { background: #4A2F1F; }
 
+
+    .price-input {
+      width: 100%;
+      border-radius: 0.75rem;
+      border: 1px solid rgba(74, 47, 31, 0.12);
+      background: rgba(255,255,255,0.8);
+      padding: 0.6rem 0.8rem;
+      font-size: 0.95rem;
+      color: #4A2F1F;
+      outline: none;
+    }
+    .dark .price-input {
+      background: rgba(26, 18, 12, 0.55);
+      border-color: rgba(245, 237, 224, 0.12);
+      color: #F5EDE0;
+    }
+    .price-input:focus {
+      border-color: #D4A017;
+      box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.25);
+    }
+    .price-preset {
+      border-radius: 999px;
+      border: 1px solid rgba(212, 160, 23, 0.35);
+      background: transparent;
+      color: inherit;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .price-preset:hover, .price-preset.is-on {
+      background: rgba(212, 160, 23, 0.18);
+      border-color: #D4A017;
+    }
+
     @media print {
       .no-print { display: none !important; }
       body { background: white !important; }
@@ -315,6 +349,90 @@
         <i class="fa-solid fa-circle-info text-honey mr-1"></i>
         Prices are approximate, from publicly listed menus. Rechecked on the 1st of each month.
       </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ 3b. PRODUCT PRICING ══════════════════════════ -->
+<section class="fade-up fade-up-3 no-print" id="pricing">
+  <div class="flex items-center gap-3 mb-2">
+    <span class="text-2xl">&#129518;</span>
+    <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Price a product</h2>
+  </div>
+  <p class="text-sm text-bean/50 dark:text-cream/40 mb-5 ml-10 font-body">
+    Ingredients, scrap, labor, packaging, and card fees &rarr; the price that actually leaves you a margin.
+    Numbers stay on this phone. Starter presets are examples &mdash; swap in your real costs.
+  </p>
+
+  <div class="flex flex-wrap gap-2 mb-4 ml-10">
+    <button type="button" class="price-preset" data-preset="roll">Giant cinnamon roll</button>
+    <button type="button" class="price-preset" data-preset="latte">12 oz latte</button>
+    <button type="button" class="price-preset" data-preset="brew">Cold brew batch</button>
+    <button type="button" class="price-preset" data-preset="clear">Clear</button>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+    <form id="priceForm" class="bg-white/70 dark:bg-bean/30 rounded-2xl p-5 sm:p-6 border border-bean/5 dark:border-cream/5 space-y-4" onsubmit="return false;">
+      <div>
+        <label for="pName" class="block text-xs font-bold uppercase tracking-wider text-bean/40 dark:text-cream/30 mb-1">Product</label>
+        <input class="price-input" id="pName" type="text" autocomplete="off" placeholder="Giant cinnamon roll">
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label for="pBatch" class="block text-xs font-bold uppercase tracking-wider text-bean/40 dark:text-cream/30 mb-1">Ingredient cost / batch ($)</label>
+          <input class="price-input" id="pBatch" type="number" min="0" step="0.01" inputmode="decimal">
+        </div>
+        <div>
+          <label for="pYield" class="block text-xs font-bold uppercase tracking-wider text-bean/40 dark:text-cream/30 mb-1">Units in that batch</label>
+          <input class="price-input" id="pYield" type="number" min="0.01" step="1" inputmode="decimal">
+        </div>
+        <div>
+          <label for="pScrap" class="block text-xs font-bold uppercase tracking-wider text-bean/40 dark:text-cream/30 mb-1">Scrap / waste (%)</label>
+          <input class="price-input" id="pScrap" type="number" min="0" max="90" step="0.5" inputmode="decimal">
+        </div>
+        <div>
+          <label for="pPack" class="block text-xs font-bold uppercase tracking-wider text-bean/40 dark:text-cream/30 mb-1">Packaging / sold unit ($)</label>
+          <input class="price-input" id="pPack" type="number" min="0" step="0.01" inputmode="decimal">
+        </div>
+        <div>
+          <label for="pLabor" class="block text-xs font-bold uppercase tracking-wider text-bean/40 dark:text-cream/30 mb-1">Labor minutes / batch</label>
+          <input class="price-input" id="pLabor" type="number" min="0" step="0.5" inputmode="decimal">
+        </div>
+        <div>
+          <label for="pWage" class="block text-xs font-bold uppercase tracking-wider text-bean/40 dark:text-cream/30 mb-1">Wage ($ / hour)</label>
+          <input class="price-input" id="pWage" type="number" min="0" step="0.25" inputmode="decimal">
+        </div>
+        <div>
+          <label for="pOther" class="block text-xs font-bold uppercase tracking-wider text-bean/40 dark:text-cream/30 mb-1">Other / unit ($)</label>
+          <input class="price-input" id="pOther" type="number" min="0" step="0.01" inputmode="decimal" placeholder="napkins, propane share">
+        </div>
+        <div>
+          <label for="pCard" class="block text-xs font-bold uppercase tracking-wider text-bean/40 dark:text-cream/30 mb-1">Card fee (%)</label>
+          <input class="price-input" id="pCard" type="number" min="0" max="15" step="0.1" inputmode="decimal">
+        </div>
+        <div>
+          <label for="pMargin" class="block text-xs font-bold uppercase tracking-wider text-bean/40 dark:text-cream/30 mb-1">Target margin (%)</label>
+          <input class="price-input" id="pMargin" type="number" min="0" max="90" step="1" inputmode="decimal">
+        </div>
+        <div>
+          <label for="pCurrent" class="block text-xs font-bold uppercase tracking-wider text-bean/40 dark:text-cream/30 mb-1">Current menu price ($)</label>
+          <input class="price-input" id="pCurrent" type="number" min="0" step="0.01" inputmode="decimal">
+        </div>
+      </div>
+      <p class="text-xs text-bean/40 dark:text-cream/30 font-body">Other / unit is for small extras you want in the cost (cup sleeve, condiment, a slice of truck overhead). Truck payment and insurance are not fully in this number unless you put them here.</p>
+    </form>
+
+    <div class="bg-white/70 dark:bg-bean/30 rounded-2xl p-5 sm:p-6 border border-bean/5 dark:border-cream/5 flex flex-col gap-4">
+      <div>
+        <p class="text-[10px] font-bold uppercase tracking-widest text-honey mb-1">Charge</p>
+        <p id="pMenu" class="font-display text-4xl sm:text-5xl font-extrabold text-bean dark:text-honey leading-none">—</p>
+        <p id="pNeed" class="text-sm text-bean/50 dark:text-cream/40 mt-2 font-body">Enter costs to see a price.</p>
+      </div>
+      <div id="pBands" class="grid grid-cols-3 gap-2"></div>
+      <div class="grid grid-cols-2 gap-2" id="pBreakdown"></div>
+      <div id="pAtCurrent" class="rounded-xl bg-cream/50 dark:bg-espresso/40 p-3 text-sm font-body text-bean/70 dark:text-cream/70"></div>
+      <p class="text-xs text-bean/40 dark:text-cream/30 font-body mt-auto">Planning tool, not accounting advice. Margin here is (price − unit cost) ÷ price, after card fees come out of the price.</p>
     </div>
   </div>
 </section>
@@ -1205,6 +1323,182 @@
       try { document.getElementById("trendsGrid").innerHTML = '<p class="text-cinnamon col-span-full text-center py-4">Could not load trends.</p>'; } catch(x) {}
     }
 
+
+
+    /* ═══════════════════════════════════════════════════════
+       PRODUCT PRICING CALCULATOR
+       ═══════════════════════════════════════════════════════ */
+    try {
+      var PRICE_KEY = "r2r-pricing";
+      var PRESETS = {
+        roll: {
+          pName: "Giant cinnamon roll",
+          pBatch: "5.00", pYield: "12", pScrap: "8", pPack: "0.20",
+          pLabor: "30", pWage: "16", pOther: "0.05", pCard: "2.6",
+          pMargin: "65", pCurrent: "3.99"
+        },
+        latte: {
+          pName: "12 oz latte",
+          pBatch: "0.90", pYield: "1", pScrap: "4", pPack: "0.28",
+          pLabor: "2.5", pWage: "16", pOther: "0.08", pCard: "2.6",
+          pMargin: "68", pCurrent: "4.99"
+        },
+        brew: {
+          pName: "Cold brew (12 oz pour)",
+          pBatch: "4.50", pYield: "8", pScrap: "8", pPack: "0.28",
+          pLabor: "12", pWage: "16", pOther: "0.08", pCard: "2.6",
+          pMargin: "68", pCurrent: "4.50"
+        },
+        clear: {
+          pName: "", pBatch: "", pYield: "", pScrap: "", pPack: "",
+          pLabor: "", pWage: "", pOther: "", pCard: "2.6",
+          pMargin: "65", pCurrent: ""
+        }
+      };
+      var PRICE_IDS = ["pName","pBatch","pYield","pScrap","pPack","pLabor","pWage","pOther","pCard","pMargin","pCurrent"];
+
+      function num(id) {
+        var el = document.getElementById(id);
+        var v = parseFloat(el && el.value);
+        return isFinite(v) ? v : 0;
+      }
+      function money(n) {
+        if (!isFinite(n)) return "—";
+        return "$" + n.toFixed(2);
+      }
+      function menuRound(n) {
+        if (!isFinite(n) || n <= 0) return n;
+        var cents = Math.ceil(n * 100);
+        var d = Math.floor(cents / 100);
+        var c = cents % 100;
+        if (c === 0) return d;
+        if (c <= 49) return d + 0.49;
+        return d + 0.99;
+      }
+      function savePrice() {
+        var o = {};
+        for (var i = 0; i < PRICE_IDS.length; i++) {
+          var el = document.getElementById(PRICE_IDS[i]);
+          o[PRICE_IDS[i]] = el ? el.value : "";
+        }
+        try { localStorage.setItem(PRICE_KEY, JSON.stringify(o)); } catch (e) {}
+      }
+      function fillPrice(o) {
+        if (!o) return;
+        for (var i = 0; i < PRICE_IDS.length; i++) {
+          var id = PRICE_IDS[i];
+          var el = document.getElementById(id);
+          if (el && o[id] != null) el.value = o[id];
+        }
+      }
+      function pill(label, value, sub) {
+        return '<div class="rounded-xl bg-cream/50 dark:bg-espresso/40 p-3">' +
+          '<p class="text-[10px] font-bold uppercase tracking-wider text-bean/40 dark:text-cream/30">' + label + "</p>" +
+          '<p class="font-display text-lg font-bold text-bean dark:text-cream">' + value + "</p>" +
+          (sub ? '<p class="text-[11px] text-bean/45 dark:text-cream/40">' + sub + "</p>" : "") +
+          "</div>";
+      }
+
+      function runPrice() {
+        var batch = num("pBatch");
+        var yld = num("pYield");
+        var scrap = num("pScrap") / 100;
+        var pack = num("pPack");
+        var laborMin = num("pLabor");
+        var wage = num("pWage");
+        var other = num("pOther");
+        var card = num("pCard") / 100;
+        var margin = num("pMargin") / 100;
+        var current = num("pCurrent");
+        var name = (document.getElementById("pName").value || "This item").replace(/</g, "");
+
+        var menuEl = document.getElementById("pMenu");
+        var needEl = document.getElementById("pNeed");
+        var bandsEl = document.getElementById("pBands");
+        var brEl = document.getElementById("pBreakdown");
+        var curEl = document.getElementById("pAtCurrent");
+
+        if (yld <= 0 || batch < 0) {
+          menuEl.textContent = "—";
+          needEl.textContent = "Need a batch size and ingredient cost.";
+          bandsEl.innerHTML = "";
+          brEl.innerHTML = "";
+          curEl.textContent = "";
+          return;
+        }
+        if (scrap >= 0.95) scrap = 0.95;
+        var saleable = yld * (1 - scrap);
+        if (saleable <= 0) {
+          menuEl.textContent = "—";
+          needEl.textContent = "Scrap is eating the whole batch.";
+          return;
+        }
+
+        var ingU = batch / saleable;
+        var laborU = (laborMin / 60) * wage / saleable;
+        var cost = ingU + laborU + pack + other;
+        var keep = 1 - margin - card;
+        var need = keep > 0.05 ? cost / keep : NaN;
+        var menu = menuRound(need);
+
+        menuEl.textContent = isFinite(menu) ? money(menu) : "—";
+        needEl.textContent = isFinite(need)
+          ? (name + " · exact " + money(need) + " to hit " + (margin * 100).toFixed(0) + "% margin after a " + (card * 100).toFixed(1) + "% card fee. Rounded to a cafe price.")
+          : "Margin + card fee is too high to solve. Lower one of them.";
+
+        function band(m) {
+          var k = 1 - m - card;
+          var px = k > 0.05 ? menuRound(cost / k) : NaN;
+          return pill((m * 100).toFixed(0) + "% margin", isFinite(px) ? money(px) : "—", "menu-style round");
+        }
+        bandsEl.innerHTML = band(0.60) + band(0.70) + band(0.75);
+
+        brEl.innerHTML =
+          pill("Saleable units", saleable.toFixed(2), "after " + (scrap * 100).toFixed(0) + "% scrap") +
+          pill("Ingredients", money(ingU), "per sold unit") +
+          pill("Labor", money(laborU), laborMin + " min @ " + money(wage) + "/hr") +
+          pill("True cost", money(cost), "ing + labor + pack + other");
+
+        if (current > 0 && isFinite(cost)) {
+          var fee = current * card;
+          var profit = current - cost - fee;
+          var foodPct = current > 0 ? (ingU / current) * 100 : 0;
+          var primePct = current > 0 ? ((ingU + laborU) / current) * 100 : 0;
+          var ok = profit >= 0;
+          curEl.innerHTML = "<strong>" + money(current) + " on the board</strong> leaves " +
+            money(profit) + " after cost and card fee. Food cost " + foodPct.toFixed(0) +
+            "% · prime cost (food + labor) " + primePct.toFixed(0) + "%." +
+            (ok ? "" : " That price is below true cost.");
+          curEl.style.borderLeft = ok ? "3px solid #D4A017" : "3px solid #c45c26";
+        } else {
+          curEl.innerHTML = "Add a current menu price to see whether it covers the cost you typed.";
+          curEl.style.borderLeft = "none";
+        }
+        savePrice();
+      }
+
+      fillPrice({ pCard: "2.6", pMargin: "65" });
+      try {
+        var saved = localStorage.getItem(PRICE_KEY);
+        if (saved) fillPrice(JSON.parse(saved));
+      } catch (e) {}
+
+      var form = document.getElementById("priceForm");
+      form.addEventListener("input", runPrice);
+      form.addEventListener("change", runPrice);
+
+      var presets = document.querySelectorAll(".price-preset");
+      for (var b = 0; b < presets.length; b++) {
+        presets[b].addEventListener("click", function() {
+          var key = this.getAttribute("data-preset");
+          fillPrice(PRESETS[key]);
+          for (var k = 0; k < presets.length; k++) presets[k].classList.remove("is-on");
+          if (key !== "clear") this.classList.add("is-on");
+          runPrice();
+        });
+      }
+      runPrice();
+    } catch (e) { console.error("Pricing calculator error:", e); }
 
     stampUpdated();
 
