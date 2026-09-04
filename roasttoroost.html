@@ -1,7 +1,7 @@
 <!--
   ╔══════════════════════════════════════════════════════════════════╗
   ║  ROAST TO ROOST COFFEE — Ponder, Texas                         ║
-  ║  Owner Dashboard v4 (today strip, dated events, 2026-27 school year)           ║
+  ║  Owner Dashboard v5 (monthly data refresh)           ║
   ╠══════════════════════════════════════════════════════════════════╣
   ║                                                                  ║
   ║  HOW TO USE:                                                     ║
@@ -10,12 +10,10 @@
   ║  3. Go to Settings > Pages > Deploy from main branch             ║
   ║  4. Your dashboard is live!                                      ║
   ║                                                                  ║
-  ║  HOW TO UPDATE:                                                  ║
-  ║  - Events:      Edit EVENTS (ISO start/end). Past dates hide.    ║
-  ║  - School:      Edit SCHOOL_YEAR / NO_SCHOOL / FOOTBALL.         ║
-  ║  - Deals:       Edit the DEALS array                             ║
-  ║  - Competitors: Edit the COMPETITORS array                       ║
-  ║  - Trends:      Edit SOCIAL_TRENDS and bump SNAPSHOT_DATE        ║
+  ║  HOW TO UPDATE:
+  ║  - Monthly:     data/r2r.json is refreshed on the 1st            ║
+  ║  - Events/deals/prices/drinks/trends live in that JSON file      ║
+  ║  - Past events still hide daily in the browser                   ║
   ║  - Weather updates automatically via Open-Meteo API              ║
   ║                                                                  ║
   ║  Built with love for Ponder's favorite coffee spot               ║
@@ -230,6 +228,7 @@
 
   <div class="flex flex-col items-center sm:items-end gap-2">
     <time id="liveDate" class="text-honey font-display text-lg font-semibold">Loading date...</time>
+    <p id="dataStamp" class="text-[11px] text-cream/50 font-body">Lists refresh on the 1st of each month</p>
     <div class="flex items-center gap-3 no-print">
       <button id="themeToggle" aria-label="Toggle dark mode"
         class="w-10 h-10 rounded-full bg-cream/10 hover:bg-cream/20 flex items-center justify-center transition-all text-lg"
@@ -270,7 +269,7 @@
     <span class="text-2xl">&#128197;</span>
     <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Upcoming Events in Ponder & Denton County</h2>
   </div>
-  <p class="text-sm text-bean/50 dark:text-cream/40 mb-5 ml-10 font-body">Past dates drop off automatically. Recurring markets stay until the season ends.</p>
+  <p class="text-sm text-bean/50 dark:text-cream/40 mb-5 ml-10 font-body">Past dates drop off daily. The list itself refreshes on the 1st of each month.</p>
   <div id="eventsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
     <p class="text-bean/40 dark:text-cream/30 col-span-full text-center py-4">Loading events...</p>
   </div>
@@ -282,6 +281,7 @@
     <span class="text-2xl">&#9749;</span>
     <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Coffee Bean &amp; Supply Deals</h2>
   </div>
+    <p class="text-sm text-bean/50 dark:text-cream/40 mb-5 ml-10 font-body">Public wholesale offers, checked on the 1st of each month.</p>
   <div id="dealsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
     <p class="text-bean/40 dark:text-cream/30 col-span-full text-center py-4">Loading deals...</p>
   </div>
@@ -313,7 +313,7 @@
     <div class="px-5 py-3 bg-honey/5 dark:bg-honey/5 border-t border-bean/5 dark:border-cream/5">
       <p class="text-xs text-bean/50 dark:text-cream/40 font-body">
         <i class="fa-solid fa-circle-info text-honey mr-1"></i>
-        Prices are approximate and based on publicly listed menus. Update the COMPETITORS array in the source to keep current.
+        Prices are approximate, from publicly listed menus. Rechecked on the 1st of each month.
       </p>
     </div>
   </div>
@@ -515,7 +515,7 @@
     <span class="text-2xl" id="seasonIcon">&#127810;</span>
     <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Seasonal Drink Inspiration</h2>
   </div>
-  <p class="text-sm text-bean/50 dark:text-cream/40 mb-5 ml-10 font-body">Rotates with the calendar month. These are ideas, not a live menu.</p>
+  <p class="text-sm text-bean/50 dark:text-cream/40 mb-5 ml-10 font-body">Rotates with the calendar month; ideas are refreshed on the 1st. Not a live menu.</p>
   <div id="drinksGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
     <p class="text-bean/40 dark:text-cream/30 col-span-full text-center py-4">Loading drinks...</p>
   </div>
@@ -546,7 +546,7 @@
       </p>
       <p class="text-sm text-cream/30">
         Weather data by <a href="https://open-meteo.com/" class="underline hover:text-honey transition-colors" target="_blank" rel="noopener">Open-Meteo</a>
-        &middot; Weather refreshes on each visit &middot; Past events hide automatically
+        &middot; Weather refreshes on each visit &middot; Events, prices, deals, and drink ideas refresh on the 1st of each month
       </p>
     </div>
   </footer>
@@ -561,6 +561,7 @@
   document.addEventListener("DOMContentLoaded", function() {
 
     var SNAPSHOT_DATE = "September 2026";
+    var DRINKS_BY_SEASON = null;
 
     /* ─────────────────────────────────────────────────────
        EVENTS — ISO dates. Past events hide automatically.
@@ -792,6 +793,41 @@
       }
       if (!shown) html = '<p class="text-sm text-bean/50">Season complete.</p>';
       list.innerHTML = html;
+    }
+
+
+    function stampUpdated() {
+      var el = document.getElementById("dataStamp");
+      if (!el) return;
+      var raw = SNAPSHOT_DATE || "";
+      var pretty = raw;
+      try {
+        if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
+          var p = raw.split("-");
+          pretty = new Date(+p[0], +p[1] - 1, +p[2]).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+        }
+      } catch (e) {}
+      el.textContent = "Lists last refreshed " + pretty + " · next pass on the 1st";
+    }
+
+    function applyRemote(d) {
+      if (!d) return;
+      if (d.updatedAt) SNAPSHOT_DATE = d.updatedAt;
+      if (d.events && d.events.length) EVENTS = d.events;
+      if (d.deals && d.deals.length) DEALS = d.deals;
+      if (d.competitors && d.competitors.length) COMPETITORS = d.competitors;
+      if (d.socialTrends && d.socialTrends.length) SOCIAL_TRENDS = d.socialTrends;
+      if (d.schoolYear) SCHOOL_YEAR = d.schoolYear;
+      if (d.schoolHighlights && d.schoolHighlights.length) SCHOOL_HIGHLIGHTS = d.schoolHighlights;
+      if (d.football && d.football.length) FOOTBALL = d.football;
+      if (d.drinksBySeason) DRINKS_BY_SEASON = d.drinksBySeason;
+      if (d.noSchool && d.noSchool.length) {
+        NO_SCHOOL = {};
+        for (var i = 0; i < d.noSchool.length; i++) {
+          var r = d.noSchool[i];
+          markRange(r.start, r.end, r.reason);
+        }
+      }
     }
 
     /* ─────────────────────────────────────────────────────
@@ -1072,8 +1108,12 @@
       var month = new Date().getMonth();
       var drinks = [];
       var seasonEl = document.getElementById("seasonIcon");
+      var seasonKey = (month >= 2 && month <= 4) ? "spring" : (month >= 5 && month <= 7) ? "summer" : (month >= 8 && month <= 10) ? "fall" : "winter";
 
-      if (month >= 2 && month <= 4) {
+      if (DRINKS_BY_SEASON && DRINKS_BY_SEASON[seasonKey] && DRINKS_BY_SEASON[seasonKey].length) {
+        seasonEl.innerHTML = (seasonKey === "spring") ? "🌸" : (seasonKey === "summer") ? "☀️" : (seasonKey === "fall") ? "🍂" : "❄️";
+        drinks = DRINKS_BY_SEASON[seasonKey];
+      } else if (month >= 2 && month <= 4) {
         seasonEl.innerHTML = "\uD83C\uDF38";
         drinks = [
           { name: "Lavender Honey Latte",      emoji: "\uD83D\uDC9C", desc: "Espresso with local honey, steamed milk and a touch of lavender syrup. Light and floral.", tip: "Top with dried lavender buds for a pretty presentation." },
@@ -1164,6 +1204,119 @@
       console.error("Trends error:", e);
       try { document.getElementById("trendsGrid").innerHTML = '<p class="text-cinnamon col-span-full text-center py-4">Could not load trends.</p>'; } catch(x) {}
     }
+
+
+    stampUpdated();
+
+    fetch("data/r2r.json?v=" + Date.now())
+      .then(function(res) {
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        return res.json();
+      })
+      .then(function(remote) {
+        applyRemote(remote);
+        try { renderTodayStrip(); } catch (e) { console.error(e); }
+        try { renderSchoolAndFootball(); } catch (e) { console.error(e); }
+        try {
+          var eventsGrid = document.getElementById("eventsGrid");
+          var live = [];
+          var today = new Date();
+          for (var i = 0; i < EVENTS.length; i++) {
+            if (eventIsLive(EVENTS[i], today)) live.push(EVENTS[i]);
+          }
+          if (!live.length) {
+            eventsGrid.innerHTML = '<p class="text-bean/50 dark:text-cream/40 col-span-full text-center py-4">No upcoming events on the board.</p>';
+          } else {
+            var evHTML = "";
+            for (var i = 0; i < live.length; i++) {
+              var ev = live[i];
+              evHTML += '<a href="' + ev.link + '" target="_blank" rel="noopener" class="card-hover bg-white/70 dark:bg-bean/30 rounded-2xl p-5 border border-bean/5 dark:border-cream/5 block group">';
+              evHTML += '<div class="flex items-center gap-3 mb-3">';
+              evHTML += '<span class="text-3xl">' + ev.icon + '</span><div>';
+              evHTML += '<h3 class="font-display text-lg font-bold text-bean dark:text-cream group-hover:text-honey transition-colors leading-tight">' + ev.title + '</h3>';
+              evHTML += '<p class="text-xs text-honey font-semibold uppercase tracking-wider mt-0.5">' + eventDateLine(ev, today) + '</p></div></div>';
+              evHTML += '<p class="text-sm text-bean/60 dark:text-cream/60 font-body leading-relaxed">' + ev.desc + '</p>';
+              evHTML += '<span class="inline-flex items-center gap-1 mt-3 text-xs font-semibold text-honey/70 group-hover:text-honey transition-colors"><i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> Details</span></a>';
+            }
+            eventsGrid.innerHTML = evHTML;
+          }
+        } catch (e) { console.error("Events refresh error:", e); }
+        try {
+          var dealsGrid = document.getElementById("dealsGrid");
+          var dlHTML = "";
+          for (var j = 0; j < DEALS.length; j++) {
+            var deal = DEALS[j];
+            dlHTML += '<a href="' + deal.link + '" target="_blank" rel="noopener" class="card-hover bg-white/70 dark:bg-bean/30 rounded-2xl p-5 border border-bean/5 dark:border-cream/5 block group relative overflow-hidden">';
+            dlHTML += '<div class="absolute top-3 right-3 badge-shimmer bg-honey/15 dark:bg-honey/20 text-honey text-xs font-bold px-2.5 py-1 rounded-full">' + deal.badge + '</div>';
+            dlHTML += '<h3 class="font-display text-lg font-bold text-bean dark:text-cream group-hover:text-honey transition-colors pr-20">' + deal.supplier + '</h3>';
+            dlHTML += '<p class="text-xs text-cinnamon dark:text-latte font-semibold mb-2">' + deal.location + '</p>';
+            dlHTML += '<p class="text-sm text-bean/60 dark:text-cream/60 font-body leading-relaxed">' + deal.promo + '</p>';
+            dlHTML += '<span class="inline-flex items-center gap-1 mt-3 text-xs font-semibold text-honey/70 group-hover:text-honey transition-colors"><i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> Visit Supplier</span></a>';
+          }
+          dealsGrid.innerHTML = dlHTML;
+        } catch (e) { console.error("Deals refresh error:", e); }
+        try {
+          var compBody = document.getElementById("compBody");
+          var cHTML = "";
+          for (var c = 0; c < COMPETITORS.length; c++) {
+            var comp = COMPETITORS[c];
+            var rowClass = comp.isYou ? ' class="you-row"' : '';
+            var nameHTML = comp.isYou
+              ? '<strong class="text-honey">' + comp.shop + '</strong>'
+              : '<span class="text-bean dark:text-cream">' + comp.shop + '</span>';
+            cHTML += '<tr' + rowClass + '>';
+            cHTML += '<td class="font-medium">' + nameHTML + '</td>';
+            cHTML += '<td class="text-bean/60 dark:text-cream/50">' + comp.distance + '</td>';
+            cHTML += '<td class="font-semibold">' + comp.latte + '</td>';
+            cHTML += '<td class="text-bean/70 dark:text-cream/60">' + comp.signature + ' <span class="text-bean/40 dark:text-cream/30">(' + comp.sigPrice + ')</span></td>';
+            cHTML += '<td class="text-sm text-bean/60 dark:text-cream/50 italic">' + comp.edge + '</td></tr>';
+          }
+          compBody.innerHTML = cHTML;
+        } catch (e) { console.error("Competitors refresh error:", e); }
+        try {
+          if (DRINKS_BY_SEASON) {
+            var month = new Date().getMonth();
+            var seasonKey = (month >= 2 && month <= 4) ? "spring" : (month >= 5 && month <= 7) ? "summer" : (month >= 8 && month <= 10) ? "fall" : "winter";
+            var drinks = DRINKS_BY_SEASON[seasonKey] || [];
+            var seasonEl = document.getElementById("seasonIcon");
+            if (seasonEl) seasonEl.innerHTML = (seasonKey === "spring") ? "🌸" : (seasonKey === "summer") ? "☀️" : (seasonKey === "fall") ? "🍂" : "❄️";
+            var drinksGrid = document.getElementById("drinksGrid");
+            var dkHTML = "";
+            for (var n = 0; n < drinks.length; n++) {
+              var dk = drinks[n];
+              dkHTML += '<div class="card-hover bg-white/70 dark:bg-bean/30 rounded-2xl p-5 border border-bean/5 dark:border-cream/5">';
+              dkHTML += '<div class="flex items-center gap-3 mb-3"><span class="text-3xl">' + dk.emoji + '</span>';
+              dkHTML += '<h3 class="font-display text-lg font-bold text-bean dark:text-cream leading-tight">' + dk.name + '</h3></div>';
+              dkHTML += '<p class="text-sm text-bean/60 dark:text-cream/60 font-body leading-relaxed mb-3">' + dk.desc + '</p>';
+              dkHTML += '<div class="flex items-start gap-2 bg-honey/10 dark:bg-honey/5 rounded-xl px-3 py-2">';
+              dkHTML += '<span class="text-xs mt-0.5">💡</span>';
+              dkHTML += '<p class="text-xs text-bean/50 dark:text-cream/40 font-body italic">' + dk.tip + '</p></div></div>';
+            }
+            if (drinksGrid) drinksGrid.innerHTML = dkHTML;
+          }
+        } catch (e) { console.error("Drinks refresh error:", e); }
+        try {
+          var trendsGrid = document.getElementById("trendsGrid");
+          var tHTML = "";
+          for (var t = 0; t < SOCIAL_TRENDS.length; t++) {
+            var tr = SOCIAL_TRENDS[t];
+            tHTML += '<div class="card-hover bg-white/70 dark:bg-bean/30 rounded-2xl p-5 border border-bean/5 dark:border-cream/5">';
+            tHTML += '<div class="flex items-center justify-between mb-3"><div class="flex items-center gap-3">';
+            tHTML += '<span class="text-3xl">' + tr.emoji + '</span>';
+            tHTML += '<h3 class="font-display text-lg font-bold text-bean dark:text-cream leading-tight">' + tr.name + '</h3></div>';
+            tHTML += '<span class="text-[10px] font-bold uppercase tracking-wider text-bean/30 dark:text-cream/25 bg-bean/5 dark:bg-cream/5 px-2 py-0.5 rounded-full flex-shrink-0">' + tr.platform + '</span></div>';
+            tHTML += '<p class="text-sm text-bean/60 dark:text-cream/60 font-body leading-relaxed mb-3">' + tr.desc + '</p>';
+            tHTML += '<div class="flex items-start gap-2 bg-cinnamon/8 dark:bg-cinnamon/5 rounded-xl px-3 py-2 border border-cinnamon/10 dark:border-cinnamon/5">';
+            tHTML += '<span class="text-xs mt-0.5 flex-shrink-0">🤠</span>';
+            tHTML += '<p class="text-xs text-bean/60 dark:text-cream/50 font-body"><strong class="text-cinnamon">Ponder Spin:</strong> ' + tr.ponderSpin + '</p></div></div>';
+          }
+          trendsGrid.innerHTML = tHTML;
+        } catch (e) { console.error("Trends refresh error:", e); }
+        stampUpdated();
+      })
+      .catch(function(err) {
+        console.warn("Monthly data file not loaded, using built-in lists.", err);
+      });
 
   }); /* end DOMContentLoaded */
   </script>

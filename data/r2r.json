@@ -1,0 +1,494 @@
+{
+  "updatedAt": "2026-09-04",
+  "note": "Refreshed on the 1st of each month. Past events still hide daily in the browser.",
+  "events": [
+    {
+      "title": "Lions vs Castleberry (HOME)",
+      "start": "2026-09-04",
+      "end": "2026-09-04",
+      "dateLabel": "Friday, Sep 4 · 7:00 PM",
+      "desc": "Home opener at Ponder. Friday night lights = coffee, cocoa, and cinnamon-roll traffic before kickoff.",
+      "link": "https://events.hometownticketing.com/boxoffice/ponderisd",
+      "icon": "🏈"
+    },
+    {
+      "title": "Denton Arts & Jazz Fest",
+      "start": "2026-09-11",
+      "end": "2026-09-13",
+      "dateLabel": "Sep 11–13, 2026",
+      "desc": "Moved to the North Texas Fairgrounds this year. Fri 3–11, Sat 10–11, Sun 11–9. Big regional crowd in Denton.",
+      "link": "https://dentonjazzfest.com/",
+      "icon": "🎷"
+    },
+    {
+      "title": "Lions vs Farmersville (HOME)",
+      "start": "2026-09-11",
+      "end": "2026-09-11",
+      "dateLabel": "Friday, Sep 11 · 7:00 PM",
+      "desc": "Home game the same weekend as Arts & Jazz. After-school and pre-game window.",
+      "link": "https://events.hometownticketing.com/boxoffice/ponderisd",
+      "icon": "🏈"
+    },
+    {
+      "title": "Denton Community Market",
+      "start": "2026-03-01",
+      "until": "2026-12-20",
+      "recurring": "weekly-sat",
+      "dateLabel": "Saturdays, 9 AM–1 PM",
+      "desc": "317 W Mulberry, Denton. Fresh produce, makers, and live music through Dec 20.",
+      "link": "https://www.dentonmarket.org/",
+      "icon": "🧑‍🌾"
+    },
+    {
+      "title": "Cowboy Church Fall Festival",
+      "start": "2026-09-26",
+      "end": "2026-09-26",
+      "dateLabel": "Saturday, Sep 26 · 10 AM–4 PM",
+      "desc": "Pumpkin patch and vendors at 400 Robinson Rd, Ponder. They asked for food trucks — right in town.",
+      "link": "https://www.facebook.com/DCCChurch/",
+      "icon": "🎃"
+    },
+    {
+      "title": "Lions vs Lake Worth (HOME)",
+      "start": "2026-10-16",
+      "end": "2026-10-16",
+      "dateLabel": "Friday, Oct 16 · 7:00 PM",
+      "desc": "District home game. Cocoa weather should be here by then.",
+      "link": "https://events.hometownticketing.com/boxoffice/ponderisd",
+      "icon": "🏈"
+    },
+    {
+      "title": "Lions vs Krum (HOME)",
+      "start": "2026-11-06",
+      "end": "2026-11-06",
+      "dateLabel": "Friday, Nov 6 · 7:00 PM",
+      "desc": "Last scheduled home game of the regular season.",
+      "link": "https://events.hometownticketing.com/boxoffice/ponderisd",
+      "icon": "🏈"
+    }
+  ],
+  "deals": [
+    {
+      "supplier": "Function Coffee Co",
+      "location": "Northlake, TX",
+      "promo": "Local roaster — 15% off first wholesale order. Farm-direct single origins and custom blends.",
+      "link": "https://www.functioncoffee.co/",
+      "badge": "🏠 Local"
+    },
+    {
+      "supplier": "Texas Coffee Traders",
+      "location": "Austin, TX",
+      "promo": "Free shipping on 25 lb+ orders. Specialty-grade green and roasted beans since 1981.",
+      "link": "https://www.texascoffeetraders.com/",
+      "badge": "⭐ Texas Staple"
+    },
+    {
+      "supplier": "KMO Coffee",
+      "location": "Dallas–Fort Worth",
+      "promo": "2026 Spring special: 10% off seasonal blends for new wholesale accounts. Training included!",
+      "link": "https://www.kmocoffee.com/",
+      "badge": "🆕 2026 Special"
+    },
+    {
+      "supplier": "Coffee Wholesale USA",
+      "location": "Nationwide",
+      "promo": "Bulk pricing on syrups, cups, lids and equipment. Same-day shipping on in-stock items.",
+      "link": "https://www.coffeewholesaleusa.com/",
+      "badge": "📦 Supplies"
+    },
+    {
+      "supplier": "Covoya Coffee",
+      "location": "Online",
+      "promo": "Direct-trade specialty beans. Subscription discounts for cafes — 12% off quarterly plans.",
+      "link": "https://www.covoya.com/",
+      "badge": "🌿 Direct Trade"
+    },
+    {
+      "supplier": "Java City",
+      "location": "Sacramento / Ships Nationwide",
+      "promo": "Turn-key cafe solutions — beans, equipment, branding support. Free consultation.",
+      "link": "https://www.javacity.com/",
+      "badge": "🛠️ Full Service"
+    },
+    {
+      "supplier": "Driven Coffee",
+      "location": "Online / DFW",
+      "promo": "Veteran-owned roaster. 20% off first wholesale order plus free sample kit for cafes.",
+      "link": "https://www.drivencoffee.com/",
+      "badge": "🇺🇸 Veteran-Owned"
+    }
+  ],
+  "competitors": [
+    {
+      "shop": "Roast to Roost (You!)",
+      "distance": "—",
+      "latte": "$4.99",
+      "signature": "Giant Cinnamon Roll",
+      "sigPrice": "$3.99",
+      "edge": "Scratch-made, only in Ponder, community favorite",
+      "isYou": true
+    },
+    {
+      "shop": "Dutch Bros",
+      "distance": "~12 mi",
+      "latte": "$5.25",
+      "signature": "Rebel Energy",
+      "sigPrice": "$5.50",
+      "edge": "You’re local, they’re a chain — people notice",
+      "isYou": false
+    },
+    {
+      "shop": "Higher Grounds",
+      "distance": "~15 mi",
+      "latte": "$4.75–$5.25",
+      "signature": "Specialty Pour-Over",
+      "sigPrice": "$5.50–$6",
+      "edge": "Your cinnamon rolls are a destination draw",
+      "isYou": false
+    },
+    {
+      "shop": "West Oak Coffee Bar",
+      "distance": "~18 mi",
+      "latte": "$4.75–$5.25",
+      "signature": "Seasonal Latte",
+      "sigPrice": "$5.50+",
+      "edge": "Closer to Ponder families, friendlier vibe",
+      "isYou": false
+    },
+    {
+      "shop": "Starbucks (Denton)",
+      "distance": "~14 mi",
+      "latte": "$5.75+",
+      "signature": "Frappuccino",
+      "sigPrice": "$6.25+",
+      "edge": "You’re cheaper, fresher, and they know your name",
+      "isYou": false
+    }
+  ],
+  "socialTrends": [
+    {
+      "name": "Real-pumpkin spice",
+      "emoji": "🎃",
+      "platform": "Fall 2026 · snapshot",
+      "desc": "People can taste the difference between pumpkin puree and pumpkin-spice syrup. Still the seasonal default.",
+      "ponderSpin": "You already bake. A Texas-style PSL with a pinch of cayenne is on-brand and easy to story."
+    },
+    {
+      "name": "Brown sugar shaken espresso",
+      "emoji": "☕",
+      "platform": "TikTok staple · snapshot",
+      "desc": "Still the most copied iced drink. Brown sugar, shaken espresso, oat milk.",
+      "ponderSpin": "Use the same brown-sugar note as the cinnamon rolls so the drink and the pastry rhyme."
+    },
+    {
+      "name": "Maple cold foam",
+      "emoji": "🍁",
+      "platform": "Instagram · snapshot",
+      "desc": "Maple foam on cold brew or chai photographs well and feels like fall without being pumpkin-only.",
+      "ponderSpin": "Pecan + maple is the North Texas version. Toast the pecans for the smell in the truck."
+    },
+    {
+      "name": "Honey chai",
+      "emoji": "🐝",
+      "platform": "Cafe menus · snapshot",
+      "desc": "Chai with local honey instead of syrup. Simple, warm, not a science project.",
+      "ponderSpin": "Call it Ponder honey chai and put the beekeeper on the chalkboard."
+    },
+    {
+      "name": "Pistachio mocha",
+      "emoji": "🌿",
+      "platform": "TikTok · snapshot",
+      "desc": "The pistachio-chocolate wave from last winter is still selling as a fall mocha.",
+      "ponderSpin": "One weekend special is enough. If it moves, keep it through football season."
+    }
+  ],
+  "schoolYear": {
+    "start": "2026-08-05",
+    "end": "2027-05-20",
+    "fourDayStart": "2026-10-02"
+  },
+  "schoolHighlights": [
+    {
+      "label": "Labor Day — no school",
+      "when": "Monday, Sep 7, 2026"
+    },
+    {
+      "label": "4-day week begins",
+      "when": "Fridays off starting Oct 2, 2026"
+    },
+    {
+      "label": "Thanksgiving break",
+      "when": "Nov 23–27, 2026"
+    },
+    {
+      "label": "Winter break",
+      "when": "Dec 18, 2026 – Jan 4, 2027 (students return Jan 5)"
+    },
+    {
+      "label": "Spring break",
+      "when": "Mar 15–19, 2027"
+    },
+    {
+      "label": "No school",
+      "when": "Friday, Mar 26, 2027"
+    },
+    {
+      "label": "Last day of school",
+      "when": "Thursday, May 20, 2027"
+    }
+  ],
+  "noSchool": [
+    {
+      "start": "2026-09-07",
+      "end": "2026-09-07",
+      "reason": "Labor Day"
+    },
+    {
+      "start": "2026-11-23",
+      "end": "2026-11-27",
+      "reason": "Thanksgiving break"
+    },
+    {
+      "start": "2026-12-18",
+      "end": "2027-01-04",
+      "reason": "Winter break"
+    },
+    {
+      "start": "2027-03-15",
+      "end": "2027-03-19",
+      "reason": "Spring break"
+    },
+    {
+      "start": "2027-03-26",
+      "end": "2027-03-26",
+      "reason": "Student holiday"
+    },
+    {
+      "start": "2027-05-21",
+      "end": "2027-08-01",
+      "reason": "Summer break"
+    }
+  ],
+  "football": [
+    {
+      "date": "2026-08-28",
+      "opponent": "Paradise",
+      "home": false,
+      "time": "7:00 PM",
+      "result": "L 32–42"
+    },
+    {
+      "date": "2026-09-04",
+      "opponent": "Castleberry",
+      "home": true,
+      "time": "7:00 PM"
+    },
+    {
+      "date": "2026-09-11",
+      "opponent": "Farmersville",
+      "home": true,
+      "time": "7:00 PM"
+    },
+    {
+      "date": "2026-09-18",
+      "opponent": "Bridgeport",
+      "home": false,
+      "time": "7:00 PM"
+    },
+    {
+      "date": "2026-09-25",
+      "opponent": "Waco Connally",
+      "home": false,
+      "time": "7:00 PM"
+    },
+    {
+      "date": "2026-10-09",
+      "opponent": "Gainesville",
+      "home": false,
+      "time": "7:00 PM",
+      "district": true
+    },
+    {
+      "date": "2026-10-16",
+      "opponent": "Lake Worth",
+      "home": true,
+      "time": "7:00 PM",
+      "district": true
+    },
+    {
+      "date": "2026-10-23",
+      "opponent": "Van Alstyne",
+      "home": false,
+      "time": "7:00 PM",
+      "district": true
+    },
+    {
+      "date": "2026-10-30",
+      "opponent": "Sanger",
+      "home": false,
+      "time": "7:00 PM",
+      "district": true
+    },
+    {
+      "date": "2026-11-06",
+      "opponent": "Krum",
+      "home": true,
+      "time": "7:00 PM",
+      "district": true
+    }
+  ],
+  "drinksBySeason": {
+    "spring": [
+      {
+        "name": "Lavender Honey Latte",
+        "emoji": "💜",
+        "desc": "Espresso with local honey, steamed milk and a touch of lavender syrup. Light and floral.",
+        "tip": "Top with dried lavender buds for a pretty presentation."
+      },
+      {
+        "name": "Texas Pecan Cold Brew",
+        "emoji": "🥜",
+        "desc": "Slow-steeped cold brew with house-made pecan syrup and a splash of oat milk.",
+        "tip": "Use locally sourced pecans for that real Texas flavor."
+      },
+      {
+        "name": "Strawberry Matcha Lemonade",
+        "emoji": "🍓",
+        "desc": "Iced matcha layered over fresh strawberry puree and sparkling lemonade.",
+        "tip": "Beautiful Instagram-worthy layers!"
+      },
+      {
+        "name": "Cinnamon Roll Latte",
+        "emoji": "🍪",
+        "desc": "Inspired by your famous scratch-made cinnamon rolls — cinnamon, brown sugar, cream cheese foam.",
+        "tip": "Pair with an actual cinnamon roll for the ultimate combo deal."
+      },
+      {
+        "name": "Honey Bee Flat White",
+        "emoji": "🐝",
+        "desc": "Velvety flat white sweetened with raw local honey and a light dusting of cinnamon.",
+        "tip": "Source honey from Denton County beekeepers for a hyper-local story."
+      },
+      {
+        "name": "Mint Mocha Iced",
+        "emoji": "🌿",
+        "desc": "Rich chocolate mocha poured over ice with fresh mint and whipped cream.",
+        "tip": "Muddle real mint leaves for a garden-fresh twist."
+      }
+    ],
+    "summer": [
+      {
+        "name": "Watermelon Agua Fresca Coffee",
+        "emoji": "🍉",
+        "desc": "Cold brew meets fresh watermelon agua fresca — surprisingly refreshing.",
+        "tip": "Perfect for 100+ degree days. Serve in Mason jars."
+      },
+      {
+        "name": "Coconut Vanilla Cold Brew",
+        "emoji": "🥥",
+        "desc": "Smooth cold brew, coconut cream and Madagascar vanilla over crushed ice.",
+        "tip": "Freeze coconut milk into cubes so it never gets watered down."
+      },
+      {
+        "name": "Peach Sweet Tea Espresso",
+        "emoji": "🍑",
+        "desc": "A true Texas fusion — sweet peach tea with a shot of espresso over ice.",
+        "tip": "Use Hill Country peaches when in season."
+      },
+      {
+        "name": "Mexican Horchata Latte",
+        "emoji": "🥛",
+        "desc": "Creamy cinnamon-rice milk horchata mixed with espresso. Sweet and spiced.",
+        "tip": "Batch the horchata base daily for consistent creaminess."
+      },
+      {
+        "name": "Frozen Caramel Macchiato",
+        "emoji": "🧊",
+        "desc": "Blended espresso with caramel, vanilla and milk — frozen to perfection.",
+        "tip": "Drizzle caramel inside the cup for a beautiful spiral effect."
+      },
+      {
+        "name": "Blueberry Lemon Cold Brew",
+        "emoji": "🫐",
+        "desc": "Bright blueberry compote and lemon zest stirred into nitrogen cold brew.",
+        "tip": "Garnish with a lemon wheel and a few fresh berries."
+      }
+    ],
+    "fall": [
+      {
+        "name": "Pumpkin Spice Latte (Texas Style)",
+        "emoji": "🎃",
+        "desc": "Real pumpkin puree, warm spices, espresso and steamed milk. No artificial stuff.",
+        "tip": "Add a pinch of cayenne for a subtle Texas kick."
+      },
+      {
+        "name": "Maple Pecan Cappuccino",
+        "emoji": "🍁",
+        "desc": "Rich cappuccino topped with maple syrup foam and candied pecan pieces.",
+        "tip": "Candy the pecans in-house — they smell amazing."
+      },
+      {
+        "name": "Apple Cider Chai",
+        "emoji": "🍎",
+        "desc": "Hot apple cider blended with spiced chai concentrate. Autumn in a cup.",
+        "tip": "Rim the mug with cinnamon sugar for that extra fall feeling."
+      },
+      {
+        "name": "Salted Caramel Mocha",
+        "emoji": "🧂",
+        "desc": "Dark chocolate mocha with house salted caramel and a flaky salt finish.",
+        "tip": "Use Maldon sea salt flakes — the crunch makes it special."
+      },
+      {
+        "name": "Brown Sugar Oat Latte",
+        "emoji": "🤎",
+        "desc": "Espresso with oat milk and torched brown sugar syrup. Cozy and sweet.",
+        "tip": "Brulee the brown sugar on top with a kitchen torch for drama."
+      },
+      {
+        "name": "Sweet Potato Pie Latte",
+        "emoji": "🍠",
+        "desc": "Roasted sweet potato puree, warm spices, espresso and marshmallow cream.",
+        "tip": "A Southern classic turned coffee drink — pairs with cinnamon rolls!"
+      }
+    ],
+    "winter": [
+      {
+        "name": "Gingerbread Latte",
+        "emoji": "🏠",
+        "desc": "Warm ginger, molasses and cinnamon espresso with whipped cream and cookie crumbs.",
+        "tip": "Serve with a mini gingerbread man perched on the rim."
+      },
+      {
+        "name": "Peppermint White Mocha",
+        "emoji": "🍫",
+        "desc": "White chocolate mocha with real peppermint and crushed candy cane topping.",
+        "tip": "Use white chocolate shavings on top for an elegant touch."
+      },
+      {
+        "name": "Mexican Hot Chocolate",
+        "emoji": "🌶️",
+        "desc": "Rich dark chocolate, cinnamon, a hint of chili and topped with whipped cream.",
+        "tip": "Use Ibarra chocolate for authenticity."
+      },
+      {
+        "name": "Eggnog Espresso",
+        "emoji": "🥚",
+        "desc": "Creamy eggnog steamed with espresso and a dusting of fresh nutmeg.",
+        "tip": "Offer a dairy-free version with oat-based nog."
+      },
+      {
+        "name": "Cranberry Orange Americano",
+        "emoji": "🍊",
+        "desc": "Bright cranberry syrup and orange zest over a classic hot Americano.",
+        "tip": "Garnish with a dehydrated orange wheel — gorgeous and shelf-stable."
+      },
+      {
+        "name": "Fireside S’mores Mocha",
+        "emoji": "🔥",
+        "desc": "Chocolate mocha with graham cracker crumbs and toasted marshmallow cream.",
+        "tip": "Toast the marshmallow with a torch tableside for a fun experience."
+      }
+    ]
+  }
+}
