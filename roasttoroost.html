@@ -1,7 +1,7 @@
 <!--
   ╔══════════════════════════════════════════════════════════════════╗
   ║  ROAST TO ROOST COFFEE — Ponder, Texas                         ║
-  ║  Owner Dashboard v3 (100% Read-Only, Zero Data Entry)           ║
+  ║  Owner Dashboard v4 (today strip, dated events, 2026-27 school year)           ║
   ╠══════════════════════════════════════════════════════════════════╣
   ║                                                                  ║
   ║  HOW TO USE:                                                     ║
@@ -11,10 +11,11 @@
   ║  4. Your dashboard is live!                                      ║
   ║                                                                  ║
   ║  HOW TO UPDATE:                                                  ║
-  ║  - Events:      Edit the EVENTS array (~line 270)               ║
-  ║  - Deals:       Edit the DEALS array (~line 320)                ║
-  ║  - Competitors: Edit the COMPETITORS array (~line 370)          ║
-  ║  - Trends:      Edit the SOCIAL_TRENDS array (~line 400)        ║
+  ║  - Events:      Edit EVENTS (ISO start/end). Past dates hide.    ║
+  ║  - School:      Edit SCHOOL_YEAR / NO_SCHOOL / FOOTBALL.         ║
+  ║  - Deals:       Edit the DEALS array                             ║
+  ║  - Competitors: Edit the COMPETITORS array                       ║
+  ║  - Trends:      Edit SOCIAL_TRENDS and bump SNAPSHOT_DATE        ║
   ║  - Weather updates automatically via Open-Meteo API              ║
   ║                                                                  ║
   ║  Built with love for Ponder's favorite coffee spot               ║
@@ -209,7 +210,6 @@
     <div class="absolute -top-16 -right-16 w-56 h-56 border-[6px] border-honey/10 rounded-full"></div>
     <div class="absolute -bottom-20 -left-12 w-40 h-40 border-[4px] border-latte/10 rounded-full"></div>
 
-```
 <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 relative z-10">
   <div class="text-center sm:text-left">
     <div class="flex items-center justify-center sm:justify-start gap-3 mb-1">
@@ -245,7 +245,6 @@
     </div>
   </div>
 </div>
-```
 
   </header>
 
@@ -253,13 +252,25 @@
 
   <main class="max-w-6xl mx-auto px-4 sm:px-8 py-8 space-y-10">
 
-```
-<!-- ═══ 1. UPCOMING EVENTS ═══════════════════════════ -->
+<!-- ═══ 0. TODAY STRIP ════════════════════════════════ -->
 <section class="fade-up fade-up-1">
-  <div class="flex items-center gap-3 mb-5">
-    <span class="text-2xl">&#128197;</span>
-    <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Upcoming Events in Ponder &amp; Denton County</h2>
+  <div class="flex items-end justify-between gap-3 mb-4">
+    <div class="flex items-center gap-3">
+      <span class="text-2xl">&#9749;</span>
+      <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Today at a glance</h2>
+    </div>
+    <p class="text-xs text-bean/40 dark:text-cream/30 font-body hidden sm:block">A 30-second check before the truck fires up.</p>
   </div>
+  <div id="todayGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+</section>
+
+<!-- ═══ 1. UPCOMING EVENTS ═══════════════════════════ -->
+<section class="fade-up fade-up-2">
+  <div class="flex items-center gap-3 mb-2">
+    <span class="text-2xl">&#128197;</span>
+    <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Upcoming Events in Ponder & Denton County</h2>
+  </div>
+  <p class="text-sm text-bean/50 dark:text-cream/40 mb-5 ml-10 font-body">Past dates drop off automatically. Recurring markets stay until the season ends.</p>
   <div id="eventsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
     <p class="text-bean/40 dark:text-cream/30 col-span-full text-center py-4">Loading events...</p>
   </div>
@@ -330,48 +341,31 @@
 
 <!-- ═══ 5. PONDER ISD ════════════════════════════════ -->
 <section class="fade-up fade-up-5">
-  <div class="flex items-center gap-3 mb-5">
+  <div class="flex items-center gap-3 mb-2">
     <span class="text-2xl">&#127979;</span>
-    <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Ponder ISD &amp; School Calendar Highlights</h2>
+    <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Ponder ISD & Lions Calendar</h2>
   </div>
-  <div class="bg-white/70 dark:bg-bean/30 rounded-2xl p-6 border border-bean/5 dark:border-cream/5 card-hover">
-    <p class="font-body text-bean/80 dark:text-cream/80 leading-relaxed mb-4">
-      Ponder ISD serves the heart of our little town. Here are some key dates for the 2025&ndash;2026 school year:
-    </p>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-      <div class="flex items-start gap-3 p-3 rounded-xl bg-cream/50 dark:bg-espresso/40">
-        <span class="text-xl mt-0.5">&#127799;</span>
-        <div>
-          <p class="font-semibold text-bean dark:text-honey text-sm">Spring Break</p>
-          <p class="text-sm text-bean/60 dark:text-cream/60">March 9&ndash;13, 2026</p>
-        </div>
-      </div>
-      <div class="flex items-start gap-3 p-3 rounded-xl bg-cream/50 dark:bg-espresso/40">
-        <span class="text-xl mt-0.5">&#128035;</span>
-        <div>
-          <p class="font-semibold text-bean dark:text-honey text-sm">Easter / Good Friday</p>
-          <p class="text-sm text-bean/60 dark:text-cream/60">April 3, 2026 &mdash; Student Holiday</p>
-        </div>
-      </div>
-      <div class="flex items-start gap-3 p-3 rounded-xl bg-cream/50 dark:bg-espresso/40">
-        <span class="text-xl mt-0.5">&#127891;</span>
-        <div>
-          <p class="font-semibold text-bean dark:text-honey text-sm">Last Day of School</p>
-          <p class="text-sm text-bean/60 dark:text-cream/60">May 28, 2026</p>
-        </div>
-      </div>
-      <div class="flex items-start gap-3 p-3 rounded-xl bg-cream/50 dark:bg-espresso/40">
-        <span class="text-xl mt-0.5">&#127944;</span>
-        <div>
-          <p class="font-semibold text-bean dark:text-honey text-sm">Ponder Lions Football</p>
-          <p class="text-sm text-bean/60 dark:text-cream/60">Season kicks off August 2026 &mdash; Go Lions!</p>
-        </div>
-      </div>
+  <p class="text-sm text-bean/50 dark:text-cream/40 mb-5 ml-10 font-body">
+    2026&ndash;27 school year. 5-day week through Oct 1; Fridays off starting Oct 2.
+  </p>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+    <div class="bg-white/70 dark:bg-bean/30 rounded-2xl p-6 border border-bean/5 dark:border-cream/5">
+      <p class="font-display text-lg font-bold text-bean dark:text-honey mb-3">School year dates</p>
+      <div id="schoolDates" class="space-y-2"></div>
+      <a href="https://www.ponderisd.net/page/2324calendar" target="_blank" rel="noopener"
+        class="inline-flex items-center gap-2 mt-5 text-sm font-semibold text-honey hover:text-cinnamon transition-colors">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i> Official Ponder ISD calendar
+      </a>
     </div>
-    <a href="https://www.ponderisd.net/" target="_blank" rel="noopener"
-      class="inline-flex items-center gap-2 mt-5 text-sm font-semibold text-honey hover:text-cinnamon transition-colors">
-      <i class="fa-solid fa-arrow-up-right-from-square"></i> Visit Ponder ISD Website
-    </a>
+    <div class="bg-white/70 dark:bg-bean/30 rounded-2xl p-6 border border-bean/5 dark:border-cream/5">
+      <p class="font-display text-lg font-bold text-bean dark:text-honey mb-1">Lions football</p>
+      <p class="text-xs text-bean/50 dark:text-cream/40 mb-3 font-body">Varsity &middot; kickoff 7:00 PM &middot; home games are traffic.</p>
+      <div id="footballList" class="space-y-2"></div>
+      <a href="https://events.hometownticketing.com/boxoffice/ponderisd" target="_blank" rel="noopener"
+        class="inline-flex items-center gap-2 mt-5 text-sm font-semibold text-honey hover:text-cinnamon transition-colors">
+        <i class="fa-solid fa-ticket"></i> Athletic tickets
+      </a>
+    </div>
   </div>
 </section>
 
@@ -476,46 +470,41 @@
   </div>
 </section>
 
-<!-- ═══ 8. GOOGLE SEARCH TRENDS (NEW) ════════════════ -->
+<!-- ═══ 8. LOCAL INTEREST NOTES (SNAPSHOT) ════════ -->
 <section class="fade-up fade-up-8">
-  <div class="flex items-center gap-3 mb-5">
+  <div class="flex items-center gap-3 mb-2">
     <span class="text-2xl">&#128270;</span>
-    <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Google Search Trends &amp; Local Interest</h2>
+    <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Local interest notes</h2>
   </div>
-  <div class="bg-white/70 dark:bg-bean/30 rounded-2xl p-6 border border-bean/5 dark:border-cream/5 card-hover">
-    <div class="flex items-start gap-4 mb-5">
-      <div class="flex-shrink-0 w-12 h-12 bg-honey/15 dark:bg-honey/10 rounded-xl flex items-center justify-center">
-        <i class="fa-solid fa-arrow-trend-up text-honey text-xl"></i>
-      </div>
-      <div>
-        <p class="font-body text-bean/80 dark:text-cream/80 leading-relaxed">
-          Interest in <strong class="text-bean dark:text-cream">&ldquo;coffee shop near Ponder&rdquo;</strong> has been
-          <strong class="text-honey">rising roughly 25% year-over-year</strong>, driven by new families moving into the area
-          and growing awareness of local options beyond chain drive-throughs. Searches for
-          <strong class="text-bean dark:text-cream">&ldquo;best cinnamon rolls Denton County&rdquo;</strong>
-          also spike on weekends &mdash; that's your wheelhouse.
-        </p>
-      </div>
-    </div>
-
+  <p class="text-sm text-bean/50 dark:text-cream/40 mb-5 ml-10 font-body">
+    Snapshot, not a live chart. Last reviewed September 2026. Do not treat the numbers as current Google Trends.
+  </p>
+  <div class="bg-white/70 dark:bg-bean/30 rounded-2xl p-6 border border-bean/5 dark:border-cream/5">
+    <p class="font-body text-bean/80 dark:text-cream/80 leading-relaxed mb-5">
+      When this note was written, searches around
+      <strong class="text-bean dark:text-cream">&ldquo;coffee shop near Ponder&rdquo;</strong>
+      looked like they were climbing with new housing, and
+      <strong class="text-bean dark:text-cream">&ldquo;cinnamon rolls Denton County&rdquo;</strong>
+      tended to bump on weekends. Useful as a reminder of the story you already tell &mdash;
+      scratch-made rolls, only in Ponder &mdash; not as a live KPI.
+    </p>
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
       <div class="bg-cream/50 dark:bg-espresso/40 rounded-xl p-3 text-center">
-        <p class="text-xs text-bean/40 dark:text-cream/30 uppercase tracking-wider mb-1">Coffee Near Ponder</p>
-        <p class="font-display text-xl font-bold text-honey">&#9650; 25% YoY</p>
+        <p class="text-xs text-bean/40 dark:text-cream/30 uppercase tracking-wider mb-1">Coffee near Ponder</p>
+        <p class="font-display text-lg font-bold text-bean dark:text-honey">Housing-driven interest</p>
       </div>
       <div class="bg-cream/50 dark:bg-espresso/40 rounded-xl p-3 text-center">
-        <p class="text-xs text-bean/40 dark:text-cream/30 uppercase tracking-wider mb-1">Cinnamon Rolls Denton</p>
-        <p class="font-display text-xl font-bold text-honey">Weekend Spikes</p>
+        <p class="text-xs text-bean/40 dark:text-cream/30 uppercase tracking-wider mb-1">Cinnamon rolls</p>
+        <p class="font-display text-lg font-bold text-bean dark:text-honey">Weekend searches</p>
       </div>
       <div class="bg-cream/50 dark:bg-espresso/40 rounded-xl p-3 text-center">
-        <p class="text-xs text-bean/40 dark:text-cream/30 uppercase tracking-wider mb-1">Ponder TX Things To Do</p>
-        <p class="font-display text-xl font-bold text-honey">&#9650; Climbing</p>
+        <p class="text-xs text-bean/40 dark:text-cream/30 uppercase tracking-wider mb-1">Ponder things to do</p>
+        <p class="font-display text-lg font-bold text-bean dark:text-honey">Worth watching</p>
       </div>
     </div>
-
     <a href="https://trends.google.com/trends/explore?geo=US-TX&q=coffee%20shop%20ponder%20tx" target="_blank" rel="noopener"
       class="inline-flex items-center gap-2 text-sm font-semibold text-honey hover:text-cinnamon transition-colors">
-      <i class="fa-solid fa-arrow-up-right-from-square"></i> Explore Live Google Trends Dashboard
+      <i class="fa-solid fa-arrow-up-right-from-square"></i> Check live Google Trends if you want current data
     </a>
   </div>
 </section>
@@ -526,6 +515,7 @@
     <span class="text-2xl" id="seasonIcon">&#127810;</span>
     <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Seasonal Drink Inspiration</h2>
   </div>
+  <p class="text-sm text-bean/50 dark:text-cream/40 mb-5 ml-10 font-body">Rotates with the calendar month. These are ideas, not a live menu.</p>
   <div id="drinksGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
     <p class="text-bean/40 dark:text-cream/30 col-span-full text-center py-4">Loading drinks...</p>
   </div>
@@ -538,13 +528,12 @@
     <h2 class="font-display text-2xl font-bold text-bean dark:text-honey">Trending Coffee Ideas on Social Media</h2>
   </div>
   <p class="text-sm text-bean/60 dark:text-cream/50 mb-5 font-body -mt-2">
-    What's blowing up on TikTok, Instagram &amp; X right now &mdash; and how you could put a Ponder spin on it.
+    Idea board &mdash; not a live social feed. Snapshot September 2026. Steal a Ponder spin, ignore the rest.
   </p>
   <div id="trendsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
     <p class="text-bean/40 dark:text-cream/30 col-span-full text-center py-4">Loading trends...</p>
   </div>
 </section>
-```
 
   </main>
 
@@ -557,7 +546,7 @@
       </p>
       <p class="text-sm text-cream/30">
         Weather data by <a href="https://open-meteo.com/" class="underline hover:text-honey transition-colors" target="_blank" rel="noopener">Open-Meteo</a>
-        &middot; Dashboard auto-refreshes weather on each visit
+        &middot; Weather refreshes on each visit &middot; Past events hide automatically
       </p>
     </div>
   </footer>
@@ -571,17 +560,239 @@
   <script>
   document.addEventListener("DOMContentLoaded", function() {
 
+    var SNAPSHOT_DATE = "September 2026";
+
     /* ─────────────────────────────────────────────────────
-       EVENTS — Edit this array to update upcoming events!
+       EVENTS — ISO dates. Past events hide automatically.
+       Recurring weekly-sat stays until "until".
        ───────────────────────────────────────────────────── */
     var EVENTS = [
-      { title: "Hello Spring Market",       date: "March 22, 2026",                    desc: "Local vendors, crafts, live music and food trucks at Ponder Town Square.",                           link: "https://www.facebook.com/PonderTexas/",        icon: "\uD83C\uDF38" },
-      { title: "Ponder Frontier Days",      date: "March 28, 2026",                    desc: "Ponder\u2019s legendary annual celebration with parade, BBQ cook-off, live bands and rodeo fun!",    link: "https://www.facebook.com/PonderFrontierDays/", icon: "\uD83E\uDD20" },
-      { title: "Denton Community Market",   date: "Every Saturday, April\u2013Nov 2026", desc: "Fresh produce, artisan goods and live music on the Denton Square. 9 AM \u2013 1 PM.",             link: "https://www.dentoncommunitymarket.com/",       icon: "\uD83E\uDDD1\u200D\uD83C\uDF3E" },
-      { title: "Ponder Town Clean-Up Day",  date: "April 18, 2026",                    desc: "Volunteer morning \u2014 meet at Town Hall, coffee and donuts provided. 8 AM start.",               link: "https://www.facebook.com/PonderTexas/",        icon: "\uD83E\uDDF9" },
-      { title: "North Texas Fair and Rodeo", date: "August 14\u201322, 2026",           desc: "Nine days of rodeo action, concerts, carnival rides and livestock shows at Denton fairgrounds.",   link: "https://www.ntfair.com/",                      icon: "\uD83D\uDC02" },
-      { title: "Ponder Fall Festival",      date: "October 10, 2026",                  desc: "Pumpkin patch, hayrides, chili cook-off, and small-town Texas charm at its finest.",                link: "https://www.facebook.com/PonderTexas/",        icon: "\uD83C\uDF83" }
+      { title: "Lions vs Castleberry (HOME)", start: "2026-09-04", end: "2026-09-04", dateLabel: "Tonight, 7:00 PM", desc: "Home opener at Ponder. Friday night lights = coffee, cocoa, and cinnamon-roll traffic before kickoff.", link: "https://events.hometownticketing.com/boxoffice/ponderisd", icon: "\uD83C\uDFC8" },
+      { title: "Denton Arts & Jazz Fest", start: "2026-09-11", end: "2026-09-13", dateLabel: "Sep 11\u201313, 2026", desc: "Moved to the North Texas Fairgrounds this year. Fri 3\u201311, Sat 10\u201311, Sun 11\u20139. Big regional crowd in Denton.", link: "https://dentonjazzfest.com/", icon: "\uD83C\uDFB7" },
+      { title: "Lions vs Farmersville (HOME)", start: "2026-09-11", end: "2026-09-11", dateLabel: "Friday, Sep 11 \u00B7 7:00 PM", desc: "Home game the same weekend as Arts & Jazz. After-school and pre-game window.", link: "https://events.hometownticketing.com/boxoffice/ponderisd", icon: "\uD83C\uDFC8" },
+      { title: "Denton Community Market", start: "2026-03-01", until: "2026-12-20", recurring: "weekly-sat", dateLabel: "Saturdays, 9 AM\u20131 PM", desc: "317 W Mulberry, Denton. Fresh produce, makers, and live music through Dec 20.", link: "https://www.dentonmarket.org/", icon: "\uD83E\uDDD1\u200D\uD83C\uDF3E" },
+      { title: "Cowboy Church Fall Festival", start: "2026-09-26", end: "2026-09-26", dateLabel: "Saturday, Sep 26 \u00B7 10 AM\u20134 PM", desc: "Pumpkin patch and vendors at 400 Robinson Rd, Ponder. They asked for food trucks \u2014 right in town.", link: "https://www.facebook.com/DCCChurch/", icon: "\uD83C\uDF83" },
+      { title: "Lions vs Lake Worth (HOME)", start: "2026-10-16", end: "2026-10-16", dateLabel: "Friday, Oct 16 \u00B7 7:00 PM", desc: "District home game. Cocoa weather should be here by then.", link: "https://events.hometownticketing.com/boxoffice/ponderisd", icon: "\uD83C\uDFC8" },
+      { title: "Lions vs Krum (HOME)", start: "2026-11-06", end: "2026-11-06", dateLabel: "Friday, Nov 6 \u00B7 7:00 PM", desc: "Last scheduled home game of the regular season.", link: "https://events.hometownticketing.com/boxoffice/ponderisd", icon: "\uD83C\uDFC8" }
     ];
+
+    var SCHOOL_YEAR = { start: "2026-08-05", end: "2027-05-20", fourDayStart: "2026-10-02" };
+
+    var SCHOOL_HIGHLIGHTS = [
+      { label: "Labor Day \u2014 no school", when: "Monday, Sep 7, 2026" },
+      { label: "4-day week begins", when: "Fridays off starting Oct 2, 2026" },
+      { label: "Thanksgiving break", when: "Nov 23\u201327, 2026" },
+      { label: "Winter break", when: "Dec 18, 2026 \u2013 Jan 4, 2027 (students return Jan 5)" },
+      { label: "Spring break", when: "Mar 15\u201319, 2027" },
+      { label: "No school", when: "Friday, Mar 26, 2027" },
+      { label: "Last day of school", when: "Thursday, May 20, 2027" }
+    ];
+
+    var FOOTBALL = [
+      { date: "2026-08-28", opponent: "Paradise", home: false, time: "7:00 PM", result: "L 32\u201342" },
+      { date: "2026-09-04", opponent: "Castleberry", home: true, time: "7:00 PM" },
+      { date: "2026-09-11", opponent: "Farmersville", home: true, time: "7:00 PM" },
+      { date: "2026-09-18", opponent: "Bridgeport", home: false, time: "7:00 PM" },
+      { date: "2026-09-25", opponent: "Waco Connally", home: false, time: "7:00 PM" },
+      { date: "2026-10-09", opponent: "Gainesville", home: false, time: "7:00 PM", district: true },
+      { date: "2026-10-16", opponent: "Lake Worth", home: true, time: "7:00 PM", district: true },
+      { date: "2026-10-23", opponent: "Van Alstyne", home: false, time: "7:00 PM", district: true },
+      { date: "2026-10-30", opponent: "Sanger", home: false, time: "7:00 PM", district: true },
+      { date: "2026-11-06", opponent: "Krum", home: true, time: "7:00 PM", district: true }
+    ];
+
+    function pad2(n) { return (n < 10 ? "0" : "") + n; }
+    function ymd(d) {
+      return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate());
+    }
+    function parseISODate(s) {
+      var p = String(s).split("-");
+      return new Date(+p[0], +p[1] - 1, +p[2]);
+    }
+    function startOfDay(d) {
+      return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    }
+    function addDays(d, n) {
+      var x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+      x.setDate(x.getDate() + n);
+      return x;
+    }
+    function fmtShort(d) {
+      return d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+    }
+
+    var NO_SCHOOL = {};
+    function markRange(a, b, reason) {
+      var d = parseISODate(a), end = parseISODate(b);
+      while (d <= end) {
+        NO_SCHOOL[ymd(d)] = reason;
+        d = addDays(d, 1);
+      }
+    }
+    markRange("2026-09-07", "2026-09-07", "Labor Day");
+    markRange("2026-11-23", "2026-11-27", "Thanksgiving break");
+    markRange("2026-12-18", "2027-01-04", "Winter break");
+    markRange("2027-03-15", "2027-03-19", "Spring break");
+    markRange("2027-03-26", "2027-03-26", "Student holiday");
+    markRange("2027-05-21", "2027-08-01", "Summer break");
+
+    function schoolStatus(d) {
+      var today = startOfDay(d);
+      var iso = ymd(today);
+      var dow = today.getDay();
+      var first = parseISODate(SCHOOL_YEAR.start);
+      var last = parseISODate(SCHOOL_YEAR.end);
+      var four = parseISODate(SCHOOL_YEAR.fourDayStart);
+      if (today < first) return { inSession: false, label: "Before first day", hint: "Year starts Aug 5. Quiet until bells ring." };
+      if (today > last) return { inSession: false, label: "Summer break", hint: "School's out. Weekend-style traffic." };
+      if (NO_SCHOOL[iso]) return { inSession: false, label: "No school \u2014 " + NO_SCHOOL[iso], hint: "Families around town. Think weekend menu." };
+      if (dow === 0) return { inSession: false, label: "Sunday", hint: "Church and slow-morning coffee." };
+      if (dow === 6) return { inSession: false, label: "Saturday", hint: "Weekend crowd. Cinnamon rolls do the talking." };
+      if (dow === 5 && today >= four) return { inSession: false, label: "No-school Friday (4-day week)", hint: "Kids off. Late breakfast and family stops." };
+      var bell = (dow === 1 || dow === 2 || dow === 3 || dow === 4 || (dow === 5 && today < four));
+      if (bell) return { inSession: true, label: "School in session", hint: "Morning rush before the bell, after-school snack window." };
+      return { inSession: false, label: "No school", hint: "Treat it like a weekend." };
+    }
+
+    function nextSaturday(from) {
+      var d = startOfDay(from);
+      var add = (6 - d.getDay() + 7) % 7;
+      return addDays(d, add);
+    }
+
+    function eventIsLive(ev, today) {
+      var t = startOfDay(today);
+      if (ev.recurring === "weekly-sat") {
+        var from = parseISODate(ev.start);
+        var until = ev.until ? parseISODate(ev.until) : null;
+        if (t < from) return false;
+        if (until && t > until) return false;
+        return true;
+      }
+      var end = parseISODate(ev.end || ev.start);
+      return end >= t;
+    }
+
+    function eventDateLine(ev, today) {
+      if (ev.recurring === "weekly-sat") {
+        var nxt = nextSaturday(today);
+        var until = ev.until ? parseISODate(ev.until) : null;
+        if (until && nxt > until) return ev.dateLabel;
+        var same = ymd(nxt) === ymd(startOfDay(today));
+        return ev.dateLabel + " \u00B7 " + (same ? "today" : "next " + fmtShort(nxt));
+      }
+      return ev.dateLabel;
+    }
+
+    function footballOn(d) {
+      var iso = ymd(startOfDay(d));
+      for (var i = 0; i < FOOTBALL.length; i++) {
+        if (FOOTBALL[i].date === iso) return FOOTBALL[i];
+      }
+      return null;
+    }
+
+    function nextHomeGame(d) {
+      var t = ymd(startOfDay(d));
+      for (var i = 0; i < FOOTBALL.length; i++) {
+        var g = FOOTBALL[i];
+        if (g.home && g.date >= t && !g.result) return g;
+      }
+      return null;
+    }
+
+    var todayWeather = null;
+
+    function todayCard(kicker, title, body, extra) {
+      var html = '<div class="bg-white/70 dark:bg-bean/30 rounded-2xl p-4 border border-bean/5 dark:border-cream/5">';
+      html += '<p class="text-[10px] font-bold uppercase tracking-widest text-honey mb-1">' + kicker + "</p>";
+      html += '<p class="font-display text-lg font-bold text-bean dark:text-cream leading-tight mb-1">' + title + "</p>";
+      html += '<p class="text-sm text-bean/60 dark:text-cream/60 font-body leading-relaxed">' + body + "</p>";
+      if (extra) html += '<p class="text-xs text-bean/40 dark:text-cream/30 mt-2 font-body">' + extra + "</p>";
+      html += "</div>";
+      return html;
+    }
+
+    function playCall(d, wx, school, game) {
+      var high = wx ? wx.high : null;
+      var rain = wx ? wx.rainy : false;
+      if (game && game.home) return { title: "Game-night menu", body: "Home lights tonight. Have cocoa, a simple hot coffee, and rolls ready before 6." };
+      if (game && !game.home) return { title: "Away-game Friday", body: "Town is quieter. Still a good night for the regulars." };
+      if (school.inSession) return { title: "School-day rhythm", body: "Morning rush, then the after-school dip into snacks and sweet drinks." };
+      if (d.getDay() === 6) return { title: "Saturday set", body: "Rolls and slow coffee. Market crowd heads toward Denton \u2014 catch Ponder first." };
+      if (high != null && high >= 90) return { title: "Heat-wave drinks", body: "Cold brew, iced tea, frozen drinks. Keep water visible." };
+      if (rain || (high != null && high <= 65)) return { title: "Cozy-day weather", body: "Hot lattes and cinnamon rolls. This is your weather." };
+      if (!school.inSession && d.getDay() === 5) return { title: "No-school Friday", body: "Families free. Late breakfasts and lingering cups." };
+      return { title: "Steady day", body: "Classic coffee and the rolls. Nothing fancy required." };
+    }
+
+    function renderTodayStrip() {
+      var d = new Date();
+      var school = schoolStatus(d);
+      var game = footballOn(d);
+      var wx = todayWeather;
+      var play = playCall(d, wx, school, game);
+      var html = "";
+
+      if (wx) {
+        html += todayCard("Weather", wx.label + " \u00B7 " + wx.high + "\u00B0 / " + wx.low + "\u00B0",
+          wx.rainy ? "Rain in the forecast \u2014 hot drinks earn their keep." : "Ponder forecast, next few hours of truck weather.",
+          "Open-Meteo \u00B7 refreshes on each visit");
+      } else {
+        html += todayCard("Weather", "Loading Ponder forecast", "High/low will land here in a second.", "");
+      }
+
+      html += todayCard("School", school.label, school.hint,
+        school.inSession ? "Elem 7:20\u20133:25 \u00B7 HS 8:10\u20134:15" : "Ponder ISD 2026\u201327");
+
+      if (game) {
+        var where = game.home ? "HOME vs " : "Away @ ";
+        html += todayCard("Lions", where + game.opponent, "Kickoff " + game.time + (game.home ? ". Pre-game traffic around the school." : ". Quieter night in town."),
+          game.result ? game.result : "Go Lions");
+      } else {
+        var nxt = nextHomeGame(d);
+        var line = nxt ? ("Next home: vs " + nxt.opponent + " \u00B7 " + fmtShort(parseISODate(nxt.date))) : "No home game on the remaining slate.";
+        html += todayCard("Lions", "No game today", line, "Tickets via Ponder ISD");
+      }
+
+      html += todayCard("Play", play.title, play.body, "");
+      var el = document.getElementById("todayGrid");
+      if (el) el.innerHTML = html;
+    }
+
+    function renderSchoolAndFootball() {
+      var box = document.getElementById("schoolDates");
+      if (box) {
+        var h = "";
+        for (var i = 0; i < SCHOOL_HIGHLIGHTS.length; i++) {
+          var s = SCHOOL_HIGHLIGHTS[i];
+          h += '<div class="flex items-start gap-3 p-3 rounded-xl bg-cream/50 dark:bg-espresso/40">';
+          h += '<div><p class="font-semibold text-bean dark:text-honey text-sm">' + s.label + "</p>";
+          h += '<p class="text-sm text-bean/60 dark:text-cream/60">' + s.when + "</p></div></div>";
+        }
+        box.innerHTML = h;
+      }
+      var list = document.getElementById("footballList");
+      if (!list) return;
+      var todayIso = ymd(startOfDay(new Date()));
+      var html = "";
+      var shown = 0;
+      for (var k = 0; k < FOOTBALL.length; k++) {
+        var g = FOOTBALL[k];
+        if (g.date < todayIso && g.result) continue;
+        if (g.date < todayIso && !g.result) continue;
+        shown++;
+        var stamp = (g.date === todayIso) ? "TODAY" : fmtShort(parseISODate(g.date));
+        var loc = g.home ? "HOME" : "Away";
+        var extra = g.result ? g.result : (g.district ? "District" : "Non-district");
+        html += '<div class="flex items-center justify-between gap-3 p-3 rounded-xl bg-cream/50 dark:bg-espresso/40">';
+        html += '<div><p class="font-semibold text-bean dark:text-cream text-sm">' + loc + " vs " + g.opponent + "</p>";
+        html += '<p class="text-xs text-bean/50 dark:text-cream/50">' + stamp + " \u00B7 " + g.time + "</p></div>";
+        html += '<span class="text-xs font-bold uppercase tracking-wider text-honey">' + extra + "</span></div>";
+      }
+      if (!shown) html = '<p class="text-sm text-bean/50">Season complete.</p>';
+      list.innerHTML = html;
+    }
 
     /* ─────────────────────────────────────────────────────
        DEALS — Edit this array to update supplier deals!
@@ -613,12 +824,12 @@
        Fields: name, emoji, platform, desc, ponderSpin
        ───────────────────────────────────────────────────── */
     var SOCIAL_TRENDS = [
-      { name: "Toasted Coconut",            emoji: "\uD83E\uDD65", platform: "Starbucks / TikTok",  desc: "The viral Starbucks hit \u2014 toasted coconut syrup in lattes, cold brews, and shaken espressos.", ponderSpin: "Make a scratch version with real toasted coconut flakes and brown sugar. Way better than the chain." },
-      { name: "Ube Coconut Macchiato",      emoji: "\uD83D\uDC9C", platform: "TikTok / Instagram",  desc: "Purple ube extract layered with coconut milk and espresso. Visually stunning and subtly sweet.",     ponderSpin: "The purple color is an instant photo op. Stock ube extract and let the Instagram posts roll in." },
-      { name: "Lavender Everything",        emoji: "\uD83C\uDF3B", platform: "Everywhere",           desc: "Lavender lattes, lavender chai, lavender matcha \u2014 the floral flavor is dominating spring 2026.", ponderSpin: "Pair lavender with your local honey for a Ponder-only twist. Simple syrup, big wow factor." },
-      { name: "Pistachio Matcha",           emoji: "\uD83C\uDF75", platform: "Instagram / TikTok",   desc: "Vibrant green matcha with rich pistachio cream. Nutty, earthy, and gorgeous in a clear cup.",        ponderSpin: "Layer it in a Mason jar. Texas folks love matcha more than you\u2019d think \u2014 test it as a weekend special." },
-      { name: "Marshmallow Cotton Candy",   emoji: "\uD83C\uDF6C", platform: "TikTok",               desc: "Fluffy cotton candy dissolved into steamed milk with vanilla and marshmallow syrup. Kid magnet.",    ponderSpin: "Perfect for the after-school crowd. Add food coloring for a pink or blue wow moment." }
-    ];
+      { name: "Real-pumpkin spice",         emoji: "\uD83C\uDF83", platform: "Fall 2026 \u00B7 snapshot", desc: "People can taste the difference between pumpkin puree and pumpkin-spice syrup. Still the seasonal default.", ponderSpin: "You already bake. A Texas-style PSL with a pinch of cayenne is on-brand and easy to story." },
+      { name: "Brown sugar shaken espresso", emoji: "\u2615", platform: "TikTok staple \u00B7 snapshot", desc: "Still the most copied iced drink. Brown sugar, shaken espresso, oat milk.", ponderSpin: "Use the same brown-sugar note as the cinnamon rolls so the drink and the pastry rhyme." },
+      { name: "Maple cold foam",             emoji: "\uD83C\uDF41", platform: "Instagram \u00B7 snapshot", desc: "Maple foam on cold brew or chai photographs well and feels like fall without being pumpkin-only.", ponderSpin: "Pecan + maple is the North Texas version. Toast the pecans for the smell in the truck." },
+      { name: "Honey chai",                  emoji: "\uD83D\uDC1D", platform: "Cafe menus \u00B7 snapshot", desc: "Chai with local honey instead of syrup. Simple, warm, not a science project.", ponderSpin: "Call it Ponder honey chai and put the beekeeper on the chalkboard." },
+      { name: "Pistachio mocha",             emoji: "\uD83C\uDF3F", platform: "TikTok \u00B7 snapshot", desc: "The pistachio-chocolate wave from last winter is still selling as a fall mocha.", ponderSpin: "One weekend special is enough. If it moves, keep it through football season." }
+    ]
 
 
     /* ═══════════════════════════════════════════════════════
@@ -658,25 +869,39 @@
 
 
     /* ═══════════════════════════════════════════════════════
-       RENDER EVENTS
+       TODAY STRIP + SCHOOL + EVENTS
        ═══════════════════════════════════════════════════════ */
     try {
+      renderTodayStrip();
+      renderSchoolAndFootball();
+    } catch(e) { console.error("Today/school error:", e); }
+
+    try {
       var eventsGrid = document.getElementById("eventsGrid");
-      var evHTML = "";
+      var live = [];
+      var today = new Date();
       for (var i = 0; i < EVENTS.length; i++) {
-        var ev = EVENTS[i];
-        evHTML += '<a href="' + ev.link + '" target="_blank" rel="noopener" class="card-hover bg-white/70 dark:bg-bean/30 rounded-2xl p-5 border border-bean/5 dark:border-cream/5 block group">';
-        evHTML += '<div class="flex items-center gap-3 mb-3">';
-        evHTML += '<span class="text-3xl">' + ev.icon + '</span>';
-        evHTML += '<div>';
-        evHTML += '<h3 class="font-display text-lg font-bold text-bean dark:text-cream group-hover:text-honey transition-colors leading-tight">' + ev.title + '</h3>';
-        evHTML += '<p class="text-xs text-honey font-semibold uppercase tracking-wider mt-0.5">' + ev.date + '</p>';
-        evHTML += '</div></div>';
-        evHTML += '<p class="text-sm text-bean/60 dark:text-cream/60 font-body leading-relaxed">' + ev.desc + '</p>';
-        evHTML += '<span class="inline-flex items-center gap-1 mt-3 text-xs font-semibold text-honey/70 group-hover:text-honey transition-colors"><i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> Details</span>';
-        evHTML += '</a>';
+        if (eventIsLive(EVENTS[i], today)) live.push(EVENTS[i]);
       }
-      eventsGrid.innerHTML = evHTML;
+      if (!live.length) {
+        eventsGrid.innerHTML = '<p class="text-bean/50 dark:text-cream/40 col-span-full text-center py-4">No upcoming events on the board. Add ISO dates to the EVENTS array.</p>';
+      } else {
+        var evHTML = "";
+        for (var i = 0; i < live.length; i++) {
+          var ev = live[i];
+          evHTML += '<a href="' + ev.link + '" target="_blank" rel="noopener" class="card-hover bg-white/70 dark:bg-bean/30 rounded-2xl p-5 border border-bean/5 dark:border-cream/5 block group">';
+          evHTML += '<div class="flex items-center gap-3 mb-3">';
+          evHTML += '<span class="text-3xl">' + ev.icon + '</span>';
+          evHTML += '<div>';
+          evHTML += '<h3 class="font-display text-lg font-bold text-bean dark:text-cream group-hover:text-honey transition-colors leading-tight">' + ev.title + '</h3>';
+          evHTML += '<p class="text-xs text-honey font-semibold uppercase tracking-wider mt-0.5">' + eventDateLine(ev, today) + '</p>';
+          evHTML += '</div></div>';
+          evHTML += '<p class="text-sm text-bean/60 dark:text-cream/60 font-body leading-relaxed">' + ev.desc + '</p>';
+          evHTML += '<span class="inline-flex items-center gap-1 mt-3 text-xs font-semibold text-honey/70 group-hover:text-honey transition-colors"><i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> Details</span>';
+          evHTML += '</a>';
+        }
+        eventsGrid.innerHTML = evHTML;
+      }
     } catch(e) {
       console.error("Events error:", e);
       try { document.getElementById("eventsGrid").innerHTML = '<p class="text-cinnamon col-span-full text-center py-4">Could not load events.</p>'; } catch(x) {}
@@ -761,7 +986,7 @@
 
     var weatherContainer = document.getElementById("weatherContainer");
 
-    fetch("https://api.open-meteo.com/v1/forecast?latitude=33.18&longitude=-97.29&daily=temperature_2m_max,temperature_2m_min,weathercode&temperature_unit=fahrenheit&timezone=America%2FChicago&forecast_days=5")
+    fetch("https://api.open-meteo.com/v1/forecast?latitude=33.18&longitude=-97.29&daily=temperature_2m_max,temperature_2m_min,weathercode,precipitation_probability_max&temperature_unit=fahrenheit&timezone=America%2FChicago&forecast_days=5")
       .then(function(res) {
         if (!res.ok) throw new Error("HTTP " + res.status);
         return res.json();
@@ -772,6 +997,17 @@
         var lows  = data.daily.temperature_2m_min;
         var codes = data.daily.weathercode;
         var dayLabels = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+        var wmo0 = WMO[codes[0]] || { icon: "", label: "Ponder" };
+        var pop = (data.daily.precipitation_probability_max || [0])[0];
+        todayWeather = {
+          high: Math.round(highs[0]),
+          low: Math.round(lows[0]),
+          label: wmo0.label,
+          rainy: (codes[0] >= 51 && codes[0] <= 82) || (pop >= 50)
+        };
+        try { renderTodayStrip(); } catch (e2) { console.error(e2); }
+
 
         var wHTML = "";
         for (var k = 0; k < times.length; k++) {
