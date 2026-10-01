@@ -1,21 +1,14 @@
 {
   "status": "ok",
-  "updated": "2026-09-05",
+  "updated": "2026-10-01",
   "note": "Monthly snapshot from Google News RSS. Not a live feed.",
   "sections": {
     "endo": [
       {
-        "title": "Lotus Endometriosis Institute Announces Integrative Endometriosis Surgery Care - markets.businessinsider.com",
-        "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxOUUNIRl9DUWtzWi1wREx6cVdsUGlodl9vblZsWmVXRUE2cGRSMl9GamF3bDIxTFpIQVd1SmxSTXhpNlF6NFYwWUwxdF9qXzlUbTRBWDlsZ0VQQ2xWUzAtTFFfZU1pYTNsNjREekdOZGRFLUZFcGotME1EdjVDM01XaXVldmdPV045MVpraENDMjNOT1plRjRtT1ZYZTN1T0tMamI3OG9sZTdHYnF4T1o0WGRJbm9SRjMyN3A4WXNQWl9hV1EzN25rTGgtMlIwV2daTDhB?oc=5",
-        "description": "Lotus Endometriosis Institute Announces Integrative Endometriosis Surgery Care  markets.businessinsider.com",
-        "pubDate": "Sat, 05 Sep 2026 03:07:33 GMT",
-        "author": "markets.businessinsider.com"
-      },
-      {
-        "title": "Lotus Endometriosis Institute Announces Integrative Excision Surgery For Endo - USA Today",
-        "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPSEtTNTZVZUlSY2k5bWlleWZHdGd4RWxpVVRjb1RtYVBING5sdER6eGREQjVmWE9aYV9zN3FpcWxUU25GUUZxdGRuRWlCREhQTGRiLV9ZS01aOEh1QlVvRkNHcjQ1cFZEbkU1X09YMlBGaFl4NWE0UmR5ZXlGVFVUNTdIbnZZUEJrLU5mdDl5WXJvVjRld29yM21wSTYyak85djBTTzZIREJqZm9jSlVHSE8tcEljaVFldlNLWElJQ01qcmJDYmlFTw?oc=5",
-        "description": "Lotus Endometriosis Institute Announces Integrative Excision Surgery For Endo  USA Today",
-        "pubDate": "Fri, 28 Aug 2026 00:03:17 GMT",
+        "title": "Lotus Endometriosis Institute Announces Integrative Endometriosis Surgery Care - USA Today",
+        "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPZ1R3eGtXTk5LRWdIN2Q4ZTJRZ3Y5dGVZeXRJOU5xUUEyOTAwQTRDbjFzSl9Dd0Nlb2xNTzVkS3dvNTlnSGQtSHozbWlwTWlNTHh1LUN2RDlZMWpGM2E0ZV8wX0FGbURYdThVYVJBNGNjcDFmalU3TE5FYzBVS19YNUUyUWI3R3Q4amtORVZyeFBjZXhVd1hXeVhGcGdGMFlnQ3gzTFpGUEIzcGNsZXF2LURuRWk2VHFjVXZrOVE0SFQxTkoyWDZEbVVB?oc=5",
+        "description": "Lotus Endometriosis Institute Announces Integrative Endometriosis Surgery Care  USA Today",
+        "pubDate": "Mon, 28 Sep 2026 20:46:34 GMT",
         "author": "USA Today"
       },
       {
@@ -26,6 +19,13 @@
         "author": "Cleveland Clinic"
       },
       {
+        "title": "A First-of-Its-Kind Surgery, and the Endometriosis Patient Whose Ovary It Revived - Endometriosis Foundation of America",
+        "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQdTlwcFlhUTVUQTVBSGsyRE9OZGR1TmNXaWVqMzZUWk9QYWFpTUFjczY0bE1fREw2SzdIWmlZS0s2dkdhT3A4TDBqbTVVMDRidjR0blczU1dmOFNWaFdvYkhPdWt5ZFZEdW15ZWJrRmxjUkQzTzgyUktlbWlKLUdnbm5JZ0ZDSGJVZmg4Z3M0VU5yZVZWanVDekFhSE9CakVqS3ZrajM4d2p6dw?oc=5",
+        "description": "A First-of-Its-Kind Surgery, and the Endometriosis Patient Whose Ovary It Revived  Endometriosis Foundation of America",
+        "pubDate": "Wed, 20 May 2026 07:00:00 GMT",
+        "author": "Endometriosis Foundation of America"
+      },
+      {
         "title": "Rethinking endometriosis recurrence: from clinical challenge to biological opportunity - Nature",
         "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE91X1Z5bFVFUXQ5QUhlQnh0Z191cGNDUkE4RVB1aXRScVJmNUh5ZXhURUxEVGVocjVtMGdOVmVSSXpmWVFmTjN5OXpfOVNBeDBxRF90cDJoOTFONng1Z0Zv?oc=5",
         "description": "Rethinking endometriosis recurrence: from clinical challenge to biological opportunity  Nature",
@@ -33,11 +33,11 @@
         "author": "Nature"
       },
       {
-        "title": "A First-of-Its-Kind Surgery, and the Endometriosis Patient Whose Ovary It Revived - Endometriosis Foundation of America",
-        "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQdTlwcFlhUTVUQTVBSGsyRE9OZGR1TmNXaWVqMzZUWk9QYWFpTUFjczY0bE1fREw2SzdIWmlZS0s2dkdhT3A4TDBqbTVVMDRidjR0blczU1dmOFNWaFdvYkhPdWt5ZFZEdW15ZWJrRmxjUkQzTzgyUktlbWlKLUdnbm5JZ0ZDSGJVZmg4Z3M0VU5yZVZWanVDekFhSE9CakVqS3ZrajM4d2p6dw?oc=5",
-        "description": "A First-of-Its-Kind Surgery, and the Endometriosis Patient Whose Ovary It Revived  Endometriosis Foundation of America",
-        "pubDate": "Wed, 20 May 2026 07:00:00 GMT",
-        "author": "Endometriosis Foundation of America"
+        "title": "PRM Expands Advanced Endometriosis Care in Falls Church with Gynecologic Surgeon Dr. Anna Reinert - GlobeNewswire",
+        "link": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxPYm9JQ0dWZkFWVEJ5SGpSdzZOYmhqbFQ3THQwbmRkcUxLY0llY19nRmpvLWZmQkRMV1ZYSGNYX0FaYWc4NVB2eTRGei11VVd3VGdaRnlMVzJfY2lURi1tQ0VVbS1CcGRzOTVOYzBKdDU2Q3RMVF81TUhIekhRcVlYTUJNWjk0TlRWU0hyMUx5ZTg2Wi1rNk55XzlqT213LUN1Zzg4S0w0UmlGQUNUUjZMWmhjNUdyUWpBVnpIUm1zQ3M3eDYyWVhya3ZmOHFvWUQ1cVdIUU9IdTVLOFRNcjZFem44VHFEczVBNXpoLWtGRVJpVVdqMjNEbDVoT28?oc=5",
+        "description": "PRM Expands Advanced Endometriosis Care in Falls Church with Gynecologic Surgeon Dr. Anna Reinert  GlobeNewswire",
+        "pubDate": "Tue, 15 Sep 2026 07:00:00 GMT",
+        "author": "GlobeNewswire"
       },
       {
         "title": "Will new endometriosis guidance put an end to treatment delays? - Baylor College of Medicine Blog Network -",
@@ -47,27 +47,41 @@
         "author": "Baylor College of Medicine Blog Network -"
       },
       {
-        "title": "Systematic Laparoscopic Excision and Reconstruction of Bladder Endometriosis With Deep Myometrial Infiltration: A Step-by-Step Surgical Technique and Educational Case Report - Cureus",
-        "link": "https://news.google.com/rss/articles/CBMitgJBVV95cUxNRjJ3MWJRYlpKUVk1bHR5Zk9rd1JpNXF4UkFYb25xWWpVRmtBYXUzR05yNzVMeDR5OUgzY2lRbGV6MUM0dHdFNHZoYVFwNkI0RzBldERrSzhRQWw5WHBFMWp6X0xEN1VPNXVXamI4Q2VYN3JsTklUU21DeVlNWDE3enJCUmZadW5pQjNHWXA5d1BLVkUzbXVNa25VVmxTZjROaFUwUTg1S1pBMDVmbUREQ3p2TWRFMXBMTXZia2hVOWVrMHhSbWVCZXA4RFRzcUJDR0xGdUVzU0JsZ19GeUtFYmxlb1dTNUh6aURXN3BKX3pzYkpSQWhrTVZublJaeFVOWFFydk1felhGT2JPTWdLQ3lrbnpPRHpKMXNPWGl6SVlvTmw4S0xRdldCZHRmektqT1M5ekxR?oc=5",
-        "description": "Systematic Laparoscopic Excision and Reconstruction of Bladder Endometriosis With Deep Myometrial Infiltration: A Step-by-Step Surgical Technique and Educational Case Report  Cureus",
-        "pubDate": "Tue, 14 Jul 2026 07:00:00 GMT",
-        "author": "Cureus"
+        "title": "Robotic Excision Surgery for Advanced Endometriosis: Patient Guidance Published - FinancialContent",
+        "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPNy1qdEdTZ1NmQnh5RmVQT0R2YTB3TW5zLVBMdEVrUV91LUN3QW5Cdl9MVjA5Zkh3MXhQMW1jZ2tvNHhlZmpZRlhJRXA2RWw0OWhHanVpZXU5QXdnZ04tUDVqSFpJenN1ZGxwWC10Qk1oZGhOWUV1bXR3eU1DYVhobGppM3VqUy1BRlhWY0lQT19QT3N2NG9QTHVNSW9WTFVmeTJkaF83Nng1LTFSc2s4dHVmRGtSa2dsT0lXSjJJSGdXZkJJb1BvR3RyUWM1cWxYeFlvWUoxUW9fR01C?oc=5",
+        "description": "Robotic Excision Surgery for Advanced Endometriosis: Patient Guidance Published  FinancialContent",
+        "pubDate": "Tue, 22 Sep 2026 03:44:00 GMT",
+        "author": "FinancialContent"
       },
       {
-        "title": "Why Endometriosis Can Persist After Hysterectomy - HealthCentral",
-        "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxORnJLTFZ5S3Nfbzl4dlRFWnF1LVVmWE9ETTFwblBHTUFWNmF0YXRqbFlFU0taSndmUnpQZWs1U3dCVlJTWlRGTVJ6SExTRmR3TzZYWTlCVkpubWF2WFR1QVFOR1V1Q2xnWk1nX1hJb1VqTjl2TkEwZl9ST2pEd0NOZEJYbGdNT0VMZHFjR2sxVQ?oc=5",
-        "description": "Why Endometriosis Can Persist After Hysterectomy  HealthCentral",
-        "pubDate": "Tue, 21 Apr 2026 07:00:00 GMT",
-        "author": "HealthCentral"
+        "title": "Systematic Laparoscopic Excision and Reconstruction of Bladder Endometriosis With Deep Myometrial Infiltration: A Step-by-Step Surgical Technique and Educational Case Report - The Cureus Journal of Medical Science",
+        "link": "https://news.google.com/rss/articles/CBMitgJBVV95cUxNRjJ3MWJRYlpKUVk1bHR5Zk9rd1JpNXF4UkFYb25xWWpVRmtBYXUzR05yNzVMeDR5OUgzY2lRbGV6MUM0dHdFNHZoYVFwNkI0RzBldERrSzhRQWw5WHBFMWp6X0xEN1VPNXVXamI4Q2VYN3JsTklUU21DeVlNWDE3enJCUmZadW5pQjNHWXA5d1BLVkUzbXVNa25VVmxTZjROaFUwUTg1S1pBMDVmbUREQ3p2TWRFMXBMTXZia2hVOWVrMHhSbWVCZXA4RFRzcUJDR0xGdUVzU0JsZ19GeUtFYmxlb1dTNUh6aURXN3BKX3pzYkpSQWhrTVZublJaeFVOWFFydk1felhGT2JPTWdLQ3lrbnpPRHpKMXNPWGl6SVlvTmw4S0xRdldCZHRmektqT1M5ekxR?oc=5",
+        "description": "Systematic Laparoscopic Excision and Reconstruction of Bladder Endometriosis With Deep Myometrial Infiltration: A Step-by-Step Surgical Technique and Educational Case Report  The Cureus Journal of Medical Science",
+        "pubDate": "Tue, 14 Jul 2026 07:00:00 GMT",
+        "author": "The Cureus Journal of Medical Science"
       }
     ],
     "womens": [
       {
-        "title": "To women with pelvic pain, ‘Womb suffering is not our birthright’ - AJC.com",
+        "title": "To women with pelvic pain, ‘Womb suffering is not our birthright’ - The Atlanta Journal-Constitution",
         "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxObnEzSVVYU2ZNVkdCSFdURUQ5WFNoZ3JLc1NXV1Fsb1hYbUJHQWlZbEczamtKWWdQdlNBYzhWeDRuMTI3bHlVVmNlUmcwVWVaQ3BmUVNUZFRHckE3cTIzN09rMGJpdHhYSFZrRml2TWUzaThXc2V4SUpnNnI2bWw5NmFmUUJ3WkpGU1UxalVtMzFLRjg1bjB5dTNuOXFTd0Vk?oc=5",
-        "description": "To women with pelvic pain, ‘Womb suffering is not our birthright’  AJC.com",
+        "description": "To women with pelvic pain, ‘Womb suffering is not our birthright’  The Atlanta Journal-Constitution",
         "pubDate": "Wed, 08 Jul 2026 07:00:00 GMT",
-        "author": "AJC.com"
+        "author": "The Atlanta Journal-Constitution"
+      },
+      {
+        "title": "Student-doctor collaboration develops AI tool to help doctors identify chronic pelvic pain - Medical Xpress",
+        "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQcERubkRGSk55MkNmTHVnZW9jb09NeG5NdmZkV2VvblpBUVlpWU9kR2dvVUNrWjFUUU5HZmZWQzZ5SE9Dc21tUklEYV9HY1luQ2JNbUFwOFZ5bjNUOHlXSGtOakczNW9HQndVX0gwQlFxUVlpdW8wdlBKSnY3cXdUa0Q2c3ktNFE?oc=5",
+        "description": "Student-doctor collaboration develops AI tool to help doctors identify chronic pelvic pain  Medical Xpress",
+        "pubDate": "Wed, 29 Jul 2026 07:00:00 GMT",
+        "author": "Medical Xpress"
+      },
+      {
+        "title": "Female disease is often dismissed — but has risks if untreated - New York Post",
+        "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNLUp1MFFEcGZvbTVlZ2h6S0xBMm1WN3hGVVEzSEk0b3RRQzFKaU9LMjRZaEkzeTE2dnQ0YVMzUWVhYW4ycldMYmRxY21qcG5Qc3hKanVzLTVZZHBvbEM3UUtmWTdFRDBuZVk2NGxhZEtRYnVkMXJveE1BYmJBbENBSmEwMURWYkFTYnBHV0F1NDhFZGxWM3hubFcwUjlkcE0?oc=5",
+        "description": "Female disease is often dismissed — but has risks if untreated  New York Post",
+        "pubDate": "Fri, 20 Mar 2026 07:00:00 GMT",
+        "author": "New York Post"
       },
       {
         "title": "NYC Health + Hospitals Establishes Program to Expand Comprehensive and Collaborative Care for Women Suffering from Endometriosis and Chronic Pelvic Pain - NYC Health + Hospitals",
@@ -77,18 +91,18 @@
         "author": "NYC Health + Hospitals"
       },
       {
-        "title": "Pelvic Pain in Women: Why Effective Treatment Can Be Elusive - cedars-sinai.org",
-        "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPNlhSbjFTZy1CSW5mWnJyRm4xWHcxU0JYbTJYbjBKZzVSZzRoWDJhdV94TXZYZ0dlNVRuZDBxZmg3R1VOTzVBUkFHYVlPUVVwTFI3M1ZFVHkxT2hPUXo0SEc1T256bFdKYW5FU0lleWhmd1MwSjZ1NlowRlVxdDBEMUR4dTlENWFiZngtN1NNd3FNRktMMExRWXRMRVpIUHVwWmhiZ3NBYUREYlYwbVZMZjVzSWVxa0VRTDUtNWJ4Nno?oc=5",
-        "description": "Pelvic Pain in Women: Why Effective Treatment Can Be Elusive  cedars-sinai.org",
-        "pubDate": "Fri, 01 May 2026 07:00:00 GMT",
-        "author": "cedars-sinai.org"
+        "title": "Diagnosis and Treatment of Refractory Pelvic Pain - Cleveland Clinic",
+        "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQRklDeENzTXlzZFQzUVhmWFdsZG4zeVlLQUlWdHZROUdnc2JySG1RdmZ4LVFHLVlQQS01ZFdmdlVEY2dWYzBhRWl0b0RqX0hLMHNnR2dfVXR0X1Q5NnU0Uk5jUEh6WlpsamkyWDY3ajNQc0Z6OTllOXhXTUtaTzA4YjlCUy1ZT0lwVElOcG9Jb3o?oc=5",
+        "description": "Diagnosis and Treatment of Refractory Pelvic Pain  Cleveland Clinic",
+        "pubDate": "Mon, 16 Jan 2023 08:00:00 GMT",
+        "author": "Cleveland Clinic"
       },
       {
-        "title": "Student-doctor collaboration develops AI tool to help doctors identify chronic pelvic pain - Medical Xpress",
-        "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQcERubkRGSk55MkNmTHVnZW9jb09NeG5NdmZkV2VvblpBUVlpWU9kR2dvVUNrWjFUUU5HZmZWQzZ5SE9Dc21tUklEYV9HY1luQ2JNbUFwOFZ5bjNUOHlXSGtOakczNW9HQndVX0gwQlFxUVlpdW8wdlBKSnY3cXdUa0Q2c3ktNFE?oc=5",
-        "description": "Student-doctor collaboration develops AI tool to help doctors identify chronic pelvic pain  Medical Xpress",
-        "pubDate": "Wed, 29 Jul 2026 11:00:08 GMT",
-        "author": "Medical Xpress"
+        "title": "Advanced, multidisciplinary treatment available at new pelvic pain specialty center - UChicago Medicine",
+        "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNeGo3VTFCc01lVkY2dHB1a2VrWUNoYXhwVjVIV2dVQUppWFdJOGZTdEttQ1daLU9jS01xRVJqS3ZzQ3lYZGtzWnVudjl5RVUyY3h4Y0djeWZxWi1kcEdTUEFjN245bWpnUjhKaXQ5TUVjN0V5ZnVNMHlvNzB6S0R6N3VaQmZzUlJadGR5OEhvaUE1T0lIQ3J0bU1XV29jdm90TFI5UW14NkUwM2EzamJJYVB3?oc=5",
+        "description": "Advanced, multidisciplinary treatment available at new pelvic pain specialty center  UChicago Medicine",
+        "pubDate": "Fri, 02 Feb 2024 08:00:00 GMT",
+        "author": "UChicago Medicine"
       },
       {
         "title": "HEALTH Yeah! Episode 32: Heavy Bleeding and Pelvic Pain – Rethinking “Normal” - Stony Brook Medicine",
@@ -98,25 +112,11 @@
         "author": "Stony Brook Medicine"
       },
       {
-        "title": "Expert endometriosis care helps women find answers sooner at MUSC Women’s Health - The Medical University of South Carolina",
-        "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE1kSDdPTWlBdE4xVmNWdmN1ZEVWblJfT3ppZ1NGMWhYX1lpdzhlQUYwOFNpRW5EQVAxQnZYdXVYSHFCdlZFWkhWYVhMUlZOYVEyeGd0TzF4YUpEY0ZMdGVidjJvNFRvV2xoYkVRT2J6dw?oc=5",
-        "description": "Expert endometriosis care helps women find answers sooner at MUSC Women’s Health  The Medical University of South Carolina",
-        "pubDate": "Thu, 09 Apr 2026 07:00:00 GMT",
-        "author": "The Medical University of South Carolina"
-      },
-      {
-        "title": "Intermountain Health introduces robotic surgery to improve care for women with endometriosis - ABC4 Utah",
-        "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPc2lPTVhWTWg0VVNzNmdZNlg2ZUlIVlpGSENqUlV4ek0wS0hHT1FiV2VuRXQ4LUtoT1o2OV9UVWJQZk56QUJ2Tmdoa2ZXUzFhN19JU1ptZDhaSGdnQjg5MExFN1JRNnljbGdNaFJ1eWZPN0V3U0J6ZXdxdG4xYVpKMGpCRUZGSzk2UEdRQWI0ZWpITUJXTWxZMnU1NlhlMFZIcEN6OW1uLTlCdjNmWWowNEw0UW44SnA2QVFCY0g0aEd1bnFtNFFkMlBR0gHPAUFVX3lxTE81dXUwMmZQVEVHTmVscUJ4NlUxdGRjbENmcXFhTTZEeWp2TXNoQm5sM1NnLWVfVWQtcHVza1JxTjZDUU42UGFkelcwRnZnVWVBR0VOVXV1RjdxNnFFMGFQczBQUzdiaVNjSHlfQ2ozd3F3bjBRQ0Jrd0RENEtZYlNyYl9qaW1yamxsMHY4VkhxZWlVRlMyNjdiYUNnUVlvX29rVkxIb3h3T1lEcjNhM2hpS3A1ZlN2Yzc1TUtnUi1XelNmc0UxakxyU0RVVnJLRQ?oc=5",
-        "description": "Intermountain Health introduces robotic surgery to improve care for women with endometriosis  ABC4 Utah",
-        "pubDate": "Mon, 02 Mar 2026 08:00:00 GMT",
-        "author": "ABC4 Utah"
-      },
-      {
-        "title": "Female disease is often dismissed — but has risks if untreated - New York Post",
-        "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNLUp1MFFEcGZvbTVlZ2h6S0xBMm1WN3hGVVEzSEk0b3RRQzFKaU9LMjRZaEkzeTE2dnQ0YVMzUWVhYW4ycldMYmRxY21qcG5Qc3hKanVzLTVZZHBvbEM3UUtmWTdFRDBuZVk2NGxhZEtRYnVkMXJveE1BYmJBbENBSmEwMURWYkFTYnBHV0F1NDhFZGxWM3hubFcwUjlkcE0?oc=5",
-        "description": "Female disease is often dismissed — but has risks if untreated  New York Post",
-        "pubDate": "Fri, 20 Mar 2026 07:00:00 GMT",
-        "author": "New York Post"
+        "title": "The Medical Minute: Talking with your provider about endometriosis - Penn State Health News",
+        "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxORXlvMlpXdlZvRV9FNW5YVmdhT2I3TUxIWEdKNFdkSVg3VHNRV1J1YUhaSmluUWpIY0ZqWnF5am80OUtoaXdNc3Yxbm1KU3lOa3NiYi1QclRQaDU3Wi03YVd5NFE4SGx2R0g1ZUZCVXBuclVrb1B5ZlRTeTgxcy1DNG95dk5pVG9pbm5qZDMwa3BzbHlkOFIwT2pfSGxqTFRkaHU0bEgyV3Fqdw?oc=5",
+        "description": "The Medical Minute: Talking with your provider about endometriosis  Penn State Health News",
+        "pubDate": "Wed, 04 Sep 2019 07:00:00 GMT",
+        "author": "Penn State Health News"
       }
     ],
     "fertility": [
@@ -126,13 +126,6 @@
         "description": "‘I am truly grateful’: Endometriosis care, fertility treatment make motherhood possible  UChicago Medicine",
         "pubDate": "Mon, 18 May 2026 07:00:00 GMT",
         "author": "UChicago Medicine"
-      },
-      {
-        "title": "Can You Get Pregnant With PMOS and Endometriosis? - HealthCentral",
-        "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOSVJQM0VNVVNVM2poRzc4elNkdHJIU3ptZW5OcENDZi1HZlRuMWVrUks2eWpTbHlpZFprR3dLSUNiY2VCdFNCR3hhLVo5OWFXeWdoUG9jRDc1NnZRd1lHRUdGcDJGZlNfZjEyZENoU1k1dW5YVFRmWkRoU2piQnFyT2NSbHY3bDVHRUtJUUFYVV90bFlMRnNmbkdPajJCd0xiS2xFTzZWUQ?oc=5",
-        "description": "Can You Get Pregnant With PMOS and Endometriosis?  HealthCentral",
-        "pubDate": "Thu, 13 Aug 2026 07:00:00 GMT",
-        "author": "HealthCentral"
       },
       {
         "title": "The impact of endometriosis and uterine disorders on sex, fertility and pregnancy - Focus on Reproduction",
@@ -149,11 +142,18 @@
         "author": "Open Access Government"
       },
       {
-        "title": "Long-Term Effects of IVF on Women’s Health: Cancer Risk, Heart Disease, and Menopause - News-Medical",
+        "title": "Trusting God’s design - St. Louis Review -",
+        "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE5OajVaNkd1bzNCM0c2R3lNd1MtTFgyVHVoTlZDaUdZVjJLbmlvR0JmVTJBVUFQUWgyVTJjcEVPZEdlUjk1al9IdXZ1MEh4eVZSdG1fNFJMQTBTZEthQ1NRQ0dMbG9Sd1VI?oc=5",
+        "description": "Trusting God’s design  St. Louis Review -",
+        "pubDate": "Fri, 13 Mar 2026 07:00:00 GMT",
+        "author": "St. Louis Review -"
+      },
+      {
+        "title": "Long-Term Effects of IVF on Women’s Health: Cancer Risk, Heart Disease, and Menopause - news-medical.net",
         "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxOdk51aC01TnZLRnJmbWVmZ19COG9oMzNJWjRmdmZJbi1aNGZobHp6ZGJTLVVUc3cwRDJoSWRuRURJUWdWeWo5czJzUzhVVnJObm5zRENyN1k4N2pPLWx1dklwVHp5Skgwdkx4SGRXaDVKOFVJN2VKXy1vS2JyeXdxbjVMNkVSdWlrRGNFX3E4SVFHd3FFNWtfX2lPSWI1elVENjREcER0V2tCdGgyeFltNHlhbkFmVzcxdnVHeDRFUlRZZHhqampB?oc=5",
-        "description": "Long-Term Effects of IVF on Women’s Health: Cancer Risk, Heart Disease, and Menopause  News-Medical",
+        "description": "Long-Term Effects of IVF on Women’s Health: Cancer Risk, Heart Disease, and Menopause  news-medical.net",
         "pubDate": "Thu, 05 Mar 2026 08:00:00 GMT",
-        "author": "News-Medical"
+        "author": "news-medical.net"
       },
       {
         "title": "State-funded IVF to be expanded to women who suffer infertility due to endometriosis - The Journal",
@@ -163,18 +163,18 @@
         "author": "The Journal"
       },
       {
-        "title": "Updated NICE fertility guidance includes specific path for endometriosis - pulsetoday.co.uk",
-        "link": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxNY1JPQ2plMUdlS0JuQTFlSTRMeWpEWnRfbTJxZ3FDVkJpcWxwSnRRaU5BeG9HQ0tkZ05NYUkydjA2aWo4QURHS1ZfZjJVQXdFSEdjOWlzMm4tSU1qaDVkOUFwTXZPY2c1NHpyR1ZrT0FmX1Y4TjdqaDB2WUhEazk1a2tsYlpMTWdpWTcwSnUyek9jNkVlMmowN005TGF6bTg4QkhwbjRVSFllUmVfLXNuUk5memdTenhqTGZFZzJ0UndkeExub1NzeThwOG9qR3A2V3YzTHdUMmVCb0xGVXQtUVNXVzY0OXE4blJlOHpQX0o?oc=5",
-        "description": "Updated NICE fertility guidance includes specific path for endometriosis  pulsetoday.co.uk",
-        "pubDate": "Thu, 02 Apr 2026 07:00:00 GMT",
-        "author": "pulsetoday.co.uk"
+        "title": "Women with endometriosis likely to receive free IVF - Newstalk",
+        "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1FdDNfbGRoV2ExaXpKTmZFUXNJQ3pXVWtPa1RCYzNYM3ZDWGg2ZmRmdGRfLTIwUnNldTBjcmd0SE50aEU1ZDhHTmxodjBsSXJoQ1FfdmlrSXd0QTVVREZjcw?oc=5",
+        "description": "Women with endometriosis likely to receive free IVF  Newstalk",
+        "pubDate": "Fri, 10 Jul 2026 07:00:00 GMT",
+        "author": "Newstalk"
       },
       {
-        "title": "Male infertility treatment costs rival endometriosis in India, exposing hidden burden on couples - The South First",
-        "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPbjJTYXVzNE1oeGJCaEVHMWhZakJDR0hyUjVWT3R0M0hjTXRyZzBqT3Z0VDJTSFFVdEdPUXQ3VnJoZ1I3cVczWThZX1pTb1lsNkZvNkpCdkhHRXlha0RGZHpvc05IYm9JSTlvU2w3LWdxSUJwczdBcE45VU9RT1lvRmVKdjdpRWJSQzZsZDBlN2VNNklDSTlSYnNJZlpQUDd2ejNuMmVneUF6Mm54WkNGVm1uZTFmRUFyQVgzaHBla1N1NW95S0hONg?oc=5",
-        "description": "Male infertility treatment costs rival endometriosis in India, exposing hidden burden on couples  The South First",
-        "pubDate": "Mon, 08 Jun 2026 07:00:00 GMT",
-        "author": "The South First"
+        "title": "Updated NICE fertility guidance includes specific path for endometriosis - Pulse Today",
+        "link": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxNY1JPQ2plMUdlS0JuQTFlSTRMeWpEWnRfbTJxZ3FDVkJpcWxwSnRRaU5BeG9HQ0tkZ05NYUkydjA2aWo4QURHS1ZfZjJVQXdFSEdjOWlzMm4tSU1qaDVkOUFwTXZPY2c1NHpyR1ZrT0FmX1Y4TjdqaDB2WUhEazk1a2tsYlpMTWdpWTcwSnUyek9jNkVlMmowN005TGF6bTg4QkhwbjRVSFllUmVfLXNuUk5memdTenhqTGZFZzJ0UndkeExub1NzeThwOG9qR3A2V3YzTHdUMmVCb0xGVXQtUVNXVzY0OXE4blJlOHpQX0o?oc=5",
+        "description": "Updated NICE fertility guidance includes specific path for endometriosis  Pulse Today",
+        "pubDate": "Thu, 02 Apr 2026 07:00:00 GMT",
+        "author": "Pulse Today"
       }
     ],
     "medical": [
@@ -189,8 +189,15 @@
         "title": "Is this the first disease-modifying treatment for endometriosis? - Drug Discovery News",
         "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPVE9WZm1sS0ZvRFI0YTlVVlJMYlZWSlFjWHhoWVJOX3NKS3dFVUh3SW1KaXdGcnBwUFRZbW4tamJwX0JxMEtFbVBCN0tVTWNGc3d3X0ZXMEU1azlxNjVwWmQtOHRnRlNGb0FKcEJxRG5kelkzRVVySXZiZTRNMGdxSUhUbGJNaHktTnpUeFp0MmtfdmZpczJIb0txTXVsWVh3d2ZSeEpn?oc=5",
         "description": "Is this the first disease-modifying treatment for endometriosis?  Drug Discovery News",
-        "pubDate": "Wed, 20 May 2026 07:00:00 GMT",
+        "pubDate": "Wed, 20 May 2026 13:46:11 GMT",
         "author": "Drug Discovery News"
+      },
+      {
+        "title": "The endometriosis breakthrough aiming to cut years of suffering - UKRI – UK Research and Innovation",
+        "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxONUxTaFJnbENtcnY3LUNCMDJwcXF2R0gyZGM0dTVTZlU1MUVZYU5ZeGc3dzd5R1BNVGVOaV82Q1ZsdGs1MlUtV2tzLWYtQ2VpeDlScG5tLXZqa0ZpVGduajFTcmJEbkhKYktIbjZiNTJUVDMtS3ZodmRlcUR3bEdzZy12bzhUazFFWDlBSjh1Ym1TRnpRSlVoZE5BUllDdkF5X29uRDM2RGVjOEdxNnpLcGNLajZXR1VHdFV6aXg3QmFZaVp2MkthR3VR?oc=5",
+        "description": "The endometriosis breakthrough aiming to cut years of suffering  UKRI – UK Research and Innovation",
+        "pubDate": "Wed, 27 May 2026 07:00:00 GMT",
+        "author": "UKRI – UK Research and Innovation"
       },
       {
         "title": "Diagnosing Endometriosis: New Biomarkers Enable Early, Noninvasive Detection - Yale School of Medicine",
@@ -200,18 +207,11 @@
         "author": "Yale School of Medicine"
       },
       {
-        "title": "The endometriosis robot: a breakthrough against hidden pain - ioplus.nl",
-        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPOThNNHpNTjlKNU1TUk9uRmZkSS1JUjhuc0xzT1l4bVo0V2ExNHVWN1p1bE1QeFhIQ0xKRmV6RmUxSExPc3RNTTQwemY1NDI2VC0zRWREcENiazREUnl4cGJ4QWdYRXF4ajdyOU0xbC1QeEw1emt4UmtWbEtjeDNxVnF5MS1teHlzQmx2VXpB?oc=5",
-        "description": "The endometriosis robot: a breakthrough against hidden pain  ioplus.nl",
-        "pubDate": "Tue, 07 Apr 2026 07:00:00 GMT",
-        "author": "ioplus.nl"
-      },
-      {
-        "title": "Academic researchers see a boost in interest — and innovation — around endometriosis - AAMC",
-        "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPalhjcFdXRzZPV2U2MThLRkIxdWl6b2N3VGstbkFORjZ3aW1mWXYwUHVZcDczS3pkekdUUENfY2FPSW9PR3pxZml6RGx2YWxxYzRaTWdwMUFDemdySzVUV2NLSzVCYXZHVVdMV0JEUXRhdkg0Y0hnVm9TU0xjSXh4czBpY2ZqOVpQOWdOcFN6R0JRalJZWmtZeGxhbjF3bzUxSlBR?oc=5",
-        "description": "Academic researchers see a boost in interest — and innovation — around endometriosis  AAMC",
-        "pubDate": "Thu, 25 Sep 2025 07:00:00 GMT",
-        "author": "AAMC"
+        "title": "Health Rounds: Blood test improves detection of endometriosis - Reuters",
+        "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOeFVFZFVSbzJvYy1BWF9YSEJrOXJud1M3dlNDZ1ZmWDh3SnNTWnhxVHFib20xTFphZlNuMUNqUVpaOHNNb2RlSnVUZ1B4SXRyeWczc05KQ2dhUjJHVk42WDI4V0o3bDViZGtHbHRpREY1WDVnTk5ZVjQ5OG5ycnNFQTduUjJFb092YXhSb3ZGTV92U3cyM3l5UzZva2c0SGQ0Z1R2Y2k5OVd2eW9RY2oydjRfbGYtbl9Vc1NqQnB5TFNoUXNubWlJTw?oc=5",
+        "description": "Health Rounds: Blood test improves detection of endometriosis  Reuters",
+        "pubDate": "Wed, 18 Mar 2026 07:00:00 GMT",
+        "author": "Reuters"
       },
       {
         "title": "This International Women's Day, there's finally some good news on endometriosis - The University of Melbourne",
@@ -221,28 +221,21 @@
         "author": "The University of Melbourne"
       },
       {
+        "title": "Endometriosis research shifts toward earlier diagnosis and personalized treatment - Drug Discovery News",
+        "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNczBtUDc3SFEyMkt5Q2Q4a01Gc1FIOVpCRUtwaFlncEF2cS1FczJNMUFOYkVQTVRKbUdZZkY2UkpsSEdxSWVtdmhaZUxpSTVaamxPT2ZHUU8xdDQxNWJCWk9qdl9QaEVUbFllN3ZpdEdOR1BuYXZNZ3JQajlsWjg0VTc5NTg4ZzBnM3M2UXhpTG9pT1VPenFYcWRMOXhWYWJMU2htZ21sLXdObTlrSHJEN3otbmRrRnQ3QTFTN0hn?oc=5",
+        "description": "Endometriosis research shifts toward earlier diagnosis and personalized treatment  Drug Discovery News",
+        "pubDate": "Mon, 02 Feb 2026 13:48:45 GMT",
+        "author": "Drug Discovery News"
+      },
+      {
         "title": "Her shoulder pain stumped doctors. It led to a groundbreaking Texas surgery. - Houston Chronicle",
         "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNMzI0N2Q1UjVnUmdXMjcxeXFmaWVRakh5NWd0bHF6bTJxRU5PR0tMWnFxemV5MTR4bDlKdktXRXhXV1c4Zk94bnVhMU55ZWhvemNQMmI0d2F4NGx2T2tWMGg4ZWx6NTJSTTFqRURKODdrVnJVODBJYmhoNWxIc2kxWF9qQnB2N2lON0VWbXFUSjdNOVlibmRmTWZwU0w3bW8?oc=5",
         "description": "Her shoulder pain stumped doctors. It led to a groundbreaking Texas surgery.  Houston Chronicle",
         "pubDate": "Thu, 09 Jul 2026 07:00:00 GMT",
         "author": "Houston Chronicle"
-      },
-      {
-        "title": "The endometriosis ‘hormone fingerprint’ that will pave the way for rapid diagnosis - The Independent",
-        "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNTjNrX1VrOTBMaGJpRHFybVU1Q3ZjdVlYWVE3cHFVb2NWNHVZT0FQSHVnTFdFWDJDdldsR0ItWWtMOUlTb2tlWkplSHIwdkc4dlRKaWJMVnFjUThCMWpaZ2szczBuYmphaVJlcUdtdXRIRHJRWjhjNmlud0dwem5mMVVMT19rcTItXzdSaWNOc1IxUWh1RUswZ3o4OEczeHgwM2VSN2Zn?oc=5",
-        "description": "The endometriosis ‘hormone fingerprint’ that will pave the way for rapid diagnosis  The Independent",
-        "pubDate": "Tue, 07 Jul 2026 07:00:00 GMT",
-        "author": "The Independent"
       }
     ],
     "heartwarming": [
-      {
-        "title": "‘How I knew I had endometrial cancer’: Survivors share their stories - UT MD Anderson",
-        "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxQRmM5Rm11Smk1bjRUTjlBS2JQQVBBZ3N2bGxYVUdwUGJCbFJwdFNqQjZKWERTWWFmN1M5cEJZT2VoOGNGbThjN2dzNjBKU01NeEhJV3VEWGdPdG9YLXVtdHFLakI5eXpCRmQ0VWxtZWdqRHFDS2dHMFFURDBMQ215Vk11Zkw5eEVPYTEyaDIzdG8xVlpmdDhSbUF6b3dLaFdZY2xCaEdSekNXYlk5R2pQU1BrNUItNEcyMFN0WURsUFlIbldDZmFsTFVGLXg2YnhfbS1sUA?oc=5",
-        "description": "‘How I knew I had endometrial cancer’: Survivors share their stories  UT MD Anderson",
-        "pubDate": "Tue, 16 Jun 2026 07:00:00 GMT",
-        "author": "UT MD Anderson"
-      },
       {
         "title": "Rethinking complex gynecologic care starts with listening - The Medical University of South Carolina",
         "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQUmMzUmg1NFJBcWdZUHR6N1dETU50bVowYTl2akZsb1ZHOXM1V2FJVWZ3ZndLUmJjcHBQMU90SnNkbHplRGxBVGI0ckp5VVQ0VlRIczRCUXZqaGhBNjJVNnVFd1BuUXdDMUNYWjVicVFFVGc0aWlzUWplb1FrX2haWmZZTFZCSldzWDh3UA?oc=5",
@@ -251,17 +244,24 @@
         "author": "The Medical University of South Carolina"
       },
       {
-        "title": "Hannah Lindgren: Endometriosis Patient Story - Cleveland Clinic",
-        "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOaUszd29HdkpJNjRFaUlhQm91OHA3S3hNR2NMUEVhdW13bGZTNDhoWFhPMS0wcG9YTFZ2WkZJLXRDbXprVHZUNzFJMVQzMjFUWXV5cTFZN1BHMi12STR6bE5QWDRKZzYyRFZGMlI0WVE3QjBha1R6Z3BmcXRoTGJuN3J1MjhvTVctVG8tZ19FVzNNQWdMWVJGTC0wanBxZ1JaRGhxNHdHZEMwYTZjcTVr?oc=5",
-        "description": "Hannah Lindgren: Endometriosis Patient Story  Cleveland Clinic",
-        "pubDate": "Fri, 19 Dec 2025 22:13:57 GMT",
-        "author": "Cleveland Clinic"
+        "title": "‘How I knew I had endometrial cancer’: Survivors share their stories - UT MD Anderson",
+        "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxQRmM5Rm11Smk1bjRUTjlBS2JQQVBBZ3N2bGxYVUdwUGJCbFJwdFNqQjZKWERTWWFmN1M5cEJZT2VoOGNGbThjN2dzNjBKU01NeEhJV3VEWGdPdG9YLXVtdHFLakI5eXpCRmQ0VWxtZWdqRHFDS2dHMFFURDBMQ215Vk11Zkw5eEVPYTEyaDIzdG8xVlpmdDhSbUF6b3dLaFdZY2xCaEdSekNXYlk5R2pQU1BrNUItNEcyMFN0WURsUFlIbldDZmFsTFVGLXg2YnhfbS1sUA?oc=5",
+        "description": "‘How I knew I had endometrial cancer’: Survivors share their stories  UT MD Anderson",
+        "pubDate": "Tue, 16 Jun 2026 07:00:00 GMT",
+        "author": "UT MD Anderson"
       },
       {
-        "title": "Lotus Endometriosis Institute Releases LA Surgeon Guide Amid Diagnosis Delays - USA Today",
-        "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQbXdUWWUxV3BDQ1B5V2N0Z1F0Y3JuSUxMS1dFS1VJQlhOOHUxNHNMWXlub0ZNakVSNnlFNE1pbUVPNU9SVFhJMU8tQWZWNFdxYnprRVoxeUJtTThqcDBwdXlTZkIxWXhBQ2FKNFlrNlNTODYzaE9xNlNrNUpqREJ1S0dwTG4yOTRuc0F4aU5uWmN6dWNnWURYSDhwdWViQkZOeFVJbERwRzdwMDgtSEJkdVhNS3g3UU5Lblc4Zks1dGF6djhHalZLcQ?oc=5",
-        "description": "Lotus Endometriosis Institute Releases LA Surgeon Guide Amid Diagnosis Delays  USA Today",
-        "pubDate": "Tue, 18 Aug 2026 17:47:14 GMT",
+        "title": "Hannah Lindgren: Endometriosis Patient Story - my.clevelandclinic.org",
+        "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOaUszd29HdkpJNjRFaUlhQm91OHA3S3hNR2NMUEVhdW13bGZTNDhoWFhPMS0wcG9YTFZ2WkZJLXRDbXprVHZUNzFJMVQzMjFUWXV5cTFZN1BHMi12STR6bE5QWDRKZzYyRFZGMlI0WVE3QjBha1R6Z3BmcXRoTGJuN3J1MjhvTVctVG8tZ19FVzNNQWdMWVJGTC0wanBxZ1JaRGhxNHdHZEMwYTZjcTVr?oc=5",
+        "description": "Hannah Lindgren: Endometriosis Patient Story  my.clevelandclinic.org",
+        "pubDate": "Fri, 19 Dec 2025 22:13:57 GMT",
+        "author": "my.clevelandclinic.org"
+      },
+      {
+        "title": "Lotus Endometriosis Institute Announces Post-Op Recovery Plans For Endo Patients - USA Today",
+        "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNV0dST29nSldDMW9QMlM5bFRRUjJmejFSTkVRV2E2bDJiRUZGbkw4REVtZGJjY1Y4dVFmalo4cU9WaXMwWFB0bG8zRUpCM1JkSHQ0X2FFUXVxaVI2V0RMWS1oV3ZIMXRDTGV3QThFWEZ5Z3ZBanVsdHJuVDJDdEhmWFcwMVpUbnBLUHgwNFZWYWdxbjVmdVBRcURodGJQLXlFc0RLWjVlYk1BQ3J6aTFycjNmU3c3OWYzMVFWS3dFX2tOSFZZQ2tDVVI2cDg?oc=5",
+        "description": "Lotus Endometriosis Institute Announces Post-Op Recovery Plans For Endo Patients  USA Today",
+        "pubDate": "Mon, 07 Sep 2026 10:22:44 GMT",
         "author": "USA Today"
       },
       {
@@ -272,25 +272,25 @@
         "author": "Endometriosis Foundation of America"
       },
       {
-        "title": "When endometriosis hides in plain sight: how advanced robotic surgery is helping women reclaim their lives - The Guardian",
-        "link": "https://news.google.com/rss/articles/CBMioAJBVV95cUxPQnZCTEpFcV81cmJlb0haUkNQX2daNTNoaDlpSkdlVkg0SmR6N0kxNFl1dS0zY0VZeGUxVDFoU2hXcWxSSFFSRVlGeThnb0lWWlN1c2xXNVJCZ0V5NVNZSk5WNUctRjNfdC1zN3Zqc2VyTlMxSTZQUFVrb1dtY2Q3SlkzaVA2WlpBUWkySFppcWMwTjNWeUprYkVGM0hOU3FUOVNsYWQ2aUJvSGpnWUJHN1Q1NEdKcUt5V3J2VkVqeTNOTWIxVzFGb0tkeEdrYTFlcXFjeVp1N1BxaVRFVXRaWXRDcnpOMnVlUE1pMXBYSlZySnNsV252ODhLNnZkNlYxMTlXVjNlQTBnOF85OWt2TnB1M1hkekxDVTZVLTVNeDc?oc=5",
-        "description": "When endometriosis hides in plain sight: how advanced robotic surgery is helping women reclaim their lives  The Guardian",
-        "pubDate": "Thu, 06 Aug 2026 15:32:16 GMT",
-        "author": "The Guardian"
+        "title": "BLR celebrates 25 years of stories on illness and recovery - PBS",
+        "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9PU095bENDMm1FUW1pRlRnSTlKNGpHMnFxYlVVencxNHdSTWhqSUQ2aURMN0x6ZkRnR3J6WTktMUdNOVZybC1ROVNKdDhwVnZ4ek92ZlVhSnZIcVdMLXRZcA?oc=5",
+        "description": "BLR celebrates 25 years of stories on illness and recovery  PBS",
+        "pubDate": "Thu, 14 May 2026 07:00:00 GMT",
+        "author": "PBS"
       },
       {
-        "title": "Endometriosis Awareness Month: From provider to patient - AdventHealth",
+        "title": "Endometriosis Awareness Month: From provider to patient - adventhealth.com",
         "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNTlJrRFVpRjFlNmowMEhzV3dCMlBTZG1rdERTU0JoMVFHamJ1MjlmUml5SE5ya2VhVVVzTENyeVVkY29FcFo5YktFRUtmM01PWlNkQ3F0clEteGRPR2NncWRCMFlMYVJHTm9YdG5Oc1o0Wl95QU9vbnFDQms0RV9XbjgtUnhPZUE?oc=5",
-        "description": "Endometriosis Awareness Month: From provider to patient  AdventHealth",
+        "description": "Endometriosis Awareness Month: From provider to patient  adventhealth.com",
         "pubDate": "Wed, 18 Mar 2026 07:00:00 GMT",
-        "author": "AdventHealth"
+        "author": "adventhealth.com"
       },
       {
-        "title": "“Here’s How I Knew I Had Crohn’s Disease”: One Woman’s Long Journey to a Diagnosis - The Healthy @Reader's Digest",
+        "title": "“Here’s How I Knew I Had Crohn’s Disease”: One Woman’s Long Journey to a Diagnosis - The Healthy",
         "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxNY2VUMmNuLWk0M05GTFl1WTJKNl8zTE1ST1FZWERqMzh6eFh3cTRHaTdOVEE1Qk5hQlFyR1I3ampKeGdYaXkyRW5HR3h5MzdnWmRsMGxjVFZfSGlCbGgxUUItOFd6LUo2XzRDV2ZHMUk4Zm9qZTRWQXZuV0hDV3RXVjZoNENBVXJFOXhxVXF5cWw3ZGNMS29HQmwtOW9WZw?oc=5",
-        "description": "“Here’s How I Knew I Had Crohn’s Disease”: One Woman’s Long Journey to a Diagnosis  The Healthy @Reader's Digest",
+        "description": "“Here’s How I Knew I Had Crohn’s Disease”: One Woman’s Long Journey to a Diagnosis  The Healthy",
         "pubDate": "Tue, 14 Apr 2026 07:00:00 GMT",
-        "author": "The Healthy @Reader's Digest"
+        "author": "The Healthy"
       }
     ]
   },
