@@ -1,33 +1,24 @@
 {
-  "updatedAt": "2026-09-04",
-  "note": "Refreshed on the 1st of each month. Past events still hide daily in the browser.",
+  "updatedAt": "2026-10-01",
+  "note": "Refreshed on the 1st of each month. Past events still hide daily in the browser. Dutch Bros, Starbucks Denton, and Higher Grounds prices kept — no public Denton-area menu confirmed.",
   "events": [
     {
-      "title": "Lions vs Castleberry (HOME)",
-      "start": "2026-09-04",
-      "end": "2026-09-04",
-      "dateLabel": "Friday, Sep 4 · 7:00 PM",
-      "desc": "Home opener at Ponder. Friday night lights = coffee, cocoa, and cinnamon-roll traffic before kickoff.",
-      "link": "https://events.hometownticketing.com/boxoffice/ponderisd",
-      "icon": "🏈"
+      "title": "Blocktober Party & Pumpkin Drop",
+      "start": "2026-10-01",
+      "end": "2026-10-01",
+      "dateLabel": "Thursday, Oct 1 · 6–8 PM",
+      "desc": "Denton Halloween kickoff at Quakertown Civic Center. Food trucks, bounce houses, and the pumpkin drop. Same-day crowd on the Denton side.",
+      "link": "https://www.cityofdenton.com/",
+      "icon": "🎃"
     },
     {
-      "title": "Denton Arts & Jazz Fest",
-      "start": "2026-09-11",
-      "end": "2026-09-13",
-      "dateLabel": "Sep 11–13, 2026",
-      "desc": "Moved to the North Texas Fairgrounds this year. Fri 3–11, Sat 10–11, Sun 11–9. Big regional crowd in Denton.",
-      "link": "https://dentonjazzfest.com/",
-      "icon": "🎷"
-    },
-    {
-      "title": "Lions vs Farmersville (HOME)",
-      "start": "2026-09-11",
-      "end": "2026-09-11",
-      "dateLabel": "Friday, Sep 11 · 7:00 PM",
-      "desc": "Home game the same weekend as Arts & Jazz. After-school and pre-game window.",
-      "link": "https://events.hometownticketing.com/boxoffice/ponderisd",
-      "icon": "🏈"
+      "title": "State Fair of Texas",
+      "start": "2026-10-01",
+      "end": "2026-10-18",
+      "dateLabel": "Through Sunday, Oct 18",
+      "desc": "Fair Park, Dallas. Gates open at 10 AM. Regional weekend traffic through the 18th — not a Ponder stop, but families are out.",
+      "link": "https://bigtex.com/",
+      "icon": "🎡"
     },
     {
       "title": "Denton Community Market",
@@ -35,34 +26,53 @@
       "until": "2026-12-20",
       "recurring": "weekly-sat",
       "dateLabel": "Saturdays, 9 AM–1 PM",
-      "desc": "317 W Mulberry, Denton. Fresh produce, makers, and live music through Dec 20.",
+      "desc": "317 W Mulberry, Denton. Producer market with food vendors and live music through Dec 20. Yoga at 9:30 behind the Quaker House.",
       "link": "https://www.dentonmarket.org/",
       "icon": "🧑‍🌾"
     },
     {
-      "title": "Cowboy Church Fall Festival",
-      "start": "2026-09-26",
-      "end": "2026-09-26",
-      "dateLabel": "Saturday, Sep 26 · 10 AM–4 PM",
-      "desc": "Pumpkin patch and vendors at 400 Robinson Rd, Ponder. They asked for food trucks — right in town.",
-      "link": "https://www.facebook.com/DCCChurch/",
-      "icon": "🎃"
+      "title": "Denton County Farmers Market",
+      "start": "2026-03-01",
+      "until": "2026-11-28",
+      "recurring": "weekly-sat",
+      "dateLabel": "Saturdays, 7 AM–2 PM",
+      "desc": "Historical Park parking lot, Carroll and Mulberry. County permit runs Saturdays through Nov 28. Produce and makers, overlapping the Community Market.",
+      "link": "https://communityimpact.com/dallas-fort-worth/denton/business/2026/02/06/denton-community-market-denton-county-farmers-market-receive-new-permit-approvals/",
+      "icon": "🥕"
     },
     {
       "title": "Lions vs Lake Worth (HOME)",
       "start": "2026-10-16",
       "end": "2026-10-16",
       "dateLabel": "Friday, Oct 16 · 7:00 PM",
-      "desc": "District home game. Cocoa weather should be here by then.",
+      "desc": "First district home game at Ponder ISD Stadium. Pre-game window for coffee, cocoa, and cinnamon rolls.",
       "link": "https://events.hometownticketing.com/boxoffice/ponderisd",
       "icon": "🏈"
+    },
+    {
+      "title": "Hallo-Wing at Denton Enterprise Airport",
+      "start": "2026-10-17",
+      "end": "2026-10-17",
+      "dateLabel": "Saturday, Oct 17",
+      "desc": "City Halloween event at Denton Enterprise Airport. Trick-or-treat at aircraft, food trucks, and an outdoor movie. Saturday crowd the day after the home game.",
+      "link": "https://www.cityofdenton.com/",
+      "icon": "✈️"
+    },
+    {
+      "title": "Denton Day of the Dead Festival",
+      "start": "2026-10-22",
+      "end": "2026-10-25",
+      "dateLabel": "Oct 22–25, 2026",
+      "desc": "Downtown Denton, Hickory and Industrial. Street festival Saturday 11 AM–9 PM with coffin races, vendors, and Cirque du Horror. Biggest Denton weekend of the month.",
+      "link": "https://www.discoverdenton.com/events/annual-events/dentons-day-of-the-dead-festival/",
+      "icon": "💀"
     },
     {
       "title": "Lions vs Krum (HOME)",
       "start": "2026-11-06",
       "end": "2026-11-06",
       "dateLabel": "Friday, Nov 6 · 7:00 PM",
-      "desc": "Last scheduled home game of the regular season.",
+      "desc": "Last scheduled home game. District matchup with Krum. Friday is already a student day off under the 4-day week.",
       "link": "https://events.hometownticketing.com/boxoffice/ponderisd",
       "icon": "🏈"
     }
@@ -71,51 +81,51 @@
     {
       "supplier": "Function Coffee Co",
       "location": "Northlake, TX",
-      "promo": "Local roaster — 15% off first wholesale order. Farm-direct single origins and custom blends.",
-      "link": "https://www.functioncoffee.co/",
+      "promo": "Local Northlake roaster with wholesale and private-label. Retail subscribe-and-save up to 15% is on the site; a cafe first-order 15% was not listed, so that special is dropped.",
+      "link": "https://www.functioncoffeeco.com/pages/wholesale",
       "badge": "🏠 Local"
     },
     {
       "supplier": "Texas Coffee Traders",
       "location": "Austin, TX",
-      "promo": "Free shipping on 25 lb+ orders. Specialty-grade green and roasted beans since 1981.",
-      "link": "https://www.texascoffeetraders.com/",
+      "promo": "Wholesale since 1981. Listed delivery is $5 on 10 lb+ (or four cases of iced tea), not free shipping on 25 lb. Training and custom blends on request.",
+      "link": "https://www.texascoffeetraders.com/sales",
       "badge": "⭐ Texas Staple"
     },
     {
       "supplier": "KMO Coffee",
       "location": "Dallas–Fort Worth",
-      "promo": "2026 Spring special: 10% off seasonal blends for new wholesale accounts. Training included!",
+      "promo": "2026 sheet: free shipping on 40 lb+. October flavor list includes pumpkin spice and candy corn. The spring 10% new-account special is not on the sheet and is dropped.",
       "link": "https://www.kmocoffee.com/",
-      "badge": "🆕 2026 Special"
+      "badge": "🚚 40 lb ship"
     },
     {
       "supplier": "Coffee Wholesale USA",
       "location": "Nationwide",
-      "promo": "Bulk pricing on syrups, cups, lids and equipment. Same-day shipping on in-stock items.",
-      "link": "https://www.coffeewholesaleusa.com/",
+      "promo": "Syrups, sauces, cups, and equipment at wholesale pricing. Same-day shipping was not on the current homepage — call (866) 570-0498 to confirm.",
+      "link": "https://cw-usa.com/",
       "badge": "📦 Supplies"
     },
     {
       "supplier": "Covoya Coffee",
       "location": "Online",
-      "promo": "Direct-trade specialty beans. Subscription discounts for cafes — 12% off quarterly plans.",
-      "link": "https://www.covoya.com/",
-      "badge": "🌿 Direct Trade"
+      "promo": "Green-coffee importer. Standing full-pallet discount: $300 off eligible 10/20/30-bag pallets. The 12% cafe subscription was not listed and is dropped.",
+      "link": "https://www.covoyacoffee.com/",
+      "badge": "🌿 Green Coffee"
     },
     {
       "supplier": "Java City",
       "location": "Sacramento / Ships Nationwide",
-      "promo": "Turn-key cafe solutions — beans, equipment, branding support. Free consultation.",
-      "link": "https://www.javacity.com/",
+      "promo": "Turn-key wholesale programs since 1985, no licensing fee listed. Current page points to an inquiry form rather than a free consultation offer.",
+      "link": "https://javacity.com/wholesale-coffee-beans/",
       "badge": "🛠️ Full Service"
     },
     {
       "supplier": "Driven Coffee",
-      "location": "Online / DFW",
-      "promo": "Veteran-owned roaster. 20% off first wholesale order plus free sample kit for cafes.",
-      "link": "https://www.drivencoffee.com/",
-      "badge": "🇺🇸 Veteran-Owned"
+      "location": "Online",
+      "promo": "Craft wholesale roaster for cafes and foodservice. The 20% first-order discount and free sample kit were not on the wholesale page and are dropped.",
+      "link": "https://www.drivencoffee.com/pages/wholesale",
+      "badge": "☕ Wholesale"
     }
   ],
   "competitors": [
@@ -149,9 +159,9 @@
     {
       "shop": "West Oak Coffee Bar",
       "distance": "~18 mi",
-      "latte": "$4.75–$5.25",
-      "signature": "Seasonal Latte",
-      "sigPrice": "$5.50+",
+      "latte": "$4.75",
+      "signature": "Yam Spice / Maple Leaf Latte",
+      "sigPrice": "$5.95",
       "edge": "Closer to Ponder families, friendlier vibe",
       "isYou": false
     },
@@ -167,39 +177,39 @@
   ],
   "socialTrends": [
     {
-      "name": "Real-pumpkin spice",
-      "emoji": "🎃",
+      "name": "Yam spice latte",
+      "emoji": "🍠",
       "platform": "Fall 2026 · snapshot",
-      "desc": "People can taste the difference between pumpkin puree and pumpkin-spice syrup. Still the seasonal default.",
-      "ponderSpin": "You already bake. A Texas-style PSL with a pinch of cayenne is on-brand and easy to story."
+      "desc": "Sweet-potato spice is on cafe boards this month, including West Oak’s Yam Spice Latte at $5.95.",
+      "ponderSpin": "Roast the yam in the same oven as the cinnamon rolls and call it a Ponder yam roll latte."
     },
     {
-      "name": "Brown sugar shaken espresso",
-      "emoji": "☕",
-      "platform": "TikTok staple · snapshot",
-      "desc": "Still the most copied iced drink. Brown sugar, shaken espresso, oat milk.",
-      "ponderSpin": "Use the same brown-sugar note as the cinnamon rolls so the drink and the pastry rhyme."
+      "name": "Pumpkin brûlée",
+      "emoji": "🎃",
+      "platform": "TikTok · snapshot",
+      "desc": "Torch-top pumpkin drinks are the fall photo, not just pumpkin-spice syrup.",
+      "ponderSpin": "Brûlée a spoon of brown sugar on the foam. You already have the cinnamon-roll sugar."
     },
     {
-      "name": "Maple cold foam",
+      "name": "Maple pecan cold foam",
       "emoji": "🍁",
       "platform": "Instagram · snapshot",
-      "desc": "Maple foam on cold brew or chai photographs well and feels like fall without being pumpkin-only.",
-      "ponderSpin": "Pecan + maple is the North Texas version. Toast the pecans for the smell in the truck."
+      "desc": "Maple foam on cold brew or chai still photographs well and is not pumpkin-only.",
+      "ponderSpin": "Toast Texas pecans so the truck smells like the drink. Sell it next to the roll."
     },
     {
-      "name": "Honey chai",
-      "emoji": "🐝",
+      "name": "Apple cider espresso",
+      "emoji": "🍎",
       "platform": "Cafe menus · snapshot",
-      "desc": "Chai with local honey instead of syrup. Simple, warm, not a science project.",
-      "ponderSpin": "Call it Ponder honey chai and put the beekeeper on the chalkboard."
+      "desc": "Hot cider with a shot, or cider steamed into a latte. Simple and seasonal.",
+      "ponderSpin": "Friday-night size: a small cider americano for the bleachers, not a 20 oz science project."
     },
     {
-      "name": "Pistachio mocha",
-      "emoji": "🌿",
-      "platform": "TikTok · snapshot",
-      "desc": "The pistachio-chocolate wave from last winter is still selling as a fall mocha.",
-      "ponderSpin": "One weekend special is enough. If it moves, keep it through football season."
+      "name": "Football cocoa",
+      "emoji": "🏈",
+      "platform": "Local feeds · snapshot",
+      "desc": "Hot chocolate with a shot, or Mexican cocoa with cinnamon, is the cold-front order.",
+      "ponderSpin": "Chalk it as Lions cocoa on Lake Worth night (Oct 16) and Krum night (Nov 6)."
     }
   ],
   "schoolYear": {
@@ -281,25 +291,29 @@
       "date": "2026-09-04",
       "opponent": "Castleberry",
       "home": true,
-      "time": "7:00 PM"
+      "time": "7:00 PM",
+      "result": "W 60–0"
     },
     {
       "date": "2026-09-11",
       "opponent": "Farmersville",
       "home": true,
-      "time": "7:00 PM"
+      "time": "7:00 PM",
+      "result": "L 16–35"
     },
     {
       "date": "2026-09-18",
       "opponent": "Bridgeport",
       "home": false,
-      "time": "7:00 PM"
+      "time": "7:00 PM",
+      "result": "W 58–0"
     },
     {
       "date": "2026-09-25",
       "opponent": "Waco Connally",
       "home": false,
-      "time": "7:00 PM"
+      "time": "7:00 PM",
+      "result": "W 51–26"
     },
     {
       "date": "2026-10-09",
@@ -416,40 +430,40 @@
     ],
     "fall": [
       {
-        "name": "Pumpkin Spice Latte (Texas Style)",
-        "emoji": "🎃",
-        "desc": "Real pumpkin puree, warm spices, espresso and steamed milk. No artificial stuff.",
-        "tip": "Add a pinch of cayenne for a subtle Texas kick."
-      },
-      {
-        "name": "Maple Pecan Cappuccino",
-        "emoji": "🍁",
-        "desc": "Rich cappuccino topped with maple syrup foam and candied pecan pieces.",
-        "tip": "Candy the pecans in-house — they smell amazing."
-      },
-      {
-        "name": "Apple Cider Chai",
-        "emoji": "🍎",
-        "desc": "Hot apple cider blended with spiced chai concentrate. Autumn in a cup.",
-        "tip": "Rim the mug with cinnamon sugar for that extra fall feeling."
-      },
-      {
-        "name": "Salted Caramel Mocha",
-        "emoji": "🧂",
-        "desc": "Dark chocolate mocha with house salted caramel and a flaky salt finish.",
-        "tip": "Use Maldon sea salt flakes — the crunch makes it special."
-      },
-      {
-        "name": "Brown Sugar Oat Latte",
-        "emoji": "🤎",
-        "desc": "Espresso with oat milk and torched brown sugar syrup. Cozy and sweet.",
-        "tip": "Brulee the brown sugar on top with a kitchen torch for drama."
-      },
-      {
-        "name": "Sweet Potato Pie Latte",
+        "name": "Ponder Yam Roll Latte",
         "emoji": "🍠",
-        "desc": "Roasted sweet potato puree, warm spices, espresso and marshmallow cream.",
-        "tip": "A Southern classic turned coffee drink — pairs with cinnamon rolls!"
+        "desc": "Roasted sweet potato, brown sugar, and cinnamon with espresso and steamed milk. Same spice note as the rolls.",
+        "tip": "West Oak is at $5.95 for a yam spice latte. Yours should come with a roll upsell."
+      },
+      {
+        "name": "Pumpkin Brûlée Latte",
+        "emoji": "🎃",
+        "desc": "Real pumpkin puree, warm spices, espresso, and a torched brown-sugar cap. Not syrup-only.",
+        "tip": "A pinch of cayenne is the Texas version. Torch only if the line is short."
+      },
+      {
+        "name": "Maple Pecan Cold Foam",
+        "emoji": "🍁",
+        "desc": "Cold brew or chai with maple foam and toasted Texas pecans.",
+        "tip": "Toast the pecans in the morning so the truck smells like the drink."
+      },
+      {
+        "name": "Apple Cider Americano",
+        "emoji": "🍎",
+        "desc": "Hot cider cut with a double shot. Small, fast, and bleacher-friendly.",
+        "tip": "Batch the cider. Shot it to order so it does not sit and thin out."
+      },
+      {
+        "name": "Lions Cocoa",
+        "emoji": "🏈",
+        "desc": "Mexican hot chocolate with cinnamon, optional espresso shot, whipped cream.",
+        "tip": "Chalk it for Lake Worth (Oct 16) and Krum (Nov 6). Offer a kids size without the shot."
+      },
+      {
+        "name": "Brown Sugar Oat Shaker",
+        "emoji": "🤎",
+        "desc": "Shaken espresso, brown-sugar syrup, oat milk. Still the iced order on warm October afternoons.",
+        "tip": "Use the same brown sugar as the cinnamon-roll filling so the menu rhymes."
       }
     ],
     "winter": [
