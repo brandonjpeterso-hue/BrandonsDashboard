@@ -1,1 +1,304 @@
-PLACEHOLDER_TO_BE_REPLACED
+{
+  "status": "ok",
+  "updated": "2026-11-01",
+  "note": "Monthly snapshot. Not a live feed.",
+  "sections": {
+    "endo": [
+      {
+        "title": "The ‘missed disease’ that affects 190 million: endometriosis drug shows early promise",
+        "link": "https://www.nature.com/articles/d41586-026-03042-x",
+        "description": "A modified version of an anti-parasitic drug targets immune cells in endometriosis lesions and reduced disease in early mouse studies, offering a potential non-hormonal treatment path.",
+        "pubDate": "Wed, 01 Oct 2026 00:00:00 GMT",
+        "author": "Nature"
+      },
+      {
+        "title": "New £2.4m trial to test endometriosis pain management programme",
+        "link": "https://www.nihr.ac.uk/news/new-ps24m-trial-test-endometriosis-pain-management-programme",
+        "description": "NIHR-funded UK trial will test a remote, endometriosis-specific pain management programme combining CBT-informed therapy, physiotherapy, and medication support for women with persistent pain.",
+        "pubDate": "Thu, 01 Oct 2026 00:00:00 GMT",
+        "author": "NIHR"
+      },
+      {
+        "title": "Elagolix Noninferior to Dienogest for Endometriosis Pain in Phase 3 Trial",
+        "link": "https://www.ajmc.com/view/elagolix-noninferior-to-dienogest-for-endometriosis-pain-in-phase-3-trial",
+        "description": "Phase 3 trial in India found elagolix 150 mg noninferior to dienogest for reducing moderate-to-severe endometriosis-associated pain.",
+        "pubDate": "Tue, 28 Oct 2026 00:00:00 GMT",
+        "author": "AJMC"
+      },
+      {
+        "title": "Researchers design potential treatment for endometriosis using targeted niclosamide nanotherapy",
+        "link": "https://www.eurekalert.org/news-releases/1144478",
+        "description": "Washington State University team engineered a dendrimer-delivered niclosamide that reduced lesions and pain sensitivity after a single dose in a mouse model.",
+        "pubDate": "Mon, 21 Sep 2026 00:00:00 GMT",
+        "author": "EurekAlert! / WSU"
+      },
+      {
+        "title": "A closer look at endometriosis pain: New map reveals key cellular interactions",
+        "link": "https://www.jax.org/news-and-insights/2026/october/jax-endometriosis-study-neuro-immune-interactions-pain-inflammation",
+        "description": "Jackson Laboratory spatial transcriptomics study maps how neurons and immune cells interact in human endometriosis lesions to amplify pain.",
+        "pubDate": "Thu, 09 Oct 2026 00:00:00 GMT",
+        "author": "The Jackson Laboratory"
+      },
+      {
+        "title": "Women hail effects of ‘life-changing’ endometriosis drug",
+        "link": "https://www.thetimes.com/uk/healthcare/article/nhs-endometriosis-drug-women-gynaecology-prescriptions-dq0ht82rx",
+        "description": "Patients report substantial relief from newly approved oral GnRH antagonist therapies for endometriosis, helping some return to work and delay surgery.",
+        "pubDate": "Mon, 26 Oct 2026 00:00:00 GMT",
+        "author": "The Times"
+      },
+      {
+        "title": "Lotus Endometriosis Institute Expands Robotic Excision Surgery As Demand Grows",
+        "link": "https://apnews.com/press-release/marketersmedia/press-release-717ca3b6130054a946a4aa6d8f8c8d38",
+        "description": "Institute led by Dr. Steven Vasilev announces expanded capacity for robotic excision of complex endometriosis cases.",
+        "pubDate": "Mon, 26 Oct 2026 00:00:00 GMT",
+        "author": "AP News"
+      },
+      {
+        "title": "Endometriosis: one step closer to a diagnostic test using menstrual fluid",
+        "link": "https://www.pasteur.fr/en/whats-new/latest-news/news/endometriosis-one-step-closer-diagnostic-test-using-menstrual-fluid",
+        "description": "Pasteur Institute researchers identify five candidate genes in menstrual fluid that could support a future non-invasive diagnostic test.",
+        "pubDate": "Mon, 15 Sep 2026 00:00:00 GMT",
+        "author": "Institut Pasteur"
+      }
+    ],
+    "womens": [
+      {
+        "title": "Early warning signs of chronic pelvic pain may appear in adolescence, study finds",
+        "link": "https://www.medicalxpress.com/news/2026-10-early-chronic-pelvic-pain-adolescence.html",
+        "description": "Research suggests adolescent symptoms may predict later chronic pelvic pain, underscoring the need for earlier recognition.",
+        "pubDate": "Wed, 07 Oct 2026 00:00:00 GMT",
+        "author": "Medical Xpress"
+      },
+      {
+        "title": "A potential step forward for Cardiff BSGE Endometriosis Centre",
+        "link": "https://www.endometriosis-uk.org/news/potential-step-forward-cardiff-bsge-endometriosis-centre",
+        "description": "Welsh government signals possible regional approach to sustain specialist endometriosis services after concerns over the Cardiff centre’s future.",
+        "pubDate": "Fri, 23 Oct 2026 00:00:00 GMT",
+        "author": "Endometriosis UK"
+      },
+      {
+        "title": "Endometriosis trial gives hope to millions of women in pain like me",
+        "link": "https://www.bbc.co.uk/news/articles/cme3r9ny2p4xo",
+        "description": "BBC profiles a patient and the new NIHR-funded pain management trial aiming to help women whose pain persists after standard treatments.",
+        "pubDate": "Wed, 30 Sep 2026 00:00:00 GMT",
+        "author": "BBC News"
+      },
+      {
+        "title": "From Endometriosis to Back Pain: The Medical Cannabis Trials to Watch in 2026",
+        "link": "https://cannabishealthnews.co.uk/2026/10/26/from-endometriosis-to-back-pain-the-medical-cannabis-trials-to-watch-in-2026/",
+        "description": "ENDOCAN-1 phase 2 feasibility study in Scotland is testing CBD for endometriosis-associated pain.",
+        "pubDate": "Mon, 26 Oct 2026 00:00:00 GMT",
+        "author": "Cannabis Health News"
+      },
+      {
+        "title": "Do New Saliva and Blood Tests Diagnose Endometriosis?",
+        "link": "https://www.washingtonendometriosis.com/blog/saliva-blood-tests-endometriosis",
+        "description": "Overview of emerging non-invasive tests and current professional guidelines, which still do not endorse routine biomarker use for diagnosis.",
+        "pubDate": "Sun, 26 Oct 2026 00:00:00 GMT",
+        "author": "Washington Endometriosis"
+      },
+      {
+        "title": "Hormone differences could pave way for endometriosis blood test",
+        "link": "https://www.biosciencetoday.co.uk/hormone-differences-could-pave-way-for-endometriosis-blood-test/",
+        "description": "University of Edinburgh researchers find distinct androgen patterns that correctly identified most endometriosis cases in early testing.",
+        "pubDate": "Mon, 28 Sep 2026 00:00:00 GMT",
+        "author": "Bioscience Today"
+      },
+      {
+        "title": "Improving Surgical Planning for Patients with Deep Endometriosis Using Patient-Specific 3-Dimensional Anatomical Models",
+        "link": "https://pubmed.ncbi.nlm.nih.gov/42575434/",
+        "description": "Pilot trial shows 3D-printed models may reduce surgical time and improve planning for deep endometriosis excision.",
+        "pubDate": "Sat, 31 Oct 2026 00:00:00 GMT",
+        "author": "J Obstet Gynaecol Can"
+      },
+      {
+        "title": "A long search for a solution to her pain",
+        "link": "https://www.uclahealth.org/news/story/63913",
+        "description": "After 18 years of dismissed symptoms, a patient finally receives excision surgery at UCLA Health and reports major improvement.",
+        "pubDate": "Mon, 26 Oct 2026 00:00:00 GMT",
+        "author": "UCLA Health"
+      }
+    ],
+    "fertility": [
+      {
+        "title": "IVF versus surgery for infertility in women with deep and ovarian endometriosis: a partially randomized patient preference trial",
+        "link": "https://www.ajog.org/article/S0002-9378(26)00593-4/abstract",
+        "description": "Pragmatic trial finds IVF associated with roughly 2-fold higher live birth rates compared with surgery for infertility in ultrasound-diagnosed deep or ovarian endometriosis.",
+        "pubDate": "Sat, 24 Oct 2026 00:00:00 GMT",
+        "author": "American Journal of Obstetrics & Gynecology"
+      },
+      {
+        "title": "Patient praises surgical team after life changing endometriosis treatment and long-awaited pregnancy",
+        "link": "https://www.midyorks.nhs.uk/news/patient-praises-surgical-team-after-life-changing-endometriosis-treatment-and-longawaited-pregnancy-4567/",
+        "description": "UK patient becomes pregnant naturally months after specialist excision surgery following years of fertility struggles and pain.",
+        "pubDate": "Sat, 10 Oct 2026 00:00:00 GMT",
+        "author": "Mid Yorkshire NHS"
+      },
+      {
+        "title": "Continuous estetrol/drospirenone regimen for the treatment of endometriosis-related pain: preliminary results",
+        "link": "https://pubmed.ncbi.nlm.nih.gov/42018156/",
+        "description": "Retrospective study of continuous E4/DRSP oral contraceptive shows pain reduction and average 30% decrease in endometrioma size over 6 months.",
+        "pubDate": "Wed, 22 Apr 2026 00:00:00 GMT",
+        "author": "Gynecological Endocrinology"
+      },
+      {
+        "title": "Endometriosis At 14: Grace Macfie’s Story",
+        "link": "https://www.endofound.org/grace-macfie-endometriosis-diagnosed-at-14",
+        "description": "Teen diagnosed via excision surgery at age 14 shares her journey to help other young patients recognize symptoms earlier.",
+        "pubDate": "Fri, 30 Oct 2026 00:00:00 GMT",
+        "author": "Endometriosis Foundation of America"
+      },
+      {
+        "title": "Rethinking first-line progestin use in endometriosis: a comparative therapeutic review",
+        "link": "https://link.springer.com/article/10.1007/s40267-026-01282-5",
+        "description": "Review argues for long-acting progestin delivery strategies better suited to chronic endometriosis management and adherence.",
+        "pubDate": "Fri, 30 Oct 2026 00:00:00 GMT",
+        "author": "Drugs & Therapy Perspectives"
+      },
+      {
+        "title": "New Blood Test Detects Missed Endometriosis Cases",
+        "link": "https://www.emjreviews.com/reproductive-health/news/new-blood-test-detects-missed-endometriosis-cases/",
+        "description": "Multi-omic blood assay identified over 60% of histologically confirmed endometriosis cases missed by ultrasound or MRI.",
+        "pubDate": "Sat, 31 Oct 2026 00:00:00 GMT",
+        "author": "EMJ"
+      },
+      {
+        "title": "Protecting female fertility: recent advances in medical therapies for endometriosis",
+        "link": "https://www.chinagp.net/CN/10.12114/j.issn.1007-9572.2025.0302",
+        "description": "Review of traditional and emerging targeted therapies focused on fertility preservation in endometriosis.",
+        "pubDate": "Sun, 15 Dec 2026 00:00:00 GMT",
+        "author": "Chinese General Practice"
+      },
+      {
+        "title": "Doctor With Stage IV Endometriosis Shares Her 15-Year Journey",
+        "link": "https://www.endofound.org/doctor-toshita-kumar-stage-4-endometriosis-story",
+        "description": "Physician and patient describes delayed diagnosis and relief after excision surgery, highlighting systemic challenges even for clinicians.",
+        "pubDate": "Wed, 15 Oct 2026 00:00:00 GMT",
+        "author": "Endometriosis Foundation of America"
+      }
+    ],
+    "medical": [
+      {
+        "title": "Tapeworm Treatment Shows Early Effectiveness Against Endometriosis",
+        "link": "https://www.sciencealert.com/tapeworm-treatment-shows-early-effectiveness-against-endometriosis",
+        "description": "Dendrimer-linked niclosamide reduced lesion size and pain sensitivity in mice; human trials still needed.",
+        "pubDate": "Fri, 03 Oct 2026 00:00:00 GMT",
+        "author": "ScienceAlert"
+      },
+      {
+        "title": "New drug for endometriosis could offer ‘breakthrough’ in treatment, scientists say",
+        "link": "https://www.independent.co.uk/news/uk/home-news/endometriosis-drug-treatment-niclosamide-latest-research-b3060422.html",
+        "description": "Independent coverage of the WSU targeted niclosamide nanotherapy that remained effective for at least two weeks after a single injection in mice.",
+        "pubDate": "Thu, 02 Oct 2026 00:00:00 GMT",
+        "author": "The Independent"
+      },
+      {
+        "title": "Aiming at a chronic women's disease, WSU team develops a potential treatment for endometriosis",
+        "link": "https://www.spokesman.com/stories/2026/oct/14/aiming-at-a-chronic-womens-disease-wsu-team-develo/",
+        "description": "Local coverage of the Washington State University nanotherapy research and next steps toward clinical testing.",
+        "pubDate": "Tue, 14 Oct 2026 00:00:00 GMT",
+        "author": "The Spokesman-Review"
+      },
+      {
+        "title": "Noninvasive Blood-Based Detection of Endometriosis Can Improve Standard-of-Care",
+        "link": "https://www.sciencedirect.com/science/article/pii/S1553465026001512",
+        "description": "Journal of Minimally Invasive Gynecology paper on a multi-omic blood assay with high AUC that complements imaging.",
+        "pubDate": "Tue, 01 Sep 2026 00:00:00 GMT",
+        "author": "JMIG"
+      },
+      {
+        "title": "Menstrual blood as a diagnostic tool for endometriosis: systematic review",
+        "link": "https://research.monash.edu/en/publications/menstrual-blood-as-a-diagnostic-tool-for-endometriosis-systematic/",
+        "description": "Systematic review identifies several promising menstrual-blood biomarkers measurable by ELISA or RT-qPCR.",
+        "pubDate": "Tue, 01 Dec 2026 00:00:00 GMT",
+        "author": "Monash University"
+      },
+      {
+        "title": "Tapeworm drug could be powerful treatment for endometriosis, early mouse study hints",
+        "link": "https://www.livescience.com/health/reproductive-health/tapeworm-drug-could-help-treat-endometriosis-mouse-study-hints",
+        "description": "Live Science summary of the Advanced Healthcare Materials study on targeted niclosamide delivery.",
+        "pubDate": "Tue, 14 Oct 2026 00:00:00 GMT",
+        "author": "Live Science"
+      },
+      {
+        "title": "Looking ahead: new approaches to the diagnosis, treatment, and rehabilitation of patients with deep infiltrating endometriosis",
+        "link": "https://www.pharmacoeconomics.ru/jour/article/view/1512",
+        "description": "Review covers molecular markers, AI-assisted imaging, targeted pathways, and multidisciplinary rehabilitation for deep infiltrating endometriosis.",
+        "pubDate": "Wed, 29 Oct 2026 00:00:00 GMT",
+        "author": "FARMAKOEKONOMIKA"
+      },
+      {
+        "title": "How a drug for TAPEWORMS could end the crippling pain of condition suffered by one in 10 women",
+        "link": "https://www.thesun.co.uk/health/40742891/tapeworm-drug-cures-womens-pain-endometriosis/",
+        "description": "Coverage of the preclinical niclosamide nanotherapy findings and remaining steps before human trials.",
+        "pubDate": "Tue, 20 Oct 2026 00:00:00 GMT",
+        "author": "The Sun"
+      }
+    ],
+    "heartwarming": [
+      {
+        "title": "A long search for a solution to her pain",
+        "link": "https://www.uclahealth.org/news/story/63913",
+        "description": "Ashleigh Thiel endured 18 years of severe pelvic pain before diagnosis and excision surgery at UCLA Health; she now reports the best quality of life in decades.",
+        "pubDate": "Mon, 26 Oct 2026 00:00:00 GMT",
+        "author": "UCLA Health"
+      },
+      {
+        "title": "Endometriosis At 14: Grace Macfie’s Story",
+        "link": "https://www.endofound.org/grace-macfie-endometriosis-diagnosed-at-14",
+        "description": "Teen and her mother share how early recognition and excision surgery gave Grace validation and a path forward after years of dismissed pain.",
+        "pubDate": "Fri, 30 Oct 2026 00:00:00 GMT",
+        "author": "Endometriosis Foundation of America"
+      },
+      {
+        "title": "Doctor With Stage IV Endometriosis Shares Her 15-Year Journey",
+        "link": "https://www.endofound.org/doctor-toshita-kumar-stage-4-endometriosis-story",
+        "description": "Physician Toshita Kumar describes her delayed diagnosis and recovery after excision, emphasizing that even clinicians face the same systemic barriers.",
+        "pubDate": "Wed, 15 Oct 2026 00:00:00 GMT",
+        "author": "Endometriosis Foundation of America"
+      },
+      {
+        "title": "Patient praises surgical team after life changing endometriosis treatment and long-awaited pregnancy",
+        "link": "https://www.midyorks.nhs.uk/news/patient-praises-surgical-team-after-life-changing-endometriosis-treatment-and-longawaited-pregnancy-4567/",
+        "description": "Sannah became pregnant naturally months after specialist excision surgery following years of pain and infertility; she reports symptoms are gone.",
+        "pubDate": "Sat, 10 Oct 2026 00:00:00 GMT",
+        "author": "Mid Yorkshire NHS"
+      },
+      {
+        "title": "Alexandra's Story",
+        "link": "https://www.endometriosis-uk.org/personal-stories/alexandras-story",
+        "description": "Young patient diagnosed in her teens credits early parental advocacy and surgery for ending years of believing her pain was normal.",
+        "pubDate": "Thu, 29 Oct 2026 00:00:00 GMT",
+        "author": "Endometriosis UK"
+      },
+      {
+        "title": "The reality of living with endometriosis: The good, the bad, and the life-changing actualities of laparoscopy surgery",
+        "link": "https://community.thefemalelead.com/p/the-reality-of-living-with-endometriosis",
+        "description": "Patient describes life after stage 3 endometriosis excision and the first period of normal cycles after more than a decade of pain.",
+        "pubDate": "Wed, 21 Oct 2026 00:00:00 GMT",
+        "author": "The Female Lead"
+      },
+      {
+        "title": "Women hail effects of ‘life-changing’ endometriosis drug",
+        "link": "https://www.thetimes.com/uk/healthcare/article/nhs-endometriosis-drug-women-gynaecology-prescriptions-dq0ht82rx",
+        "description": "Patients describe returning to work and avoiding or delaying major surgery after starting newly available endometriosis medications.",
+        "pubDate": "Mon, 26 Oct 2026 00:00:00 GMT",
+        "author": "The Times"
+      },
+      {
+        "title": "Endometriosis trial gives hope to millions of women in pain like me",
+        "link": "https://www.bbc.co.uk/news/articles/cme3r9ny2p4xo",
+        "description": "Charlotte McCann shares how a new pain-management trial offers hope after years of limited treatment options.",
+        "pubDate": "Wed, 30 Sep 2026 00:00:00 GMT",
+        "author": "BBC News"
+      }
+    ]
+  },
+  "fetch": {
+    "endo": 8,
+    "womens": 8,
+    "fertility": 8,
+    "medical": 8,
+    "heartwarming": 8
+  }
+}
