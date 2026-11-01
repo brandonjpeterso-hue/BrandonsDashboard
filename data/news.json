@@ -1,290 +1,304 @@
 {
   "status": "ok",
-  "updated": "2026-10-01",
-  "note": "Monthly snapshot. Not a live feed.",
+  "updated": "2026-11-01",
+  "note": "Monthly snapshot from Google News RSS. Not a live feed.",
   "sections": {
     "endo": [
       {
-        "title": "Aberdeen-led £2.3m trial will test a personalised endometriosis pain programme",
-        "link": "https://www.bbc.co.uk/news/articles/cme3r9ny2p4xo",
-        "description": "NIHR is funding a five-year University of Aberdeen and NHS Grampian study of a 12-week endometriosis-specific pain management programme (e-PMP), combining medication review, physiotherapy, and psychological support against standard care.",
-        "pubDate": "Wed, 30 Sep 2026 06:21:00 GMT",
-        "author": "BBC News"
+        "title": "Collaborative Would Standardize Quality Endometriosis Care - Cleveland Clinic",
+        "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNRXVyNjlNSFJvaUZleDVWTTFRTlI0dF9aSmVjTWZ6SE5tc2pVWEt1MDF0ZDA3SVd1U2NpSmROeElSTnQ4QlBJSEhGQVhMTXU3NjF1cXFnZU5lOU9GU0o2bEtHSXg0SWt0UG93Y1lMM2EwUHYzSzdLSUpsTmZ4WFdsdEJxVV8wLWhIS3RMcXpaMVdrLVRBYndFTzdrVWM?oc=5",
+        "description": "Collaborative Would Standardize Quality Endometriosis Care  Cleveland Clinic",
+        "pubDate": "Mon, 08 Jun 2026 07:00:00 GMT",
+        "author": "Cleveland Clinic"
       },
       {
-        "title": "WSU team reports a single-dose nanotherapy that shrank endometriosis lesions in mice",
-        "link": "https://news.wsu.edu/press-release/2026/09/21/wsu-team-develops-potential-treatment-for-endometriosis/",
-        "description": "Washington State University researchers delivered niclosamide on a dendrimer to an endometriosis-associated immune cell. In a mouse model, one injection reduced lesion size and number and pain sensitivity. Results are in Advanced Healthcare Materials; human trials are not yet underway.",
-        "pubDate": "Mon, 21 Sep 2026 12:00:00 GMT",
-        "author": "Washington State University"
+        "title": "Endometriosis Excision Surgery For Fertility: Procedure Efficacy Report Released - FinancialContent",
+        "link": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxQdDYyaVRzWjVvU0VyYXlaNVpicXprUTRiQ1RQU2dMbzRWNVdWUzBLVUlNWEx4SmZhaWd0ZXlzRjVZalhLaFNzWW50Nl94Qlp4LXRHcUtaSDh0WjNvVWoxVkdzcU1OTDR5U2RBMnRyNm03RUZOODdrOGlCdVh0LWN6eHRNMlN4TnJBdzQ0MU96emNURkJlYjI0MENpSV9RaV9qTzZZUzVIVVY2ME5Cc2RudGw3bEVFLWYwMWpyX0g0V3JfRTV5X2dOOWJwTzAzbUV4S01QbFROcGo3bHVfSkZZ?oc=5",
+        "description": "Endometriosis Excision Surgery For Fertility: Procedure Efficacy Report Released  FinancialContent",
+        "pubDate": "Sun, 18 Oct 2026 23:22:00 GMT",
+        "author": "FinancialContent"
       },
       {
-        "title": "Yale study links IL-16 and lesion gene patterns to endometriosis pain",
-        "link": "https://medicine.yale.edu/news-article/how-endometriosis-causes-pain/",
-        "description": "Biopsies from symptomatic and asymptomatic endometriosis showed genetic differences tied to pain, including higher IL-16. The Sept. 10 Molecular Human Reproduction paper offers a molecular clue for why lesion burden and pain severity often do not match.",
-        "pubDate": "Tue, 22 Sep 2026 12:00:00 GMT",
-        "author": "Yale School of Medicine"
+        "title": "Lotus Endometriosis Institute Expands Robotic Excision Surgery As Demand Grows - markets.businessinsider.com",
+        "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPRGRscm1QUkx4WGlDN2s5R0ptSDlNZlpXZzg0UnpzMlMwMzliZVBmdnU1MnliWWhFcGc0eXlHUVoxV2FVYmNTVkpJZTI1MnpDdTgxVEw5VnJwRVp0a2JPby1xcmlVWUJCeE9fUTExWFlFQmZyMTNpdE52aGZNTzZRZ05wNGNXVjV5a2RwOW5lUGVNMVp5MTVCTnYwenViMXNwVnNyaFd6YVNrblhhakhHb082RUsyeVRYc3NVWDZYbF81MmNCVzVNbi1tZl9GaWxhbkNj?oc=5",
+        "description": "Lotus Endometriosis Institute Expands Robotic Excision Surgery As Demand Grows  markets.businessinsider.com",
+        "pubDate": "Thu, 22 Oct 2026 07:00:00 GMT",
+        "author": "markets.businessinsider.com"
       },
       {
-        "title": "Edinburgh group finds an androgen fingerprint that flagged endometriosis in blood",
-        "link": "https://www.biosciencetoday.co.uk/hormone-differences-could-pave-way-for-endometriosis-blood-test/",
-        "description": "University of Edinburgh scientists compared 159 women with confirmed endometriosis and 57 without. Higher 11-ketotestosterone and a broader 11-oxygenated androgen pattern identified more than 95 percent of cases in this sample. A commercial blood test is not yet available.",
-        "pubDate": "Mon, 28 Sep 2026 12:00:00 GMT",
-        "author": "Bioscience Today"
-      },
-      {
-        "title": "NIH Trailblazer award backs University of Florida quantum sensors for early endometriosis",
-        "link": "https://www.news-medical.net/news/20260922/UF-professor-wins-federal-grant-to-develop-technology-for-detecting-early-stage-endometriosis.aspx",
-        "description": "Engineering professor Laura Kim received a three-year NIH Trailblazer Award to build a diamond-based quantum sensing platform meant to read faint magnetic signals in tissue, with early-stage endometriosis as the first clinical target.",
-        "pubDate": "Tue, 22 Sep 2026 12:00:00 GMT",
-        "author": "University of Florida / News-Medical"
-      },
-      {
-        "title": "Monash team funded to pursue a non-hormonal NPSR1 blocker for endometriosis pain",
-        "link": "https://www.monash.edu/medicine/news/latest/2026-articles/new-non-hormonal-therapy-for-endometriosis-wins-medchem-australia-funding-to-fast-track-drug-discovery",
-        "description": "MedChem Australia awarded more than A$415,000 for 12 months to develop compounds against neuropeptide S receptor 1, expressed on inflammatory cells in peritoneal fluid. Mouse work linked receptor blockade to less pelvic pain and lower TNF-alpha.",
-        "pubDate": "Wed, 09 Sep 2026 12:00:00 GMT",
-        "author": "Monash University"
-      },
-      {
-        "title": "Patients and doctors question surgery-plus-hormones as a lasting fix",
-        "link": "https://www.theguardian.com/society/2026/sep/15/patients-health-doctors-doubt-on-nhs-streatment-endometriosis",
-        "description": "A Guardian report on NHS care cites patients whose pain relief after surgery and hormonal suppression was short-lived, alongside a study finding the usual dual approach did not improve quality of life for chronic pelvic pain.",
-        "pubDate": "Tue, 15 Sep 2026 12:00:00 GMT",
-        "author": "The Guardian"
-      },
-      {
-        "title": "EndoFound publishes a back-to-school guide on endometriosis in teens",
-        "link": "https://www.endofound.org/a-back-to-school-guide-to-endometriosis-in-teens",
-        "description": "The Endometriosis Foundation of America walks through teen symptoms, why period pain that disrupts school is not normal, and the 7-to-10-year diagnostic delay that often starts in adolescence.",
-        "pubDate": "Mon, 21 Sep 2026 12:00:00 GMT",
+        "title": "A First-of-Its-Kind Surgery, and the Endometriosis Patient Whose Ovary It Revived - Endometriosis Foundation of America",
+        "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQdTlwcFlhUTVUQTVBSGsyRE9OZGR1TmNXaWVqMzZUWk9QYWFpTUFjczY0bE1fREw2SzdIWmlZS0s2dkdhT3A4TDBqbTVVMDRidjR0blczU1dmOFNWaFdvYkhPdWt5ZFZEdW15ZWJrRmxjUkQzTzgyUktlbWlKLUdnbm5JZ0ZDSGJVZmg4Z3M0VU5yZVZWanVDekFhSE9CakVqS3ZrajM4d2p6dw?oc=5",
+        "description": "A First-of-Its-Kind Surgery, and the Endometriosis Patient Whose Ovary It Revived  Endometriosis Foundation of America",
+        "pubDate": "Wed, 20 May 2026 07:00:00 GMT",
         "author": "Endometriosis Foundation of America"
+      },
+      {
+        "title": "Rethinking endometriosis recurrence: from clinical challenge to biological opportunity - Nature",
+        "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE91X1Z5bFVFUXQ5QUhlQnh0Z191cGNDUkE4RVB1aXRScVJmNUh5ZXhURUxEVGVocjVtMGdOVmVSSXpmWVFmTjN5OXpfOVNBeDBxRF90cDJoOTFONng1Z0Zv?oc=5",
+        "description": "Rethinking endometriosis recurrence: from clinical challenge to biological opportunity  Nature",
+        "pubDate": "Wed, 14 Jan 2026 08:00:00 GMT",
+        "author": "Nature"
+      },
+      {
+        "title": "Lora Liu, MD, on closing the gaps in endometriosis care - Contemporary OB/GYN",
+        "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOMlR4bGVpYk5ndUtzRGdQUU95NUx3bzdZR0VxbER5SHUzMWs0bTlubFV6ekkzTy1OSHdNemxicW9YcTc4SF82d1RtWWNEcUdHTnFGSzQ4Umk2ZlZCM1hYaU9sZ05GMGlYUFJZUURSUGlUZEtmQjNTV2NxeEl6dTFEaFpCbTc5cTMza0w3UVQ5eExGdk1CTnhn?oc=5",
+        "description": "Lora Liu, MD, on closing the gaps in endometriosis care  Contemporary OB/GYN",
+        "pubDate": "Wed, 08 Apr 2026 07:00:00 GMT",
+        "author": "Contemporary OB/GYN"
+      },
+      {
+        "title": "Will new endometriosis guidance put an end to treatment delays? - Baylor College of Medicine Blog Network -",
+        "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPREtSQzJ2VjByQmV2d0xQM0VWTzNUMDJfTG9SM3NJTDNvRmVKVG5VbDFwWEs0ZXdKb21zSjFkeklpcG5US014eEh0eDhaektKeDh5R2pNbnQxaEdWRnd4SUg5Y0tWQmZtdFlaZ2xMT3k2bXVZSnFtX0loRExxcWlxZlp4VHRpUC1zUWtkR2hzdzIxa0VXeEtSREFkZDI?oc=5",
+        "description": "Will new endometriosis guidance put an end to treatment delays?  Baylor College of Medicine Blog Network -",
+        "pubDate": "Mon, 23 Mar 2026 07:00:00 GMT",
+        "author": "Baylor College of Medicine Blog Network -"
+      },
+      {
+        "title": "Lotus Endometriosis Institute Announces Robotic Excision for Advanced Cases - USA Today",
+        "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQcjZBUFVtZ2tseHgwS0xBQTBESTJBdlQxTEY4N19JSUI4bGo4VlVZUFBhWWRob2duWGdYUy1CX0d6RDNkc1JWWjYzckd3QU0xNks1MWJaeTdFRkNLTjc4TUZyM3UtV0VhdVF3ZW1SaG1qR2NNckN3SXQ3Q0hyeFVKaXVQWUpkQVJycXRfMjZ6a2gyZy1GWmNlOFNFRzhkNmdFam1PZlplNGQzTVB4QjFWWUtPTTduVUd1MjhWRkR1Tzd4dlhBNmc?oc=5",
+        "description": "Lotus Endometriosis Institute Announces Robotic Excision for Advanced Cases  USA Today",
+        "pubDate": "Mon, 21 Sep 2026 18:36:30 GMT",
+        "author": "USA Today"
       }
     ],
     "womens": [
       {
-        "title": "‘It makes you feel helpless’: standard endometriosis care under scrutiny",
-        "link": "https://www.theguardian.com/society/2026/sep/15/patients-health-doctors-doubt-on-nhs-streatment-endometriosis",
-        "description": "Natalie Greenwood and other patients describe repeated surgery and chemical menopause that only briefly ease pain. Clinicians quoted in the piece say quality-of-life gains from the usual NHS pathway are limited.",
-        "pubDate": "Tue, 15 Sep 2026 12:00:00 GMT",
-        "author": "The Guardian"
+        "title": "Early warning signs of chronic pelvic pain may appear in adolescence, study finds - Medical Xpress",
+        "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQejhMb1FHMWwtTF9xblFZaXgwUk9sMmNiTzdUQjd3bVZCUlluV3BVOGJvRS16X0VuYXRxc1hZeGhMWDRoWEloS1o1bVliaEMzY2tUTXhEOUhiaTgzQXpEMjA2YnZiTGVPYUlFRHpnS2ZYNXF5cl92YUpNRzRQUU5WZGdUTEZXelJl?oc=5",
+        "description": "Early warning signs of chronic pelvic pain may appear in adolescence, study finds  Medical Xpress",
+        "pubDate": "Wed, 07 Oct 2026 07:00:00 GMT",
+        "author": "Medical Xpress"
       },
       {
-        "title": "Powers Health opens a chronic pelvic pain pathway aimed at cutting the diagnostic delay",
-        "link": "https://www.powershealth.org/newsletter/articles/2026/09/no-reason-for-women-to-suffer",
-        "description": "An Indiana program led by OB/GYN Osama Zaghmout routes pelvic pain patients to exam, pelvic-floor physical therapy, MRI, and colorectal referral when bowel disease is suspected. The clinic cites the typical 7-to-10-year wait for an endometriosis diagnosis.",
-        "pubDate": "Mon, 21 Sep 2026 12:00:00 GMT",
-        "author": "Powers Health"
+        "title": "Pelvic Pain in Women: Why Effective Treatment Can Be Elusive - Cedars-Sinai",
+        "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPNlhSbjFTZy1CSW5mWnJyRm4xWHcxU0JYbTJYbjBKZzVSZzRoWDJhdV94TXZYZ0dlNVRuZDBxZmg3R1VOTzVBUkFHYVlPUVVwTFI3M1ZFVHkxT2hPUXo0SEc1T256bFdKYW5FU0lleWhmd1MwSjZ1NlowRlVxdDBEMUR4dTlENWFiZngtN1NNd3FNRktMMExRWXRMRVpIUHVwWmhiZ3NBYUREYlYwbVZMZjVzSWVxa0VRTDUtNWJ4Nno?oc=5",
+        "description": "Pelvic Pain in Women: Why Effective Treatment Can Be Elusive  Cedars-Sinai",
+        "pubDate": "Fri, 01 May 2026 07:00:00 GMT",
+        "author": "Cedars-Sinai"
       },
       {
-        "title": "First UK trial of a remote endometriosis pain programme gets NIHR backing",
-        "link": "https://www.itv.com/news/2026-09-29/23-million-study-to-trial-new-treatment-for-endometriosis-pain",
-        "description": "ITV reports the Aberdeen e-PMP trial will compare a 12-week remote package — CBT-informed therapy, specialist physiotherapy, intimacy and communication support, and medication optimisation — with standard care alone.",
-        "pubDate": "Wed, 30 Sep 2026 00:01:00 GMT",
-        "author": "ITV News"
+        "title": "Acta Obstetricia et Gynecologica Scandinavica | NFOG Women's Health Journal | Wiley Online Library - Wiley & Sons",
+        "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBOMVZ5Z2tMNWF4dW5kcE4zOURGbzNSdDNaOXJvRko0dU9vMm1aeVFEbWNQZFlDQlBvWWtfck96QUctNkNRdFJrODBtOURuMXZfejYtaHJMSlJSMnhKcUZfbWNBSml5WDctaVFUNQ?oc=5",
+        "description": "Acta Obstetricia et Gynecologica Scandinavica | NFOG Women's Health Journal | Wiley Online Library  Wiley & Sons",
+        "pubDate": "Thu, 28 May 2026 07:00:00 GMT",
+        "author": "Wiley & Sons"
       },
       {
-        "title": "How endometriosis pain varies: Yale highlights a symptom-severity mismatch",
-        "link": "https://medicine.yale.edu/news-article/how-endometriosis-causes-pain/",
-        "description": "Yale School of Medicine summarizes patient biopsies showing inflammatory signals, including IL-16, that track with pain even when visible disease is limited. About 190 million people worldwide live with the condition.",
-        "pubDate": "Tue, 22 Sep 2026 12:00:00 GMT",
-        "author": "Yale School of Medicine"
+        "title": "OPINION: It's time to stop dismissing women's pelvic pain - The Atlanta Journal-Constitution",
+        "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxObnEzSVVYU2ZNVkdCSFdURUQ5WFNoZ3JLc1NXV1Fsb1hYbUJHQWlZbEczamtKWWdQdlNBYzhWeDRuMTI3bHlVVmNlUmcwVWVaQ3BmUVNUZFRHckE3cTIzN09rMGJpdHhYSFZrRml2TWUzaThXc2V4SUpnNnI2bWw5NmFmUUJ3WkpGU1UxalVtMzFLRjg1bjB5dTNuOXFTd0Vk?oc=5",
+        "description": "OPINION: It's time to stop dismissing women's pelvic pain  The Atlanta Journal-Constitution",
+        "pubDate": "Wed, 08 Jul 2026 07:00:00 GMT",
+        "author": "The Atlanta Journal-Constitution"
       },
       {
-        "title": "Two-year relugolix combination data show sustained endometriosis pain response",
-        "link": "https://www.contemporaryobgyn.net/view/long-term-data-on-relugolix-combination-therapy-for-endometriosis-pain",
-        "description": "A Contemporary OB/GYN panel reviews the SPIRIT open-label extension: at two years, 85 percent met the dysmenorrhea responder threshold and 74 percent the non-menstrual pelvic pain threshold, with no new safety signal reported.",
-        "pubDate": "Wed, 26 Aug 2026 12:00:00 GMT",
-        "author": "Contemporary OB/GYN"
+        "title": "NYC Health + Hospitals Establishes Program to Expand Comprehensive and Collaborative Care for Women Suffering from Endometriosis and Chronic Pelvic Pain - NYC Health + Hospitals",
+        "link": "https://news.google.com/rss/articles/CBMiqgJBVV95cUxQZzZkaGxoTzc4VWptblJCblJObDdKeVRLeGQwVGZMRy1jQmtpSnFyOXFNdExPQ29qdGxiTk1SUGo3ZWJ6TUJ5T3NmVnRUQ0JUTnhlbFlzTmVvVVRWMDQtaC1YSk5hOGdLNW1tTHdpMXRmMU9KdVl0MkJYa0ZrTDRCd0RXQmUtT2RNbW9BSmRiMTdScm1kMm1MZ3NGM2YtSXN4NnltdTdMS0sxVDhaNENWeURpSVJmS3RybjN2cThzWEQzRGtsMVpLcE5scFBVcV9Dd0RSWmJrMWlHWG45dzlqOXVkS050bnE3bzJLamtjTkNSZzZWSlc2bkQ0TGN1aUZISnRMbk05ZGxpc1Q2ZGphZ3ZtZUMyX3N4cjFJTEJkY3ppbW5UWmo3VzVB?oc=5",
+        "description": "NYC Health + Hospitals Establishes Program to Expand Comprehensive and Collaborative Care for Women Suffering from Endometriosis and Chronic Pelvic Pain  NYC Health + Hospitals",
+        "pubDate": "Tue, 13 Jan 2026 08:00:00 GMT",
+        "author": "NYC Health + Hospitals"
       },
       {
-        "title": "Teen endometriosis guide: pain that cancels school is a reason to be seen",
-        "link": "https://www.endofound.org/a-back-to-school-guide-to-endometriosis-in-teens",
-        "description": "EndoFound’s September guide covers bowel and bladder symptoms, fatigue, and why ‘you will grow out of it’ delays care, especially for teens of color.",
-        "pubDate": "Mon, 21 Sep 2026 12:00:00 GMT",
-        "author": "Endometriosis Foundation of America"
+        "title": "Diagnosis and Treatment of Refractory Pelvic Pain - Cleveland Clinic",
+        "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQRklDeENzTXlzZFQzUVhmWFdsZG4zeVlLQUlWdHZROUdnc2JySG1RdmZ4LVFHLVlQQS01ZFdmdlVEY2dWYzBhRWl0b0RqX0hLMHNnR2dfVXR0X1Q5NnU0Uk5jUEh6WlpsamkyWDY3ajNQc0Z6OTllOXhXTUtaTzA4YjlCUy1ZT0lwVElOcG9Jb3o?oc=5",
+        "description": "Diagnosis and Treatment of Refractory Pelvic Pain  Cleveland Clinic",
+        "pubDate": "Mon, 16 Jan 2023 08:00:00 GMT",
+        "author": "Cleveland Clinic"
       },
       {
-        "title": "Team EndoStrong expands to 70 runners at the 2026 New York City Marathon",
-        "link": "https://www.endofound.org/70-strong-endofounds-team-endostrong-expands-its-presence-at-the-2026-new-york-city-marathon",
-        "description": "New York Road Runners increased EndoFound’s marathon slots by 40 percent. The team hopes to top $400,000 after raising nearly $300,000 in 2025 for awareness, education, and research.",
-        "pubDate": "Tue, 29 Sep 2026 12:00:00 GMT",
-        "author": "Endometriosis Foundation of America"
+        "title": "The Intersection of Psychology and Gynecology: A Comprehensive Review of Pain Management Strategies in Women's Health - Cureus",
+        "link": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxNV2pELThERzVPOW5icGZPNkk0OXRZT0Z6QVU4TFUteEhsODhtbllDMzNTSVBvd2Q2WGZIYURfaDVXREtGeVVmNGVVOVQ4QlhNdjBPcWkxUkRVaFR3dHI1X1pTQU9ENkxBcjhTTVRYcE1oTGcyekRCNkZUQ3ZtYTlOZ0ZEVVZBMzE2bHNUbHNMOXBxd1lTNTlaY0VsT3B5ODM3WFZQc3lOZ2prd3dFMGtMNU9Vb3JkQzF4RElLbXN2N1VOMi1IYUNiUGt5emNvZkwyazFjUS1GNlNsdEg5eE9TODF5cER3clFQZkE?oc=5",
+        "description": "The Intersection of Psychology and Gynecology: A Comprehensive Review of Pain Management Strategies in Women's Health  Cureus",
+        "pubDate": "Thu, 19 Jun 2025 07:00:00 GMT",
+        "author": "Cureus"
       },
       {
-        "title": "Charlotte McCann left her career at 27 because endometriosis pain was unmanageable",
-        "link": "https://www.bbc.co.uk/news/articles/cme3r9ny2p4xo",
-        "description": "BBC profiles a patient symptomatic since age 14 who is watching the Aberdeen pain-programme trial as a possible option for people whose surgery and medication have not held.",
-        "pubDate": "Wed, 30 Sep 2026 06:21:00 GMT",
-        "author": "BBC News"
+        "title": "Advanced, multidisciplinary treatment available at new pelvic pain specialty center - UChicago Medicine",
+        "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNeGo3VTFCc01lVkY2dHB1a2VrWUNoYXhwVjVIV2dVQUppWFdJOGZTdEttQ1daLU9jS01xRVJqS3ZzQ3lYZGtzWnVudjl5RVUyY3h4Y0djeWZxWi1kcEdTUEFjN245bWpnUjhKaXQ5TUVjN0V5ZnVNMHlvNzB6S0R6N3VaQmZzUlJadGR5OEhvaUE1T0lIQ3J0bU1XV29jdm90TFI5UW14NkUwM2EzamJJYVB3?oc=5",
+        "description": "Advanced, multidisciplinary treatment available at new pelvic pain specialty center  UChicago Medicine",
+        "pubDate": "Fri, 02 Feb 2024 08:00:00 GMT",
+        "author": "UChicago Medicine"
       }
     ],
     "fertility": [
       {
-        "title": "EndoFound review: endometrioma surgery can cut ovarian reserve; preserve eggs first when possible",
-        "link": "https://www.endonews.com/safeguarding-fertility-in-endometriosis",
-        "description": "An EndoNews summary of fertility-preservation evidence reports AMH drops of about 39.5 percent after unilateral cystectomy and 57 percent after bilateral surgery, and a 51.7 percent lower mature-oocyte yield when preservation followed prior endometrioma surgery.",
-        "pubDate": "Thu, 24 Sep 2026 12:00:00 GMT",
-        "author": "EndoNews / Endometriosis Foundation of America"
+        "title": "‘I am truly grateful’: Endometriosis care, fertility treatment make motherhood possible - UChicago Medicine",
+        "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNOTJseTNzVzVjTlBMVHIwOW05dkNzOEdlanBES3FTUC1IamlwUU1yYl9NdjN3b01ZUUxaTThzSVdQTnJDX2pucjVFYmJyZFpoYjBKYS0tVHJ3dlRaeElJaE51YXJjdHNjcVNfWEFVQkJ3bWVQWUhDX0x1WVc0ajhGbF9pdmtnT1N1UXM3NFd6S1owQ1JyOXJfal9BNVhmYmxLeUlIYzRlNm5pTjJPY3JiZXdQVQ?oc=5",
+        "description": "‘I am truly grateful’: Endometriosis care, fertility treatment make motherhood possible  UChicago Medicine",
+        "pubDate": "Mon, 18 May 2026 07:00:00 GMT",
+        "author": "UChicago Medicine"
       },
       {
-        "title": "Hysteroscopy before first frozen transfer linked to higher pregnancy rates in endometriosis",
-        "link": "https://www.frontiersin.org/journals/medicine/articles/10.3389/fmed.2026.1849361/full",
-        "description": "A Frontiers in Medicine cohort found polyps and chronic endometritis were common in endometriosis-related infertility. After matching, clinical pregnancy was 67.5 percent with pre-FET hysteroscopy versus 42.5 percent without.",
-        "pubDate": "Thu, 24 Sep 2026 12:00:00 GMT",
-        "author": "Frontiers in Medicine"
+        "title": "State-funded IVF to be expanded to women who suffer infertility due to endometriosis - The Journal",
+        "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE9nakpSSWdlcGF3OGpQZXpYOGR3UzRUT3ZDZDVGV2ZGTG1QekhNVi1VNGJTTFA3Wm1POV95aTlXWm5Za05pR1lYdnRKeHVuNXpMV0ctMm9CdW9zWFA5aDJzeWZaNmdmT0t1T3EzejFib2FsMTB3TWJHclZ3VQ?oc=5",
+        "description": "State-funded IVF to be expanded to women who suffer infertility due to endometriosis  The Journal",
+        "pubDate": "Wed, 08 Jul 2026 07:00:00 GMT",
+        "author": "The Journal"
       },
       {
-        "title": "Ovarian endometriosis, not all subtypes, tracked with lower reserve and embryo quality",
-        "link": "https://link.springer.com/article/10.1007/s00404-026-08446-8",
-        "description": "Archives of Gynecology and Obstetrics (10 June 2026) found lower antral follicle counts and fewer mature oocytes in ovarian endometriosis than in peritoneal disease, and argued for earlier elective egg freezing in that subtype.",
-        "pubDate": "Wed, 10 Jun 2026 12:00:00 GMT",
-        "author": "Archives of Gynecology and Obstetrics"
+        "title": "Endometriosis-associated infertility: From pathophysiology to tailored treatment - Frontiers",
+        "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxON3JKSnNHV1pFWTJucVRDdEFvWDltNVdfdTRHU0hYZjlndEZNT1A5U1k1dTlORW1yZ0h4U0NHU1FYbWIwUnE3TFJsX2dra3o0d3llT01qOW1WVG05dm13T0tmNXZZVEdXMk4tM0tTSDQwYU1fbjNaTEwwZm5uSnlyWVR1THhoVG42eWVuWUZpMEI3WWdrN3c?oc=5",
+        "description": "Endometriosis-associated infertility: From pathophysiology to tailored treatment  Frontiers",
+        "pubDate": "Tue, 06 Feb 2024 11:01:15 GMT",
+        "author": "Frontiers"
       },
       {
-        "title": "Non-hormonal drug work matters for people who cannot stay on cycle suppression",
-        "link": "https://www.monash.edu/medicine/news/latest/2026-articles/new-non-hormonal-therapy-for-endometriosis-wins-medchem-australia-funding-to-fast-track-drug-discovery",
-        "description": "Monash investigators note that current hormonal drugs suppress the cycle, forcing a choice between pain control and trying to conceive. Their NPSR1 program is explicitly non-hormonal.",
-        "pubDate": "Wed, 09 Sep 2026 12:00:00 GMT",
-        "author": "Monash University"
-      },
-      {
-        "title": "Tissue-sparing surgery and oocyte freezing are the practical levers in the new EndoFound review",
-        "link": "https://www.endonews.com/safeguarding-fertility-in-endometriosis",
-        "description": "The same September review finds oocyte cryopreservation the most established option, with ovarian-tissue freezing and in-vitro maturation still short of endometriosis-specific evidence. CO2 laser and plasma approaches may spare more ovary than stripping, but technique choice is not settled.",
-        "pubDate": "Thu, 24 Sep 2026 12:00:00 GMT",
-        "author": "EndoNews"
-      },
-      {
-        "title": "After excision for stage IV disease, one patient conceived twice without IVF",
-        "link": "https://www.endofound.org/after-five-miscarriages-in-three-years-due-to-endometriosis-i-persisted-and-had-excision-surgeryand-",
-        "description": "EndoFound’s May profile of Bryn Jones describes five miscarriages, a four-hour stage IV excision in 2022, and later unassisted births in 2024 and 2025. A single story, not a fertility protocol.",
-        "pubDate": "Fri, 15 May 2026 12:00:00 GMT",
+        "title": "Is IVF Safe For Women With Endometriosis? - Endometriosis Foundation of America",
+        "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE9QUFVGbWRvaEhRbTdETlhlZTQzcUlaaWNrcTdVMm5DSXpUbVplZDd6V3BSNVJVdXIwU3ZXSEJZbjdjUFpfY1lTQm9YZmZOcVBfWDY1YnFnSDN2OFB6Rk9kcHhpMXRfMEpmdEJjTzd6VGlkT0hy?oc=5",
+        "description": "Is IVF Safe For Women With Endometriosis?  Endometriosis Foundation of America",
+        "pubDate": "Tue, 28 Aug 2018 07:00:00 GMT",
         "author": "Endometriosis Foundation of America"
       },
       {
-        "title": "Relugolix combination’s contraceptive effect is being tracked alongside pain data",
-        "link": "https://www.contemporaryobgyn.net/view/long-term-data-on-relugolix-combination-therapy-for-endometriosis-pain",
-        "description": "Panelists discussing two-year SPIRIT extension results also flagged the SERINE study of contraceptive efficacy for relugolix combination therapy, with fuller data expected at ASRM this fall. People planning pregnancy need a different regimen.",
-        "pubDate": "Wed, 26 Aug 2026 12:00:00 GMT",
-        "author": "Contemporary OB/GYN"
+        "title": "Oocyte quality is decreased in women with minimal or mild endometriosis - Nature",
+        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE52WG02VVZSUGNfcnItNGNzZV9WQ3RrZENNMm81ZEVadUZ1NHIxc3lmdzM2OGZ6X1NQMm1iTlFCb1NobFdhWlJYR2tuemx3UHB6ZjU4?oc=5",
+        "description": "Oocyte quality is decreased in women with minimal or mild endometriosis  Nature",
+        "pubDate": "Fri, 29 May 2015 07:00:00 GMT",
+        "author": "Nature"
+      },
+      {
+        "title": "Endometriosis and Infertility: How and When to Treat? - Frontiers",
+        "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQQ19wTDJhTWdZWUw2aDNnZzg0S19Ua29XVGNuUlcybU4zRmJiNlFIOGhlSmQtNUdjaFp2UkEwNmJtVGlvTmJDR3htVXloNmw1ZGJNUVJLNG1Jc1JVWDZBclFnM0cyU0dZYzJ3THZQTVZJQk45ek45N3d4cHhRTXVQcTA5ZndMcEhwcVE4?oc=5",
+        "description": "Endometriosis and Infertility: How and When to Treat?  Frontiers",
+        "pubDate": "Wed, 26 Jun 2024 17:01:46 GMT",
+        "author": "Frontiers"
+      },
+      {
+        "title": "Endometriosis can derail fertility treatment if left undiagnosed, study finds - ABC News & Headlines – Australian Broadcasting Corporation",
+        "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOM1dicVpmYW00NXR4WnJDWEMzTlF1RURCdE5jc3hyTVphNHh3NEwzb2xEdWNXZ2hXazNIYVRyai1GS2twdF83VkN3bEcxXy01UWpEMXBXUFJJMms5eldnSmV2WFNoaDFKTUl3c3FSaGRwakZ2TjFyOWtkd2t6dThHbTFVXzFhckx3dWtXME9sVWZjU2VxVnFReXlYMnVCSlRtZnc?oc=5",
+        "description": "Endometriosis can derail fertility treatment if left undiagnosed, study finds  ABC News & Headlines – Australian Broadcasting Corporation",
+        "pubDate": "Tue, 05 Oct 2021 07:00:00 GMT",
+        "author": "ABC News & Headlines – Australian Broadcasting Corporation"
+      },
+      {
+        "title": "newsGP - Delayed endometriosis diagnosis reduces chance of pregnancy by 33% - Royal Australian College of General Practitioners (RACGP)",
+        "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOMERjS0VrWms5bVlQczFOLXpmYy11Zm4yeEc3cl9jUGJRZG5GblVJWnBfUTBrazIwYXBrMDRIMmQzMmxyanJnbC1tajkyYWI5cHBqY0ZBMmhQQnlGeVNIV2pxLUdrVldQTlJhZldwVEJVaGFiSXNuSDI5UFAxTGlFTFV0MG9ERzlwUWJ6QjRuRVdXeUFWc3c?oc=5",
+        "description": "newsGP - Delayed endometriosis diagnosis reduces chance of pregnancy by 33%  Royal Australian College of General Practitioners (RACGP)",
+        "pubDate": "Wed, 06 Oct 2021 07:00:00 GMT",
+        "author": "Royal Australian College of General Practitioners (RACGP)"
       }
     ],
     "medical": [
       {
-        "title": "Nanoparticle niclosamide reduced lesions after one dose in a mouse endometriosis model",
-        "link": "https://news.wsu.edu/press-release/2026/09/21/wsu-team-develops-potential-treatment-for-endometriosis/",
-        "description": "Kanako Hayashi and colleagues targeted a disease-associated immune cell with a dendrimer-niclosamide construct. Published in Advanced Healthcare Materials; the group is seeking a path to human testing.",
-        "pubDate": "Mon, 21 Sep 2026 12:00:00 GMT",
-        "author": "Washington State University"
+        "title": "Endometriosis and fibroids: Expert explains advances giving women less invasive treatment options - Mayo Clinic News Network",
+        "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPcC13LTIyc0lwTGN0SC14VGp1UHNGcXZwNDc4eFNJTXl4ZjJJbmxQSGxCQ2ZNTlhvRGl5UnpCNGE2UlIyOVFRUk9WOXp4TVMxbmlhTTdfaFlsRzdMcEhuQ2g2QVFkWE9VamJUTmZ1X2cwN2U1LUdFWlN3TjVBdTZWUHRfZGhRcjdwZVp4d3RuUHNpb050eWpXb3NmaElZV05yQmgxZG55US13Nk84ME1zNEpKVTVRVEhqU1BqRk5oblkxZHNHclZSWld6WGRXci1MZFdGMGxxdXNMQXc?oc=5",
+        "description": "Endometriosis and fibroids: Expert explains advances giving women less invasive treatment options  Mayo Clinic News Network",
+        "pubDate": "Thu, 11 Jun 2026 07:00:00 GMT",
+        "author": "Mayo Clinic News Network"
       },
       {
-        "title": "Molecular Human Reproduction: IL-16 elevation tracked with painful endometriosis",
-        "link": "https://medicine.yale.edu/news-article/how-endometriosis-causes-pain/",
-        "description": "Ramanaiah Mamillapalli and colleagues report that IL-16 may recruit immune cells into lesions and amplify other cytokines. Findings published 10 September 2026.",
-        "pubDate": "Tue, 22 Sep 2026 12:00:00 GMT",
+        "title": "The endometriosis breakthrough aiming to cut years of suffering - UKRI – UK Research and Innovation",
+        "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxONUxTaFJnbENtcnY3LUNCMDJwcXF2R0gyZGM0dTVTZlU1MUVZYU5ZeGc3dzd5R1BNVGVOaV82Q1ZsdGs1MlUtV2tzLWYtQ2VpeDlScG5tLXZqa0ZpVGduajFTcmJEbkhKYktIbjZiNTJUVDMtS3ZodmRlcUR3bEdzZy12bzhUazFFWDlBSjh1Ym1TRnpRSlVoZE5BUllDdkF5X29uRDM2RGVjOEdxNnpLcGNLajZXR1VHdFV6aXg3QmFZaVp2MkthR3VR?oc=5",
+        "description": "The endometriosis breakthrough aiming to cut years of suffering  UKRI – UK Research and Innovation",
+        "pubDate": "Wed, 27 May 2026 07:00:00 GMT",
+        "author": "UKRI – UK Research and Innovation"
+      },
+      {
+        "title": "Endometriosis Breakthroughs: New Treatments and Research - News-Medical",
+        "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNR0d3RjRLY0toUGptVTh5cUstN1dVTkFBWWt3ZDl3U2loRktKbzl2WGJ1MDQ1YUQwVEctZTdkR2R1ZUMwY3lqV2N5RmljM3laanlwSUZYbVhSc1N5V000UXpVVHdocHNMQjRfSWF2anFfN3lWdXdrbTBlNmwxS1hSSmI5VnZYY2lkbnpURXlDeVQyNUhPemdrS0dORnk?oc=5",
+        "description": "Endometriosis Breakthroughs: New Treatments and Research  News-Medical",
+        "pubDate": "Fri, 21 Mar 2025 07:00:00 GMT",
+        "author": "News-Medical"
+      },
+      {
+        "title": "Is this the first disease-modifying treatment for endometriosis? - Drug Discovery News",
+        "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPVE9WZm1sS0ZvRFI0YTlVVlJMYlZWSlFjWHhoWVJOX3NKS3dFVUh3SW1KaXdGcnBwUFRZbW4tamJwX0JxMEtFbVBCN0tVTWNGc3d3X0ZXMEU1azlxNjVwWmQtOHRnRlNGb0FKcEJxRG5kelkzRVVySXZiZTRNMGdxSUhUbGJNaHktTnpUeFp0MmtfdmZpczJIb0txTXVsWVh3d2ZSeEpn?oc=5",
+        "description": "Is this the first disease-modifying treatment for endometriosis?  Drug Discovery News",
+        "pubDate": "Wed, 20 May 2026 13:46:11 GMT",
+        "author": "Drug Discovery News"
+      },
+      {
+        "title": "Diagnosing Endometriosis: New Biomarkers Enable Early, Noninvasive Detection - Yale School of Medicine",
+        "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOWm04RE5aR0NhYTdEZUtzQ1NGNm1US1lVbGtFajlmckhQdTU4M3hTVEdsa3VnRnlVRHM4WWtpY1FHVG5WMzM4RUpSRnJSakdqZGVfZmt5UlFxQzJxaG16RVJ3YlFDV1VBdG9GUllRR1VYNXdENTFJbHppaUc0TW5QdjNfV2l4OUZUMDdWZ1VTRE9OTXVHQ1BNeWNRZEl5Y1ZIYW1QaW5PM18xMElaN1E0?oc=5",
+        "description": "Diagnosing Endometriosis: New Biomarkers Enable Early, Noninvasive Detection  Yale School of Medicine",
+        "pubDate": "Thu, 15 Jan 2026 08:00:00 GMT",
         "author": "Yale School of Medicine"
       },
       {
-        "title": "11-oxygenated androgens distinguished endometriosis in an Edinburgh blood study",
-        "link": "https://www.biosciencetoday.co.uk/hormone-differences-could-pave-way-for-endometriosis-blood-test/",
-        "description": "The group is working with Edinburgh Innovations to find a partner for a diagnostic based on 11-ketotestosterone and related androgens. Surgical confirmation remains the current reference standard.",
-        "pubDate": "Mon, 28 Sep 2026 12:00:00 GMT",
-        "author": "Bioscience Today"
+        "title": "Health Rounds: Blood test improves detection of endometriosis - Reuters",
+        "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOeFVFZFVSbzJvYy1BWF9YSEJrOXJud1M3dlNDZ1ZmWDh3SnNTWnhxVHFib20xTFphZlNuMUNqUVpaOHNNb2RlSnVUZ1B4SXRyeWczc05KQ2dhUjJHVk42WDI4V0o3bDViZGtHbHRpREY1WDVnTk5ZVjQ5OG5ycnNFQTduUjJFb092YXhSb3ZGTV92U3cyM3l5UzZva2c0SGQ0Z1R2Y2k5OVd2eW9RY2oydjRfbGYtbl9Vc1NqQnB5TFNoUXNubWlJTw?oc=5",
+        "description": "Health Rounds: Blood test improves detection of endometriosis  Reuters",
+        "pubDate": "Wed, 18 Mar 2026 07:00:00 GMT",
+        "author": "Reuters"
       },
       {
-        "title": "NIH funds a quantum-sensing approach to early endometriosis detection",
-        "link": "https://www.news-medical.net/news/20260922/UF-professor-wins-federal-grant-to-develop-technology-for-detecting-early-stage-endometriosis.aspx",
-        "description": "University of Florida’s Laura Kim will adapt diamond quantum sensors to read microscopic magnetic signals in tissue. The three-year Trailblazer award treats endometriosis as the first women’s-health application.",
-        "pubDate": "Tue, 22 Sep 2026 12:00:00 GMT",
-        "author": "University of Florida"
+        "title": "This International Women's Day, there's finally some good news on endometriosis - The University of Melbourne",
+        "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQZ2hUc18zNFBlU1V6SWVUQjdyWmNpaDMxTE5ENzdzOTRKWTZJMUxFdFh1MFRlVlo4TFB0ME55SUhTNWxtQ3p1X1g0NGdVYXZFdUVmSkMxemxnWlZOVUY0TXh2ZFFlOUZkQlB5OGcxTFJQQkNNall1UnA0UG9CS2FMM19qVTdOb0JoS3VfTzVyTTZRTkZWOHZoZWJ6dFprNDB1eU4tSVZnaUNZVHE4WjA4STMzUlFpMnF2?oc=5",
+        "description": "This International Women's Day, there's finally some good news on endometriosis  The University of Melbourne",
+        "pubDate": "Fri, 06 Mar 2026 08:00:00 GMT",
+        "author": "The University of Melbourne"
       },
       {
-        "title": "NPSR1 named as a genetically backed, non-hormonal drug target",
-        "link": "https://www.monash.edu/medicine/news/latest/2026-articles/new-non-hormonal-therapy-for-endometriosis-wins-medchem-australia-funding-to-fast-track-drug-discovery",
-        "description": "Thomas Tapmeier, Celine Valant, Trang Pham, and Beverley Vollenhoven received MedChem Australia funding to advance NPSR1 compounds after mouse data showed less pain and lower TNF-alpha.",
-        "pubDate": "Wed, 09 Sep 2026 12:00:00 GMT",
-        "author": "Monash University"
-      },
-      {
-        "title": "SPIRIT extension: relugolix combination responses held from week 52 to week 104",
-        "link": "https://www.contemporaryobgyn.net/view/long-term-data-on-relugolix-combination-therapy-for-endometriosis-pain",
-        "description": "Dysmenorrhea response 85 percent and non-menstrual pelvic pain response 74 percent at two years. Headache, nasopharyngitis, and hot flushes were the common adverse events; further bone loss was uncommon in the discussion.",
-        "pubDate": "Wed, 26 Aug 2026 12:00:00 GMT",
-        "author": "Contemporary OB/GYN"
-      },
-      {
-        "title": "NIHR trial will test whether multidisciplinary pain care beats usual endometriosis treatment",
-        "link": "https://www.itv.com/news/2026-09-29/23-million-study-to-trial-new-treatment-for-endometriosis-pain",
-        "description": "Lucky Saraswat at NHS Grampian is leading the e-PMP study. Investigators note pain returns in up to half of people after surgery, which is why the trial targets those not controlled by surgery or medication alone.",
-        "pubDate": "Wed, 30 Sep 2026 00:01:00 GMT",
-        "author": "ITV News"
-      },
-      {
-        "title": "StatPearls endometriosis chapter updated June 2026",
-        "link": "https://www.ncbi.nlm.nih.gov/books/NBK567777/",
-        "description": "The NCBI review restates endometriosis as an estrogen-dependent inflammatory disease with pelvic pain and infertility as the main clinical features, and prevalence up to 35–50 percent among people with chronic pelvic pain or infertility.",
-        "pubDate": "Wed, 17 Jun 2026 12:00:00 GMT",
-        "author": "StatPearls / NCBI"
+        "title": "OB-GYN Surgery: The Minimalist Revolution - Cedars-Sinai",
+        "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxOdkZjVHA3WVVtOUZ3dUxXSGVtMmRTOHlWZlBQUGs0Qk42cXlTTFYxc2NScGE5MFJkM0QzS25vLVlMQUJVNU96aWtXN3F3ZmNCQVM1VTdIb3NWdmtqNWhJQVA3a1FLTEJfTG5NN0NtdVNKSW9GMzQxekxVNUZDdE5renh6U3JRN2RCalpHdEVwSTJXV2szclZJb3NSUFZpQQ?oc=5",
+        "description": "OB-GYN Surgery: The Minimalist Revolution  Cedars-Sinai",
+        "pubDate": "Tue, 04 Jan 2022 08:00:00 GMT",
+        "author": "Cedars-Sinai"
       }
     ],
     "heartwarming": [
       {
-        "title": "Law student Isabelle Garino pushed for surgery and says she feels the best she has in a decade",
-        "link": "https://www.endofound.org/isabelle-garino-law-student-endometriosis-story",
-        "description": "EndoFound’s 25 September profile: after years of dismissed bleeding and pain, Garino was scheduled for excision within months of a specialist visit. Surgeons found pelvic disease and pooled blood; six months later she is back in class and headed to a law job.",
-        "pubDate": "Fri, 25 Sep 2026 12:00:00 GMT",
+        "title": "Allison Dussliere - Women's Health and Robotic Surgery, Patient Story - MercyOne",
+        "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPRkQ0NDQwcXpVQUFCZ0FEWGI2aURHR3J3dkY3dGxPMDRLbnpxdkQxM2d1NTduUlZISVVPRnBDbDlYWmkwZlVKdkJNRmxERlRvTWY3OG41SWFuNU43QTZoajcyLTBIVTNwMDE0Y1M3Tmd0a3lNTGw0TWtSWlBvMWpLSXpTZjZ2VlRVOWcxb2syTUNoRHdwLW95VjhFR1UzZUU?oc=5",
+        "description": "Allison Dussliere - Women's Health and Robotic Surgery, Patient Story  MercyOne",
+        "pubDate": "Thu, 23 Jul 2026 18:51:04 GMT",
+        "author": "MercyOne"
+      },
+      {
+        "title": "With Symptoms Since Middle School, Surgery At 17 Has Outlined My Future - Endometriosis Foundation of America",
+        "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTFB4clh5SDZlTlV1bmc5aGhaUmlmRXE0OTh4Z29pcXg3WlkzbHlBSWJhekhzNzZvRUthczdOOVhGa1pucGZ4WjExWVFkb2ZaaGJEVlFZQnZnTlpWMi1ETWRxU2oydDZmRmFRQjgzLTJxb3RxekFrenNyRFhSUjdyWWc?oc=5",
+        "description": "With Symptoms Since Middle School, Surgery At 17 Has Outlined My Future  Endometriosis Foundation of America",
+        "pubDate": "Thu, 13 Aug 2026 07:00:00 GMT",
         "author": "Endometriosis Foundation of America"
       },
       {
-        "title": "Haley’s stage IV excision found nearly 50 lesions imaging had missed for 17 years",
-        "link": "https://esse.care/stage-4-endometriosis-and-mcas/",
-        "description": "A September patient account from ESSE Care: spring 2026 excision removed deep disease, fibroids, and five endometriomas and repaired ovaries. Three months later she reports new food tolerance, less nerve pain, and clearer thinking. She does not call it a cure.",
-        "pubDate": "Mon, 29 Sep 2026 12:00:00 GMT",
-        "author": "ESSE Care"
+        "title": "‘How I knew I had endometrial cancer’: Survivors share their stories - UT MD Anderson",
+        "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxQRmM5Rm11Smk1bjRUTjlBS2JQQVBBZ3N2bGxYVUdwUGJCbFJwdFNqQjZKWERTWWFmN1M5cEJZT2VoOGNGbThjN2dzNjBKU01NeEhJV3VEWGdPdG9YLXVtdHFLakI5eXpCRmQ0VWxtZWdqRHFDS2dHMFFURDBMQ215Vk11Zkw5eEVPYTEyaDIzdG8xVlpmdDhSbUF6b3dLaFdZY2xCaEdSekNXYlk5R2pQU1BrNUItNEcyMFN0WURsUFlIbldDZmFsTFVGLXg2YnhfbS1sUA?oc=5",
+        "description": "‘How I knew I had endometrial cancer’: Survivors share their stories  UT MD Anderson",
+        "pubDate": "Tue, 16 Jun 2026 07:00:00 GMT",
+        "author": "UT MD Anderson"
       },
       {
-        "title": "Abbie Hixson is running the New York City Marathon to talk about the surgery she wished someone had named",
-        "link": "https://www.endofound.org/70-strong-endofounds-team-endostrong-expands-its-presence-at-the-2026-new-york-city-marathon",
-        "description": "After excision in April 2025, Hixson joined Team EndoStrong with family. The 2026 squad has 70 slots and a fundraising goal above $400,000.",
-        "pubDate": "Tue, 29 Sep 2026 12:00:00 GMT",
-        "author": "Endometriosis Foundation of America"
+        "title": "Rethinking complex gynecologic care starts with listening - The Medical University of South Carolina",
+        "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQUmMzUmg1NFJBcWdZUHR6N1dETU50bVowYTl2akZsb1ZHOXM1V2FJVWZ3ZndLUmJjcHBQMU90SnNkbHplRGxBVGI0ckp5VVQ0VlRIczRCUXZqaGhBNjJVNnVFd1BuUXdDMUNYWjVicVFFVGc0aWlzUWplb1FrX2haWmZZTFZCSldzWDh3UA?oc=5",
+        "description": "Rethinking complex gynecologic care starts with listening  The Medical University of South Carolina",
+        "pubDate": "Tue, 21 Apr 2026 07:00:00 GMT",
+        "author": "The Medical University of South Carolina"
       },
       {
-        "title": "Charlotte McCann, symptomatic since 14, is hoping the Aberdeen pain trial helps people who had to leave work",
-        "link": "https://www.bbc.co.uk/news/articles/cme3r9ny2p4xo",
-        "description": "BBC’s 30 September story pairs a patient’s lost career with the start of a funded pain-management study she hopes will reach others in the same place.",
-        "pubDate": "Wed, 30 Sep 2026 06:21:00 GMT",
-        "author": "BBC News"
+        "title": "Hannah Lindgren: Endometriosis Patient Story - Cleveland Clinic",
+        "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOaUszd29HdkpJNjRFaUlhQm91OHA3S3hNR2NMUEVhdW13bGZTNDhoWFhPMS0wcG9YTFZ2WkZJLXRDbXprVHZUNzFJMVQzMjFUWXV5cTFZN1BHMi12STR6bE5QWDRKZzYyRFZGMlI0WVE3QjBha1R6Z3BmcXRoTGJuN3J1MjhvTVctVG8tZ19FVzNNQWdMWVJGTC0wanBxZ1JaRGhxNHdHZEMwYTZjcTVr?oc=5",
+        "description": "Hannah Lindgren: Endometriosis Patient Story  Cleveland Clinic",
+        "pubDate": "Fri, 19 Dec 2025 22:13:57 GMT",
+        "author": "Cleveland Clinic"
       },
       {
-        "title": "A Powers Health pelvic-pain patient calls the new program path ‘miraculous’",
-        "link": "https://www.powershealth.org/newsletter/articles/2026/09/no-reason-for-women-to-suffer",
-        "description": "The 21 September clinic story pairs a patient account with a shorter route from pelvic pain to physical therapy, imaging, and surgical referral instead of another decade of dismissal.",
-        "pubDate": "Mon, 21 Sep 2026 12:00:00 GMT",
-        "author": "Powers Health"
+        "title": "Lotus Endometriosis Institute Releases LA Surgeon Guide Amid Diagnosis Delays - USA Today",
+        "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQbXdUWWUxV3BDQ1B5V2N0Z1F0Y3JuSUxMS1dFS1VJQlhOOHUxNHNMWXlub0ZNakVSNnlFNE1pbUVPNU9SVFhJMU8tQWZWNFdxYnprRVoxeUJtTThqcDBwdXlTZkIxWXhBQ2FKNFlrNlNTODYzaE9xNlNrNUpqREJ1S0dwTG4yOTRuc0F4aU5uWmN6dWNnWURYSDhwdWViQkZOeFVJbERwRzdwMDgtSEJkdVhNS3g3UU5Lblc4Zks1dGF6djhHalZLcQ?oc=5",
+        "description": "Lotus Endometriosis Institute Releases LA Surgeon Guide Amid Diagnosis Delays  USA Today",
+        "pubDate": "Tue, 18 Aug 2026 17:47:14 GMT",
+        "author": "USA Today"
       },
       {
-        "title": "Endo Excision for All patients describe getting back to work, workouts, and meals after funded surgery",
-        "link": "https://endoexcisionforall.org/patient-stories",
-        "description": "The nonprofit’s story page includes 2026 recoveries: one person operated on 11 February who could eat and walk again within two months, and another whose surgery was completed 13 May after an insurance fight.",
-        "pubDate": "Wed, 13 May 2026 12:00:00 GMT",
-        "author": "Endo Excision for All"
+        "title": "Endometriosis Awareness Month: From provider to patient - AdventHealth",
+        "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNTlJrRFVpRjFlNmowMEhzV3dCMlBTZG1rdERTU0JoMVFHamJ1MjlmUml5SE5ya2VhVVVzTENyeVVkY29FcFo5YktFRUtmM01PWlNkQ3F0clEteGRPR2NncWRCMFlMYVJHTm9YdG5Oc1o0Wl95QU9vbnFDQms0RV9XbjgtUnhPZUE?oc=5",
+        "description": "Endometriosis Awareness Month: From provider to patient  AdventHealth",
+        "pubDate": "Wed, 18 Mar 2026 07:00:00 GMT",
+        "author": "AdventHealth"
       },
       {
-        "title": "After five miscarriages and stage IV excision, Bryn Jones had two children",
-        "link": "https://www.endofound.org/after-five-miscarriages-in-three-years-due-to-endometriosis-i-persisted-and-had-excision-surgeryand-",
-        "description": "EndoFound, 15 May 2026: Jones was told there was no chance of endometriosis, then had a four-hour excision. Food reactions eased and she later gave birth to a son in 2024 and a daughter in 2025.",
-        "pubDate": "Fri, 15 May 2026 12:00:00 GMT",
-        "author": "Endometriosis Foundation of America"
-      },
-      {
-        "title": "Natalie Greenwood keeps naming what surgery did not fix",
-        "link": "https://www.theguardian.com/society/2026/sep/15/patients-health-doctors-doubt-on-nhs-streatment-endometriosis",
-        "description": "Greenwood tells The Guardian she is non-functioning much of the time from fatigue, and that repeated operations have not been a lasting fix. The piece is a patient record of limits, not a recovery ad.",
-        "pubDate": "Tue, 15 Sep 2026 12:00:00 GMT",
-        "author": "The Guardian"
+        "title": "How overcoming endometriosis transformed one Worcester woman's life - BBC",
+        "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE53YmwyZDlDZFY5bm1MZnBrbmFLbDJydFR3QlVpbndEbzRZQlktdC16M0NXQnZ4ZnBEVk5KLXFqa3RaZzVGNW4yOE41YXpKLWJUSVdRQ3lMbkc1Q2M1NkE?oc=5",
+        "description": "How overcoming endometriosis transformed one Worcester woman's life  BBC",
+        "pubDate": "Sun, 11 Oct 2026 07:00:00 GMT",
+        "author": "BBC"
       }
     ]
+  },
+  "fetch": {
+    "endo": 8,
+    "womens": 8,
+    "fertility": 8,
+    "medical": 8,
+    "heartwarming": 8
   }
 }
